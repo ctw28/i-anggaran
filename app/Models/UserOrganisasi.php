@@ -10,18 +10,18 @@ class UserOrganisasi extends Model
     use HasFactory;
 
     protected $fillable = [
-        'user_id',
+        'user_role_id',
         'organisasi_id',
         'is_aktif',
     ];
 
-    public function user()
+    public function userRole()
     {
-        return $this->belongsTo('App\Models\User');
+        return $this->belongsTo('App\Models\UserRole');
     }
     public function organisasi()
     {
-        return $this->belongsTo('App\Models\Organisasi');
+        return $this->belongsTo('App\Models\Organisasi', 'organisasi_id');
     }
     // public function kegiatan()
     // {

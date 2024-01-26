@@ -16,12 +16,21 @@ class CreateDokumenPencairanSesisTable extends Migration
         Schema::create('dokumen_pencairan_sesis', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('pelaksanaan_id');
-            $table->foreign('pelaksanaan_id')->references('id')->on('pelaksanaans');
+            $table->foreign('pelaksanaan_id')->references('id')->on('pelaksanaans')->onDelete('cascade');
+            $table->unsignedBigInteger('pelaksanaan_dasar_id');
+            $table->foreign('pelaksanaan_dasar_id')->references('id')->on('pelaksanaan_dasars')->onDelete('cascade');
+            $table->unsignedBigInteger('kode_akun_id');
+            $table->foreign('kode_akun_id')->references('id')->on('kode_akuns')->onDelete('cascade');
+
+            $table->unsignedBigInteger('ppk')->nullable();
+            $table->foreign('ppk')->references('id')->on('organisasi_jabatan_sesis')->onDelete('set null');
+            $table->unsignedBigInteger('bendahara')->nullable();
+            $table->foreign('bendahara')->references('id')->on('organisasi_jabatan_sesis')->onDelete('set null');
             //ini kombinasi dari nama kegiatan dan SK/ST dan lainnya
-            $table->string('dokumen_pencairan_nama');
+            $table->string('pencairan_nama');
 
             $table->date('tanggal_dokumen');
-            $table->date('tanggal_lunas');
+            $table->date('tanggal_lunas')->nullable();
             $table->string('penerima_nama');
             $table->string('penerima_jabatan');
             $table->string('penerima_nomor')->nullable();

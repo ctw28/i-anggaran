@@ -15,9 +15,10 @@ class CreatePelaksanaanDasarsTable extends Migration
     {
         Schema::create('pelaksanaan_dasars', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('pelaksanaan_id');
-            $table->foreign('pelaksanaan_id')->references('id')->on('pelaksanaans');
-            $table->enum('jenis_data', ['sk', 'st', 'rab', 'tor']);
+            $table->unsignedBigInteger('kegiatan_id');
+            $table->foreign('kegiatan_id')->references('id')->on('kegiatans')->onDelete('cascade');
+            $table->enum('dasar_jenis', ['sk', 'st', 'rab', 'tor', 'spd']);
+            $table->string('tentang')->nullable();
             // $table->string('flag');
             $table->string('nomor')->nullable();
             $table->date('tanggal');

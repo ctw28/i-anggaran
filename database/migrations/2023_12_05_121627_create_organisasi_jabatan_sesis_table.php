@@ -33,7 +33,7 @@ class CreateOrganisasiJabatanSesisTable extends Migration
 
             $table->string('nama_pejabat', 100);
             $table->string('jabatan_sesi_nama', 100);
-            $table->string('jabatan_sesi_singkatan', 20);
+            $table->string('jabatan_sesi_singkatan', 100);
             $table->integer('jabatan_urutan'); //urutan mana lebih tinggi jabatannya
             $table->string('jabatan_keterangan', 200)->nullable();
             $table->boolean('is_aktif')->default(true);

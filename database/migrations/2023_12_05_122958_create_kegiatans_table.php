@@ -16,15 +16,12 @@ class CreateKegiatansTable extends Migration
         Schema::create('kegiatans', function (Blueprint $table) {
             $table->id();
 
-            $table->unsignedBigInteger('tahun_anggaran_id');
-            $table->foreign('tahun_anggaran_id')->references('id')->on('tahun_anggarans');
-
-            $table->unsignedBigInteger('organisasi_id');
-            $table->foreign('organisasi_id')->references('id')->on('organisasis');
+            $table->unsignedBigInteger('organisasi_rpd_id')->nullable();
+            $table->foreign('organisasi_rpd_id')->references('id')->on('organisasi_rpds')->nullOnDelete();
 
             //untuk kalau mau masukkan detail
             $table->unsignedBigInteger('parent_id')->nullable();
-            $table->foreign('parent_id')->references('id')->on('kegiatans');
+            $table->foreign('parent_id')->references('id')->on('kegiatans')->nullOnDelete();
             $table->unsignedBigInteger('kode_akun_id')->nullable();
             $table->foreign('kode_akun_id')->references('id')->on('kode_akuns');
 
@@ -40,8 +37,8 @@ class CreateKegiatansTable extends Migration
             $table->double('satuan')->nullable();
             $table->double('jumlah_biaya');
 
-            $table->double('sumber_dana')->nullable(); //RM atau PNBP
-
+            $table->string('sumber_dana')->nullable(); //RM atau PNBP
+            $table->integer('urutan');
 
             $table->timestamps();
         });

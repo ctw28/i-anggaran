@@ -17,7 +17,7 @@ class CreatePelaksanaanDokumensTable extends Migration
             $table->id();
 
             $table->unsignedBigInteger('pelaksanaan_id');
-            $table->foreign('pelaksanaan_id')->references('id')->on('pelaksanaans');
+            $table->foreign('pelaksanaan_id')->references('id')->on('pelaksanaans')->onDelete('cascade');;
             // $table->string('flag');
             $table->string('nama_dokumen');
             $table->string('file_path');

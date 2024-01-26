@@ -17,13 +17,8 @@ class CreateNominalPengaturansTable extends Migration
         Schema::create('nominal_pengaturans', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('dokumen_pencairan_sesi_id');
-            $table->foreign('dokumen_pencairan_sesi_id')->references('id')->on('dokumen_pencairan_sesis');
-            // $table->string('jabatan');
-            // $table->string('bayaran');
-            // $table->integer('bayaran_pengali');
-            // $table->string('satuan');
-            $table->boolean('is_non_satker')->default(true);
-            // $table->boolean('is_pajak')->default(false);
+            $table->foreign('dokumen_pencairan_sesi_id')->references('id')->on('dokumen_pencairan_sesis')->onDelete('cascade');;
+            $table->boolean('is_peserta_luar')->default(false);
             $table->timestamps();
         });
     }

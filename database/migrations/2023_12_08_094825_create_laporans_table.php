@@ -16,7 +16,7 @@ class CreateLaporansTable extends Migration
         Schema::create('laporans', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('kegiatan_id');
-            $table->foreign('kegiatan_id')->references('id')->on('kegiatans');
+            $table->foreign('kegiatan_id')->references('id')->on('kegiatans')->onDelete('cascade');;
 
             $table->string('path_file');
             $table->string('nama_file');

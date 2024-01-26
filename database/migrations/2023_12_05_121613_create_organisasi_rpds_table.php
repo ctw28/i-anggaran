@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateOrganisasiPejabatsTable extends Migration
+class CreateOrganisasiRpdsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,21 +13,15 @@ class CreateOrganisasiPejabatsTable extends Migration
      */
     public function up()
     {
-        Schema::create('organisasi_pejabats', function (Blueprint $table) {
+        Schema::create('organisasi_rpds', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('tahun_anggaran_id');
             $table->foreign('tahun_anggaran_id')->references('id')->on('tahun_anggarans');
 
             $table->unsignedBigInteger('organisasi_id');
             $table->foreign('organisasi_id')->references('id')->on('organisasis');
+            $table->double('pagu_total')->nullable();
 
-            $table->unsignedBigInteger('pegawai_id');
-            $table->foreign('pegawai_id')->references('id')->on('pegawais');
-
-            $table->unsignedBigInteger('organisasi_jabatan_id');
-            $table->foreign('organisasi_jabatan_id')->references('id')->on('organisasi_jabatans');
-
-            $table->boolean('is_aktif')->default(false); //jika terjadi perubahan pejabat
             $table->timestamps();
         });
     }
@@ -39,6 +33,6 @@ class CreateOrganisasiPejabatsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('organisasi_pejabats');
+        Schema::dropIfExists('organisasi_rpds');
     }
 }

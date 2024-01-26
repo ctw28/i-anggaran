@@ -10,24 +10,44 @@ class Kegiatan extends Model
     use HasFactory;
 
     protected $fillable = [
-        'tahun_anggaran_id',
-        'organisasi_id',
-        'parent_id',
-        'kode_akun_id',
-        'sub_kegiatan_kode1',
-        'sub_kegiatan_kode2',
-        'sub_kegiatan_kode3',
-        'sub_kegiatan_kode4',
-        'sub_kegiatan_kode5',
-        'kegiatan_nama',
-        'volume',
-        'satuan',
-        'jumlah_biaya',
-        'sumber_dana',
+        "organisasi_rpd_id",
+        "parent_id", //null jika merupakan kegiatan utama
+        "kode_akun_id", //null jika merupakan kegiatan utama
+        "sub_kegiatan_kode1", //null jika pecahan/detail dari kegiatan utama
+        "sub_kegiatan_kode2", //null jika pecahan/detail dari kegiatan utama
+        "sub_kegiatan_kode3", //null jika pecahan/detail dari kegiatan utama
+        "sub_kegiatan_kode4", //null jika pecahan/detail dari kegiatan utama
+        "sub_kegiatan_kode5", //null jika pecahan/detail dari kegiatan utama
+        "kegiatan_nama",
+        "volume", //null jika merupakan kegiatan utama
+        "satuan", //null jika merupakan kegiatan utama
+        "jumlah_biaya",
+        "sumber_dana",
+        "urutan",
     ];
 
-    public function tahunAnggaran()
+    public function organisasi()
     {
-        return $this->belongsTo('App\Models\TahunAnggaran');
+        return $this->belongsTo("App\Models\OrganisasiRpd");
+    }
+    public function parent()
+    {
+        return $this->belongsTo("App\Models\Kegiatan");
+    }
+    public function kodeAkun()
+    {
+        return $this->belongsTo("App\Models\KodeAkun");
+    }
+    public function rencanaSesi()
+    {
+        return $this->hasMany("App\Models\RencanaSesi");
+    }
+    public function rencana()
+    {
+        return $this->hasMany("App\Models\Rencana");
+    }
+    public function laporan()
+    {
+        return $this->hasOne("App\Models\Rencana");
     }
 }

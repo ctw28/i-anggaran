@@ -31,70 +31,63 @@ class DatabaseSeeder extends Seeder
             ["role_nama" => "ppk", "role_keterangan" => "Akun PPK"],
             ["role_nama" => "bendahara", "role_keterangan" => "Akun Bendahar"],
         ]);
-
+        DB::table('kode_akuns')->insert([
+            ["kode" => "524114", "nama_akun" => "Belanja Perjalanan Dinas Paket Meeting Dalam Kota", 'keterangan' => '', 'jenis_kuitansi' => 1, 'is_pajak' => 0],
+            ["kode" => "521211", "nama_akun" => "Belanja Bahan", 'keterangan' => '', 'jenis_kuitansi' => 2, 'is_pajak' => 1],
+            ["kode" => "521213", "nama_akun" => "Belanja Honor Output Kegiatan", 'keterangan' => '', 'jenis_kuitansi' => 1, 'is_pajak' => 1],
+        ]);
         DB::table('users')->insert([
             [
-                'name' => 'Administrator',
                 'username' => 'admin',
                 'email' => 'admin@mail.com',
                 'password' => bcrypt('1234qwer'),
             ],
             [
-                'name' => 'Nisful Hijah',
                 'username' => 'uci',
                 'email' => 'uci@mail.com',
                 'password' => bcrypt('1234qwer'),
             ],
             [
-                'name' => 'Hasnah',
                 'username' => 'hasnah',
                 'email' => 'hasnah@mail.com',
                 'password' => bcrypt('1234qwer'),
             ],
             [
-                'name' => 'Musdin',
                 'username' => 'musdin',
                 'email' => 'musdin@mail.com',
                 'password' => bcrypt('1234qwer'),
             ],
             [
-                'name' => 'Sukadir',
                 'username' => 'sukadir',
                 'email' => 'sukadir@mail.com',
                 'password' => bcrypt('1234qwer'),
             ],
             [
-                'name' => 'Lily Ulfia',
                 'username' => 'lily',
                 'email' => 'lily@mail.com',
                 'password' => bcrypt('1234qwer'),
             ],
             [
-                'name' => 'Lita',
                 'username' => 'lita',
                 'email' => 'lita@mail.com',
                 'password' => bcrypt('1234qwer'),
             ],
             [
-                'name' => 'Arif',
                 'username' => 'arif',
                 'email' => 'arif@mail.com',
                 'password' => bcrypt('1234qwer'),
             ],
             [
-                'name' => 'Bandrigo',
                 'username' => 'rigo',
                 'email' => 'rigo@mail.com',
                 'password' => bcrypt('1234qwer'),
             ],
             [
-                'name' => 'Tommy',
                 'username' => 'tommy',
                 'email' => 'tommy@mail.com',
                 'password' => bcrypt('1234qwer'),
             ],
         ]);
-
         DB::table('user_roles')->insert([
             ["user_id" => 1, "role_id" => 1, "is_default" => true], //role administrator
             ["user_id" => 2, "role_id" => 7, "is_default" => true], //role bendahara
@@ -120,8 +113,6 @@ class DatabaseSeeder extends Seeder
                 "npwp_alamat" => "Jalan Sultan Qaimuddin"
             ],
         ]);
-
-
         DB::table('organisasi_grups')->insert([
             [
                 "grup_nama" => "Institusi",
@@ -391,77 +382,77 @@ class DatabaseSeeder extends Seeder
                 "organisasi_nama" => "Lembaga Penelitian dan Pengabdian Kepada Masyarakat",
                 "organisasi_singkatan" => "LPPM",
                 "organisasi_grup_id" => 5,
-                'organisasi_parent_id' => null,
+                'organisasi_parent_id' => 1,
                 "organisasi_keterangan" => "",
             ],
             [
                 "organisasi_nama" => "Lembaga Penjamin Mutu",
                 "organisasi_singkatan" => "LPM",
                 "organisasi_grup_id" => 5,
-                'organisasi_parent_id' => null,
+                'organisasi_parent_id' => 1,
                 "organisasi_keterangan" => "",
             ],
             [
                 "organisasi_nama" => "Teknologi Informasi dan Pangkalan Data",
                 "organisasi_singkatan" => "UPT TIPD",
                 "organisasi_grup_id" => 6,
-                'organisasi_parent_id' => null,
+                'organisasi_parent_id' => 1,
                 "organisasi_keterangan" => "",
             ],
             [
                 "organisasi_nama" => "Perpustakaan",
                 "organisasi_singkatan" => "UPT Perpustakaaan",
                 "organisasi_grup_id" => 6,
-                'organisasi_parent_id' => null,
+                'organisasi_parent_id' => 1,
                 "organisasi_keterangan" => "",
             ],
             [
                 "organisasi_nama" => "Pengembangan Bahasa",
                 "organisasi_singkatan" => "UPT Bahasa",
                 "organisasi_grup_id" => 6,
-                'organisasi_parent_id' => null,
+                'organisasi_parent_id' => 1,
                 "organisasi_keterangan" => "",
             ],
             [
                 "organisasi_nama" => "Ma'had Al Jamiah",
                 "organisasi_singkatan" => "UPT Ma'had",
                 "organisasi_grup_id" => 6,
-                'organisasi_parent_id' => null,
+                'organisasi_parent_id' => 1,
                 "organisasi_keterangan" => "",
             ],
             [
                 "organisasi_nama" => "Satuan Pengawas Internal",
                 "organisasi_singkatan" => "SPI",
                 "organisasi_grup_id" => 1,
-                'organisasi_parent_id' => null,
+                'organisasi_parent_id' => 1,
                 "organisasi_keterangan" => "",
             ],
             [
                 "organisasi_nama" => "Bagian Perencanaan dan Keuangan",
                 "organisasi_singkatan" => "Keuangan",
                 "organisasi_grup_id" => 7,
-                'organisasi_parent_id' => null,
+                'organisasi_parent_id' => 1,
                 "organisasi_keterangan" => "",
             ],
             [
                 "organisasi_nama" => "Bagian Umum",
                 "organisasi_singkatan" => "Umum",
                 "organisasi_grup_id" => 7,
-                'organisasi_parent_id' => null,
+                'organisasi_parent_id' => 1,
                 "organisasi_keterangan" => "",
             ],
             [
                 "organisasi_nama" => "Bagian Akademik dan Kemahasiswaan",
                 "organisasi_singkatan" => "AKMA",
                 "organisasi_grup_id" => 7,
-                'organisasi_parent_id' => null,
+                'organisasi_parent_id' => 1,
                 "organisasi_keterangan" => "",
             ],
             [
                 "organisasi_nama" => "Kelompok Jabatan Fungsional",
                 "organisasi_singkatan" => "Jafung",
                 "organisasi_grup_id" => 7,
-                'organisasi_parent_id' => null,
+                'organisasi_parent_id' => 1,
                 "organisasi_keterangan" => "",
             ],
 
@@ -546,10 +537,10 @@ class DatabaseSeeder extends Seeder
             ],
             [
                 'jabatan_nama' => "Bendahara Pengeluaran",
-                'jabatan_singkatan' => "bendahara",
-                "jabatan_keterangan" => "Bendahara 1 IAIN",
+                'jabatan_singkatan' => "Bendahara Pengeluaran",
+                "jabatan_keterangan" => "Bendaharan Pengeluaran 1 IAIN",
                 "jabatan_untuk" => "rektorat",
-                "jabatan_flag" => "bendahara_iain",
+                "jabatan_flag" => "bendahara_pengeluaran",
             ],
             [
                 'jabatan_nama' => "PPK",
@@ -579,20 +570,39 @@ class DatabaseSeeder extends Seeder
                 "jabatan_untuk" => "spi",
                 "jabatan_flag" => "verifikator_spi",
             ],
+            [
+                'jabatan_nama' => "Bendahara Pemasukkan",
+                'jabatan_singkatan' => "Bendahara Penerimaan",
+                "jabatan_keterangan" => "Bendahara Pemasukkan IAIN",
+                "jabatan_untuk" => "rektorat",
+                "jabatan_flag" => "bendahara_pemasukkan",
+            ],
         ]);
-
-
         DB::table('user_organisasis')->insert([
             ["user_role_id" => 9, "organisasi_id" => 33, "is_aktif" => true], //tipd
-            ["user_role_id" => 10, "organisasi_id" => 40, "is_aktif" => true], //akma
+            ["user_role_id" => 11, "organisasi_id" => 40, "is_aktif" => true], //akma
         ]);
         DB::table('tahun_anggarans')->insert([
-            ["satker_id" => 1, "tahun" => 2023, "sebutan" => "Tahun Anggaran 2023"]
-        ]);
-        DB::table('tahun_anggaran_dipas')->insert([
-            ["tahun_anggaran_id" => 1, "dipa_tgl" => "2023-01-01", "dipa_nomor" => "123dipanomor", "dipa_pagu" => 1000000],
+            ["satker_id" => 1, "tahun" => 2024, "sebutan" => "Tahun Anggaran 2024"]
         ]);
 
+        DB::table('organisasi_rpds')->insert([
+            ["tahun_anggaran_id" => 1, "organisasi_id" => 2],
+            ["tahun_anggaran_id" => 1, "organisasi_id" => 3],
+            ["tahun_anggaran_id" => 1, "organisasi_id" => 4],
+            ["tahun_anggaran_id" => 1, "organisasi_id" => 5],
+            ["tahun_anggaran_id" => 1, "organisasi_id" => 6],
+            ["tahun_anggaran_id" => 1, "organisasi_id" => 31],
+            ["tahun_anggaran_id" => 1, "organisasi_id" => 32],
+            ["tahun_anggaran_id" => 1, "organisasi_id" => 33],
+            ["tahun_anggaran_id" => 1, "organisasi_id" => 34],
+            ["tahun_anggaran_id" => 1, "organisasi_id" => 35],
+            ["tahun_anggaran_id" => 1, "organisasi_id" => 36],
+            ["tahun_anggaran_id" => 1, "organisasi_id" => 37],
+            ["tahun_anggaran_id" => 1, "organisasi_id" => 38],
+            ["tahun_anggaran_id" => 1, "organisasi_id" => 39],
+            ["tahun_anggaran_id" => 1, "organisasi_id" => 40],
+        ]);
         DB::table('pegawai_kategoris')->insert([
             ['pegawai_kategori_nama' => 'Pegawai Negeri Sipil', "singkatan" => "PNS", 'is_asn' => true, 'sebutan_nomor_pegawai' => 'NIP'],
             ['pegawai_kategori_nama' => 'Pegawai Pemerintah dengan Perjanjian Kerja', "singkatan" => "PPPK", 'is_asn' => true, 'sebutan_nomor_pegawai' => 'NI PPPK'],
@@ -712,9 +722,17 @@ class DatabaseSeeder extends Seeder
                 "alamat_ktp" => 'alamat ktp',
                 "alamat_domisili" => 'alamat domisili'
             ],
+            [
+                "nik" => 806,
+                "nama_lengkap" => "YUNITA ANDRIANI",
+                "jenis_kelamin" => "P",
+                "lahir_tempat" => 'kendari',
+                "lahir_tanggal" => '2023-02-20',
+                "no_hp" => '0852',
+                "alamat_ktp" => 'alamat ktp',
+                "alamat_domisili" => 'alamat domisili'
+            ],
         ]);
-
-
         DB::table('pegawais')->insert([
             [
                 "idpeg" => 1,
@@ -779,10 +797,14 @@ class DatabaseSeeder extends Seeder
                 "pegawai_kategori_id" => 1,
                 "pegawai_jenis_id" => 1
             ],
+            [
+                "idpeg" => 10,
+                "pegawai_nomor_induk" => "198203052005012005  ",
+                "data_diri_id" => 10,
+                "pegawai_kategori_id" => 1,
+                "pegawai_jenis_id" => 1
+            ],
         ]);
-
-
-
         DB::table('organisasi_jabatan_sesis')->insert([
             [
                 "tahun_anggaran_id" => 1,
@@ -791,8 +813,21 @@ class DatabaseSeeder extends Seeder
                 "jabatan_parent_sesi" => NULL,
                 "pegawai_id" => 1, //bu uci
                 "nama_pejabat" => "Nisful Hijah",
-                "jabatan_sesi_nama" => "Bendahara",
-                "jabatan_sesi_singkatan" => "Bendahara",
+                "jabatan_sesi_nama" => "Bendahara Pengeluaran",
+                "jabatan_sesi_singkatan" => "Bendahara Pengeluaran",
+                "jabatan_keterangan" => '-',
+                "jabatan_urutan" => 1,
+                "is_aktif" => true,
+            ],
+            [
+                "tahun_anggaran_id" => 1,
+                "organisasi_id" => 1,
+                "organisasi_jabatan_id" => 17, //jabatan bendahara pengeluaran
+                "jabatan_parent_sesi" => NULL,
+                "pegawai_id" => 1, //bu uci
+                "nama_pejabat" => "YUNITA ANDRIANI",
+                "jabatan_sesi_nama" => "Bendahara Pemasukkan",
+                "jabatan_sesi_singkatan" => "Bendahara Pemasukkan",
                 "jabatan_keterangan" => '-',
                 "jabatan_urutan" => 1,
                 "is_aktif" => true,
@@ -841,7 +876,7 @@ class DatabaseSeeder extends Seeder
                 "organisasi_id" => 37,
                 "pegawai_id" => 5, //lily
                 "organisasi_jabatan_id" => 15, //jabatan sekretaris spi
-                "jabatan_parent_sesi" => 4,
+                "jabatan_parent_sesi" => 5,
                 "nama_pejabat" => "Lily Ulfia",
                 "jabatan_sesi_nama" => "Sekretaris Satuan Pengawas Internal",
                 "jabatan_sesi_singkatan" => "Sek. SPI",
@@ -854,7 +889,7 @@ class DatabaseSeeder extends Seeder
                 "organisasi_id" => 37,
                 "pegawai_id" => 6, //lita
                 "organisasi_jabatan_id" => 13, //jabatan verifkator spi
-                "jabatan_parent_sesi" => 4,
+                "jabatan_parent_sesi" => 5,
                 "nama_pejabat" => "Arlita",
                 "jabatan_sesi_nama" => "Verifikator Satuan Pengawas Internal",
                 "jabatan_sesi_singkatan" => "Verifikator SPI",
@@ -867,7 +902,7 @@ class DatabaseSeeder extends Seeder
                 "organisasi_id" => 37,
                 "pegawai_id" => 7, //arif
                 "organisasi_jabatan_id" => 13, //jabatan verifkator spi
-                "jabatan_parent_sesi" => 4,
+                "jabatan_parent_sesi" => 5,
                 "nama_pejabat" => "Arif",
                 "jabatan_sesi_nama" => "Verifikator Satuan Pengawas Internal",
                 "jabatan_sesi_singkatan" => "Verifikator SPI",
@@ -876,7 +911,6 @@ class DatabaseSeeder extends Seeder
                 "is_aktif" => true,
             ],
         ]);
-
         DB::table('user_pegawais')->insert([
             ["user_id" => 2, "pegawai_id" => 1, "is_aktif" => true], //uci
             ["user_id" => 3, "pegawai_id" => 2, "is_aktif" => true], //hasnah

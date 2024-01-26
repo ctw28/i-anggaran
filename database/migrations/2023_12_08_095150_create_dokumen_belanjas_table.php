@@ -16,7 +16,7 @@ class CreateDokumenBelanjasTable extends Migration
         Schema::create('dokumen_belanjas', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('dokumen_pencairan_sesi_id');
-            $table->foreign('dokumen_pencairan_sesi_id')->references('id')->on('dokumen_pencairan_sesis');
+            $table->foreign('dokumen_pencairan_sesi_id')->references('id')->on('dokumen_pencairan_sesis')->onDelete('cascade');;
 
             $table->string('item');
             $table->double('nilai');
