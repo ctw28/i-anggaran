@@ -25,7 +25,7 @@ class Organisasi extends Model
     }
     public function parent()
     {
-        return $this->belongsTo('App\Models\Organisasi');
+        return $this->belongsTo('App\Models\Organisasi', 'organisasi_parent_id');
     }
     public function kegiatan()
     {

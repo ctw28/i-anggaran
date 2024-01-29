@@ -111,7 +111,7 @@ class DatabaseSeeder extends Seeder
             ["user_id" => 9, "role_id" => 1, "is_default" => false], //role user_organisasi
             ["user_id" => 10, "role_id" => 2, "is_default" => true], //role user_organisasi
             ["user_id" => 11, "role_id" => 2, "is_default" => true], //role user_organisasi
-            ["user_id" => 11, "role_id" => 1, "is_default" => true], //role user_organisasi
+            ["user_id" => 11, "role_id" => 1, "is_default" => false], //role user_organisasi
             ["user_id" => 12, "role_id" => 2, "is_default" => true], //role user_organisasi
         ]);
         DB::table('satkers')->insert([
@@ -595,7 +595,7 @@ class DatabaseSeeder extends Seeder
             ["user_role_id" => 9, "organisasi_id" => 33, "is_aktif" => true], //tipd
             ["user_role_id" => 11, "organisasi_id" => 40, "is_aktif" => true], //akma
             ["user_role_id" => 12, "organisasi_id" => 38, "is_aktif" => true], //akma
-            ["user_role_id" => 13, "organisasi_id" => 6, "is_aktif" => true], //akma
+            ["user_role_id" => 13, "organisasi_id" => 6, "is_aktif" => true], //febi
         ]);
         DB::table('tahun_anggarans')->insert([
             ["satker_id" => 1, "tahun" => 2024, "sebutan" => "Tahun Anggaran 2024"]
