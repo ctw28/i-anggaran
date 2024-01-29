@@ -111,6 +111,7 @@ class DatabaseSeeder extends Seeder
             ["user_id" => 9, "role_id" => 1, "is_default" => false], //role user_organisasi
             ["user_id" => 10, "role_id" => 2, "is_default" => true], //role user_organisasi
             ["user_id" => 11, "role_id" => 2, "is_default" => true], //role user_organisasi
+            ["user_id" => 11, "role_id" => 1, "is_default" => true], //role user_organisasi
             ["user_id" => 12, "role_id" => 2, "is_default" => true], //role user_organisasi
         ]);
         DB::table('satkers')->insert([
