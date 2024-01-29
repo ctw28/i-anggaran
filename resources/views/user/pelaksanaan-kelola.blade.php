@@ -2016,7 +2016,7 @@
 
             // Remove the iframe from the document
             document.body.removeChild(iframe);
-        }, 500); // Adjust the time (in milliseconds) as needed
+        }, 1000); // Adjust the time (in milliseconds) as needed
 
     }
 </script>
