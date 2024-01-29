@@ -36,64 +36,68 @@ class AuthController extends Controller
 
     public function login(Request $request)
     {
-        $credentials = request(['email', 'password']);
-        $data = [];
-        if (!$token = auth()->attempt($credentials)) {
-            return response()->json(['error' => 'Unauthorized'], 401);
-        } else {
-            $user = auth()->user();
-            $role = [];
-            foreach ($user->userRole as $index => $userRole) {
-                $namaRole = $userRole->role->role_nama;
-                $role[$index]['role'] = $namaRole;
-                $role[$index]['is_default'] = $userRole->is_default;
-                if ($namaRole === "user_organisasi") {
-                    $role[$index]['organisasi']['id'] = $userRole->userOrganisasi->organisasi->id;
-                    $role[$index]['organisasi']['nama_organisasi'] = $userRole->userOrganisasi->organisasi->organisasi_singkatan;
-                } else {
-                    // $organisasi = 
-                    if ($namaRole == "admin")
-                        $organisasi = "Administrator";
-                    if ($namaRole == "spi")
-                        $organisasi = "Admin SPI";
-                    if ($namaRole == "keuangan")
-                        $organisasi = "Admin Keuangan";
-                    $role[$index]['organisasi'] = $organisasi;
-                }
-            }
-            $organisasi = []; // Inisialisasi $organisasi sebagai array kosong
-
-            $defaultRole = $user->userRole->where('is_default', true)->first()->role->role_nama;
-            if ($defaultRole === "user_organisasi") {
-                $organisasi['id'] = $user->userRole->where('is_default', true)->first()->userOrganisasi->organisasi->id;
-                $organisasi['nama_organisasi'] = $user->userRole->where('is_default', true)->first()->userOrganisasi->organisasi->organisasi_singkatan;
-                $namaLengkap = $user->userPegawai->pegawai->dataDiri->nama_lengkap;
-                $nomorInduk = $user->userPegawai->pegawai->pegawai_nomor_induk;
+        try {
+            $credentials = request(['email', 'password']);
+            $data = [];
+            if (!$token = auth()->attempt($credentials)) {
+                return response()->json(['error' => 'Unauthorized'], 401);
             } else {
-                if ($defaultRole == "admin")
-                    $organisasi = "Administrator";
-                if ($defaultRole == "spi")
-                    $organisasi = "Admin SPI";
-                if ($defaultRole == "keuangan")
-                    $organisasi = "Admin Keuangan";
-                $namaLengkap = $organisasi;
-                $nomorInduk = "-";
-            }
-            $customData = [
-                'organisasi' => $organisasi,
-                'user_data' => [
-                    'nama_lengkap' => $namaLengkap,
-                    'nomor_induk' => $nomorInduk,
-                ],
-                'roles' => $role,
-                'current_role' => $user->userRole->where('is_default', true)->first()->role->role_nama,
-            ];
+                $user = auth()->user();
+                $role = [];
+                foreach ($user->userRole as $index => $userRole) {
+                    $namaRole = $userRole->role->role_nama;
+                    $role[$index]['role'] = $namaRole;
+                    $role[$index]['is_default'] = $userRole->is_default;
+                    if ($namaRole === "user_organisasi") {
+                        $role[$index]['organisasi']['id'] = $userRole->userOrganisasi->organisasi->id;
+                        $role[$index]['organisasi']['nama_organisasi'] = $userRole->userOrganisasi->organisasi->organisasi_singkatan;
+                    } else {
+                        // $organisasi = 
+                        if ($namaRole == "admin")
+                            $organisasi = "Administrator";
+                        if ($namaRole == "spi")
+                            $organisasi = "Admin SPI";
+                        if ($namaRole == "keuangan")
+                            $organisasi = "Admin Keuangan";
+                        $role[$index]['organisasi'] = $organisasi;
+                    }
+                }
+                $organisasi = []; // Inisialisasi $organisasi sebagai array kosong
 
-            // Membuat token dengan data tambahan di payload
-            $token = JWTAuth::customClaims($customData)->fromUser($user);
+                $defaultRole = $user->userRole->where('is_default', true)->first()->role->role_nama;
+                if ($defaultRole === "user_organisasi") {
+                    $organisasi['id'] = $user->userRole->where('is_default', true)->first()->userOrganisasi->organisasi->id;
+                    $organisasi['nama_organisasi'] = $user->userRole->where('is_default', true)->first()->userOrganisasi->organisasi->organisasi_singkatan;
+                    $namaLengkap = $user->userPegawai->pegawai->dataDiri->nama_lengkap;
+                    $nomorInduk = $user->userPegawai->pegawai->pegawai_nomor_induk;
+                } else {
+                    if ($defaultRole == "admin")
+                        $organisasi = "Administrator";
+                    if ($defaultRole == "spi")
+                        $organisasi = "Admin SPI";
+                    if ($defaultRole == "keuangan")
+                        $organisasi = "Admin Keuangan";
+                    $namaLengkap = $organisasi;
+                    $nomorInduk = "-";
+                }
+                $customData = [
+                    'organisasi' => $organisasi,
+                    'user_data' => [
+                        'nama_lengkap' => $namaLengkap,
+                        'nomor_induk' => $nomorInduk,
+                    ],
+                    'roles' => $role,
+                    'current_role' => $user->userRole->where('is_default', true)->first()->role->role_nama,
+                ];
+
+                // Membuat token dengan data tambahan di payload
+                $token = JWTAuth::customClaims($customData)->fromUser($user);
+            }
+            // return auth()->attempt($credentials);
+            return $this->respondWithToken($token);
+        } catch (\Throwable $th) {
+            throw $th;
         }
-        // return auth()->attempt($credentials);
-        return $this->respondWithToken($token);
     }
 
     public function switcRole(Request $request)
