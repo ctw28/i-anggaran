@@ -47,7 +47,7 @@
 <body onload="window.print()" onfocus="window.close()">
 -->
 
-<body style="color:#000;font-size:15px;">
+<body style="color:#000;font-size:16px;">
 
     <div style="width:21cm;margin:0 auto;">
 

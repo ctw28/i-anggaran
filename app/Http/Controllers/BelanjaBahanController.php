@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\BelanjaBahan;
+use App\Models\BelanjaBahanPerusahaan;
 use App\Models\DokumenPencairanSesi;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
@@ -22,7 +23,7 @@ class BelanjaBahanController extends Controller
 
         $data = DokumenPencairanSesi::with(['kegiatan', 'pelaksanaanDasar', 'belanjaBahan' => function ($belanjaBahan) {
             $belanjaBahan->orderBy('urutan');
-        }, 'kodeAkun', 'ppk.pegawai', 'bendahara.pegawai'])->where('id', $id)->get();
+        }, 'kodeAkun', 'ppk.pegawai', 'bendahara.pegawai', 'belanjaBahanPerusahaan'])->where('id', $id)->get();
         foreach ($data as $item) {
             $date = Carbon::parse($item->tanggal_dokumen)->locale('id');
 
@@ -98,6 +99,7 @@ class BelanjaBahanController extends Controller
         try {
             BelanjaBahan::where('dokumen_pencairan_sesi_id', $request->sesi_id)->delete();
             $data = BelanjaBahan::insert($request->data);
+
             // $data = DaftarNominal::insert([
             //     'dokumen_pencairan_sesi_id' => $request->dokumen_pencairan_sesi_id,
             //     'pegawai_nomor_induk' => $request->pegawai_nomor_induk,
@@ -116,6 +118,33 @@ class BelanjaBahanController extends Controller
             return response()->json([
                 'status' => true,
                 'message' => 'Sukses insert',
+                'data' => $data,
+            ], 200);
+        } catch (\Throwable $th) {
+            // return response()->json([
+            //     'status' => false,
+            //     'message' => 'gagal update',
+            //     'data' => [],
+            // ], 500);
+            throw $th;
+        }
+    }
+
+    public function npwpUpdate(Request $request)
+    {
+        try {
+            $data = BelanjaBahanPerusahaan::where('dokumen_pencairan_sesi_id', $request->sesi_id)->update(
+                [
+                    'is_ada_npwp' => $request->is_ada_npwp,
+                    'npwp' => $request->npwp,
+                    'npwp_nama' => $request->npwp_nama,
+                    'npwp_alamat' => $request->npwp_alamat
+                ]
+            );
+
+            return response()->json([
+                'status' => true,
+                'message' => 'Sukses update',
                 'data' => $data,
             ], 200);
         } catch (\Throwable $th) {

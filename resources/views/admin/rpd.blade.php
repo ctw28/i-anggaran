@@ -55,9 +55,9 @@
                 <table class="table table-striped table-bordered table-hover">
                     <thead class="text-center">
                         <th>No</th>
-                        <th>Fakultas / Lembaga / Unit</th>
                         <th>RPD</th>
-                        <th>Selesai</th>
+                        <th>Fakultas / Lembaga / Unit</th>
+                        <!-- <th>Selesai</th> -->
                     </thead>
                     <tbody id="organisasi-data">
 
@@ -236,20 +236,21 @@
                 let contents = '' // Mengambil token dari response JSON
                 data.data.map((data, index) => {
                     contents += `<tr data-id="${data.id}">
-                    <td class="text-center">${index+1}</td>
-                    <td>
+                    <td class="text-center">${index+1}</td>`
+
+                    // if (data.rencana_sesi.length != 0) {
+                    // <button class="btn btn-sm btn-info mt-1 mb-1" onclick="lihatRPD(this)"><i class="tf-icons bx bx-printer"></i> Cetak RPD</button>
+                    contents += `<td class="text-center">
+                                    <button class="btn btn-sm btn-primary mt-1 mb-1" onclick="showRpd(this)" data-bs-toggle="modal" data-bs-target="#fullscreenModal"><i class="tf-icons bx bx-grid"></i> Lihat RPD</button>
+                                    </td>`
+                    contents += `<td>
                     ${data.organisasi.organisasi_nama} (${data.organisasi.organisasi_singkatan})<br>
                     <span style="color:red">Pagu : Rp.xxxxx </span></td>`
-                    // if (data.rencana_sesi.length != 0) {
-                    contents += `<td>
-                                    <button class="btn btn-sm btn-primary mt-1 mb-1" onclick="showRpd(this)" data-bs-toggle="modal" data-bs-target="#fullscreenModal"><i class="tf-icons bx bx-grid"></i> Lihat RPD</button>
-                                    <button class="btn btn-sm btn-info mt-1 mb-1" onclick="lihatRPD(this)"><i class="tf-icons bx bx-printer"></i> Cetak RPD</button>
-                                    </td>`
-                    contents += `<td class="text-center">
-                                        <div class="form-check form-switch mb-2">
-                                            <input class="form-check-input" type="checkbox">
-                                        </div>
-                                    </td>`
+                    // contents += `<td class="text-center">
+                    //                     <div class="form-check form-switch mb-2">
+                    //                         <input class="form-check-input" type="checkbox">
+                    //                     </div>
+                    //                 </td>`
                     // } else {
                     //     contents += `<td>Belum Mengajukan</td>`
                     //     contents += `<td class="text-center">-</td>`

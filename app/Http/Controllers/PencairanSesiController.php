@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\BelanjaBahanPerusahaan;
 use App\Models\DokumenPencairanSesi;
+use App\Models\KodeAkun;
 use App\Models\NominalPengaturan;
 use App\Models\Pelaksanaan;
 use Illuminate\Http\Request;
@@ -26,11 +28,42 @@ class PencairanSesiController extends Controller
         // return $rencanaId;
         $data = DokumenPencairanSesi::with(['pelaksanaanDasar', 'nominalPengaturan', 'kodeAkun', 'pelaksanaan' => function ($pelaksanaan) use ($rencanaId) {
             $pelaksanaan->where('rencana_id', $rencanaId);
-        }])->get();
+        }])
+            ->whereHas('pelaksanaan', function ($pelaksanaan) use ($rencanaId) {
+                $pelaksanaan->where('rencana_id', $rencanaId);
+            })
+            ->get();
+        // return $data;
         Carbon::setLocale('id');
-        foreach ($data as $dasar) {
-            $dasar->pelaksanaanDasar->tanggal_format = Carbon::parse($dasar->pelaksanaanDasar->tanggal)->translatedFormat('d F Y');;
+        if ($data->count() > 0) {
+
+            foreach ($data as $dasar) {
+                $dasar->pelaksanaanDasar->tanggal_format = Carbon::parse($dasar->pelaksanaanDasar->tanggal)->translatedFormat('d F Y');
+                if ($dasar->pelaksanaan != null) {
+                    $dasar->pelaksanaan->tanggal_mulai = Carbon::parse($dasar->pelaksanaan->tanggal_mulai)->translatedFormat('d F');
+                    $dasar->pelaksanaan->tanggal_selesai = Carbon::parse($dasar->pelaksanaan->tanggal_selesai)->translatedFormat('d F Y');
+                }
+                $dasar->tanggal_dokumen = Carbon::parse($dasar->tanggal_dokumen)->translatedFormat('d F Y');
+            }
+            return response()->json([
+                'status' => true,
+                'message' => 'Data rencana ditemukan',
+                'data' => $data,
+            ], 200);
         }
+
+        return response()->json([
+            'status' => false,
+            'message' => 'Data tidak ditemukan',
+            'data' => [],
+        ], 200);
+    }
+    public function show($id)
+    {
+        // return $rencanaId;
+        $data = DokumenPencairanSesi::with(['pelaksanaanDasar', 'pelaksanaan', 'nominalPengaturan', 'kodeAkun', 'pelaksanaan'])->find($id);
+        Carbon::setLocale('id');
+        $data->pelaksanaanDasar->tanggal_format = Carbon::parse($data->pelaksanaanDasar->tanggal)->translatedFormat('d F Y');;
         if ($data->count() > 0)
             return response()->json([
                 'status' => true,
@@ -115,6 +148,14 @@ class PencairanSesiController extends Controller
                 'dokumen_pencairan_sesi_id' => $pencairanSesi->id,
                 'is_peserta_luar' => false,
             ]);
+            $kodeAkun = KodeAkun::find($request->kode_akun_id);
+
+            if ($kodeAkun->kode == "521211") {
+                BelanjaBahanPerusahaan::create([
+                    'dokumen_pencairan_sesi_id' => $pencairanSesi->id,
+                    'is_ada_npwp' => true
+                ]);
+            }
 
             DB::commit();
             return response()->json([
@@ -134,5 +175,24 @@ class PencairanSesiController extends Controller
                 'details' => [],
             ], 500);
         }
+    }
+
+    public function delete($id)
+    {
+        // return $kegiatanId;
+        $data = DokumenPencairanSesi::find($id);
+        if ($data->count() > 0) {
+            $data->delete();
+            return response()->json([
+                'status' => true,
+                'message' => 'Data ditemukan',
+                'data' => $data,
+            ], 200);
+        }
+        return response()->json([
+            'status' => false,
+            'message' => 'Data tidak ditemukan',
+            'data' => [],
+        ], 404);
     }
 }

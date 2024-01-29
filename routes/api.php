@@ -67,10 +67,13 @@ Route::group([
     //PELAKSANAAN DASAR
     Route::get('/kegiatan/{id}/pelaksanaan-dasar', [PelaksanaanDasarController::class, 'index'])->name('pelaksanaan.dasar');
     Route::post('/pelaksanaan-dasar/simpan', [PelaksanaanDasarController::class, 'store'])->name('pelaksanaan-dasar.store');
+    Route::get('/pelaksanaan-dasar/{id}/hapus', [PelaksanaanDasarController::class, 'delete'])->name('pelaksanaan-dasar.delete');
 
     //PENCAIRAN SESI
     Route::get('/rencana/{id}/pencairan-sesi/data', [PencairanSesiController::class, 'index'])->name('pencairan-sesi.index');
     Route::post('/pencairan-sesi/simpan', [PencairanSesiController::class, 'store'])->name('pencairan-sesi.store');
+    Route::get('/pencairan-sesi/{id}', [PencairanSesiController::class, 'show'])->name('pencairan-sesi.show');
+    Route::get('/pencairan-sesi/{id}/delete', [PencairanSesiController::class, 'delete'])->name('pencairan-sesi.delete');
 
     //NOMINAL PENGATURAN
     Route::get('/pencairan-sesi/{id}/nominal-pengaturan', [NominalPengaturanController::class, 'index'])->name('pencairan-sesi.nominal-pengaturan');
@@ -83,6 +86,9 @@ Route::group([
     //BELANJA BAHAN
     Route::get('/pencairan-sesi/{id}/belanja-bahan', [BelanjaBahanController::class, 'index'])->name('belanja.bahan.index');
     Route::post('belanja-bahan/simpan', [BelanjaBahanController::class, 'store'])->name('belanja.bahan.store');
+
+    //BELANJA BAHAN NPWP
+    Route::post('belanja-bahan/npwp/update', [BelanjaBahanController::class, 'npwpUpdate'])->name('npwp.update');
 
     //ADMIN
     Route::get('admin/organisasi-rpd', [KegiatanController::class, 'organisasiRpd'])->name('admin.organisasi.rpd');

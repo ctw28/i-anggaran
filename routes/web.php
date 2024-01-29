@@ -15,6 +15,7 @@ use App\Http\Controllers\Web\Admin\AdminViewController;
 |
 */
 
+Route::view('/gg', 'welcome');
 Route::get('/', [WebViewController::class, 'login'])->name('login.page');
 // Route::post('/', [WebViewController::class, 'login'])->name('login');
 Route::get('/dashboard', [WebViewController::class, 'dashboard'])->name('user.dashboard');

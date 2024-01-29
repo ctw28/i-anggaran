@@ -15,12 +15,14 @@ class CreateDokumenPencairanSesisTable extends Migration
     {
         Schema::create('dokumen_pencairan_sesis', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('pelaksanaan_id');
-            $table->foreign('pelaksanaan_id')->references('id')->on('pelaksanaans')->onDelete('cascade');
-            $table->unsignedBigInteger('pelaksanaan_dasar_id');
-            $table->foreign('pelaksanaan_dasar_id')->references('id')->on('pelaksanaan_dasars')->onDelete('cascade');
+            $table->unsignedBigInteger('kegiatan_id');
+            $table->foreign('kegiatan_id')->references('id')->on('kegiatans')->onDelete('set null');
+            $table->unsignedBigInteger('pelaksanaan_id')->nullable();
+            $table->foreign('pelaksanaan_id')->references('id')->on('pelaksanaans')->onDelete('set null');
+            $table->unsignedBigInteger('pelaksanaan_dasar_id')->nullable();
+            $table->foreign('pelaksanaan_dasar_id')->references('id')->on('pelaksanaan_dasars')->onDelete('set null');
             $table->unsignedBigInteger('kode_akun_id');
-            $table->foreign('kode_akun_id')->references('id')->on('kode_akuns')->onDelete('cascade');
+            $table->foreign('kode_akun_id')->references('id')->on('kode_akuns');
 
             $table->unsignedBigInteger('ppk')->nullable();
             $table->foreign('ppk')->references('id')->on('organisasi_jabatan_sesis')->onDelete('set null');
@@ -34,7 +36,7 @@ class CreateDokumenPencairanSesisTable extends Migration
             $table->string('penerima_nama');
             $table->string('penerima_jabatan');
             $table->string('penerima_nomor')->nullable();
-            $table->string('kuitansi_nomor');
+            $table->string('kuitansi_nomor')->nullable();
             $table->string('sptjb_nomor');
             // $table->string('no_bukti');
             //SPTJK penanggung jawab kegiatan

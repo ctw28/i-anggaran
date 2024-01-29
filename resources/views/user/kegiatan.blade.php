@@ -589,7 +589,6 @@
     }
 
     function saveRpd(button) {
-        alert('save')
         const row = button.parentNode.parentNode;
         const cells = button.parentNode;
         // const cells = row.getElementsByTagName('td');
@@ -757,7 +756,7 @@
         <button class='btn btn-danger btn-sm mt-2' data-is-no-result="${button.dataset.isNoResult}" onclick='cancel(this)'>Batal</button>`
         } else {
             actCell.innerHTML = `<button data-state='insert' class='btn btn-primary btn-sm' onclick='saveKegiatan(this)'>Simpan</button>
-        <button class='btn btn-danger btn-sm mt-2' onclick='cancel(this)'>Batal</button>`
+        <button class='btn btn-danger btn-sm' onclick='cancel(this)'>Batal</button>`
         }
         const numberCell = newRow.insertCell(1);
         numberCell.textContent = table.rows.length; // Nomor urut baris

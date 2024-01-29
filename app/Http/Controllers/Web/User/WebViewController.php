@@ -45,15 +45,23 @@ class WebViewController extends Controller
         $data['sesi_id'] = $sesiId;
         if ($kategori == "daftar-nominal")
             return view('user.cetak.daftar-nominal', $data);
-        else if ($kategori == "kwitansi")
-            return view('user.cetak.kwitansi', $data);
+        else if ($kategori == "kuitansi")
+            return view('user.cetak.kuitansi', $data);
         else if ($kategori == "rekap")
             return view('user.cetak.rekap', $data);
-        else if ($kategori == "spm")
+        else if ($kategori == "spm" || $kategori == "spm-2")
             return view('user.cetak.spm', $data);
         else if ($kategori == "sptjb")
             return view('user.cetak.sptjb', $data);
-        else if ($kategori == "spi")
+        else if ($kategori == "sptjk" || $kategori == "sptjk-2")
+            return view('user.cetak.sptjk', $data);
+        else if ($kategori == "spi" || $kategori == "spi-2")
             return view('user.cetak.spi', $data);
+        else if ($kategori == "kuitansi2")
+            return view('user.cetak.belanja-bahan.kuitansi2', $data);
+        else if ($kategori == "rekap2")
+            return view('user.cetak.belanja-bahan.rekap', $data);
+        else if ($kategori == "sptjb2")
+            return view('user.cetak.belanja-bahan.sptjb', $data);
     }
 }

@@ -28,9 +28,6 @@ class DokumenPencairanSesi extends Model
         'sptjk_nip',
         'sptjk_jabatan',
         'is_selesai',
-        'is_ada_npwp',
-
-
     ];
 
     public function kegiatan()
@@ -60,6 +57,10 @@ class DokumenPencairanSesi extends Model
     public function belanjaBahan()
     {
         return $this->hasMany('App\Models\BelanjaBahan');
+    }
+    public function belanjaBahanPerusahaan()
+    {
+        return $this->hasOne('App\Models\BelanjaBahanPerusahaan');
     }
     public function ppk()
     {

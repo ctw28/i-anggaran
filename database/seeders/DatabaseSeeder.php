@@ -87,6 +87,16 @@ class DatabaseSeeder extends Seeder
                 'email' => 'tommy@mail.com',
                 'password' => bcrypt('1234qwer'),
             ],
+            [
+                'username' => 'ulla',
+                'email' => 'ulla@mail.com',
+                'password' => bcrypt('1234qwer'),
+            ],
+            [
+                'username' => 'febi',
+                'email' => 'febi@mail.com',
+                'password' => bcrypt('1234qwer'),
+            ],
         ]);
         DB::table('user_roles')->insert([
             ["user_id" => 1, "role_id" => 1, "is_default" => true], //role administrator
@@ -100,6 +110,8 @@ class DatabaseSeeder extends Seeder
             ["user_id" => 9, "role_id" => 2, "is_default" => true], //role user_organisasi
             ["user_id" => 9, "role_id" => 1, "is_default" => false], //role user_organisasi
             ["user_id" => 10, "role_id" => 2, "is_default" => true], //role user_organisasi
+            ["user_id" => 11, "role_id" => 2, "is_default" => true], //role user_organisasi
+            ["user_id" => 12, "role_id" => 2, "is_default" => true], //role user_organisasi
         ]);
         DB::table('satkers')->insert([
             [
@@ -581,6 +593,8 @@ class DatabaseSeeder extends Seeder
         DB::table('user_organisasis')->insert([
             ["user_role_id" => 9, "organisasi_id" => 33, "is_aktif" => true], //tipd
             ["user_role_id" => 11, "organisasi_id" => 40, "is_aktif" => true], //akma
+            ["user_role_id" => 12, "organisasi_id" => 38, "is_aktif" => true], //akma
+            ["user_role_id" => 13, "organisasi_id" => 6, "is_aktif" => true], //akma
         ]);
         DB::table('tahun_anggarans')->insert([
             ["satker_id" => 1, "tahun" => 2024, "sebutan" => "Tahun Anggaran 2024"]
@@ -725,6 +739,26 @@ class DatabaseSeeder extends Seeder
             [
                 "nik" => 806,
                 "nama_lengkap" => "YUNITA ANDRIANI",
+                "jenis_kelamin" => "P",
+                "lahir_tempat" => 'kendari',
+                "lahir_tanggal" => '2023-02-20',
+                "no_hp" => '0852',
+                "alamat_ktp" => 'alamat ktp',
+                "alamat_domisili" => 'alamat domisili'
+            ],
+            [
+                "nik" => 836,
+                "nama_lengkap" => "NASRULLAH",
+                "jenis_kelamin" => "L",
+                "lahir_tempat" => 'kendari',
+                "lahir_tanggal" => '2023-02-20',
+                "no_hp" => '0852',
+                "alamat_ktp" => 'alamat ktp',
+                "alamat_domisili" => 'alamat domisili'
+            ],
+            [
+                "nik" => 837,
+                "nama_lengkap" => "ROSDIANA",
                 "jenis_kelamin" => "P",
                 "lahir_tempat" => 'kendari',
                 "lahir_tanggal" => '2023-02-20',
@@ -921,6 +955,8 @@ class DatabaseSeeder extends Seeder
             ["user_id" => 8, "pegawai_id" => 7, "is_aktif" => true], //arif
             ["user_id" => 9, "pegawai_id" => 8, "is_aktif" => true], //rigo
             ["user_id" => 10, "pegawai_id" => 9, "is_aktif" => true], //tommy
+            ["user_id" => 11, "pegawai_id" => 11, "is_aktif" => true], //ulla
+            ["user_id" => 12, "pegawai_id" => 12, "is_aktif" => true], //ros
         ]);
     }
 }

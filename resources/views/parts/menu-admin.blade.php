@@ -20,4 +20,10 @@
             <div data-i18n="Basic">DIPA & Bendahara</div>
         </a>
     </li>
+    <li class="menu-item">
+        <a href="{{route('admin.tahun.anggaran')}}" class="menu-link">
+            <i class="menu-icon tf-icons bx bx-collection"></i>
+            <div data-i18n="Basic">Kelola User</div>
+        </a>
+    </li>
 </ul>

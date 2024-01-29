@@ -23,13 +23,13 @@
                             <thead class="text-center align-middle">
                                 <tr>
                                     <th>No</th>
+                                    <th>Kelola</th>
                                     <th>Program</th>
                                     <th>Pagu</th>
                                     <th>Realisasi</th>
                                     <th>Sisa</th>
                                     <th>Dasar <br>Pelaksanaan</th>
                                     <th>Laporan</th>
-                                    <th>Kelola</th>
                                 </tr>
                             </thead>
                             <tbody id="kegiatan-data">
@@ -226,6 +226,13 @@
 
     }
 
+    function formatRupiah(angka) {
+        let reverse = angka.toString().split('').reverse().join('');
+        let ribuan = reverse.match(/\d{1,3}/g);
+        let formatted = ribuan.join('.').split('').reverse().join('');
+        return `${formatted}`;
+    }
+
     function loadData() {
         const formData = new FormData();
         formData.append('id', JSON.parse(localStorage.getItem('tahun_anggaran')).organisasi_rpd)
@@ -252,6 +259,7 @@
                     console.log(Object.values(data.rencana).length);
                     contents += `<tr data-id="${data.id}">
                     <td class="text-center">${index+1}</td>
+                    <td class="text-center"><a class="btn btn-sm btn-primary" href="${url}"><i class="tf-icons bx bx-customize"></i> Kelola</a></td>
                     <td>
                     <small>${data.sub_kegiatan_kode1}.
                     ${data.sub_kegiatan_kode2}.
@@ -259,11 +267,11 @@
                     ${data.sub_kegiatan_kode4}.
                     ${data.sub_kegiatan_kode5}.
                     </small>
-                    <br><span class="badge bg-label-primary">${data.kegiatan_nama}</span>
+                    <br>${data.kegiatan_nama}
                     <br>
                     </td>
                     <td>
-                    <small>Rp. ${data.jumlah_biaya} (${data.sumber_dana})</small>
+                    <small>Rp. ${formatRupiah(data.jumlah_biaya)} (${data.sumber_dana})</small>
                     </td>
                     <td>REALISASI</td>
                     <td>SISA</td>
@@ -271,7 +279,6 @@
                     <td>Laporan</td>
                     `
 
-                    contents += `<td class="text-center"><a class="btn btn-sm btn-dark" href="${url}"><i class="tf-icons bx bx-customize"></i> Kelola</a></td>`
                     contents += `</tr>`
                 })
                 document.querySelector("#kegiatan-data").innerHTML = ''

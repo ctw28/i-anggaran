@@ -126,8 +126,23 @@ class PelaksanaanDasarController extends Controller
     }
 
 
-    public function destroy($id)
+    public function delete($id)
     {
         //
+        $data = PelaksanaanDasar::find($id);
+        if ($data->count() > 0) {
+            $data->delete();
+            return response()->json([
+                'status' => true,
+                'message' => 'Data berhasil dihapus',
+                'data' => $data,
+            ], 200);
+        }
+
+        return response()->json([
+            'status' => false,
+            'message' => 'Data gagal dihapus',
+            'data' => [],
+        ], 404);
     }
 }
