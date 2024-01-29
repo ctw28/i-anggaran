@@ -16,7 +16,7 @@ class CreateDokumenPencairanSesisTable extends Migration
         Schema::create('dokumen_pencairan_sesis', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('kegiatan_id');
-            $table->foreign('kegiatan_id')->references('id')->on('kegiatans')->onDelete('set null');
+            $table->foreign('kegiatan_id')->references('id')->on('kegiatans');
             $table->unsignedBigInteger('pelaksanaan_id')->nullable();
             $table->foreign('pelaksanaan_id')->references('id')->on('pelaksanaans')->onDelete('set null');
             $table->unsignedBigInteger('pelaksanaan_dasar_id')->nullable();

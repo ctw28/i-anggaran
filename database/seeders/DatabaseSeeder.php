@@ -838,6 +838,20 @@ class DatabaseSeeder extends Seeder
                 "pegawai_kategori_id" => 1,
                 "pegawai_jenis_id" => 1
             ],
+            [
+                "idpeg" => 11,
+                "pegawai_nomor_induk" => "198203052005012005  ",
+                "data_diri_id" => 11,
+                "pegawai_kategori_id" => 1,
+                "pegawai_jenis_id" => 1
+            ],
+            [
+                "idpeg" => 11,
+                "pegawai_nomor_induk" => "198203052005012005  ",
+                "data_diri_id" => 12,
+                "pegawai_kategori_id" => 1,
+                "pegawai_jenis_id" => 1
+            ],
         ]);
         DB::table('organisasi_jabatan_sesis')->insert([
             [
