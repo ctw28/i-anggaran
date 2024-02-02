@@ -252,7 +252,7 @@
 
             sendDataToAPI(formData, rows[i]);
         }
-
+        loadData()
     });
 
     async function sendDataToAPI(formData, rows) {
