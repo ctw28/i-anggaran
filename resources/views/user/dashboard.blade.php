@@ -11,7 +11,7 @@
                         Selamat datang di aplikasi juara
                     </p>
 
-                    <a href="javascript:;" class="btn btn-sm btn-outline-primary">Isi RPD</a>
+                    <!-- <a href="javascript:;" class="btn btn-sm btn-outline-primary">Isi RPD</a> -->
                 </div>
             </div>
             <div class="col-sm-5 text-center text-sm-left">
