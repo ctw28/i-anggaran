@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Validator;
 use Tymon\JWTAuth\Facades\JWTAuth; //use this library
 use Carbon\Carbon;
 use Illuminate\Support\Str;
+// use Maatwebsite\Excel\Facades\Excel;
 
 class KegiatanController extends Controller
 {
@@ -79,7 +80,7 @@ class KegiatanController extends Controller
         if ($check->kegiatan->count() != 0) {
             if (!$request->has('id')) {
                 return response()->json([
-                    'status' => true,
+                    'status' => false,
                     'message' => 'Data sub kegiatan tidak boleh sama',
                     'data' => $check,
                 ], 422);

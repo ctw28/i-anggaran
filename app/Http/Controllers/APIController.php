@@ -27,10 +27,14 @@ class APIController extends Controller
     {
         $token = JWTAuth::getToken();
         $payload = (object)JWTAuth::getPayload($token)->toArray();
-        $data = OrganisasiRpd::where([
-            'tahun_anggaran_id' => $request->tahun_anggaran_id,
-            'organisasi_id' => $payload->organisasi->id,
-        ])->first();
+        if ($payload->organisasi == "Admin SPI" || $payload->organisasi == "Administrator") {
+            $data = ['id', 0];
+        } else {
+            $data = OrganisasiRpd::where([
+                'tahun_anggaran_id' => $request->tahun_anggaran_id,
+                'organisasi_id' => $payload->organisasi->id,
+            ])->first();
+        }
 
         return response()->json([
             'status' => true,

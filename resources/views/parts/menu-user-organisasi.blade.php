@@ -19,11 +19,11 @@
             <div data-i18n="Basic">Pelaksanaan / Dokumen Pencairan</div>
         </a>
     </li>
-    <!-- <li class="menu-header small text-uppercase"><span class="menu-header-text">Dokumen Pencairan</span></li>
+    <li class="menu-header small text-uppercase"><span class="menu-header-text">Proses Pencairan</span></li>
     <li class="menu-item">
-        <a href="cards-basic.html" class="menu-link">
-            <i class="menu-icon tf-icons bx bx-collection"></i>
-            <div data-i18n="Basic">list Dokumen</div>
+        <a href="#" class="menu-link">
+            <i class="menu-icon tf-icons bx bx-transfer-alt"></i>
+            <div data-i18n="Basic">Tracking</div>
         </a>
-    </li> -->
+    </li>
 </ul>

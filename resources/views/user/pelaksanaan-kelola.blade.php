@@ -29,31 +29,29 @@
         <div class="card mb-4">
             <div class="card-header d-flex justify-content-between">
                 <h6 class="card-title m-0">
-                    <a data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
-                        Dasar Pelaksanaan Program/Kegiatan</a>
+
+                    Dasar Pelaksanaan Program/Kegiatan
                 </h6>
             </div>
-            <div class="collapse" id="collapseExample">
-                <div class="card-body">
-                    <button onclick="tambahBaris()" class="btn btn-dark btn-sm mb-3"><i class="tf-icons bx bx-plus"></i> Tambah Dasar Pelaksanaan</button>
-                    <div class="table-responsive">
+            <div class="card-body">
+                <button onclick="tambahBaris()" class="btn btn-dark btn-sm mb-3"><i class="tf-icons bx bx-plus"></i> Tambah Dasar Pelaksanaan</button>
+                <div class="table-responsive">
 
-                        <table class="table table-striped table-bordered" id="dokumen-table">
-                            <thead class="text-center align-middle">
-                                <tr>
-                                    <th width="2%">Aksi</th>
-                                    <th width="1%">No</th>
-                                    <th>Dasar</th>
-                                    <th>Tentang</th>
-                                    <th>File</th>
-                                    <th>hapus</th>
-                                </tr>
-                            </thead>
-                            <tbody id="dasar-pelaksanaan-data">
+                    <table class="table table-striped table-bordered" id="dokumen-table">
+                        <thead class="text-center align-middle">
+                            <tr>
+                                <th width="2%">Aksi</th>
+                                <th width="1%">No</th>
+                                <th>Dasar</th>
+                                <th>Tentang</th>
+                                <th>File</th>
+                                <th>hapus</th>
+                            </tr>
+                        </thead>
+                        <tbody id="dasar-pelaksanaan-data">
 
-                            </tbody>
-                        </table>
-                    </div>
+                        </tbody>
+                    </table>
                 </div>
 
             </div>
@@ -533,7 +531,7 @@
                 'form': 'textarea',
             },
             {
-                'label': 'File Surat',
+                'label': 'File Surat (.pdf)',
                 'name': 'path_file',
                 'id': 'path_file',
                 'type': 'file',

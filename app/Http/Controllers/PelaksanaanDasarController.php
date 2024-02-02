@@ -36,7 +36,7 @@ class PelaksanaanDasarController extends Controller
             'status' => false,
             'message' => 'Data tidak ditemukan',
             'data' => [],
-        ], 404);
+        ], 200);
     }
 
     public function create(Request $request)

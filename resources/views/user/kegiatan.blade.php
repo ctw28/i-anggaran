@@ -40,6 +40,7 @@
                     </p> -->
                     <div class="mb-2 mt-3">
 
+                        <button class="btn btn-warning btn-sm mb-2" data-bs-toggle="modal" data-bs-target="#importModal"><i class="tf-icons bx bx-import"></i> Import Kegiatan</button>
                         <button onclick="showRpd()" class="btn btn-dark btn-sm mb-2" data-bs-toggle="modal" data-bs-target="#fullscreenModal"><i class="tf-icons bx bx-data"></i> Kelola RPD</button>
                         <!-- <button type="button" class="btn btn-primary btn-sm mb-2" onclick="kirimRpd()"><i class="tf-icons bx bx-send"></i> Kirim RPD</button> -->
 
@@ -71,6 +72,45 @@
     </div>
 </div>
 
+<!-- Modal -->
+<div class="modal fade" id="importModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-fullscreen" role="document">
+        <div class="modal-content">
+            <div class="modal-header text-center">
+                <h5 class="modal-title " id="modalFullTitle">Import Kegiatan</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="col-12 mb-3">
+                    <label for="dipa_pagu" class="form-label">Upload File (.xls) <a href="{{asset('/')}}assets/format.xlsx">Download format di sini!</a></label>
+                    <input type="file" class="form-control" id="file_import">
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-bordered" id="import-table">
+                        <thead class="align-middle text-center text-bold">
+                            <tr>
+                                <th>No</th>
+                                <th>Sub Kegiatan</th>
+                                <th>Program</th>
+                                <th>Pagu</th>
+                                <th>Sumber Dana</th>
+                                <th>Status</th>
+                                <!-- <th rowspan="2">Aksi</th> -->
+                            </tr>
+                        </thead>
+                        <tbody id="data-import">
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <!-- <button onclick="saveImport()" type="button" class="btn btn-label-secondary" data-bs-dismiss="modal">Keluar</button> -->
+                <button type="button" id="submit_excel" class="btn btn-primary">Import Kegiatan</button>
+            </div>
+        </div>
+    </div>
+</div>
 <!-- Modal -->
 <div class="modal fade" id="fullscreenModal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-fullscreen" role="document">
@@ -125,10 +165,118 @@
 </div>
 @endsection
 @section('scripts')
+<script src="https://cdn.jsdelivr.net/npm/xlsx@0.17.2/dist/xlsx.full.min.js"></script>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
 
 <script>
     var modal = document.getElementById('fullscreenModal');
+    const excel_file = document.getElementById('file_import');
+
+    excel_file.addEventListener('change', (event) => {
+        if (!['application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', 'application/vnd.ms-excel'].includes(event.target.files[0].type)) {
+            document.getElementById('excel_data').innerHTML = '<div class="alert alert-danger">Only .xlsx or .xls file format are allowed</div>';
+            excel_file.value = '';
+            return false;
+        }
+        var reader = new FileReader();
+        reader.readAsArrayBuffer(event.target.files[0]);
+        reader.onload = async function(event) {
+            var data = new Uint8Array(reader.result);
+            var work_book = XLSX.read(data, {
+                type: 'array'
+            });
+            var sheet_name = work_book.SheetNames;
+            var sheet_data = XLSX.utils.sheet_to_json(work_book.Sheets[sheet_name[0]], {
+                header: 1
+            });
+            if (sheet_data.length > 0) {
+                let table_output = ''
+                for (var row = 1; row < sheet_data.length; row++) {
+                    table_output += '<tr id="' + sheet_data[row][1] + '">';
+                    table_output += `<td>${row}</td>`
+                    table_output += `<td><input class="form-control" type="text" id="sub_kegiatan_kode" value="${sheet_data[row][1]}"></td>`
+                    table_output += `<td><input class="form-control" type="text" id="kegiatan_nama" value="${sheet_data[row][2]}"></td>`
+                    table_output += `<td><input class="form-control" type="text" id="jumlah_biaya" oninput="toNumber(this)" value="${formatRupiah(sheet_data[row][3])}"></td>`
+                    table_output += `<td><input class="form-control" type="text" id="sumber_dana" value="${sheet_data[row][4]}"></td>`
+                    table_output += `<td id="status" class="text-white"></td>`
+                    table_output += '</tr>';
+                }
+                document.getElementById('data-import').innerHTML = table_output;
+            }
+            excel_file.value = '';
+        }
+    });
+
+    function toNumber(event) {
+        let cleanedInput = event.value.replace(/\D/g, '');
+        // Memformat angka dengan pemisah ribuan
+        const formattedInput = Number(cleanedInput).toLocaleString('id-ID');
+        // Mengatur nilai input ke nilai yang telah diformat
+        event.value = formattedInput;
+    }
+    var buttonSave = document.querySelector('#submit_excel');
+    buttonSave.addEventListener('click', async function() {
+        var table = document.getElementById('data-import');
+        const rows = table.getElementsByTagName('tr');
+        for (let i = 0; i < rows.length; i++) {
+            const rowData = {};
+            const inputs = rows[i].getElementsByTagName('input');
+
+            for (let j = 0; j < inputs.length; j++) {
+                const inputId = inputs[j].id;
+                const inputValue = inputs[j].value;
+
+                if (inputId == 'sub_kegiatan_kode') {
+                    const stringData = inputValue;
+                    const parts = stringData.split('.'); // Memisahkan string berdasarkan titik
+                    const [sub_kegiatan_kode1, sub_kegiatan_kode2, sub_kegiatan_kode3, sub_kegiatan_kode4, sub_kegiatan_kode5] = parts.map(part => part.trim());
+                    rowData['sub_kegiatan_kode1'] = sub_kegiatan_kode1
+                    rowData['sub_kegiatan_kode2'] = sub_kegiatan_kode2
+                    rowData['sub_kegiatan_kode3'] = sub_kegiatan_kode3
+                    rowData['sub_kegiatan_kode4'] = sub_kegiatan_kode4
+                    rowData['sub_kegiatan_kode5'] = sub_kegiatan_kode5
+                } else if (inputId == 'jumlah_biaya') {
+                    rowData[inputId] = inputValue.replace(/\D/g, '');
+                } else {
+                    rowData[inputId] = inputValue;
+                }
+            }
+            const formData = new FormData();
+            for (const key in rowData) {
+                formData.append('organisasi_rpd_id', JSON.parse(localStorage.getItem('tahun_anggaran')).organisasi_rpd);
+                formData.append(key, rowData[key]);
+                formData.append('urutan', i + 1);
+
+            }
+
+            sendDataToAPI(formData, rows[i]);
+        }
+
+    });
+
+    async function sendDataToAPI(formData, rows) {
+        console.log(rows);
+        // Replace the URL with your API endpoint
+        response = await fetch('{{route("kegiatan.store")}}', {
+            headers: {
+                'Authorization': 'Bearer ' + localStorage.getItem('token')
+            },
+            method: "POST",
+            body: formData
+        })
+        responseMessage = await response.json()
+        console.log(responseMessage);
+        if (responseMessage.status == true) {
+            rows.querySelector('#status').innerText = "Sukses"
+            return rows.style.backgroundColor = "green";
+        }
+        rows.querySelector('#status').innerText = responseMessage.message
+
+        // rows[4].innerText = responseMessage.responseMessage
+        return rows.style.backgroundColor = "red";
+    }
+
 
     function handleEscKey(event) {
         if (event.key === 'Escape' && modal.style.display !== 'none') {

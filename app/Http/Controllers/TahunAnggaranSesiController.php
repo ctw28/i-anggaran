@@ -22,46 +22,47 @@ class TahunAnggaranSesiController extends Controller
     public function index()
     {
         $data = TahunAnggaranSesi::where('tahun_anggaran_id', 1)->first();
-        Carbon::setLocale('id');
+        // return $data;
+        if ($data != null) {
+            Carbon::setLocale('id');
 
-        $mulai = $data->tanggal_rpd_mulai;
-        $selesai = $data->tanggal_rpd_selesai;
+            $mulai = $data->tanggal_rpd_mulai;
+            $selesai = $data->tanggal_rpd_selesai;
 
-        $data->tanggal_mulai = $data->tanggal_rpd_mulai;
-        $data->tanggal_selesai = $data->tanggal_rpd_selesai;
-        // Mengonversi string tanggal menjadi objek DateTime
-        $tanggalMulai = new DateTime($mulai);
-        $tanggalSelesai = new DateTime($selesai);
-        $tanggalSekarang = new DateTime(); // Tanggal saat ini
-        $tanggalMulaiIndo = Carbon::parse($mulai)->translatedFormat('j F Y');
-        $tanggalSelesaiIndo = Carbon::parse($selesai)->translatedFormat('j F Y');
-        $data->tanggal_rpd_mulai = $tanggalMulaiIndo;
-        $data->tanggal_rpd_selesai = $tanggalSelesaiIndo;
-        // $test = [
-        //     'tanggal_mulai' => $tanggalMulai,
-        //     'tanggal_selesai' => $tanggalSelesai,
-        //     'tanggal_sekarang' => $tanggalSekarang,
-        // ]
-        // Mengecek apakah tanggal saat ini berada di antara tanggal mulai dan tanggal selesai
-        if ($tanggalSekarang >= $tanggalMulai && $tanggalSekarang <= $tanggalSelesai) {
-            // Jika tanggal saat ini berada di antara rentang tanggal
-            $data->is_open = true;
-        } else {
-            $data->is_open = false;
-        }
-
-        if ($data->count() > 0)
+            $data->tanggal_mulai = $data->tanggal_rpd_mulai;
+            $data->tanggal_selesai = $data->tanggal_rpd_selesai;
+            // Mengonversi string tanggal menjadi objek DateTime
+            $tanggalMulai = new DateTime($mulai);
+            $tanggalSelesai = new DateTime($selesai);
+            $tanggalSekarang = new DateTime(); // Tanggal saat ini
+            $tanggalMulaiIndo = Carbon::parse($mulai)->translatedFormat('j F Y');
+            $tanggalSelesaiIndo = Carbon::parse($selesai)->translatedFormat('j F Y');
+            $data->tanggal_rpd_mulai = $tanggalMulaiIndo;
+            $data->tanggal_rpd_selesai = $tanggalSelesaiIndo;
+            // $test = [
+            //     'tanggal_mulai' => $tanggalMulai,
+            //     'tanggal_selesai' => $tanggalSelesai,
+            //     'tanggal_sekarang' => $tanggalSekarang,
+            // ]
+            // Mengecek apakah tanggal saat ini berada di antara tanggal mulai dan tanggal selesai
+            if ($tanggalSekarang >= $tanggalMulai && $tanggalSekarang <= $tanggalSelesai) {
+                // Jika tanggal saat ini berada di antara rentang tanggal
+                $data->is_open = true;
+            } else {
+                $data->is_open = false;
+            }
             return response()->json([
                 'status' => true,
                 'message' => 'Data ditemukan',
                 'data' => $data,
             ], 200);
+        }
 
         return response()->json([
             'status' => false,
             'message' => 'Data tidak ditemukan',
             'data' => [],
-        ], 404);
+        ], 200);
     }
     public function store(Request $request)
     {
