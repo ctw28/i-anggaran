@@ -16,6 +16,14 @@ class PeriksaSesi extends Model
         'catatan',
     ];
 
+    public function periksaDokumen()
+    {
+        return $this->hasMany('App\Models\PeriksaDokumen');
+    }
+    public function periksaSesiTemplate()
+    {
+        return $this->hasOne('App\Models\PeriksaSesiTemplate');
+    }
     public function periksaUsul()
     {
         return $this->belongsTo('App\Models\PeriksaUsul');

@@ -28,7 +28,7 @@ class Kegiatan extends Model
 
     public function organisasi()
     {
-        return $this->belongsTo("App\Models\OrganisasiRpd");
+        return $this->belongsTo("App\Models\OrganisasiRpd", 'organisasi_rpd_id');
     }
     public function parent()
     {

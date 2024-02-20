@@ -189,7 +189,10 @@
                             <div class="row">
                                 <div class="col-4">
                                     <label class="form-label" for="penerima_nama">Penerima</label>
-                                    <input type="text" class="form-control" id="penerima_nama" />
+                                    <!-- <input type="text" class="form-control" id="" /> -->
+                                    <input autocomplete="off" oninput="cariPegawai(this)" data-urut="100000" onchange="setNIP(this)" class="form-control pegawai" list="datalistOptions100000" id="penerima_nama" data-nip="" placeholder="ketik nama / nip" value="" />
+                                    <datalist id="datalistOptions100000">
+                                    </datalist>
                                 </div>
                                 <div class="col-4">
                                     <label class="form-label" for="penerima_nomor">ID Penerima</label>
@@ -211,8 +214,9 @@
                             <div class="row">
                                 <div class="col-4">
                                     <label class="form-label" for="sptjk_nama">Nama Penanggung Jawab</label>
-                                    <input type="text" class="form-control" id="sptjk_nama" />
-
+                                    <input autocomplete="off" oninput="cariPegawai(this)" data-urut="10000" onchange="setNIP(this)" class="form-control pegawai" list="datalistOptions10000" id="sptjk_nama" data-nip="" placeholder="ketik nama / nip" value="" />
+                                    <datalist id="datalistOptions10000">
+                                    </datalist>
                                 </div>
                                 <div class="col-4">
                                     <label class="form-label" for="sptjk_nip">NIP Penanggung Jawab</label>
@@ -286,7 +290,7 @@
                                 <button type="button" class="nav-link btn btn-primary" onclick="showDataBelanjaBahan(this)" id="data-nominal" role="tab" data-bs-toggle="tab" data-bs-target="#show-data-nominal" aria-controls="navs-justified-home" aria-selected="true"><i class="tf-icons bx bx-home me-1"></i> Data</button>
                             </li>
                             <li class="nav-item" role="presentation">
-                                <button type="button" class="nav-link active" role="tab" data-bs-toggle="tab" data-bs-target="#show-daftar-nominal" aria-controls="navs-justified-home" aria-selected="true"><i class="tf-icons bx bx-grid me-1"></i> Daftar Belanja Bahan</button>
+                                <button type="button" class="nav-link active" role="tab" data-bs-toggle="tab" data-bs-target="#show-daftar-nominal" aria-controls="navs-justified-home" aria-selected="true"><i class="tf-icons bx bx-grid me-1"></i> Daftar Nominal</button>
                             </li>
                             <li class="nav-item" role="presentation">
                                 <button type="button" onclick="showDokumenPencairanNominal(this)" id="kuitansi" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#show-kuitansi" aria-controls="navs-justified-profile" aria-selected="false"><i class="tf-icons bx bx-money me-1"></i> kuitansi</button>
@@ -430,6 +434,26 @@
 <script>
     loadData()
 
+
+    function setNIP(e) {
+        console.log(e.value)
+        const row = e.parentNode.parentNode
+        var splitArray = e.value.split('-');
+
+        var nama = splitArray[0];
+        var nip = splitArray[3];
+        e.value = nama
+        // row.querySelector('#golongan').value = golongan
+        // row.querySelector('#sptjk_nama').innerText = nama
+        if (nip == undefined)
+            nip = ""
+        if (e.dataset.urut == "100000") {
+            row.querySelector('#penerima_nomor').value = nip
+        } else {
+
+            row.querySelector('#sptjk_nip').value = nip
+        }
+    }
     //cancel untuk input
     function cancel(button) {
         const row = button.parentNode.parentNode;
@@ -781,8 +805,17 @@
                     else
                         contents += `<td><button data-bs-toggle="modal" onclick="loadSesiData(${data.id})"  data-bs-target="#daftar-nominal-modals"  class="btn btn-dark"><i class="tf-icons bx bx-spreadsheet"></i> Pencairan</button></td>`
                     contents += `<td>${data.pencairan_nama}</td>
-                    <td><span class="badge bg-label-success">${data.kode_akun.kode}</span> - ${data.kode_akun.nama_akun} <br>
-                    <td>
+                    <td><span class="badge bg-label-success">${data.kode_akun.kode}</span> - ${data.kode_akun.nama_akun} <br>`
+                    if (data.usul != null) {
+                        if (data.usul.periksa_sesi.status == 0)
+                            contents += `<span class="badge bg-label-success">Terkirim ke SPI</span>`
+                        else if (data.usul.periksa_sesi.status == 1)
+                            contents += `<button data-id="${data.id}" class="btn btn-warning btn-sm" onclick="sendSPI(this)">Kirim ke SPI</button>`
+                    } else {
+                        contents += `<button data-id="${data.id}" class="btn btn-warning btn-sm" onclick="sendSPI(this)">Kirim ke SPI</button>`
+                    }
+
+                    contents += `<td>
                         <b>Waktu Pelaksanaan</b><br>
                         ${data.pelaksanaan.tanggal_mulai} - ${data.pelaksanaan.tanggal_selesai}
                         <br>
@@ -830,7 +863,7 @@
                     else
                         contents += `<td><button data-bs-toggle="modal" onclick="loadSesiData(${data.id})"  data-bs-target="#daftar-nominal-modals"  class="btn btn-dark"><i class="tf-icons bx bx-spreadsheet"></i> Pencairan</button></td>`
                     contents += `<td>${data.pencairan_nama}</td>
-                    <td><span class="badge bg-label-success">${data.kode_akun.kode}</span> - ${data.kode_akun.nama_akun} <br>
+                    <td><span class="badge bg-label-success">${data.kode_akun.kode}</span> - ${data.kode_akun.nama_akun}
                     <td>
                         <b>Waktu Pelaksanaan</b><br>
                         ${data.pelaksanaan.tanggal_mulai} - ${data.pelaksanaan.tanggal_selesai}
@@ -850,6 +883,28 @@
             });
     }
 
+
+    async function sendSPI(button) {
+
+        let dataSend = new FormData()
+        dataSend.append('dokumen_pencairan_sesi_id', button.dataset.id)
+        dataSend.append('is_finish', 0)
+        let url = '{{route("spi.daftar-usulan.store")}}'
+        let sendRequest = await fetch(url, {
+            headers: {
+                'Authorization': 'Bearer ' + localStorage.getItem('token')
+            },
+            method: "POST",
+            body: dataSend
+        })
+        response = await sendRequest.json()
+        if (response.status) {
+            toastr.options.closeButton = true;
+            toastr.options.positionClass = 'toast-top-center mt-3';
+            toastr.success('Sukses');
+            button.innerText = "Terkirim ke SPI"
+        }
+    }
     async function showDataBelanjaBahan(button) {
         let url = '{{route("pencairan-sesi.show",":id")}}'
         if (button.id == "data-nominal")
@@ -1741,6 +1796,7 @@
     }
 
     async function cariPegawai(input) {
+        // alert('Please')
         let dataSend = new FormData()
         if (input.value.length > 2) {
 
@@ -1751,14 +1807,16 @@
                 body: dataSend
             })
             response = await sendRequest.json()
-            const row = input.parentNode.parentNode
+            // console.log(response);
+            // const row = input
             let lists = ``
             // console.log(row);
             response.map((data) => {
                 lists += `<option value="${data.nama}-${data.pajak}-${data.gol}-${data.nip}">${data.nip} - ${data.nama}</option>`
             })
-            row.querySelector('#datalistOptions' + input.dataset.urut).innerHTML = ''
-            row.querySelector('#datalistOptions' + input.dataset.urut).innerHTML = lists
+            console.log(lists);
+            document.querySelector('#datalistOptions' + input.dataset.urut).innerHTML = ''
+            document.querySelector('#datalistOptions' + input.dataset.urut).innerHTML = lists
         }
 
     }

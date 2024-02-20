@@ -202,13 +202,14 @@
                         ${data.item} kegiatan ${response.data[0].kegiatan.kegiatan_nama} sesuai Kuitansi No ${response.data[0].kuitansi_nomor} tanggal ${response.data[0].tanggal_dokumen_indonesia}
                     </td>
                     <td class="text-center">
-                        xxxxx
+                         ${formatRupiah(data.nilai)}
                     </td>
                     <td class="text-center">
                         ${formatRupiah(data.pph + data.ppn)}
                     </td>
                     <td class="text-center">
-                        xxxxxx
+                    ${formatRupiah(data.nilai-(data.pph + data.ppn))}
+
                     </td>
                 </tr>
             `

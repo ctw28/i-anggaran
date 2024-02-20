@@ -9,14 +9,14 @@ class Verifikator extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'organisasi_jabatan_sesi_id',
+        'pegawai_id',
         'sebutan_jabatan',
         'is_aktif',
     ];
 
-    public function organisasiJabatanSesi()
+    public function pegawai()
     {
-        return $this->belongsTo('App\Models\OrganisasiJabatanSesi');
+        return $this->belongsTo('App\Models\Pegawai');
     }
     public function periksaSesi()
     {

@@ -15,6 +15,11 @@ use App\Http\Controllers\TahunAnggaranDipaController;
 use App\Http\Controllers\JabatanController;
 use App\Http\Controllers\NominalPengaturanController;
 use App\Http\Controllers\BelanjaBahanController;
+use App\Http\Controllers\SPI\PeriksaUsulController;
+use App\Http\Controllers\SPI\PeriksaSesiController;
+use App\Http\Controllers\SPI\PeriksaDaftarController;
+use App\Http\Controllers\SPI\PeriksaDokumenController;
+use App\Http\Controllers\SPI\PeriksaPimpinanController;
 
 /*
 |--------------------------------------------------------------------------
@@ -98,4 +103,27 @@ Route::group([
 
     Route::get('admin/tahun-anggaran-dipa/data', [TahunAnggaranDipaController::class, 'index'])->name('admin.tahun-anggaran-dipa.index');
     Route::post('admin/tahun-anggaran-dipa/simpan', [TahunAnggaranDipaController::class, 'store'])->name('admin.tahun-anggaran-dipa.store');
+
+    // SPI
+    //PERIKSA USUL
+    Route::post('spi/daftar-usulan', [PeriksaUsulController::class, 'index'])->name('spi.daftar-usulan');
+    Route::post('spi/daftar-usulan/simpan', [PeriksaUsulController::class, 'store'])->name('spi.daftar-usulan.store');
+
+    //PERIKSA SESI
+    Route::post('periksa-sesi/', [PeriksaSesiController::class, 'index'])->name('periksa.sesi.index');
+    Route::post('periksa-sesi/simpan', [PeriksaSesiController::class, 'store'])->name('periksa.sesi.store');
+    Route::post('periksa-sesi/{id}/update', [PeriksaSesiController::class, 'update'])->name('periksa.sesi.update');
+
+    //PERIKSA DAFTAR
+    Route::get('periksa-daftar/{id}/daftar/', [PeriksaDaftarController::class, 'index'])->name('periksa.daftar.index');
+    // Route::post('periksa-daftar/simpan', [PeriksaDaftarController::class, 'store'])->name('periksa.daftar.store');
+
+    //PERIKSA DOKUMEN
+    Route::post('periksa-daftar/simpan', [PeriksaDokumenController::class, 'store'])->name('periksa-dokumen.store');
+    Route::post('periksa-daftar/{id}/delete', [PeriksaDokumenController::class, 'delete'])->name('periksa-dokumen.delete');
+    Route::post('periksa-daftar/history', [PeriksaDokumenController::class, 'history'])->name('periksa-dokumen.story');
+
+    //PERIKSA PIMPINAN
+    Route::get('periksa-daftar/simpan', [PeriksaPimpinanController::class, 'index'])->name('periksa-pimpinan.index');
+    Route::post('periksa-pimpinan/store', [PeriksaPimpinanController::class, 'store'])->name('periksa-pimpinan.store');
 });

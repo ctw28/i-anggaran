@@ -27,8 +27,12 @@ class APIController extends Controller
     {
         $token = JWTAuth::getToken();
         $payload = (object)JWTAuth::getPayload($token)->toArray();
-        if ($payload->organisasi == "Admin SPI" || $payload->organisasi == "Administrator") {
-            $data = ['id', 0];
+        if ($payload->organisasi == "Admin SPI") {
+            $data = ['id' => 0, 'role' => 'spi'];
+        } else if ($payload->organisasi == "Administrator") {
+            $data = ['id' => 0, 'role' => 'admin'];
+        } else if ($payload->current_role == "verifikator_spi") {
+            $data = ['id' => $payload->organisasi->id, 'role' => 'verifikator_spi'];
         } else {
             $data = OrganisasiRpd::where([
                 'tahun_anggaran_id' => $request->tahun_anggaran_id,

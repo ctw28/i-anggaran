@@ -5,13 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class PeriksaDaftarTemplate extends Model
+class PeriksaTemplate extends Model
 {
     use HasFactory;
 
     protected $fillable = [
         'nama_template',
-        'is_aktif',
+        'is_default',
     ];
 
     public function periksaDaftar()

@@ -26,7 +26,7 @@ class PencairanSesiController extends Controller
     public function index($rencanaId)
     {
         // return $rencanaId;
-        $data = DokumenPencairanSesi::with(['pelaksanaanDasar', 'nominalPengaturan', 'kodeAkun', 'pelaksanaan' => function ($pelaksanaan) use ($rencanaId) {
+        $data = DokumenPencairanSesi::with(['pelaksanaanDasar', 'usul.periksaSesi', 'nominalPengaturan', 'kodeAkun', 'pelaksanaan' => function ($pelaksanaan) use ($rencanaId) {
             $pelaksanaan->where('rencana_id', $rencanaId);
         }])
             ->whereHas('pelaksanaan', function ($pelaksanaan) use ($rencanaId) {
@@ -96,7 +96,6 @@ class PencairanSesiController extends Controller
                 'penerima_nama' => 'required|string',
                 'penerima_nomor' => 'nullable|string',
                 'penerima_jabatan' => 'required|string',
-                'kuitansi_nomor' => 'required|string',
                 'sptjb_nomor' => 'required|string',
                 'sptjk_nama' => 'required|string',
                 'sptjk_nip' => 'required|string',
@@ -133,9 +132,9 @@ class PencairanSesiController extends Controller
                     'pencairan_nama' => $request->pencairan_nama,
                     'tanggal_lunas' => $request->tanggal_dokumen,
                     'penerima_nama' => $request->penerima_nama,
-                    'penerima_nomor' => $request->penerima_nomor,
+                    'penerima_nomor' => ($request->penerima_nomor) ? $request->penerima_nomor : null,
                     'penerima_jabatan' => $request->penerima_jabatan,
-                    'kuitansi_nomor' => $request->kuitansi_nomor,
+                    'kuitansi_nomor' => ($request->kuitansi_nomor) ? $request->kuitansi_nomor : null,
                     'sptjb_nomor' => $request->sptjb_nomor,
                     'sptjk_nama' => $request->sptjk_nama,
                     'sptjk_nip' => $request->sptjk_nip,

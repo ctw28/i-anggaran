@@ -13,7 +13,8 @@ class PeriksaPimpinan extends Model
         'periksa_sesi_id',
         'validasi_sekretaris',
         'validasi_ketua',
-        'catatan',
+        'catatan_sekretaris',
+        'catatan_ketua',
     ];
 
     public function periksaSesi()

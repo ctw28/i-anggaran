@@ -18,4 +18,8 @@ class PeriksaKategori extends Model
     {
         return $this->hasMany('App\Models\PeriksaDaftar');
     }
+    public function periksaKategoriList()
+    {
+        return $this->hasMany('App\Models\PeriksaKategoriList');
+    }
 }

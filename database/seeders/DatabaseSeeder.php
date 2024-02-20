@@ -23,18 +23,20 @@ class DatabaseSeeder extends Seeder
         $pascasarjana = "Pascasarjana";
 
         DB::table('roles')->insert([
-            ["role_nama" => "admin", "role_keterangan" => "atur tahun anggaran"],
-            ["role_nama" => "user_organisasi", "role_keterangan" => "User yang akan buat RPD dan dokumen pencairan"],
-            ["role_nama" => "spi", "role_keterangan" => "Akun SPI"],
-            ["role_nama" => "keuangan", "role_keterangan" => "Akun Keuangan"],
-            ["role_nama" => "pimpinan", "role_keterangan" => "Akun Pimpinan"],
-            ["role_nama" => "ppk", "role_keterangan" => "Akun PPK"],
-            ["role_nama" => "bendahara", "role_keterangan" => "Akun Bendahar"],
+            ["role_nama" => "admin", "role_keterangan" => "atur tahun anggaran"], //1
+            ["role_nama" => "user_organisasi", "role_keterangan" => "User yang akan buat RPD dan dokumen pencairan"], //2
+            ["role_nama" => "spi_pimpinan", "role_keterangan" => "Akun Pimpinan SPI"], //3
+            ["role_nama" => "verifikator_spi", "role_keterangan" => "Akun Verifikator SPI"], //4
+            ["role_nama" => "keuangan", "role_keterangan" => "Akun Keuangan"], //5
+            ["role_nama" => "pimpinan", "role_keterangan" => "Akun Pimpinan"], //6
+            ["role_nama" => "ppk", "role_keterangan" => "Akun PPK"], //7
+            ["role_nama" => "bendahara", "role_keterangan" => "Akun Bendahara"], //8
         ]);
         DB::table('kode_akuns')->insert([
             ["kode" => "524114", "nama_akun" => "Belanja Perjalanan Dinas Paket Meeting Dalam Kota", 'keterangan' => '', 'jenis_kuitansi' => 1, 'is_pajak' => 0],
             ["kode" => "521211", "nama_akun" => "Belanja Bahan", 'keterangan' => '', 'jenis_kuitansi' => 2, 'is_pajak' => 1],
             ["kode" => "521213", "nama_akun" => "Belanja Honor Output Kegiatan", 'keterangan' => '', 'jenis_kuitansi' => 1, 'is_pajak' => 1],
+            ["kode" => "524111", "nama_akun" => "Biaya Perjalanan Biasa", 'keterangan' => '', 'jenis_kuitansi' => 3, 'is_pajak' => 0],
         ]);
         DB::table('users')->insert([
             [
@@ -100,13 +102,13 @@ class DatabaseSeeder extends Seeder
         ]);
         DB::table('user_roles')->insert([
             ["user_id" => 1, "role_id" => 1, "is_default" => true], //role administrator
-            ["user_id" => 2, "role_id" => 7, "is_default" => true], //role bendahara
-            ["user_id" => 3, "role_id" => 6, "is_default" => true], //role ppk
-            ["user_id" => 4, "role_id" => 6, "is_default" => true], //role ppk
+            ["user_id" => 2, "role_id" => 8, "is_default" => true], //role bendahara
+            ["user_id" => 3, "role_id" => 7, "is_default" => true], //role ppk
+            ["user_id" => 4, "role_id" => 7, "is_default" => true], //role ppk
             ["user_id" => 5, "role_id" => 3, "is_default" => true], //role spi
             ["user_id" => 6, "role_id" => 3, "is_default" => true], //role spi
-            ["user_id" => 7, "role_id" => 3, "is_default" => true], //role spi
-            ["user_id" => 8, "role_id" => 3, "is_default" => true], //role spi
+            ["user_id" => 7, "role_id" => 4, "is_default" => true], //role spi
+            ["user_id" => 8, "role_id" => 4, "is_default" => true], //role spi
             ["user_id" => 9, "role_id" => 2, "is_default" => true], //role user_organisasi
             ["user_id" => 9, "role_id" => 1, "is_default" => false], //role user_organisasi
             ["user_id" => 10, "role_id" => 2, "is_default" => true], //role user_organisasi
@@ -938,7 +940,7 @@ class DatabaseSeeder extends Seeder
                 "tahun_anggaran_id" => 1,
                 "organisasi_id" => 37,
                 "pegawai_id" => 6, //lita
-                "organisasi_jabatan_id" => 13, //jabatan verifkator spi
+                "organisasi_jabatan_id" => 16, //jabatan verifkator spi
                 "jabatan_parent_sesi" => 5,
                 "nama_pejabat" => "Arlita",
                 "jabatan_sesi_nama" => "Verifikator Satuan Pengawas Internal",
@@ -951,7 +953,7 @@ class DatabaseSeeder extends Seeder
                 "tahun_anggaran_id" => 1,
                 "organisasi_id" => 37,
                 "pegawai_id" => 7, //arif
-                "organisasi_jabatan_id" => 13, //jabatan verifkator spi
+                "organisasi_jabatan_id" => 16, //jabatan verifkator spi
                 "jabatan_parent_sesi" => 5,
                 "nama_pejabat" => "Arif",
                 "jabatan_sesi_nama" => "Verifikator Satuan Pengawas Internal",

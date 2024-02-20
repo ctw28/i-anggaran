@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePeriksaDaftarTemplatesTable extends Migration
+class CreatePeriksaTemplatesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,10 @@ class CreatePeriksaDaftarTemplatesTable extends Migration
      */
     public function up()
     {
-        Schema::create('periksa_daftar_templates', function (Blueprint $table) {
+        Schema::create('periksa_templates', function (Blueprint $table) {
             $table->id();
             $table->string('nama_template');
-            $table->boolean('is_aktif')->default(true);
+            $table->boolean('is_default')->default(true);
 
             $table->timestamps();
         });
@@ -29,6 +29,6 @@ class CreatePeriksaDaftarTemplatesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('periksa_daftar_templates');
+        Schema::dropIfExists('periksa_templates');
     }
 }

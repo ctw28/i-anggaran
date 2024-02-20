@@ -29,4 +29,12 @@ class Pegawai extends Model
     {
         return $this->belongsTo('App\Models\pegawaiJenis');
     }
+    public function organisasiJabatanSesi()
+    {
+        return $this->hasMany('App\Models\OrganisasiJabatanSesi');
+    }
+    public function verifikator()
+    {
+        return $this->hasOne('App\Models\Verifikator');
+    }
 }

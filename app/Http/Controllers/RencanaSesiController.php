@@ -52,23 +52,4 @@ class RencanaSesiController extends Controller
             ], 500);
         }
     }
-
-    public function delete($kegiatanId)
-    {
-        // return $kegiatanId;
-        $data = Kegiatan::find($kegiatanId);
-        if ($data->count() > 0) {
-            $data->delete();
-            return response()->json([
-                'status' => true,
-                'message' => 'Data ditemukan',
-                'data' => $data,
-            ], 200);
-        }
-        return response()->json([
-            'status' => false,
-            'message' => 'Data tidak ditemukan',
-            'data' => [],
-        ], 404);
-    }
 }

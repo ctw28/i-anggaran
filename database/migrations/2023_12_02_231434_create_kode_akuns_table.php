@@ -18,7 +18,7 @@ class CreateKodeAkunsTable extends Migration
             $table->string('kode');
             $table->string('nama_akun');
             $table->string('keterangan')->nullable();
-            $table->enum('jenis_kuitansi', [1, 2]);
+            $table->enum('jenis_kuitansi', [1, 2, 3]);
             $table->boolean('is_pajak')->default(false);
             $table->timestamps();
         });

@@ -10,7 +10,7 @@ class PeriksaDokumen extends Model
     use HasFactory;
     protected $fillable = [
         'periksa_sesi_id',
-        'periksa_daftar_id',
+        'periksa_kategori_list_id',
         'is_valid',
         'catatan',
     ];
@@ -19,8 +19,8 @@ class PeriksaDokumen extends Model
     {
         return $this->belongsTo('App\Models\PeriksaSesi');
     }
-    public function periksaDaftar()
+    public function periksakategoriList()
     {
-        return $this->belongsTo('App\Models\PeriksaDaftar');
+        return $this->belongsTo('App\Models\PeriksakategoriList');
     }
 }

@@ -283,12 +283,12 @@
                     document.querySelector("#menu-user-organisasi").style.display = "block";
                 if (decodedToken.current_role === "admin")
                     document.querySelector("#menu-admin").style.display = "block";
-                if (decodedToken.current_role === "spi")
+                if (decodedToken.current_role === "verifikator_spi")
                     document.querySelector("#menu-spi").style.display = "block";
                 let roles = ""
                 decodedToken.roles.map(function(role) {
                     if (decodedToken.roles.length == 1) {
-                        if (decodedToken.current_role === "user_organisasi")
+                        if (decodedToken.current_role === "user_organisasi" || decodedToken.current_role === "verifikator_spi")
                             roles += `<option>${role.organisasi.nama_organisasi}</option>`
                         else
                             roles += `<option>${role.organisasi}</option>`

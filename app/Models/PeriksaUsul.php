@@ -17,7 +17,7 @@ class PeriksaUsul extends Model
 
     public function pencairanSesi()
     {
-        return $this->belongsTo('App\Models\DokumenPencairanSesi');
+        return $this->belongsTo('App\Models\DokumenPencairanSesi', 'dokumen_pencairan_sesi_id');
     }
     public function periksaSesi()
     {

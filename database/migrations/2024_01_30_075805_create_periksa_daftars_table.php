@@ -15,10 +15,10 @@ class CreatePeriksaDaftarsTable extends Migration
     {
         Schema::create('periksa_daftars', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('periksa_daftar_template_id');
-            $table->foreign('periksa_daftar_template_id')->references('id')->on('periksa_daftar_templates');
-            $table->unsignedBigInteger('periksa_list_id');
-            $table->foreign('periksa_list_id')->references('id')->on('periksa_lists');
+            $table->unsignedBigInteger('periksa_template_id');
+            $table->foreign('periksa_template_id')->references('id')->on('periksa_templates');
+            $table->unsignedBigInteger('periksa_kategori_id');
+            $table->foreign('periksa_kategori_id')->references('id')->on('periksa_kategoris');
 
             $table->timestamps();
         });

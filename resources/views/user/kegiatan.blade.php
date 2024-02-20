@@ -247,7 +247,6 @@
                 formData.append('organisasi_rpd_id', JSON.parse(localStorage.getItem('tahun_anggaran')).organisasi_rpd);
                 formData.append(key, rowData[key]);
                 formData.append('urutan', i + 1);
-
             }
 
             sendDataToAPI(formData, rows[i]);

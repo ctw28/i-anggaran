@@ -15,8 +15,8 @@ class CreateVerifikatorsTable extends Migration
     {
         Schema::create('verifikators', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('organisasi_jabatan_sesi_id');
-            $table->foreign('organisasi_jabatan_sesi_id')->references('id')->on('organisasi_jabatan_sesis')->onDelete('cascade');;
+            $table->unsignedBigInteger('pegawai_id');
+            $table->foreign('pegawai_id')->references('id')->on('pegawais');
             $table->string('sebutan_jabatan')->nullable();
             $table->boolean('is_aktif')->default(true);
             $table->timestamps();

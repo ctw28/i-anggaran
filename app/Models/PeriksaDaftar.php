@@ -10,16 +10,15 @@ class PeriksaDaftar extends Model
     use HasFactory;
 
     protected $fillable = [
-        'periksa_daftar_template_id',
-        'periksa_list_id',
+        'periksa_template_id',
+        'periksa_kategori_id',
     ];
-
     public function periksaTemplate()
     {
         return $this->belongsTo('App\Models\PeriksaTemplate');
     }
-    public function periksaList()
+    public function periksaKategori()
     {
-        return $this->belongsTo('App\Models\PeriksaList');
+        return $this->belongsTo('App\Models\PeriksaKategori');
     }
 }

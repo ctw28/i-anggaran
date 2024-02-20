@@ -51,11 +51,14 @@ class AuthController extends Controller
                     if ($namaRole === "user_organisasi") {
                         $role[$index]['organisasi']['id'] = $userRole->userOrganisasi->organisasi->id;
                         $role[$index]['organisasi']['nama_organisasi'] = $userRole->userOrganisasi->organisasi->organisasi_singkatan;
+                    } else if ($namaRole == "verifikator_spi") {
+                        $role[$index]['organisasi']['id'] = 37;
+                        $role[$index]['organisasi']['nama_organisasi'] = "Verifikator SPI";
                     } else {
                         // $organisasi = 
                         if ($namaRole == "admin")
                             $organisasi = "Administrator";
-                        if ($namaRole == "spi")
+                        if ($namaRole == "spi_pimpinan")
                             $organisasi = "Admin SPI";
                         if ($namaRole == "keuangan")
                             $organisasi = "Admin Keuangan";
@@ -70,10 +73,15 @@ class AuthController extends Controller
                     $organisasi['nama_organisasi'] = $user->userRole->where('is_default', true)->first()->userOrganisasi->organisasi->organisasi_singkatan;
                     $namaLengkap = $user->userPegawai->pegawai->dataDiri->nama_lengkap;
                     $nomorInduk = $user->userPegawai->pegawai->pegawai_nomor_induk;
+                } else if ($defaultRole == "verifikator_spi") {
+                    $organisasi['id'] = $user->userPegawai->pegawai->verifikator->id;
+                    $organisasi['nama_organisasi'] = "Verifikator SPI";
+                    $namaLengkap = $user->userPegawai->pegawai->dataDiri->nama_lengkap;
+                    $nomorInduk = $user->userPegawai->pegawai->pegawai_nomor_induk;
                 } else {
                     if ($defaultRole == "admin")
                         $organisasi = "Administrator";
-                    if ($defaultRole == "spi")
+                    if ($defaultRole == "spi_pimpinan")
                         $organisasi = "Admin SPI";
                     if ($defaultRole == "keuangan")
                         $organisasi = "Admin Keuangan";
@@ -121,11 +129,14 @@ class AuthController extends Controller
                     // $role[$index]['organisasi'] = $userRole->userOrganisasi->organisasi->organisasi_singkatan;
                     $role[$index]['organisasi']['id'] = $userRole->userOrganisasi->organisasi->id;
                     $role[$index]['organisasi']['nama_organisasi'] = $userRole->userOrganisasi->organisasi->organisasi_singkatan;
+                } else if ($namaRole == "verifikator_spi") {
+                    $role[$index]['organisasi']['id'] = 37;
+                    $role[$index]['organisasi']['nama_organisasi'] = "Satuan Pengawas Internal";
                 } else {
                     // $organisasi = 
                     if ($namaRole == "admin")
                         $organisasi = "Administrator";
-                    if ($namaRole == "spi")
+                    if ($namaRole == "spi_pimpinan")
                         $organisasi = "Admin SPI";
                     if ($namaRole == "keuangan")
                         $organisasi = "Admin Keuangan";
@@ -145,10 +156,15 @@ class AuthController extends Controller
                 }
                 $namaLengkap = $user->userPegawai->pegawai->dataDiri->nama_lengkap;
                 $nomorInduk = $user->userPegawai->pegawai->pegawai_nomor_induk;
+            } else if ($switchRole == "verifikator_spi") {
+                $organisasi['id'] = 37;
+                $organisasi['nama_organisasi'] = "Satuan Pengawas Internal";
+                $namaLengkap = $user->userPegawai->pegawai->dataDiri->nama_lengkap;
+                $nomorInduk = $user->userPegawai->pegawai->pegawai_nomor_induk;
             } else {
                 if ($switchRole == "admin")
                     $organisasi = "Administrator";
-                if ($switchRole == "spi")
+                if ($switchRole == "spi_pimpinan")
                     $organisasi = "Admin SPI";
                 if ($switchRole == "keuangan")
                     $organisasi = "Admin Keuangan";

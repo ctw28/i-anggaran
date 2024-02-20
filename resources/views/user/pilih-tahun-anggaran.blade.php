@@ -150,13 +150,29 @@
                     .then(data => {
                         console.log(data.data);
                         // return
-                        localStorage.setItem('tahun_anggaran', JSON.stringify({
-                            'id': selectElement.value,
-                            'tahun': selectElement.options[selectElement.selectedIndex].dataset.tahun,
-                            'organisasi_rpd': data.data.id
-                        }));
+                        if (data.data.role == 'admin') {
+                            localStorage.setItem('tahun_anggaran', JSON.stringify({
+                                'id': selectElement.value,
+                                'tahun': selectElement.options[selectElement.selectedIndex].dataset.tahun,
+                                'organisasi_rpd': data.data.id
+                            }));
 
-                        window.location.href = '{{route("user.dashboard")}}';
+                            return window.location.href = '{{route("admin.dashboard")}}'
+                        } else if (data.data.role == 'verifikator_spi') {
+                            localStorage.setItem('tahun_anggaran', JSON.stringify({
+                                'id': selectElement.value,
+                                'tahun': selectElement.options[selectElement.selectedIndex].dataset.tahun,
+                                'verifikator_id': data.data.id
+                            }));
+                            return window.location.href = '{{route("spi.dashboard")}}'
+                        } else {
+                            localStorage.setItem('tahun_anggaran', JSON.stringify({
+                                'id': selectElement.value,
+                                'tahun': selectElement.options[selectElement.selectedIndex].dataset.tahun,
+                                'organisasi_rpd': data.data.id
+                            }));
+                            return window.location.href = '{{route("user.dashboard")}}'
+                        }
 
                     })
                     .catch(error => {

@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Web\User\WebViewController;
 use App\Http\Controllers\Web\Admin\AdminViewController;
+use App\Http\Controllers\Web\SPI\SpiWebViewController;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,7 +30,13 @@ Route::get('/kegiatan/{id}/rencana/{id2}/pencairan', [WebViewController::class, 
 
 
 //HALAMAN ADMIN
+Route::get('admin/dahsboard', [AdminViewController::class, 'dashboard'])->name('admin.dashboard');
 Route::get('admin/tahun-anggaran', [AdminViewController::class, 'tahunAnggaran'])->name('admin.tahun.anggaran');
 Route::get('admin/RPD', [AdminViewController::class, 'rpd'])->name('admin.rpd');
 
 Route::get('sesi/{id}/cetak/{kategori}', [WebViewController::class, 'cetak'])->name('cetak');
+
+// HALAMAN SPI
+Route::get('/spi/dashboard', [SpiWebViewController::class, 'dashboard'])->name('spi.dashboard');
+Route::get('/spi/usulan', [SpiWebViewController::class, 'usulan'])->name('spi.usulan');
+Route::get('/spi/periksa-dokumen', [SpiWebViewController::class, 'periksaDokumen'])->name('spi.periksa-dokumen');
