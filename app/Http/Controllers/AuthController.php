@@ -48,7 +48,10 @@ class AuthController extends Controller
                     $namaRole = $userRole->role->role_nama;
                     $role[$index]['role'] = $namaRole;
                     $role[$index]['is_default'] = $userRole->is_default;
-                    if ($namaRole === "user_organisasi") {
+                    if ($namaRole === "admin_organisasi") {
+                        $role[$index]['organisasi']['id'] = $userRole->adminOrganisasi->organisasi->id;
+                        $role[$index]['organisasi']['nama_organisasi'] = $userRole->adminOrganisasi->organisasi->organisasi_singkatan;
+                    } else if ($namaRole === "user_organisasi") {
                         $role[$index]['organisasi']['id'] = $userRole->userOrganisasi->organisasi->id;
                         $role[$index]['organisasi']['nama_organisasi'] = $userRole->userOrganisasi->organisasi->organisasi_singkatan;
                     } else if ($namaRole == "verifikator_spi") {
@@ -68,7 +71,12 @@ class AuthController extends Controller
                 $organisasi = []; // Inisialisasi $organisasi sebagai array kosong
 
                 $defaultRole = $user->userRole->where('is_default', true)->first()->role->role_nama;
-                if ($defaultRole === "user_organisasi") {
+                if ($defaultRole === "admin_organisasi") {
+                    $organisasi['id'] = $user->userRole->where('is_default', true)->first()->adminOrganisasi->organisasi->id;
+                    $organisasi['nama_organisasi'] = $user->userRole->where('is_default', true)->first()->adminOrganisasi->organisasi->organisasi_singkatan;
+                    $namaLengkap = "Admin " . $user->userRole->where('is_default', true)->first()->adminOrganisasi->organisasi->organisasi_singkatan;
+                    $nomorInduk = "";
+                } else if ($defaultRole === "user_organisasi") {
                     $organisasi['id'] = $user->userRole->where('is_default', true)->first()->userOrganisasi->organisasi->id;
                     $organisasi['nama_organisasi'] = $user->userRole->where('is_default', true)->first()->userOrganisasi->organisasi->organisasi_singkatan;
                     $namaLengkap = $user->userPegawai->pegawai->dataDiri->nama_lengkap;

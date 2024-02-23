@@ -31,6 +31,8 @@ class DatabaseSeeder extends Seeder
             ["role_nama" => "pimpinan", "role_keterangan" => "Akun Pimpinan"], //6
             ["role_nama" => "ppk", "role_keterangan" => "Akun PPK"], //7
             ["role_nama" => "bendahara", "role_keterangan" => "Akun Bendahara"], //8
+            ["role_nama" => "admin_organisasi", "role_keterangan" => "Admin untuk setiap organisasi"], //9
+            ["role_nama" => "user_kegiatan", "role_keterangan" => "User yang ditunjuk untuk buat pencairan"], //9
         ]);
         DB::table('kode_akuns')->insert([
             ["kode" => "524114", "nama_akun" => "Belanja Perjalanan Dinas Paket Meeting Dalam Kota", 'keterangan' => '', 'jenis_kuitansi' => 1, 'is_pajak' => 0],
@@ -99,6 +101,26 @@ class DatabaseSeeder extends Seeder
                 'email' => 'febi@mail.com',
                 'password' => bcrypt('1234qwer'),
             ],
+            [
+                'username' => 'wr1',
+                'email' => 'wr1@mail.com',
+                'password' => bcrypt('1234qwer'),
+            ],
+            [
+                'username' => 'wr2',
+                'email' => 'wr2@mail.com',
+                'password' => bcrypt('1234qwer'),
+            ],
+            [
+                'username' => 'wr3',
+                'email' => 'wr3@mail.com',
+                'password' => bcrypt('1234qwer'),
+            ],
+            [
+                'username' => 'pasca',
+                'email' => 'pasca@mail.com',
+                'password' => bcrypt('1234qwer'),
+            ],
         ]);
         DB::table('user_roles')->insert([
             ["user_id" => 1, "role_id" => 1, "is_default" => true], //role administrator
@@ -109,12 +131,16 @@ class DatabaseSeeder extends Seeder
             ["user_id" => 6, "role_id" => 3, "is_default" => true], //role spi
             ["user_id" => 7, "role_id" => 4, "is_default" => true], //role spi
             ["user_id" => 8, "role_id" => 4, "is_default" => true], //role spi
-            ["user_id" => 9, "role_id" => 2, "is_default" => true], //role user_organisasi
+            ["user_id" => 9, "role_id" => 10, "is_default" => true], //role user_organisasi
             ["user_id" => 9, "role_id" => 1, "is_default" => false], //role user_organisasi
-            ["user_id" => 10, "role_id" => 2, "is_default" => true], //role user_organisasi
-            ["user_id" => 11, "role_id" => 2, "is_default" => true], //role user_organisasi
+            ["user_id" => 10, "role_id" => 10, "is_default" => true], //role user_organisasi
+            ["user_id" => 11, "role_id" => 10, "is_default" => true], //role user_organisasi
             ["user_id" => 11, "role_id" => 1, "is_default" => false], //role user_organisasi
-            ["user_id" => 12, "role_id" => 2, "is_default" => true], //role user_organisasi
+            ["user_id" => 12, "role_id" => 9, "is_default" => true], //role user_organisasi
+            ["user_id" => 13, "role_id" => 9, "is_default" => true], //role user_organisasi
+            ["user_id" => 14, "role_id" => 9, "is_default" => true], //role user_organisasi
+            ["user_id" => 15, "role_id" => 9, "is_default" => true], //role user_organisasi
+            ["user_id" => 16, "role_id" => 9, "is_default" => true], //role user_organisasi
         ]);
         DB::table('satkers')->insert([
             [
@@ -178,6 +204,13 @@ class DatabaseSeeder extends Seeder
                 "grup_singkatan" => "UK Lembaga",
                 'pimpinan_sebutan' => "Ketua",
                 'grup_flag' => "uklembaga",
+                'grup_keterangan' => "-"
+            ],
+            [
+                "grup_nama" => "Wakil Rektor Bidang Akademik dan ",
+                "grup_singkatan" => "Wakil Rektor",
+                'pimpinan_sebutan' => "Wakil Rektor",
+                'grup_flag' => "warek",
                 'grup_keterangan' => "-"
             ],
 
@@ -470,6 +503,27 @@ class DatabaseSeeder extends Seeder
                 'organisasi_parent_id' => 1,
                 "organisasi_keterangan" => "",
             ],
+            [
+                "organisasi_nama" => "Wakil Rektor I",
+                "organisasi_singkatan" => "Warek 1",
+                "organisasi_grup_id" => 9,
+                'organisasi_parent_id' => 1,
+                "organisasi_keterangan" => "",
+            ],
+            [
+                "organisasi_nama" => "Wakil Rektor 2",
+                "organisasi_singkatan" => "Warek 2",
+                "organisasi_grup_id" => 9,
+                'organisasi_parent_id' => 1,
+                "organisasi_keterangan" => "",
+            ],
+            [
+                "organisasi_nama" => "Wakil Rektor 3",
+                "organisasi_singkatan" => "Warek 3",
+                "organisasi_grup_id" => 9,
+                'organisasi_parent_id' => 1,
+                "organisasi_keterangan" => "",
+            ],
 
         ]);
         DB::table('organisasi_jabatans')->insert([
@@ -597,13 +651,18 @@ class DatabaseSeeder extends Seeder
             ["user_role_id" => 9, "organisasi_id" => 33, "is_aktif" => true], //tipd
             ["user_role_id" => 11, "organisasi_id" => 40, "is_aktif" => true], //akma
             ["user_role_id" => 12, "organisasi_id" => 38, "is_aktif" => true], //akma
-            ["user_role_id" => 14, "organisasi_id" => 6, "is_aktif" => true], //febi
             ["user_role_id" => 6, "organisasi_id" => 37, "is_aktif" => true], //febi
+        ]);
+        DB::table('admin_organisasis')->insert([
+            ["user_role_id" => 14, "organisasi_id" => 6, "sebutan" => ""], //febi
+            ["user_role_id" => 15, "organisasi_id" => 42, "sebutan" => ""], //wr1
+            ["user_role_id" => 16, "organisasi_id" => 43, "sebutan" => ""], //wr2
+            ["user_role_id" => 17, "organisasi_id" => 44, "sebutan" => ""], //wr3
+            ["user_role_id" => 18, "organisasi_id" => 5, "sebutan" => ""], //pasca
         ]);
         DB::table('tahun_anggarans')->insert([
             ["satker_id" => 1, "tahun" => 2024, "sebutan" => "Tahun Anggaran 2024"]
         ]);
-
         DB::table('organisasi_rpds')->insert([
             ["tahun_anggaran_id" => 1, "organisasi_id" => 2],
             ["tahun_anggaran_id" => 1, "organisasi_id" => 3],
@@ -620,6 +679,9 @@ class DatabaseSeeder extends Seeder
             ["tahun_anggaran_id" => 1, "organisasi_id" => 38],
             ["tahun_anggaran_id" => 1, "organisasi_id" => 39],
             ["tahun_anggaran_id" => 1, "organisasi_id" => 40],
+            ["tahun_anggaran_id" => 1, "organisasi_id" => 42],
+            ["tahun_anggaran_id" => 1, "organisasi_id" => 43],
+            ["tahun_anggaran_id" => 1, "organisasi_id" => 44],
         ]);
         DB::table('pegawai_kategoris')->insert([
             ['pegawai_kategori_nama' => 'Pegawai Negeri Sipil', "singkatan" => "PNS", 'is_asn' => true, 'sebutan_nomor_pegawai' => 'NIP'],

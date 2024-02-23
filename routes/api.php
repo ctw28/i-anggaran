@@ -20,6 +20,7 @@ use App\Http\Controllers\SPI\PeriksaSesiController;
 use App\Http\Controllers\SPI\PeriksaDaftarController;
 use App\Http\Controllers\SPI\PeriksaDokumenController;
 use App\Http\Controllers\SPI\PeriksaPimpinanController;
+use App\Http\Controllers\PerjadinController;
 
 /*
 |--------------------------------------------------------------------------
@@ -124,6 +125,9 @@ Route::group([
     Route::post('periksa-daftar/history', [PeriksaDokumenController::class, 'history'])->name('periksa-dokumen.story');
 
     //PERIKSA PIMPINAN
-    Route::get('periksa-daftar/simpan', [PeriksaPimpinanController::class, 'index'])->name('periksa-pimpinan.index');
-    Route::post('periksa-pimpinan/store', [PeriksaPimpinanController::class, 'store'])->name('periksa-pimpinan.store');
+    Route::get('periksa-pimpinan', [PeriksaPimpinanController::class, 'index'])->name('periksa-pimpinan.index');
+    Route::post('periksa-pimpinan/simpan', [PeriksaPimpinanController::class, 'store'])->name('periksa-pimpinan.store');
+
+    //PERJADIN
+    Route::post('perjadin/simpan', [PerjadinController::class, 'store'])->name('perjadin.store');
 });

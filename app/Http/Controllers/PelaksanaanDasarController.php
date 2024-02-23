@@ -57,7 +57,7 @@ class PelaksanaanDasarController extends Controller
                 'kegiatan_id' => 'required|integer',
                 'tanggal' => 'required|date',
                 'tentang' => 'required|string',
-                'file' => 'required|file|mimes:jpeg,png,pdf|max:2048',
+                'file' => 'required|file|mimes:jpeg,png,pdf|max:20480',
             ]);
 
             if ($validator->fails()) {

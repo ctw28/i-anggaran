@@ -23,8 +23,12 @@ class UserRole extends Model
     {
         return $this->belongsTo('App\Models\Role');
     }
+    public function adminOrganisasi()
+    {
+        return $this->hasOne('App\Models\AdminOrganisasi');
+    }
     public function userOrganisasi()
     {
-        return $this->hasOne('App\Models\UserOrganisasi');
+        return $this->hasOne('App\Models\userOrganisasi');
     }
 }

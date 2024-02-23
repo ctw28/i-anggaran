@@ -131,134 +131,23 @@
             <div class="modal-body">
                 <div class="row">
                     <!-- Basic Layout -->
-                    <div class="col-6">
-                        <h5 class="mb-3 section-title">Waktu dan Dasar Pelaksanaan Kegiatan</h5>
-                        <div class="mb-3">
-                            <div class="row">
-                                <div class="col-3">
-                                    <label class="form-label" for="tanggal_mulai">Tanggal Mulai</label>
-                                    <input type="date" class="form-control" id="tanggal_mulai" />
-
-                                </div>
-                                <div class="col-3">
-                                    <label class="form-label" for="tanggal_selesai">Tanggal Selesai</label>
-                                    <input type="date" class="form-control" id="tanggal_selesai" />
-                                </div>
-                            </div>
+                    <div class="col-12 mb-3">
+                        <h5 class="mb-3 section-title">Pilih Jenis Formulir</h5>
+                        <div class="form-check form-check-inline mt-3">
+                            <input onclick="chooseForm(this)" class="form-check-input" type="radio" name="inlineRadioOptions" id="form-default" value="1" checked>
+                            <label class="form-check-label" for="form-default">Default</label>
                         </div>
-                        <div class="mb-3">
-                            <label class="form-label" for="pelaksanaan_dasar">Dasar Pelaksanaan</label>
-                            <select class="form-control" id="pelaksanaan_dasar">
-                                <option>Pilih Dasar Pelaksanaan (dari isian sebelumnya)</option>
-                            </select>
-                        </div>
-                        <h5 class="mb-3 mt-3 section-title">Data Pencairan</h5>
-                        <div class="mb-3">
-                            <label class="form-label" for="akun">Akun yang akan dibuat dokumen pencairan</label>
-                            <select class="form-control" id="akun">
-                                <option>Pilih Akun</option>
-                            </select>
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label" for="pencairan_nama">Nama Pencairan</label>
-                            <textarea id="pencairan_nama" class="form-control"></textarea>
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label" for="tanggal_dokumen">Tanggal Dokumen</label>
-                            <input type="date" class="form-control" id="tanggal_dokumen" />
-                        </div>
-
-                        <h5 class="mb-3 section-title">Kuitansi, SPTJB</h5>
-                        <div class="mb-3">
-                            <div class="row">
-                                <div class="col-4">
-                                    <label class="form-label" for="sptjb_nomor">No. SPTJB</label>
-                                    <input type="text" class="form-control" id="sptjb_nomor" />
-                                </div>
-                                <div class="col-4">
-                                    <label class="form-label" for="kuitansi_nomor">No. Kuitansi</label>
-                                    <input type="text" class="form-control" id="kuitansi_nomor" />
-                                </div>
-                            </div>
+                        <div class="form-check form-check-inline">
+                            <input onclick="chooseForm(this)" class="form-check-input" type="radio" name="inlineRadioOptions" id="form-perjadin" value="0">
+                            <label class="form-check-label" for="form-perjadin">Perjadin</label>
                         </div>
                     </div>
-
-                    <div class="col-6">
-                        <h5 class="mb-3 section-title">Penerima</h5>
-                        <div class="mb-3">
-                            <div class="row">
-                                <div class="col-4">
-                                    <label class="form-label" for="penerima_nama">Penerima</label>
-                                    <!-- <input type="text" class="form-control" id="" /> -->
-                                    <input autocomplete="off" oninput="cariPegawai(this)" data-urut="100000" onchange="setNIP(this)" class="form-control pegawai" list="datalistOptions100000" id="penerima_nama" data-nip="" placeholder="ketik nama / nip" value="" />
-                                    <datalist id="datalistOptions100000">
-                                    </datalist>
-                                </div>
-                                <div class="col-4">
-                                    <label class="form-label" for="penerima_nomor">ID Penerima</label>
-                                    <input type="text" class="form-control" id="penerima_nomor" />
-
-                                </div>
-                                <div class="col-4">
-
-                                    <label class="form-label" for="penerima_jabatan">Jabatan Penerima</label>
-                                    <input type="text" class="form-control" id="penerima_jabatan" />
-                                </div>
-
-                            </div>
-                        </div>
-
-                        <h5 class="mb-3 section-title">SPTJK / Penanggung Jawab</h5>
-
-                        <div class="mb-3">
-                            <div class="row">
-                                <div class="col-4">
-                                    <label class="form-label" for="sptjk_nama">Nama Penanggung Jawab</label>
-                                    <input autocomplete="off" oninput="cariPegawai(this)" data-urut="10000" onchange="setNIP(this)" class="form-control pegawai" list="datalistOptions10000" id="sptjk_nama" data-nip="" placeholder="ketik nama / nip" value="" />
-                                    <datalist id="datalistOptions10000">
-                                    </datalist>
-                                </div>
-                                <div class="col-4">
-                                    <label class="form-label" for="sptjk_nip">NIP Penanggung Jawab</label>
-                                    <input type="text" class="form-control" id="sptjk_nip" />
-
-                                </div>
-                                <div class="col-4">
-                                    <label class="form-label" for="sptjk_jabatan">Jabatan Penanggung Jawab</label>
-                                    <input type="text" class="form-control" id="sptjk_jabatan" />
-
-                                </div>
-
-                            </div>
-                        </div>
-
-                        <h5 class="mb-3 section-title">PPK / Bendahara</h5>
-
-                        <div class="mb-3">
-                            <div class="row">
-                                <div class="col-4">
-                                    <label class="form-label" for="ppk">Pilih PPK</label>
-                                    <select class="form-control" id="ppk">
-                                        <option>Pilih PPK</option>
-                                    </select>
-
-                                </div>
-                                <div class="col-4">
-                                    <label class="form-label" for="bendahara">Bendahara</label>
-                                    <select class="form-control" id="bendahara">
-                                        <option>Pilih Bendahara</option>
-                                    </select>
-
-                                </div>
-
-                            </div>
-                        </div>
+                    <hr class="mb-3">
+                    <div id="show-form-default" style="display: block">
+                        @include('user/form-default')
                     </div>
-
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <button type="button" onclick="save()" class="btn btn-primary">Submit</button>
-                        </div>
+                    <div id="show-form-perjadin" style="display: none">
+                        @include('user/form-perjadin')
                     </div>
 
 
@@ -434,6 +323,47 @@
 <script>
     loadData()
 
+    function chooseForm(input) {
+        document.querySelector(`#show-${input.id}`).style.display = "block";
+        if (input.id == "form-default")
+            document.querySelector(`#show-form-perjadin`).style.display = "none";
+        else
+            document.querySelector(`#show-form-default`).style.display = "none";
+
+    }
+    async function savePerjadin() {
+        let dataSend = new FormData()
+        dataSend.append('kegiatan_id', '{{$id}}');
+
+        dataSend.append('nama_perjadin', document.querySelector('#nama_perjadin').value)
+        dataSend.append('kota_tujuan', document.querySelector('#kota_tujuan').value)
+        dataSend.append('tanggal_dokumen', document.querySelector('#tanggal_dokumen_perjadin').value)
+        dataSend.append('no_surat_tugas', document.querySelector('#no_surat_tugas').value)
+        dataSend.append('tanggal_surat_tugas', document.querySelector('#tanggal_surat_tugas').value)
+        dataSend.append('tgl_mulai', document.querySelector('#tgl_mulai').value)
+        dataSend.append('tgl_selesai', document.querySelector('#tgl_selesai').value)
+        dataSend.append('uang_harian', document.querySelector('#uang_harian').value)
+        dataSend.append('uang_penginapan', document.querySelector('#uang_penginapan').value)
+        dataSend.append('tgl_mulai2', document.querySelector('#tgl_mulai2').value)
+        dataSend.append('tgl_selesai2', document.querySelector('#tgl_selesai2').value)
+        dataSend.append('uang_harian2', document.querySelector('#uang_harian2').value)
+        dataSend.append('uang_penginapan2', document.querySelector('#uang_penginapan2').value)
+        let url = '{{route("perjadin.store")}}'
+        let sendRequest = await fetch(url, {
+            headers: {
+                'Authorization': 'Bearer ' + localStorage.getItem('token')
+            },
+            method: "POST",
+            body: dataSend
+        })
+        response = await sendRequest.json()
+        if (response.status) {
+            toastr.options.closeButton = true;
+            toastr.options.positionClass = 'toast-top-center mt-3';
+            toastr.success('Sukses');
+            button.innerText = "Terkirim ke SPI"
+        }
+    }
 
     function setNIP(e) {
         console.log(e.value)
@@ -757,9 +687,6 @@
     }
 
     async function show(button) {
-        // alert(id)
-
-
         let url = '{{route("pencairan-sesi.index",":id")}}'
         url = url.replace(':id', button.dataset.id)
         fetch(url, {

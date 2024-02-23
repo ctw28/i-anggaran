@@ -279,7 +279,7 @@
                     return window.location.href = '{{route("pilih.tahun.anggaran")}}';
 
                 document.querySelector("#user").innerText = `${decodedToken.user_data.nama_lengkap}`
-                if (decodedToken.current_role === "user_organisasi")
+                if (decodedToken.current_role === "admin_organisasi")
                     document.querySelector("#menu-user-organisasi").style.display = "block";
                 if (decodedToken.current_role === "admin")
                     document.querySelector("#menu-admin").style.display = "block";
@@ -288,18 +288,18 @@
                 let roles = ""
                 decodedToken.roles.map(function(role) {
                     if (decodedToken.roles.length == 1) {
-                        if (decodedToken.current_role === "user_organisasi" || decodedToken.current_role === "verifikator_spi")
+                        if (decodedToken.current_role === "admin_organisasi" || decodedToken.current_role === "verifikator_spi")
                             roles += `<option>${role.organisasi.nama_organisasi}</option>`
                         else
                             roles += `<option>${role.organisasi}</option>`
                     } else {
                         if (role.role == decodedToken.current_role) {
-                            if (role.role === "user_organisasi")
+                            if (role.role === "admin_organisasi")
                                 roles += `<option selected> ${role.organisasi.nama_organisasi}</option>`
                             else
                                 roles += `<option selected>${role.organisasi}</option>`
                         } else {
-                            if (role.role === "user_organisasi")
+                            if (role.role === "admin_organisasi")
                                 roles += `<option value="${role.role}">${role.organisasi.nama_organisasi}</option>`
                             else
                                 roles += `<option value="${role.role}">${role.organisasi}</option>`

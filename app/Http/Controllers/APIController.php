@@ -25,6 +25,7 @@ class APIController extends Controller
 
     public function setOrganisasiSesi(Request $request)
     {
+        // return "ggg";
         $token = JWTAuth::getToken();
         $payload = (object)JWTAuth::getPayload($token)->toArray();
         if ($payload->organisasi == "Admin SPI") {
