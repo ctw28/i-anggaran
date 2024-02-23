@@ -279,7 +279,7 @@
                     return window.location.href = '{{route("pilih.tahun.anggaran")}}';
 
                 document.querySelector("#user").innerText = `${decodedToken.user_data.nama_lengkap}`
-                if (decodedToken.current_role === "admin_organisasi")
+                if (decodedToken.current_role === "admin_organisasi" || decodedToken.current_role === "user_kegiatan")
                     document.querySelector("#menu-user-organisasi").style.display = "block";
                 if (decodedToken.current_role === "admin")
                     document.querySelector("#menu-admin").style.display = "block";
@@ -294,12 +294,12 @@
                             roles += `<option>${role.organisasi}</option>`
                     } else {
                         if (role.role == decodedToken.current_role) {
-                            if (role.role === "admin_organisasi")
+                            if (role.role === "admin_organisasi" || role.role === "user_kegiatan")
                                 roles += `<option selected> ${role.organisasi.nama_organisasi}</option>`
                             else
                                 roles += `<option selected>${role.organisasi}</option>`
                         } else {
-                            if (role.role === "admin_organisasi")
+                            if (role.role === "admin_organisasi" || role.role === "user_kegiatan")
                                 roles += `<option value="${role.role}">${role.organisasi.nama_organisasi}</option>`
                             else
                                 roles += `<option value="${role.role}">${role.organisasi}</option>`

@@ -10,7 +10,7 @@ class Perjadin extends Model
     use HasFactory;
 
     protected $fillable = [
-        'kegiatan_id',
+        'rencana_id',
         'nama_perjadin',
         'kota_tujuan',
         'tanggal_dokumen',
@@ -18,7 +18,7 @@ class Perjadin extends Model
         'tanggal_surat_tugas',
     ];
 
-    public function kegiatan()
+    public function rencana()
     {
         return $this->belongsTo('App\Models\Kegiatan');
     }

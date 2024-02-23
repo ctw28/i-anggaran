@@ -129,5 +129,6 @@ Route::group([
     Route::post('periksa-pimpinan/simpan', [PeriksaPimpinanController::class, 'store'])->name('periksa-pimpinan.store');
 
     //PERJADIN
+    Route::get('pencairan-sesi/{id}/perjadin', [PerjadinController::class, 'index'])->name('perjadin.index');
     Route::post('perjadin/simpan', [PerjadinController::class, 'store'])->name('perjadin.store');
 });

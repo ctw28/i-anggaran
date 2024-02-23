@@ -18,7 +18,7 @@ class WebViewController extends Controller
     }
     public function pilihTahunAnggaran()
     {
-        return view('user.pilih-tahun-anggaran');
+        return view('pilih-tahun-anggaran');
     }
     public function kegiatan()
     {

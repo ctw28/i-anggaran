@@ -76,9 +76,7 @@
 </div>
 
 <div class="col-md-10">
-
     <div class="card mb-4">
-
         <div class="card-body" id="sesi-pencairan-data">
             <span id="info-pilih-menu">
                 <i class="tf-icons bx bx-left-arrow-alt"></i> Pilih Rencana Penarikan Dana di menu sebelah
@@ -87,32 +85,10 @@
                 <div class="mb-2 mt-3">
                     <button onclick="add()" class="btn btn-primary mb-2" data-bs-toggle="modal" data-bs-target="#fullscreenModal"><i class="tf-icons bx bx-plus"></i> Tambah Pencairan</button>
                 </div>
-
-                <div class="table-responsive">
-
-                    <table class="table table-striped table-bordered" id="data-table">
-                        <thead class="text-center align-middle">
-                            <tr>
-                                <th>No</th>
-                                <th>Kelola / Dokumen Pencairan</th>
-                                <th>Nama Pencairan</th>
-                                <th>Akun yang<br> dicairkan</th>
-                                <th>Pelaksanaan</th>
-                                <!-- <th>Penerima</th>
-                                <th>Kuitansi & SPTJB</th>
-                                <th>SPTJK</th> -->
-                                <th>Hapus</th>
-                            </tr>
-                        </thead>
-                        <tbody id="pencairan-data">
-
-                        </tbody>
-                    </table>
-                </div>
+                <div id='show-pilihan-jenis-pencairan'></div>
+                <div class="table-responsive" id="pencairan-data"></div>
             </div>
-
         </div>
-
     </div>
 </div>
 
@@ -312,6 +288,67 @@
         </div>
     </div>
 </div>
+<!-- Modal -->
+<div class="modal fade" id="perjadin-modal" tabindex="-1" aria-hidden="true" data-sesi-id="">
+    <div class="modal-dialog modal-fullscreen" role="document">
+        <div class="modal-content">
+            <div class="modal-header text-center">
+                <h5 class="modal-title ">Dokumen Perjadin : <span id="perjadin-sesi-nama"></span></h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+
+                <div class="col-xl-12">
+                    <div class="nav-align-top mb-4">
+                        <ul class="nav nav-pills mb-3 nav-fill" role="tablist">
+                            <li class="nav-item" role="presentation">
+                                <button type="button" class="nav-link btn btn-primary" onclick="showDataPerjadin(this)" id="data-perjadin" role="tab" data-bs-toggle="tab" data-bs-target="#show-data-perjadin" aria-controls="navs-justified-home" aria-selected="true"><i class="tf-icons bx bx-home me-1"></i> Data</button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button type="button" class="nav-link active" role="tab" data-bs-toggle="tab" data-bs-target="#show-anggota" aria-controls="navs-justified-home" aria-selected="true"><i class="tf-icons bx bx-grid me-1"></i> Anggota Perjadin</button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button type="button" onclick="showDokumenPencairan(this)" id="perjadin-checklist" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#show-perjadin-checklist" aria-controls="navs-justified-profile" aria-selected="false"><i class="tf-icons bx bx-money me-1"></i> Checklist</button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button type="button" onclick="showDokumenPencairan(this)" id="perjadin-real-cost" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#show-perjadin-real-cost" aria-controls="navs-justified-messages" aria-selected="false"><i class="tf-icons bx bx-file me-1"></i> Real Cost</button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button type="button" onclick="showDokumenPencairan(this)" id="perjadin-rincian" class="nav-link " role="tab" data-bs-toggle="tab" data-bs-target="#show-perjadin-rincian" aria-controls="navs-justified-messages" aria-selected="false"><i class="tf-icons bx bx-dialpad me-1"></i> Rincian</button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button type="button" onclick="showDokumenPencairan(this)" id="perjadin-kuitansi" class="nav-link " role="tab" data-bs-toggle="tab" data-bs-target="#show-perjadin-kuitansi" aria-controls="navs-justified-messages" aria-selected="false"><i class="tf-icons bx bx-dice-1 me-1"></i> Kuitansi</button>
+                            </li>
+                        </ul>
+                        <div class="tab-content">
+                            <div class="tab-pane fade active show" id="show-anggota" role="tabpanel">
+                                input anggota
+                            </div>
+                            <div class="tab-pane fade" id="show-data-perjadin" role="tabpanel">
+                                edit data
+                            </div>
+                            <div class="tab-pane fade" id="show-perjadin-checklist" role="tabpanel">
+                                <iframe id="frame-checklist" width="100%" height="1000vh"></iframe>
+                            </div>
+                            <div class="tab-pane fade" id="show-perjadin-real-cost" role="tabpanel">
+                                <iframe id="frame-real-cost" width="100%" height="1000vh"></iframe>
+                            </div>
+                            <div class="tab-pane fade" id="show-perjadin-rincian" role="tabpanel">
+                                <iframe id="frame-rincian" width="100%" height="1000vh"></iframe>
+                            </div>
+                            <div class="tab-pane fade" id="show-perjadin-kuitansi" role="tabpanel">
+                                <iframe id="frame-perjadin-kuitansi" width="100%" height="1000vh"></iframe>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-label-secondary" data-bs-dismiss="modal">Keluar</button>
+        </div>
+    </div>
+</div>
 
 
 
@@ -332,9 +369,9 @@
 
     }
     async function savePerjadin() {
+        // return console.log(document.querySelector('#show-data-sesi').dataset.id);
         let dataSend = new FormData()
-        dataSend.append('kegiatan_id', '{{$id}}');
-
+        dataSend.append('rencana_id', document.querySelector('#show-data-sesi').dataset.id);
         dataSend.append('nama_perjadin', document.querySelector('#nama_perjadin').value)
         dataSend.append('kota_tujuan', document.querySelector('#kota_tujuan').value)
         dataSend.append('tanggal_dokumen', document.querySelector('#tanggal_dokumen_perjadin').value)
@@ -357,6 +394,7 @@
             body: dataSend
         })
         response = await sendRequest.json()
+        console.log(response);
         if (response.status) {
             toastr.options.closeButton = true;
             toastr.options.positionClass = 'toast-top-center mt-3';
@@ -687,8 +725,74 @@
     }
 
     async function show(button) {
+        button.classList.add('active');
+
+        document.querySelector("#show-pilihan-jenis-pencairan").innerHTML = `
+            <h5 class="mb-3 section-title">Pilih Jenis Pencairan</h5>
+            <div class="form-check form-check-inline mt-3 mb-3">
+                <input onclick="showDefault(${button.dataset.id})" class="form-check-input" type="radio" name="jenisPencairan" id="show-default" value="1" checked>
+                <label class="form-check-label" for="form-default">Honor/Transport</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input onclick="showPerjadin(${button.dataset.id})" class="form-check-input" type="radio" name="jenisPencairan" id="show-perjadin" value="0">
+                <label class="form-check-label" for="form-perjadin">Perjadin</label>
+            </div>
+        `
+        showDefault(button.dataset.id)
+
+    }
+    async function showPerjadin(id) {
+        // document.querySelector("#pencairan-data").innerHTML = '<h5>tes</h5>'
+        let url = '{{route("perjadin.index",":id")}}'
+        url = url.replace(":id", id)
+        let sendRequest = await fetch(url, {
+            headers: {
+                'Authorization': 'Bearer ' + localStorage.getItem('token')
+            },
+            method: "GET",
+        })
+        response = await sendRequest.json()
+        console.log(response);
+        if (response.status) {
+            contents = `
+                <table class="table table-striped table-bordered" id="data-table">
+                        <thead class="text-center align-middle">
+                            <tr>
+                                <th>No</th>
+                                <th>Kelola / Dokumen Perjadin</th>
+                                <th>Nama Perjadin</th>
+                                <th>Kota Tujuan</th>
+                                <th>Hapus</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                `
+            response.data.map((data, index) => {
+                contents += `<tr>
+                    <td>${index + 1}</td>`
+                contents += `<td class="text-center"><button data-bs-toggle="modal" onclick="loadPerjadin(${data.id})" data-bs-target="#perjadin-modal"  class="btn btn-info"><i class="tf-icons bx bx-spreadsheet"></i> Dokumen</button></td>`
+                contents += `<td>${data.nama_perjadin}`
+                if (data.usul != null) {
+                    if (data.usul.periksa_sesi.status == 0)
+                        contents += `<span class="badge bg-label-success">Terkirim ke SPI</span>`
+                    else if (data.usul.periksa_sesi.status == 1)
+                        contents += `<button data-id="${data.id}" class="btn btn-warning btn-sm" onclick="sendSPI(this)">Kirim ke SPI</button>`
+                } else {
+                    contents += `<button data-id="${data.id}" class="btn btn-warning btn-sm" onclick="sendSPI(this)">Kirim ke SPI</button>`
+                }
+                contents += `</td><td>${data.kota_tujuan}</td>`
+                contents += `<td><button onclick="hapus(${data.id})" class="btn btn-danger btn-sm"><i class="tf-icons bx bx-trash"></i></button></td>`
+                contents += `</tr>`
+            })
+            contents += ` </tbody>
+                    </table>`
+            document.querySelector("#pencairan-data").innerHTML = ''
+            document.querySelector("#pencairan-data").innerHTML = contents
+        }
+    }
+    async function showDefault(id) {
         let url = '{{route("pencairan-sesi.index",":id")}}'
-        url = url.replace(':id', button.dataset.id)
+        url = url.replace(':id', id)
         fetch(url, {
                 headers: {
                     'Authorization': 'Bearer ' + localStorage.getItem('token')
@@ -708,19 +812,35 @@
                 for (var i = 0; i < listItems.length; i++) {
                     listItems[i].classList.remove('active');
                 }
-                button.classList.add('active');
 
                 console.log(data);
                 let contents = '' // Mengambil token dari response JSON
                 document.querySelector('#info-pilih-menu').style.display = "none"
                 document.querySelector('#show-data-sesi').style.display = "block"
-                document.querySelector('#show-data-sesi').dataset.id = button.dataset.id
+                document.querySelector('#show-data-sesi').dataset.id = id
 
                 if (data.status == false) {
                     document.querySelector("#pencairan-data").innerHTML = ''
 
                     return
                 }
+                contents = `
+                <table class="table table-striped table-bordered" id="data-table">
+                        <thead class="text-center align-middle">
+                            <tr>
+                                <th>No</th>
+                                <th>Kelola / Dokumen Pencairan</th>
+                                <th>Nama Pencairan</th>
+                                <th>Akun yang<br> dicairkan</th>
+                                <th>Pelaksanaan</th>
+                                <!-- <th>Penerima</th>
+                                <th>Kuitansi & SPTJB</th>
+                                <th>SPTJK</th> -->
+                                <th>Hapus</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                `
                 data.data.map((data, index) => {
                     console.log(data.kode_akun.kode);
                     let filePath = "{{asset('storage/')}}/"
@@ -728,9 +848,9 @@
                     contents += `<tr>
                     <td>${index + 1}</td>`
                     if (data.kode_akun.kode == "521211")
-                        contents += `<td><button data-bs-toggle="modal" onclick="loadBelanjaBahan(${data.id})" data-bs-target="#daftar-belanja-bahan"  class="btn btn-info"><i class="tf-icons bx bx-spreadsheet"></i> Pencairan</button></td>`
+                        contents += `<td><button data-bs-toggle="modal" onclick="loadBelanjaBahan(${data.id})" data-bs-target="#daftar-belanja-bahan"  class="btn btn-info"><i class="tf-icons bx bx-spreadsheet"></i> Dokumen</button></td>`
                     else
-                        contents += `<td><button data-bs-toggle="modal" onclick="loadSesiData(${data.id})"  data-bs-target="#daftar-nominal-modals"  class="btn btn-dark"><i class="tf-icons bx bx-spreadsheet"></i> Pencairan</button></td>`
+                        contents += `<td><button data-bs-toggle="modal" onclick="loadSesiData(${data.id})"  data-bs-target="#daftar-nominal-modals"  class="btn btn-dark"><i class="tf-icons bx bx-spreadsheet"></i> Dokumen</button></td>`
                     contents += `<td>${data.pencairan_nama}</td>
                     <td><span class="badge bg-label-success">${data.kode_akun.kode}</span> - ${data.kode_akun.nama_akun} <br>`
                     if (data.usul != null) {
@@ -752,6 +872,8 @@
                     contents += `<td><button onclick="hapus(${data.id})" class="btn btn-danger btn-sm"><i class="tf-icons bx bx-trash"></i></button></td>`
                     contents += `</tr>`
                 })
+                contents += ` </tbody>
+                    </table>`
                 document.querySelector("#pencairan-data").innerHTML = ''
                 document.querySelector("#pencairan-data").innerHTML = contents
             })

@@ -51,7 +51,7 @@ class AuthController extends Controller
                     if ($namaRole === "admin_organisasi") {
                         $role[$index]['organisasi']['id'] = $userRole->adminOrganisasi->organisasi->id;
                         $role[$index]['organisasi']['nama_organisasi'] = $userRole->adminOrganisasi->organisasi->organisasi_singkatan;
-                    } else if ($namaRole === "user_organisasi") {
+                    } else if ($namaRole === "user_kegiatan") {
                         $role[$index]['organisasi']['id'] = $userRole->userOrganisasi->organisasi->id;
                         $role[$index]['organisasi']['nama_organisasi'] = $userRole->userOrganisasi->organisasi->organisasi_singkatan;
                     } else if ($namaRole == "verifikator_spi") {
@@ -76,7 +76,7 @@ class AuthController extends Controller
                     $organisasi['nama_organisasi'] = $user->userRole->where('is_default', true)->first()->adminOrganisasi->organisasi->organisasi_singkatan;
                     $namaLengkap = "Admin " . $user->userRole->where('is_default', true)->first()->adminOrganisasi->organisasi->organisasi_singkatan;
                     $nomorInduk = "";
-                } else if ($defaultRole === "user_organisasi") {
+                } else if ($defaultRole === "user_kegiatan") {
                     $organisasi['id'] = $user->userRole->where('is_default', true)->first()->userOrganisasi->organisasi->id;
                     $organisasi['nama_organisasi'] = $user->userRole->where('is_default', true)->first()->userOrganisasi->organisasi->organisasi_singkatan;
                     $namaLengkap = $user->userPegawai->pegawai->dataDiri->nama_lengkap;

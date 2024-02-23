@@ -18,10 +18,10 @@ class CreatePerjadinDinasTable extends Migration
             $table->unsignedBigInteger('perjadin_id');
             $table->foreign('perjadin_id')->references('id')->on('perjadins');
             $table->enum('dinas_ke', ["1", "2"]);
-            $table->date('tgl_mulai');
-            $table->date('tgl_selesai');
-            $table->double('uang_harian');
-            $table->double('uang_penginapan');
+            $table->date('tgl_mulai')->nullable();
+            $table->date('tgl_selesai')->nullable();
+            $table->double('uang_harian')->nullable();
+            $table->double('uang_penginapan')->nullable();
             $table->timestamps();
         });
     }

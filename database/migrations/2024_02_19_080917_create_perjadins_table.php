@@ -15,8 +15,8 @@ class CreatePerjadinsTable extends Migration
     {
         Schema::create('perjadins', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('kegiatan_id');
-            $table->foreign('kegiatan_id')->references('id')->on('kegiatans');
+            $table->unsignedBigInteger('rencana_id');
+            $table->foreign('rencana_id')->references('id')->on('rencanas');
             $table->string('nama_perjadin');
             $table->string('kota_tujuan');
             $table->date('tanggal_dokumen');
