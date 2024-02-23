@@ -29,6 +29,6 @@ class UserRole extends Model
     }
     public function userOrganisasi()
     {
-        return $this->hasOne('App\Models\userOrganisasi');
+        return $this->hasOne('App\Models\UserOrganisasi');
     }
 }
