@@ -307,38 +307,99 @@
                             <li class="nav-item" role="presentation">
                                 <button type="button" class="nav-link active" role="tab" data-bs-toggle="tab" data-bs-target="#show-anggota" aria-controls="navs-justified-home" aria-selected="true"><i class="tf-icons bx bx-grid me-1"></i> Anggota Perjadin</button>
                             </li>
-                            <li class="nav-item" role="presentation">
-                                <button type="button" onclick="showDokumenPencairan(this)" id="perjadin-checklist" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#show-perjadin-checklist" aria-controls="navs-justified-profile" aria-selected="false"><i class="tf-icons bx bx-money me-1"></i> Checklist</button>
-                            </li>
-                            <li class="nav-item" role="presentation">
-                                <button type="button" onclick="showDokumenPencairan(this)" id="perjadin-real-cost" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#show-perjadin-real-cost" aria-controls="navs-justified-messages" aria-selected="false"><i class="tf-icons bx bx-file me-1"></i> Real Cost</button>
-                            </li>
-                            <li class="nav-item" role="presentation">
-                                <button type="button" onclick="showDokumenPencairan(this)" id="perjadin-rincian" class="nav-link " role="tab" data-bs-toggle="tab" data-bs-target="#show-perjadin-rincian" aria-controls="navs-justified-messages" aria-selected="false"><i class="tf-icons bx bx-dialpad me-1"></i> Rincian</button>
-                            </li>
-                            <li class="nav-item" role="presentation">
-                                <button type="button" onclick="showDokumenPencairan(this)" id="perjadin-kuitansi" class="nav-link " role="tab" data-bs-toggle="tab" data-bs-target="#show-perjadin-kuitansi" aria-controls="navs-justified-messages" aria-selected="false"><i class="tf-icons bx bx-dice-1 me-1"></i> Kuitansi</button>
-                            </li>
+
                         </ul>
                         <div class="tab-content">
-                            <div class="tab-pane fade active show" id="show-anggota" role="tabpanel">
-                                input anggota
+                            <div class="tab-pane fade active show mt-3" id="show-anggota" role="tabpanel">
+                                <button type="button" onclick="addAnggota()" class="btn btn-primary btn-sm"><i class="bx bx-plus"></i> Anggota</button>
+                                <!-- <div class="my-3" id="tambah-anggota-form"> -->
+                                <div class="mt-3" id="tambah-anggota-form" style="display:none">
+                                    <div class="col-12">
+                                        <div class="mb-3">
+                                            <div class="row">
+                                                <div class="col-3">
+                                                    <label class="form-label" for="anggota_nama">Nama</label>
+                                                    <!-- <input type="text" class="form-control" id="anggota_nama" placeholder="Nama" /> -->
+                                                    <input autocomplete="off" oninput="cariPegawai(this)" data-urut="9090" onchange="setNIP(this)" class="form-control pegawai" list="datalistOptions9090" id="anggota_nama" data-nip="" placeholder="ketik nama / nip" value="" />
+                                                    <datalist id="datalistOptions9090">
+                                                    </datalist>
+
+                                                </div>
+                                                <div class="col-3">
+                                                    <label class="form-label" for="anggota_nip">NIP</label>
+                                                    <input type="text" class="form-control" id="anggota_nip" placeholder="NIP Pegawai" />
+                                                </div>
+                                                <div class="col-4">
+                                                    <label class="form-label" for="anggota_jabatan">Jabatan</label>
+                                                    <input type="text" class="form-control" id="anggota_jabatan" placeholder="Jabatan" />
+                                                </div>
+
+                                                <div class="row">
+                                                    <div class="col-2 mt-3">
+                                                        <button type="button" onclick="saveAnggota()" class="btn btn-dark btn-sm">Simpan</button>
+                                                        <button type="button" onclick="cancelInputAnggota()" class="btn btn-warning btn-sm">Batal</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xl-3">
+                                        <div class="card card-action mb-4">
+                                            <div class="card-header align-items-center">
+                                                <h5 class="card-action-title mb-0">Anggota Perjadin</h5>
+                                                <div class="card-action-element">
+                                                    <!-- <button type="button" onclick="addAnggota()" class="btn btn-primary btn-sm"><i class="bx bx-plus"></i></button> -->
+                                                </div>
+                                            </div>
+                                            <div class="card-body">
+                                                <div class="list-group" id="daftar-anggota">
+                                                    <!-- <ul class="list-unstyled mb-0" id="daftar-anggota">
+
+                                            </ul> -->
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-9">
+                                        <!-- <h6></h6> -->
+
+                                        <div id="rincian-container" style="display: none;">
+                                            <h5 class="mb-3 section-title">Data Anggota</h5>
+                                            <p>Nama : <span id="nama-anggota"></span><br>
+                                                Jabatan : <span id="jabatan-anggota"></span></p>
+
+                                            <ul class="nav nav-pills mb-3 nav-fill" role="tablist">
+                                                <li class="nav-item" role="presentation">
+                                                    <button type="button" class="nav-link active" id="data" role="tab" data-bs-toggle="tab" data-bs-target="#show-rincian" aria-controls="navs-justified-home" aria-selected="true"><i class="tf-icons bx bx-home me-1"></i> Rincian</button>
+                                                </li>
+                                                <li class="nav-item" role="presentation">
+                                                    <button type="button" class="nav-link " role="tab" onclick="showRealCost()" data-bs-toggle="tab" data-bs-target="#show-real-cost" aria-controls="navs-justified-home" aria-selected="true"><i class="tf-icons bx bx-grid me-1"></i> Real Cost</button>
+                                                </li>
+
+                                            </ul>
+                                            <div class="tab-content">
+                                                <div class="tab-pane fade active show" id="show-rincian" role="tabpanel">
+                                                    @include('user/perjadin/rincian-form')
+                                                </div>
+                                                <div class="tab-pane fade" id="show-real-cost" role="tabpanel">
+                                                    @include('user/perjadin/real-cost-form')
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+                                </div>
+
                             </div>
                             <div class="tab-pane fade" id="show-data-perjadin" role="tabpanel">
-                                edit data
+                                @include('user/form-perjadin')
+
                             </div>
-                            <div class="tab-pane fade" id="show-perjadin-checklist" role="tabpanel">
-                                <iframe id="frame-checklist" width="100%" height="1000vh"></iframe>
-                            </div>
-                            <div class="tab-pane fade" id="show-perjadin-real-cost" role="tabpanel">
-                                <iframe id="frame-real-cost" width="100%" height="1000vh"></iframe>
-                            </div>
-                            <div class="tab-pane fade" id="show-perjadin-rincian" role="tabpanel">
-                                <iframe id="frame-rincian" width="100%" height="1000vh"></iframe>
-                            </div>
-                            <div class="tab-pane fade" id="show-perjadin-kuitansi" role="tabpanel">
-                                <iframe id="frame-perjadin-kuitansi" width="100%" height="1000vh"></iframe>
-                            </div>
+
                         </div>
                     </div>
                 </div>
@@ -360,31 +421,399 @@
 <script>
     loadData()
 
+    async function showDataPerjadin(button) {
+
+        let url = '{{route("perjadin.show",":id")}}'
+        url = url.replace(':id', document.querySelector('#perjadin-modal').dataset.sesiId)
+        let sendRequest = await fetch(url, {
+            headers: {
+                'Authorization': 'Bearer ' + localStorage.getItem('token')
+            },
+            method: "GET",
+        })
+        response = await sendRequest.json()
+        console.log(response);
+        if (response.status) {
+            let perjadin = response.data[0]
+            let perjadinContainer = document.querySelector('#show-data-perjadin')
+            perjadinContainer.querySelector('#nama_perjadin').value = perjadin.nama_perjadin
+
+            // Menggunakan cara baru dengan merujuk langsung ke elemen dan mengatur nilai
+            perjadinContainer.querySelector('#kota_tujuan').value = perjadin.kota_tujuan;
+            perjadinContainer.querySelector('#tanggal_dokumen_perjadin').value = perjadin.tanggal_dokumen;
+            perjadinContainer.querySelector('#no_surat_tugas').value = perjadin.no_surat_tugas;
+            perjadinContainer.querySelector('#tanggal_surat_tugas').value = perjadin.tanggal_surat_tugas;
+            perjadinContainer.querySelector('#tgl_mulai').value = perjadin.tgl_mulai;
+            perjadinContainer.querySelector('#tgl_selesai').value = perjadin.tgl_selesai;
+            perjadinContainer.querySelector('#uang_harian').value = formatRupiah(perjadin.referensi_uang[0].uang_harian);
+            perjadinContainer.querySelector('#uang_penginapan').value = formatRupiah(perjadin.referensi_uang[0].uang_penginapan);
+            perjadinContainer.querySelector('#uang_harian2').value = formatRupiah(perjadin.referensi_uang[1].uang_harian);
+            perjadinContainer.querySelector('#uang_penginapan2').value = formatRupiah(perjadin.referensi_uang[1].uang_penginapan);
+            perjadinContainer.querySelector('#button-save-perjadin').dataset.state = 'edit'
+        }
+    }
+
     function chooseForm(input) {
         document.querySelector(`#show-${input.id}`).style.display = "block";
-        if (input.id == "form-default")
-            document.querySelector(`#show-form-perjadin`).style.display = "none";
-        else
+        let form = document.querySelector(`#show-form-perjadin`)
+        form.querySelector('#button-save-perjadin').dataset.state = 'simpan'
+        if (input.id == "form-default") {
+            form.style.display = "none";
+        } else {
             document.querySelector(`#show-form-default`).style.display = "none";
 
+        }
+
     }
-    async function savePerjadin() {
+
+    async function saveRealCost(button) {
+        var row = button.closest('tr');
+        let dataSend = new FormData()
+        if (row.hasAttribute('data-id'))
+            dataSend.append('id', row.dataset.id);
+        dataSend.append('perjadin_anggota_id', document.querySelector("#rincian-container").dataset.id);
+        dataSend.append('item', row.querySelector('#item-real-cost').value);
+        dataSend.append('nilai', row.querySelector('#nilai-real-cost').value.replace(/\D/g, ''));
+
+        let url = '{{route("perjadin.real-cost.store")}}'
+        let sendRequest = await fetch(url, {
+            headers: {
+                'Authorization': 'Bearer ' + localStorage.getItem('token')
+            },
+            method: "POST",
+            body: dataSend
+        })
+        response = await sendRequest.json()
+        console.log(response);
+        if (response.status) {
+            toastr.options.closeButton = true;
+            toastr.options.positionClass = 'toast-top-center mt-3';
+            toastr.success('Sukses');
+            row.dataset.id = response.data.id
+            row.querySelector('#item-real-cost').setAttribute('readonly', 'readonly');
+            row.querySelector('#nilai-real-cost').setAttribute('readonly', 'readonly');
+            button.innerText = "Edit"
+            button.removeAttribute('onclick')
+            button.setAttribute('onclick', 'editRealCost(this)')
+            button.classList.remove('btn-primary')
+            button.classList.add('btn-warning')
+
+        }
+    }
+    async function deleteRealCost(button) {
+        let konfirm = confirm('yakin hapus?')
+        if (!konfirm) return
+        var row = button.closest('tr');
+        let dataSend = new FormData()
+        dataSend.append('id', row.dataset.id);
+
+        let url = '{{route("perjadin.real-cost.delete")}}'
+        let sendRequest = await fetch(url, {
+            headers: {
+                'Authorization': 'Bearer ' + localStorage.getItem('token')
+            },
+            method: "POST",
+            body: dataSend
+        })
+        response = await sendRequest.json()
+        console.log(response);
+        if (response.status) {
+            toastr.options.closeButton = true;
+            toastr.options.positionClass = 'toast-top-center mt-3';
+            toastr.success('Sukses');
+            row.remove();
+        }
+    }
+    async function showRealCost() {
+        let url = '{{route("perjadin.real-cost.index",":id")}}'
+        url = url.replace(':id', document.querySelector("#rincian-container").dataset.id)
+        let sendRequest = await fetch(url, {
+            headers: {
+                'Authorization': 'Bearer ' + localStorage.getItem('token')
+            },
+            method: "GET",
+        })
+        response = await sendRequest.json()
+        console.log(response);
+        if (response.status) {
+            let contents = ``
+            const table = document.getElementById('tabel-real-cost');
+            response.data.map(data => {
+                contents += `<tr data-id="${data.id}">
+                    <td><button data-state="update" class="btn btn-warning btn-sm mt-2" onclick="editRealCost(this)">Edit</button>
+                    </td>
+                    <td><label class="form-label">Item / Uraian</label>
+                        <input value="${data.item}" id="item-real-cost" class="form-control form-control-sm" placeholder="Uraian" name="item-real-cost" type="text" required="required" readonly>
+                    </td>
+                    <td><label class="form-label">Jumlah harga</label>
+                        <input value="${formatRupiah(data.nilai)}" oninput="toNumber(this)" id="nilai-real-cost" class="form-control form-control-sm" placeholder="Jumlah harga" name="nilai-real-cost" type="text" required="required" readonly>
+                    </td>
+                    <td><button class="btn btn-danger btn-sm" onclick="deleteRealCost(this)">Hapus</button></td>
+                </tr>`
+            })
+            table.innerHTML = ``
+            table.innerHTML = contents
+        }
+    }
+
+    function editRealCost(button) {
+        var row = button.closest('tr');
+        var inputs = row.getElementsByTagName('input');
+        for (var i = 0; i < inputs.length; i++) {
+            inputs[i].removeAttribute('readonly');
+        }
+        button.innerText = "Update"
+        button.removeAttribute('onclick')
+        button.setAttribute('onclick', 'saveRealCost(this)')
+    }
+
+    function addRealCost() {
+        const table = document.getElementById('tabel-real-cost');
+        const newRow = table.insertRow();
+        const actCell = newRow.insertCell(0);
+
+        actCell.innerHTML = `<button data-state='insert' class='btn btn-primary btn-sm mt-2' onclick='saveRealCost(this)'>Simpan</button>
+        <button class='btn btn-danger btn-sm mt-2' onclick='cancel(this)'>Batal</button>
+        `
+        let formInput = [{
+                'label': 'Item / Uraian',
+                'name': 'item-real-cost',
+                'id': 'item-real-cost',
+                'type': 'text',
+                'form': 'input',
+                'placeholder': 'Uraian',
+            },
+            {
+                'label': 'Jumlah harga',
+                'name': 'nilai-real-cost',
+                'id': 'nilai-real-cost',
+                'placeholder': 'Jumlah harga',
+                'type': 'text',
+                'oninput': 'toNumber(this)',
+                'form': 'input',
+            },
+        ]
+        // const cell2 = newRow.insertCell(2);
+
+        formInput.forEach((input, index) => {
+            const cell1 = newRow.insertCell(index + 1);
+            var element = document.createElement('input');
+
+            const label = document.createElement('label');
+            label.setAttribute('class', 'form-label')
+            label.innerText = input.label
+
+            element.setAttribute('id', input.id);
+            element.setAttribute('class', "form-control form-control-sm");
+            element.setAttribute('placeholder', input.placeholder);
+            element.setAttribute('name', input.name);
+            element.setAttribute('type', input.type);
+            element.setAttribute('required', 'required');
+
+            cell1.appendChild(label);
+            cell1.appendChild(element);
+        });
+    }
+
+    function hitung(input) {
+        var row = input.closest('tr');
+        let total = 1
+        row.querySelectorAll('.nilai').forEach(data => {
+            total *= parseFloat(data.value.replace(/\D/g, '')) || 0;
+        })
+        row.querySelector('#total').innerText = `Rp. ${formatRupiah(total)}`
+    }
+    async function showAturRincian(button) {
+        let perjadinId = document.querySelector('#perjadin-modal').dataset.sesiId
+        let daftarAnggota = document.querySelector("#daftar-anggota")
+        var listItems = daftarAnggota.getElementsByTagName('a');
+        for (var i = 0; i < listItems.length; i++) {
+            listItems[i].classList.remove('active');
+        }
+
+        document.querySelector("#rincian-container").style.display = "block"
+        document.querySelector("#rincian-container").dataset.id = button.dataset.id
+        let url = '{{route("perjadin.rincian.index",[":id",":id2"])}}'
+        url = url.replace(":id", perjadinId)
+        url = url.replace(":id2", button.dataset.id)
+        let sendRequest = await fetch(url, {
+            headers: {
+                'Authorization': 'Bearer ' + localStorage.getItem('token')
+            },
+            method: "GET",
+        })
+        response = await sendRequest.json()
+        console.log(response);
+        document.querySelector("#nama-anggota").innerText = `${response.data[0].anggota[0].nama} (${response.data[0].anggota[0].nip})`
+        document.querySelector("#jabatan-anggota").innerText = `${response.data[0].anggota[0].jabatan}`
+        let tabel = document.querySelector('#tabel-rincian')
+        let rincian = response.data[0].anggota[0].rincian
+        let referensi = response.data[0].referensi_uang[0]
+        let referensi2 = response.data[0].referensi_uang[1]
+
+        let uangPenginapanRef = (referensi.uang_penginapan != null) ? referensi.uang_penginapan : 0
+        let uangHarian2Ref = (referensi2.uang_harian != null) ? referensi2.uang_harian : 0
+        let uangPenginapan2Ref = (referensi2.uang_penginapan != null) ? referensi2.uang_penginapan : 0
+        if (rincian != null) {
+            tabel.dataset.id = rincian.id
+        } else {
+            if (tabel.hasAttribute('data-id'))
+                tabel.removeAttribute('data-id')
+        }
+        button.classList.add('active');
+        let uangHarian = (rincian != null) ? rincian.uang_harian1 : referensi.uang_harian
+        let uangHarianHari = (rincian != null) ? rincian.uang_harian1_hari : 0
+        let uangHarian2 = (rincian != null) ? rincian.uang_harian2 : uangHarian2Ref
+        let uangHarian2Hari = (rincian != null) ? rincian.uang_harian2_hari : 0
+        let uangPenginapan = (rincian != null) ? rincian.penginapan1 : uangPenginapanRef
+        let uangPenginapanMalam = (rincian != null) ? rincian.penginapan1_malam : 0
+        let uangPenginapan2 = (rincian != null) ? rincian.penginapan2 : uangPenginapan2Ref
+        let uangPenginapan2Malam = (rincian != null) ? rincian.penginapan2_malam : 0
+        let representatif = (rincian != null) ? rincian.representatif : 0
+        let tiketPergi = (rincian != null) ? rincian.tiket_pergi : 0
+        let tiketPulang = (rincian != null) ? rincian.tiket_pulang : 0
+        let taxPergi = (rincian != null) ? rincian.airport_tax_pergi : 0
+        let taxPulang = (rincian != null) ? rincian.airport_tax_pulang : 0
+
+        let tglPergi = (rincian != null) ? rincian.tanggal_pergi : response.data[0].tgl_mulai
+        let tglpulang = (rincian != null) ? rincian.tanggal_pulang : response.data[0].tgl_selesai
+
+        document.querySelector('#tanggal_pergi').value = tglPergi
+        document.querySelector('#tanggal_pulang').value = tglpulang
+        tabel.querySelector('#uang_harian1').value = formatRupiah(uangHarian)
+        tabel.querySelector('#uang_harian1_hari').value = formatRupiah(uangHarianHari)
+        tabel.querySelector('#uang_harian2').value = formatRupiah(uangHarian2)
+        tabel.querySelector('#uang_harian2_hari').value = formatRupiah(uangHarian2Hari)
+        tabel.querySelector('#penginapan1').value = formatRupiah(uangPenginapan)
+        tabel.querySelector('#penginapan1_malam').value = formatRupiah(uangPenginapanMalam)
+        tabel.querySelector('#penginapan2').value = formatRupiah(uangPenginapan2)
+        tabel.querySelector('#penginapan2_malam').value = formatRupiah(uangPenginapan2Malam)
+        tabel.querySelector('#representatif').value = formatRupiah(representatif)
+        tabel.querySelector('#tiket_pergi').value = formatRupiah(tiketPergi)
+        tabel.querySelector('#tiket_pulang').value = formatRupiah(tiketPulang)
+        tabel.querySelector('#airport_tax_pergi').value = formatRupiah(taxPergi)
+        tabel.querySelector('#airport_tax_pulang').value = formatRupiah(taxPulang)
+
+        var tabelRincian = document.getElementById('tabel-rincian'); // Mendapatkan elemen tabel
+        var rows = tabelRincian.querySelectorAll('tbody tr'); // Mendapatkan semua baris di dalam tbody
+
+        rows.forEach(function(row, index) {
+            if (index < 5) {
+                console.log(row);
+                var nilaiInputs = row.querySelectorAll('.nilai'); // Mendapatkan semua elemen input dengan class 'nilai'
+                var totalElement = row.querySelector('#total'); // Mendapatkan elemen dengan id 'total'
+                console.log(totalElement);
+                // Inisialisasi total
+                var total = 1;
+
+                // Melakukan perhitungan
+                nilaiInputs.forEach(function(data) {
+                    total *= parseFloat(data.value.replace(/\D/g, '')) || 0;
+                });
+
+                // Menetapkan nilai total ke elemen total
+                totalElement.textContent = 'Rp. ' + formatRupiah(total);
+            }
+        });
+        showRealCost()
+    }
+    async function saveRincian() {
+        let tabel = document.querySelector('#tabel-rincian')
+        let perjadinId = document.querySelector('#perjadin-modal').dataset.sesiId
+        let dataSend = new FormData()
+        if (tabel.hasAttribute('data-id'))
+            dataSend.append('id', tabel.dataset.id);
+        dataSend.append('perjadin_id', perjadinId);
+        dataSend.append('perjadin_anggota_id', document.querySelector("#rincian-container").dataset.id);
+        dataSend.append('tanggal_pergi', document.querySelector('#tanggal_pergi').value);
+        dataSend.append('tanggal_pulang', document.querySelector('#tanggal_pulang').value);
+        dataSend.append('uang_harian1', tabel.querySelector('#uang_harian1').value.replace(/\D/g, ''));
+        dataSend.append('uang_harian1_hari', tabel.querySelector('#uang_harian1_hari').value.replace(/\D/g, ''));
+        dataSend.append('uang_harian2', tabel.querySelector('#uang_harian2').value.replace(/\D/g, ''));
+        dataSend.append('uang_harian2_hari', tabel.querySelector('#uang_harian2_hari').value.replace(/\D/g, ''));
+        dataSend.append('penginapan1', tabel.querySelector('#penginapan1').value.replace(/\D/g, ''));
+        dataSend.append('penginapan1_malam', tabel.querySelector('#penginapan1_malam').value.replace(/\D/g, ''));
+        dataSend.append('penginapan2', tabel.querySelector('#penginapan2').value.replace(/\D/g, ''));
+        dataSend.append('penginapan2_malam', tabel.querySelector('#penginapan2_malam').value.replace(/\D/g, ''));
+        dataSend.append('representatif', tabel.querySelector('#representatif').value.replace(/\D/g, ''));
+        dataSend.append('representatif_hari', tabel.querySelector('#representatif_hari').value.replace(/\D/g, ''));
+        dataSend.append('tiket_pulang', tabel.querySelector('#tiket_pulang').value.replace(/\D/g, ''));
+        dataSend.append('tiket_pergi', tabel.querySelector('#tiket_pergi').value.replace(/\D/g, ''));
+        dataSend.append('airport_tax_pergi', tabel.querySelector('#airport_tax_pergi').value.replace(/\D/g, ''));
+        dataSend.append('airport_tax_pulang', tabel.querySelector('#airport_tax_pulang').value.replace(/\D/g, ''));
+        dataSend.append('transport_kota_2', tabel.querySelector('#transport_kota_2').value.replace(/\D/g, ''));
+        dataSend.append('transport2', tabel.querySelector('#transport2').value.replace(/\D/g, ''));
+        dataSend.append('kantor_bst', tabel.querySelector('#kantor_bst').value.replace(/\D/g, ''));
+
+        let url = '{{route("perjadin.rincian.store")}}'
+        let sendRequest = await fetch(url, {
+            headers: {
+                'Authorization': 'Bearer ' + localStorage.getItem('token')
+            },
+            method: "POST",
+            body: dataSend
+        })
+        response = await sendRequest.json()
+        console.log(response);
+        if (response.status) {
+            toastr.options.closeButton = true;
+            toastr.options.positionClass = 'toast-top-center mt-3';
+            toastr.success('Sukses');
+            let tabel = document.querySelector('#tabel-rincian')
+            tabel.dataset.id = response.data.id
+        }
+    }
+
+    function addAnggota() {
+        document.querySelector('#tambah-anggota-form').style.display = 'block'
+        // let perjadinId = document.querySelector('#perjadin-modal').dataset.sesiId
+        document.querySelector('#anggota_nama').value = ''
+        document.querySelector('#anggota_nip').value = ''
+        document.querySelector('#anggota_jabatan').value = ''
+
+
+    }
+    async function savePerjadin(button) {
         // return console.log(document.querySelector('#show-data-sesi').dataset.id);
         let dataSend = new FormData()
-        dataSend.append('rencana_id', document.querySelector('#show-data-sesi').dataset.id);
-        dataSend.append('nama_perjadin', document.querySelector('#nama_perjadin').value)
-        dataSend.append('kota_tujuan', document.querySelector('#kota_tujuan').value)
-        dataSend.append('tanggal_dokumen', document.querySelector('#tanggal_dokumen_perjadin').value)
-        dataSend.append('no_surat_tugas', document.querySelector('#no_surat_tugas').value)
-        dataSend.append('tanggal_surat_tugas', document.querySelector('#tanggal_surat_tugas').value)
-        dataSend.append('tgl_mulai', document.querySelector('#tgl_mulai').value)
-        dataSend.append('tgl_selesai', document.querySelector('#tgl_selesai').value)
-        dataSend.append('uang_harian', document.querySelector('#uang_harian').value)
-        dataSend.append('uang_penginapan', document.querySelector('#uang_penginapan').value)
-        dataSend.append('tgl_mulai2', document.querySelector('#tgl_mulai2').value)
-        dataSend.append('tgl_selesai2', document.querySelector('#tgl_selesai2').value)
-        dataSend.append('uang_harian2', document.querySelector('#uang_harian2').value)
-        dataSend.append('uang_penginapan2', document.querySelector('#uang_penginapan2').value)
+        let state = button.dataset.state
+        // return console.log(state);
+        if (state == 'edit') {
+            let perjadinContainer = document.querySelector('#show-data-perjadin')
+            let perjadinId = document.querySelector('#perjadin-modal').dataset.sesiId
+
+            dataSend.append('id', perjadinId);
+
+            dataSend.append('rencana_id', document.querySelector('#show-data-sesi').dataset.id);
+            dataSend.append('kegiatan_id', "{{$id}}");
+            dataSend.append('nama_perjadin', perjadinContainer.querySelector('#nama_perjadin').value)
+            dataSend.append('kota_tujuan', perjadinContainer.querySelector('#kota_tujuan').value)
+            dataSend.append('tanggal_dokumen', perjadinContainer.querySelector('#tanggal_dokumen_perjadin').value)
+            dataSend.append('no_surat_tugas', perjadinContainer.querySelector('#no_surat_tugas').value)
+            dataSend.append('tanggal_surat_tugas', perjadinContainer.querySelector('#tanggal_surat_tugas').value)
+            dataSend.append('tgl_mulai', perjadinContainer.querySelector('#tgl_mulai').value)
+            dataSend.append('tgl_selesai', perjadinContainer.querySelector('#tgl_selesai').value)
+            dataSend.append('uang_harian', perjadinContainer.querySelector('#uang_harian').value.replace(/\D/g, ''))
+            dataSend.append('uang_penginapan', perjadinContainer.querySelector('#uang_penginapan').value.replace(/\D/g, ''))
+            dataSend.append('uang_harian2', perjadinContainer.querySelector('#uang_harian2').value.replace(/\D/g, ''))
+            dataSend.append('uang_penginapan2', perjadinContainer.querySelector('#uang_penginapan2').value.replace(/\D/g, ''))
+        } else {
+            let perjadinContainer = document.querySelector('#show-form-perjadin')
+            // return console.log(perjadinContainer.querySelector('#nama_perjadin').value);
+            dataSend.append('rencana_id', document.querySelector('#show-data-sesi').dataset.id);
+            dataSend.append('kegiatan_id', "{{$id}}");
+            dataSend.append('nama_perjadin', perjadinContainer.querySelector('#nama_perjadin').value)
+            dataSend.append('kota_tujuan', perjadinContainer.querySelector('#kota_tujuan').value)
+            dataSend.append('tanggal_dokumen', perjadinContainer.querySelector('#tanggal_dokumen_perjadin').value)
+            dataSend.append('no_surat_tugas', perjadinContainer.querySelector('#no_surat_tugas').value)
+            dataSend.append('tanggal_surat_tugas', perjadinContainer.querySelector('#tanggal_surat_tugas').value)
+            dataSend.append('tgl_mulai', perjadinContainer.querySelector('#tgl_mulai').value)
+            dataSend.append('tgl_selesai', perjadinContainer.querySelector('#tgl_selesai').value)
+            dataSend.append('uang_harian', perjadinContainer.querySelector('#uang_harian').value.replace(/\D/g, ''))
+            dataSend.append('uang_penginapan', perjadinContainer.querySelector('#uang_penginapan').value.replace(/\D/g, ''))
+            dataSend.append('uang_harian2', perjadinContainer.querySelector('#uang_harian2').value.replace(/\D/g, ''))
+            dataSend.append('uang_penginapan2', perjadinContainer.querySelector('#uang_penginapan2').value.replace(/\D/g, ''))
+        }
         let url = '{{route("perjadin.store")}}'
         let sendRequest = await fetch(url, {
             headers: {
@@ -399,8 +828,72 @@
             toastr.options.closeButton = true;
             toastr.options.positionClass = 'toast-top-center mt-3';
             toastr.success('Sukses');
-            button.innerText = "Terkirim ke SPI"
+            // button.innerText = "Terkirim ke SPI"
+            showPerjadin(document.querySelector('#show-data-sesi').dataset.id)
+            if (state == "edit") {
+                loadPerjadin(document.querySelector('#perjadin-modal').dataset.sesiId)
+            }
         }
+    }
+
+    async function deletePerjadin(button) {
+        let konfirm = confirm('yakin hapus? semua data terkait perjadin ini akan ikut terhapus')
+        if (!konfirm) return
+        let url = '{{route("perjadin.delete",":id")}}'
+        url = url.replace(":id", button.dataset.id)
+        let sendRequest = await fetch(url, {
+            headers: {
+                'Authorization': 'Bearer ' + localStorage.getItem('token')
+            },
+            method: "GET",
+        })
+        response = await sendRequest.json()
+        console.log(response);
+        if (response.status) {
+            toastr.options.closeButton = true;
+            toastr.options.positionClass = 'toast-top-center mt-3';
+            toastr.success('Sukses hapus');
+            showPerjadin(document.querySelector('#show-data-sesi').dataset.id)
+        }
+    }
+
+    async function saveAnggota() {
+        // perjadin-modal
+        let perjadinId = document.querySelector('#perjadin-modal').dataset.sesiId
+        let dataSend = new FormData()
+        dataSend.append('perjadin_id', perjadinId);
+        dataSend.append('nama', document.querySelector('#anggota_nama').value)
+        dataSend.append('nip', document.querySelector('#anggota_nip').value)
+        dataSend.append('jabatan', document.querySelector('#anggota_jabatan').value)
+        let url = '{{route("perjadin.anggota.store")}}'
+        let sendRequest = await fetch(url, {
+            headers: {
+                'Authorization': 'Bearer ' + localStorage.getItem('token')
+            },
+            method: "POST",
+            body: dataSend
+        })
+        response = await sendRequest.json()
+        console.log(response);
+        if (response.status) {
+            toastr.options.closeButton = true;
+            toastr.options.positionClass = 'toast-top-center mt-3';
+            toastr.success('Sukses');
+            document.querySelector('#tambah-anggota-form').style.display = 'none'
+
+            loadPerjadin(perjadinId)
+            // button.innerText = "Terkirim ke SPI"
+            // showPerjadin(document.querySelector('#show-data-sesi').dataset.id)
+        }
+
+
+    }
+
+    async function cancelInputAnggota() {
+        document.querySelector('#tambah-anggota-form').style.display = 'none'
+        document.querySelector('#anggota_nama').value = ''
+        document.querySelector('#anggota_nip').value = ''
+        document.querySelector('#anggota_jabatan').value = ''
     }
 
     function setNIP(e) {
@@ -417,8 +910,9 @@
             nip = ""
         if (e.dataset.urut == "100000") {
             row.querySelector('#penerima_nomor').value = nip
+        } else if (e.dataset.urut == "9090") {
+            row.querySelector('#anggota_nip').value = nip
         } else {
-
             row.querySelector('#sptjk_nip').value = nip
         }
     }
@@ -731,14 +1225,59 @@
             <h5 class="mb-3 section-title">Pilih Jenis Pencairan</h5>
             <div class="form-check form-check-inline mt-3 mb-3">
                 <input onclick="showDefault(${button.dataset.id})" class="form-check-input" type="radio" name="jenisPencairan" id="show-default" value="1" checked>
-                <label class="form-check-label" for="form-default">Honor/Transport</label>
+                <label class="form-check-label" for="show-default">Honor/Transport</label>
             </div>
             <div class="form-check form-check-inline">
                 <input onclick="showPerjadin(${button.dataset.id})" class="form-check-input" type="radio" name="jenisPencairan" id="show-perjadin" value="0">
-                <label class="form-check-label" for="form-perjadin">Perjadin</label>
+                <label class="form-check-label" for="show-perjadin">Perjadin</label>
             </div>
         `
         showDefault(button.dataset.id)
+
+    }
+
+    async function loadPerjadin(id) {
+        document.querySelector('#perjadin-modal').dataset.sesiId = id
+        let perjadinId = document.querySelector('#perjadin-modal').dataset.sesiId
+        let url = '{{route("perjadin.anggota.index",":id")}}'
+        url = url.replace(":id", id)
+        let sendRequest = await fetch(url, {
+            headers: {
+                'Authorization': 'Bearer ' + localStorage.getItem('token')
+            },
+            method: "GET",
+        })
+        response = await sendRequest.json()
+        console.log(response);
+        if (response.status) {
+            let contens = ``
+            response.data.map(data => {
+                contens += `
+                
+                <a href="javascript:void(0);" onclick="showAturRincian(this)" data-id="${data.id}" class="list-group-item list-group-item-action flex-column align-items-start">
+                        <small>${data.jabatan}</small>
+                        <div class="d-flex justify-content-between w-100">
+                            <h6 class="mb-1">${data.nama}</h6>
+                        </div>
+                        <small>${data.nip}</small>
+                    </a>`
+                // contens += `
+                // <li class="mb-3">
+                //     <div class="d-flex align-items-start">
+                //         <div class="d-flex align-items-start">
+                //             <div class="me-2">
+                //                 <h6 class="mb-0">${data.nama}</h6>
+                //                 <small class="text-muted">${data.nip}</small><br>
+                //                 <small class="text-muted">${data.jabatan}</small>
+                //             </div>
+                //         </div>
+                //     </div>
+                // </li>`
+            })
+            document.querySelector('#daftar-anggota').innerHTML = ''
+            document.querySelector('#daftar-anggota').innerHTML = contens
+
+        }
 
     }
     async function showPerjadin(id) {
@@ -771,7 +1310,7 @@
                 contents += `<tr>
                     <td>${index + 1}</td>`
                 contents += `<td class="text-center"><button data-bs-toggle="modal" onclick="loadPerjadin(${data.id})" data-bs-target="#perjadin-modal"  class="btn btn-info"><i class="tf-icons bx bx-spreadsheet"></i> Dokumen</button></td>`
-                contents += `<td>${data.nama_perjadin}`
+                contents += `<td>${data.nama_perjadin} <br>`
                 if (data.usul != null) {
                     if (data.usul.periksa_sesi.status == 0)
                         contents += `<span class="badge bg-label-success">Terkirim ke SPI</span>`
@@ -781,7 +1320,7 @@
                     contents += `<button data-id="${data.id}" class="btn btn-warning btn-sm" onclick="sendSPI(this)">Kirim ke SPI</button>`
                 }
                 contents += `</td><td>${data.kota_tujuan}</td>`
-                contents += `<td><button onclick="hapus(${data.id})" class="btn btn-danger btn-sm"><i class="tf-icons bx bx-trash"></i></button></td>`
+                contents += `<td><button data-id="${data.id}" onclick="deletePerjadin(this)" class="btn btn-danger btn-sm"><i class="tf-icons bx bx-trash"></i></button></td>`
                 contents += `</tr>`
             })
             contents += ` </tbody>
@@ -902,6 +1441,7 @@
                 let contents = '' // Mengambil token dari response JSON
 
                 data.data.map((data, index) => {
+
                     console.log(data.kode_akun.kode);
                     let filePath = "{{asset('storage/')}}/"
                     filePath += data.pelaksanaan_dasar.path_file
@@ -1210,7 +1750,7 @@
                     </select>
                 </td>
                 <td><input class="form-control" id="item" placeholder="Item / Barang" value="${data.item}"></td>
-                <td><input class="form-control" type="text" id="nilai" oninput="setValueBelanjaBahan(this)" onchange="calculateBelanjaBahan(this)" value="${formatRupiah(data.nilai)}"></td>
+                <td><input class="form-control" type="text" id="nilai" oninput="toNumber(this)" onchange="calculateBelanjaBahan(this)" value="${formatRupiah(data.nilai)}"></td>
                 <td><input class="form-control" type="text" id="ppn" value="${formatRupiah(data.ppn)}" readonly></td>
                 <td><input class="form-control" type="text" id="pph" value="${formatRupiah(data.pph)}" readonly></td>
                 <td><button onclick="deleteBaris(this)" class="btn btn-danger btn-sm"><i class="tf-icons bx bx-minus"></i></button></td>
@@ -1415,7 +1955,7 @@
 
     }
 
-    function setValueBelanjaBahan(input) {
+    function toNumber(input) {
         let cleanedInput = input.value.replace(/\D/g, '');
         const formattedInput = Number(cleanedInput).toLocaleString('id-ID');
         input.value = formattedInput;
@@ -2073,7 +2613,9 @@
                 toastr.options.closeButton = true;
                 toastr.options.positionClass = 'toast-top-center mt-3';
                 toastr.success('Sukses');
-                loadDataPencairan(document.querySelector('#show-data-sesi').dataset.id)
+                showDefault(document.querySelector('#show-data-sesi').dataset.id)
+
+                // loadDataPencairan(document.querySelector('#show-data-sesi').dataset.id)
 
             })
             .catch(error => {
@@ -2099,7 +2641,8 @@
                 toastr.options.closeButton = true;
                 toastr.options.positionClass = 'toast-top-center mt-3';
                 toastr.success('Sukses Hapus');
-                loadDataPencairan(document.querySelector('#show-data-sesi').dataset.id);
+                showDefault(document.querySelector('#show-data-sesi').dataset.id)
+                // loadDataPencairan(document.querySelector('#show-data-sesi').dataset.id);
             }
         }
     }

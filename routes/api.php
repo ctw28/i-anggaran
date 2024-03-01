@@ -21,6 +21,9 @@ use App\Http\Controllers\SPI\PeriksaDaftarController;
 use App\Http\Controllers\SPI\PeriksaDokumenController;
 use App\Http\Controllers\SPI\PeriksaPimpinanController;
 use App\Http\Controllers\PerjadinController;
+use App\Http\Controllers\Perjadin\AnggotaController;
+use App\Http\Controllers\Perjadin\RincianController;
+use App\Http\Controllers\Perjadin\RealCostController;
 
 /*
 |--------------------------------------------------------------------------
@@ -131,4 +134,19 @@ Route::group([
     //PERJADIN
     Route::get('pencairan-sesi/{id}/perjadin', [PerjadinController::class, 'index'])->name('perjadin.index');
     Route::post('perjadin/simpan', [PerjadinController::class, 'store'])->name('perjadin.store');
+    Route::get('perjadin/{id}', [PerjadinController::class, 'show'])->name('perjadin.show');
+    Route::get('perjadin/{id}/hapus', [PerjadinController::class, 'delete'])->name('perjadin.delete');
+
+    //PERJADIN ANGGOTA
+    Route::get('perjadin-anggota/{id}/data', [AnggotaController::class, 'index'])->name('perjadin.anggota.index');
+    Route::post('perjadin-anggota/simpan', [AnggotaController::class, 'store'])->name('perjadin.anggota.store');
+
+    //PERJADIN RINCIAN
+    Route::get('perjadin/{id}/perjadin-rincian/{anggotaId}/data', [RincianController::class, 'index'])->name('perjadin.rincian.index');
+    Route::post('perjadin-rincian/simpan', [RincianController::class, 'store'])->name('perjadin.rincian.store');
+
+    //PERJADIN REAL COST
+    Route::get('perjadin-real-cost/{anggotaId}/data', [RealCostController::class, 'index'])->name('perjadin.real-cost.index');
+    Route::post('perjadin-real-cost/simpan', [RealCostController::class, 'store'])->name('perjadin.real-cost.store');
+    Route::post('perjadin-real-cost/delete', [RealCostController::class, 'delete'])->name('perjadin.real-cost.delete');
 });

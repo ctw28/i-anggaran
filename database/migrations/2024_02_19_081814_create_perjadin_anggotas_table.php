@@ -18,9 +18,8 @@ class CreatePerjadinAnggotasTable extends Migration
             $table->unsignedBigInteger('perjadin_id');
             $table->foreign('perjadin_id')->references('id')->on('perjadins');
             $table->string('nama');
-            $table->string('id_anggota');
+            $table->string('nip')->nullable();
             $table->string('jabatan');
-            $table->double('representaif')->nullable();
 
             $table->timestamps();
         });

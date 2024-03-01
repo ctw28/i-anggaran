@@ -17,7 +17,12 @@ class CreatePerjadinsTable extends Migration
             $table->id();
             $table->unsignedBigInteger('rencana_id');
             $table->foreign('rencana_id')->references('id')->on('rencanas');
+            $table->unsignedBigInteger('kegiatan_id');
+            $table->foreign('kegiatan_id')->references('id')->on('kegiatans');
+
             $table->string('nama_perjadin');
+            $table->date('tgl_mulai')->nullable();
+            $table->date('tgl_selesai')->nullable();
             $table->string('kota_tujuan');
             $table->date('tanggal_dokumen');
             $table->string('no_surat_tugas');
