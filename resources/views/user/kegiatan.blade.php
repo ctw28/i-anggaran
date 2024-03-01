@@ -193,14 +193,18 @@
             if (sheet_data.length > 0) {
                 let table_output = ''
                 for (var row = 1; row < sheet_data.length; row++) {
-                    table_output += '<tr id="' + sheet_data[row][1] + '">';
-                    table_output += `<td>${row}</td>`
-                    table_output += `<td><input class="form-control" type="text" id="sub_kegiatan_kode" value="${sheet_data[row][1]}"></td>`
-                    table_output += `<td><input class="form-control" type="text" id="kegiatan_nama" value="${sheet_data[row][2]}"></td>`
-                    table_output += `<td><input class="form-control" type="text" id="jumlah_biaya" oninput="toNumber(this)" value="${formatRupiah(sheet_data[row][3])}"></td>`
-                    table_output += `<td><input class="form-control" type="text" id="sumber_dana" value="${sheet_data[row][4]}"></td>`
-                    table_output += `<td id="status" class="text-white"></td>`
-                    table_output += '</tr>';
+                    // console.log(sheet_data[row][1]);
+                    if (sheet_data[row][1] !== undefined) {
+                        table_output += '<tr id="' + sheet_data[row][1] + '">';
+                        table_output += `<td>${row}</td>`
+                        table_output += `<td><input class="form-control" type="text" id="sub_kegiatan_kode" value="${sheet_data[row][1]}"></td>`
+                        table_output += `<td><input class="form-control" type="text" id="kegiatan_nama" value="${sheet_data[row][2]}"></td>`
+                        // table_output += `<td><input class="form-control" type="text" id="jumlah_biaya" oninput="toNumber(this)" value="${sheet_data[row][3]}"></td>`
+                        table_output += `<td><input class="form-control" type="text" id="jumlah_biaya" oninput="toNumber(this)" value="${formatRupiah(sheet_data[row][3])}"></td>`
+                        table_output += `<td><input class="form-control" type="text" id="sumber_dana" value="${sheet_data[row][4]}"></td>`
+                        table_output += `<td id="status" class="text-white"></td>`
+                        table_output += '</tr>';
+                    }
                 }
                 document.getElementById('data-import').innerHTML = table_output;
             }

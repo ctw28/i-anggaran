@@ -72,7 +72,10 @@ class KegiatanController extends Controller
     {
         // return $request->all();
         $check = OrganisasiRpd::with(['kegiatan' => function ($kegiatan) use ($request) {
-            $kegiatan->where('sub_kegiatan_kode4', $request->sub_kegiatan_kode4)
+            $kegiatan->where('sub_kegiatan_kode1', $request->sub_kegiatan_kode1)
+                ->where('sub_kegiatan_kode2', $request->sub_kegiatan_kode2)
+                ->where('sub_kegiatan_kode3', $request->sub_kegiatan_kode3)
+                ->where('sub_kegiatan_kode4', $request->sub_kegiatan_kode4)
                 ->where('sub_kegiatan_kode5', $request->sub_kegiatan_kode5);
         }])
             ->find($request->organisasi_rpd_id);
