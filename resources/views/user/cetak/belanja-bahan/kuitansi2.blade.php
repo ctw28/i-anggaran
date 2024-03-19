@@ -199,7 +199,7 @@
         document.querySelector('#total-seluruhnya').innerText = `Rp. ${formatRupiah(response.data[0].total)}`
         document.querySelector('#terbilang').innerText = `${response.data[0].terbilang} Rupiah`
         document.querySelector('#kode-akun').innerText = response.data[0].kode_akun.kode
-        document.querySelector('#nomor-bukti').innerText = response.data[0].pelaksanaan_dasar.nomor
+        document.querySelector('#nomor-bukti').innerText = response.data[0].kuitansi_nomor
         document.querySelector('#penerima-nama').innerText = response.data[0].penerima_nama
         document.querySelector('#penerima-jabatan').innerText = response.data[0].penerima_jabatan
         document.querySelector('#penerima-nip').innerText = response.data[0].penerima_jabatan
