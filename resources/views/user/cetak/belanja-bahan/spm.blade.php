@@ -17,6 +17,7 @@
                 font-family: arial;
             }
 
+            body,
             table {
                 font-size: 18px;
             }
@@ -91,12 +92,14 @@
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Kendari</p><br>
 
 
-        <p style="text-align:justify">Assalamu Alaikum Warahmatullahi Wabarakatuh<br>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <p style="text-align:justify">Assalamu Alaikum Warahmatullahi Wabarakatuh</p>
+        <p>
             Dengan ini kami mengajukan permintaan pembayaran
             <b><i><span id="pencairan-nama"></span></i></b> sesuai SK No. <span id="sk"></span>
             sebesar
-            <b><i><span id="total-seluruhnya"></span> (<span id="terbilang"></span> Rupiah).</i></b><br>
+            <b><i><span id="total-seluruhnya"></span> (<span id="terbilang"></span> Rupiah).</i></b>
+        </p>
+        <p>
             Demikian, permohonan ini atas kerjasamanya diucapkan terima kasih.
         </p>
 
@@ -140,7 +143,7 @@
 <script>
     loadSesiData()
     async function loadSesiData() {
-        let url = '{{route("daftar.nominal.index",":id")}}'
+        let url = '{{route("belanja.bahan.index",":id")}}'
         url = url.replace(":id", "{{$sesi_id}}")
         let sendRequest = await fetch(url, {
             headers: {

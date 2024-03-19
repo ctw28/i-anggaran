@@ -82,6 +82,9 @@
                 <div id="menu-spi" style="display: none">
                     @include('parts/menu-spi')
                 </div>
+                <div id="menu-spi-pimpinan" style="display: none">
+                    @include('parts/menu-spi-pimpinan')
+                </div>
             </aside>
             <!-- / Menu -->
 
@@ -285,6 +288,8 @@
                     document.querySelector("#menu-admin").style.display = "block";
                 if (decodedToken.current_role === "verifikator_spi")
                     document.querySelector("#menu-spi").style.display = "block";
+                if (decodedToken.current_role === "spi_pimpinan")
+                    document.querySelector("#menu-spi-pimpinan").style.display = "block";
                 let roles = ""
                 decodedToken.roles.map(function(role) {
                     if (decodedToken.roles.length == 1) {

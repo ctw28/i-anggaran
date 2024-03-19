@@ -54,13 +54,14 @@
             <div class="modal-body">
                 <div class="row">
 
-                    <div class="col-10 mb-3">
+                    <div class="col-8 mb-3">
                         <h5>Nama Pencairan : <span id="show-pencairan-nama"></span></h5>
                     </div>
-                    <div class="col-2 mb-3 text-end">
+                    <div class="col-4 mb-3 text-end">
 
                         <button class="btn btn-danger btn-sm mb-1" id="btn-kembalikan" onclick="kembalikan(this)"><i class="tf-icons bx bx-undo me-1"></i> Kembalikan</button>
                         <button class="btn btn-success btn-sm mb-1" id="btn-ke-pimpinan" onclick="kePimpinan(this)"><i class="tf-icons bx bx-right-arrow-alt me-1"></i> Valid / Teruskan</button>
+                        <a class="btn btn-info btn-sm mb-1" id="btn-cetak-lembar-periksa"><i class=" tf-icons bx bx-printer me-1"></i> Cetak</a>
                     </div>
                 </div>
                 <div id="periksa"></div>
@@ -80,6 +81,20 @@
 
 <script>
     loadUsulan()
+
+    async function cetak(button) {
+        let url = '{{route("spi.cetak",[":id",":kategori"])}}'
+        url = url.replace(':id', 1)
+        url = url.replace(':kategori', button.dataset.cetak)
+        let sendRequest = await fetch(url, {
+            headers: {
+                'Authorization': 'Bearer ' + localStorage.getItem('token')
+            },
+            method: "GET",
+        })
+        response = await sendRequest.json()
+        console.log(response);
+    }
     async function loadUsulan() {
         let dataSend = new FormData()
         dataSend.append('tahun_anggaran_id', JSON.parse(localStorage.getItem('tahun_anggaran')).id)
@@ -139,7 +154,7 @@
             usulanDataContainer.innerHTML = contents
             return
         }
-        usulanDataContainer.innerHTML = '<tr><td>Tidak ada Data</td></tr>'
+        usulanDataContainer.innerHTML = '<tr><td colspan="6" style="text-align: center">Tidak ada Data</td></tr>'
     }
 
     async function kembalikan(button) {
@@ -219,6 +234,10 @@
         var periksa = document.querySelector('#periksa')
         document.querySelector("#show-pencairan-nama").innerText = row.querySelector('#pencairan-nama').innerText
         periksa.dataset.id = button.dataset.id
+        let buttonCetak = document.querySelector('#btn-cetak-lembar-periksa')
+        let urlCetak = "{{route('spi.cetak',[':id','lembar-periksa'])}}"
+        urlCetak = urlCetak.replace(':id', button.dataset.id)
+        buttonCetak.href = urlCetak
         document.querySelector("#btn-kembalikan").dataset.sesiId = button.dataset.id
         document.querySelector("#btn-ke-pimpinan").dataset.sesiId = button.dataset.id
         let contents = ''

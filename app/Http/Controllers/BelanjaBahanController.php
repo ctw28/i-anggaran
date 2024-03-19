@@ -34,18 +34,18 @@ class BelanjaBahanController extends Controller
             $date = Carbon::parse($item->pelaksanaanDasar->tanggal)->locale('id');
             $date->settings(['formatFunction' => 'translatedFormat']);
             $item->pelaksanaanDasar->tanggal = $date->format('j F Y');
-            // $total = 0;
-            // $pajak = 0;
-            // foreach ($item->belanjaBahan as $d) {
-            //     $total = $total + $d->nilai;
-            //     $pajak = $pajak + $d->pph;
-            //     $pajak = $pajak + $d->pph;
-            // }
-            // $item->total = $total;
-            // $item->pajak = $pajak;
-            // $item->terima = $total - $pajak;
-            // $item->terbilang = ucwords($this->terbilang($total));
-            // $item->total = $total;
+            $total = 0;
+            $pajak = 0;
+            foreach ($item->belanjaBahan as $d) {
+                $total = $total + $d->nilai;
+                $pajak = $pajak + $d->pph;
+                $pajak = $pajak + $d->pph;
+            }
+            $item->total = $total;
+            $item->pajak = $pajak;
+            $item->terima = $total - $pajak;
+            $item->terbilang = ucwords($this->terbilang($total));
+            $item->total = $total;
         }
         return response()->json([
             'status' => true,

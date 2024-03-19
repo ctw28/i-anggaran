@@ -17,7 +17,8 @@
             table {
                 background-color: #FFFFFF;
                 color: #000;
-                font-size: 14px;
+                font-size: 18px;
+                font-family: arial;
             }
 
             .page-break {
@@ -57,7 +58,7 @@
 
 <body>
 
-    <div style="width:21cm;margin:0 auto;">
+    <div style="width:21cm;margin:0 auto; font-size:18px">
 
         <!--TITLE-->
         <h4 class="text-center" style="text-transform:uppercase">
@@ -67,7 +68,7 @@
         <!--TITLE END-->
 
         <!--CONTENT-->
-        <table border="1" cellpadding="3" cellspacing="0">
+        <table border="1" cellpadding="2" cellspacing="0">
             <thead>
                 <tr style="font-size:12px;">
                     <th style="width:0.5cm">NO.</th>
@@ -79,7 +80,7 @@
                     <th style="width:2cm">JUMLAH YANG <br>DITERIMA(Rp)</th>
                     <th style="width:2cm">NOMOR <br> REKENING</th>
                 </tr>
-                <tr style="font-size:10px;" class="text-center">
+                <tr style="font-size:18px;" class="text-center">
                     <td>1</td>
                     <td>2</td>
                     <td>3</td>
@@ -95,7 +96,7 @@
 
             </tbody>
             <tfooter>
-                <tr style="font-size:13px;">
+                <tr>
                     <th colspan="4" class="text-center">JUMLAH</th>
                     <th class="text-center" id="total-kotor"></th>
                     <th class="text-center" id="total-pajak"></th>
@@ -169,6 +170,10 @@
         document.querySelector('#bendahara').innerText = response.data[0].bendahara.nama_pejabat
         document.querySelector('#bendahara-nip').innerText = response.data[0].bendahara.pegawai.pegawai_nomor_induk
 
+        document.querySelector('#total-kotor').innerText = formatRupiah(response.data[0].total)
+        document.querySelector('#total-pajak').innerText = formatRupiah(response.data[0].pajak)
+        document.querySelector('#total-diterima').innerText = formatRupiah(response.data[0].terima)
+
 
 
 
@@ -184,6 +189,7 @@
             <td class="border text-center">${formatRupiah(data.jumlah)} ${data.satuan} x ${formatRupiah(data.honor)} = ${formatRupiah(data.total)}</td>
             <td class="border text-center">${formatRupiah(data.pph)}</td>
             <td class="border text-center">${formatRupiah(data.diterima)}</td>
+            <td class="border text-center"></td>
             </tr>
             `
         })

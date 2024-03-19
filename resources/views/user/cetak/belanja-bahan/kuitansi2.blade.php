@@ -7,13 +7,19 @@
         @page {
             size: 21cm 29.7cm portrait;
             /* A4 size */
-            margin: 1cm 2cm 1cm 2cm;
+            margin: 1cm;
+            /* margin: 1cm 2cm 1cm 2cm; */
             /* this affects the margin in the printer settings */
         }
 
         @media all {
+            table {
+                font-size: 18px;
+            }
+
             body {
                 background-color: #FFFFFF;
+                font-family: arial;
             }
 
             .page-break {
@@ -47,120 +53,136 @@
 <body onload="window.print()" onfocus="window.close()">
 -->
 
-<body style="color:#000;font-size:16px;">
+<body style="color:#000;font-size:18px;">
 
     <div style="width:21cm;margin:0 auto;">
+        <div class="text-center" style="margin-bottom:10px">
 
-        <!--KOP-->
-        <table border="0" cellpadding="1" cellspacing="1" style="width:100%;" class="text-center">
-            <tr>
-                <td style="text-align: center; vertical-align: middle; width: 15%;">
-                    <img src="https://simpeg.iainkendari.ac.id/./upload/logo/49sqk.png" style="width: 70px;" />
-                </td>
-                <td style="vertical-align: top; width: 70%;"><strong>
-                        <span style="font-size:18">KEMENTERIAN AGAMA REPUBLIK INDONESIA</span><br />
-                        <span style="font-size:17">INSTITUT AGAMA ISLAM NEGERI (IAIN) KENDARI</span></strong><br />
-                    <span style="font-size:12">
-                        Jl. Sultan Qaimuddin No. 17, Telp (0401) 3192081 Fax (0401) 3193710<br />
-                        Email : humas@iainkendari.ac.id, Website : iainkendari.ac.id
-                    </span>
-                </td>
-                <td style="text-align: center; vertical-align: middle; width: 15%;">&nbsp;</td>
-            </tr>
-            <tr>
-                <td colspan="3" style="text-align: center; vertical-align: top;border-top:2px #000 solid;">&nbsp;</td>
-            </tr>
-        </table>
-        <!--KOP END-->
+            <img src="https://simpeg.iainkendari.ac.id/./upload/logo/49sqk.png" style="width: 100px;" />
+        </div>
+
+        <h3 class="text-center">
+            KEMENTERIAN AGAMA REPUBLIK INDONESIA<br />
+            INSTITUT AGAMA ISLAM NEGERI KENDARI
+        </h3><br />
+
 
         <!--TITLE-->
-        <h3 class="text-center">KUITANSI PEMBAYARAN LANGSUNG</h3><br />
-        <br />
         <!--TITLE END-->
 
-
-        <table border="0" cellpadding="2" cellspacing="2">
-            <tbody>
-                <tr>
-                    <td style="width:7cm">
-                    </td>
-                    <td style="width:7cm">
-                    </td>
-                    <td style="width:7cm">
-                        Kendari,
-                        <span id="tanggal-dokumen"></span>,<br />
-                        Pejabat Pembuat Komitmen
-                    </td>
-                </tr>
-                <tr>
-                    <td><br><br><br><br></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td><b></b></td>
-                    <td><b></b></td>
-                    <td><b><span id="ppk-nama"></span></b></td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td>NIP. <span id="ppk-nip"></span></td>
-                </tr>
-            </tbody>
-        </table>
+        <div style="border: 2px solid #000; padding: 20px">
+            <h3 class="text-center">KUITANSI PEMBAYARAN LANGSUNG</h3>
+            <br>
 
 
-        <!-- <p style="text-align:justify">Assalamu Alaikum Warahmatullahi Wabarakatuh<br>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            Dengan ini kami mengajukan permintaan pembayaran
-            <b><i><span id="pencairan-nama"></span></i></b> sesuai SK No. <span id="sk"></span>
-            sebesar
-            <b><i><span id="total-seluruhnya"></span> (<span id="terbilang"></span> Rupiah).</i></b><br>
-            Demikian, permohonan ini atas kerjasamanya diucapkan terima kasih.
-        </p>
- -->
+            <table border="0" cellpadding="0" cellspacing="0" style="padding-left:7cm;">
+                <tbody>
+                    <tr>
+                        <td style="width:4.0cm">TA</td>
+                        <td style="width:0.5cm">:</td>
+                        <td style="width:5.0cm">2024</td>
+                    </tr>
+                    <tr>
+                        <td>Nomor Bukti</td>
+                        <td>:</td>
+                        <td id="nomor-bukti"></td>
+                    </tr>
+                    <tr>
+                        <td>Mata Anggaran</td>
+                        <td>:</td>
+                        <td id="kode-akun"></td>
+                    </tr>
+                </tbody>
+            </table>
 
+            <br>
+            <h3 class="text-center">KUITANSI / BUKTI PEMBAYARAN</h3>
+            <br>
+            <table border="0" cellpadding="0" cellspacing="0">
+                <tbody>
+                    <tr>
+                        <td style="width:5.0cm">Sudah Terima Dari</td>
+                        <td style="width:0.5cm">:</td>
+                        <td style="width:15.5cm">Pejabat Pembuat Komitmen Satker IAIN kendari</td>
+                    </tr>
+                    <tr>
+                        <td><br></td>
+                    </tr>
+                    <tr style="padding-top: 12px">
+                        <td>Jumlah Uang</td>
+                        <td>:</td>
+                        <td id="total-seluruhnya"></td>
+                    </tr>
+                    <tr>
+                        <td>Terbilang</td>
+                        <td>:</td>
+                        <td id="terbilang"></td>
+                    </tr>
+                    <tr>
+                        <td><br></td>
+                    </tr>
+                    <tr style="padding-top: 12px">
+                        <td>Untuk pembayaran</td>
+                        <td>:</td>
+                        <td id="pencairan-nama"></td>
+                    </tr>
+                </tbody>
+            </table>
 
-        <br>
+            <br>
+            <br>
+            <br>
 
-        <table border="0" cellpadding="2" cellspacing="2">
-            <tbody>
-                <tr>
-                    <td style="width:7cm">
-                    </td>
-                    <td style="width:7cm">
-                    </td>
-                    <td style="width:7cm">
-                        Kendari,
-                        <span id="tanggal-dokumen"></span>,<br />
-                        Pejabat Pembuat Komitmen
-                    </td>
-                </tr>
-                <tr>
-                    <td><br><br><br><br></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td><b></b></td>
-                    <td><b></b></td>
-                    <td><b><span id="ppk-nama"></span></b></td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td>NIP. <span id="ppk-nip"></span></td>
-                </tr>
-            </tbody>
-        </table>
+            <table border="0" cellpadding="2" cellspacing="2">
+                <tbody>
+                    <tr>
+                        <td style="width:10.5cm">
+                            a.n. Kuasa Pengguna Anggara,<br>
+                            Pejabat Pembuat Komitmen
+                        </td>
+                        <td style="width:5.5cm">
+                        </td>
+                        <td style="width:10.7cm">
+                            Kendari,
+                            <span id="tanggal-dokumen">30 November 2024</span>,<br />
+                            <span id="penerima-jabatan">Sekertarisa</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><br><br><br></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td><b><span id="ppk-nama">Hasnah</span></b></td>
+                        <td></td>
+                        <td><b><span id="penerima-nama">Ibrahim</span></b></td>
+                    </tr>
+                    <tr>
+                        <td>NIP. <span id="ppk-nip">1901901901</span></td>
+                        <td></td>
+                        <td><span id="penerima-nip">-</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div style="border: 2px solid #000; padding: 20px; border-top:none">
 
+            <p>Barang/Pekerjaan tersebut telah diterima/diselesaikan dengan lengkap dan baik</p>
+            <p>Pejabat yang bertanggung Jawab</p>
+            <br>
+            <br>
+            <p><u><span id="sptjk-nama">Sakri, S.Si</span></u>
+                <br>
+                NIP. <span id="sptjk-nip">19999999</span>
+            </p>
+        </div>
     </div>
 </body>
 <script>
     loadSesiData()
     async function loadSesiData() {
-        let url = '{{route("daftar.nominal.index",":id")}}'
+        let url = '{{route("belanja.bahan.index",":id")}}'
         url = url.replace(":id", "{{$sesi_id}}")
         let sendRequest = await fetch(url, {
             headers: {
@@ -174,9 +196,17 @@
         document.querySelector('#tanggal-dokumen').innerText = response.data[0].tanggal_dokumen_indonesia
         document.querySelector('#ppk-nama').innerText = response.data[0].ppk.nama_pejabat
         document.querySelector('#ppk-nip').innerText = response.data[0].ppk.pegawai.pegawai_nomor_induk
-        document.querySelector('#total-seluruhnya').innerText = formatRupiah(response.data[0].total)
-        document.querySelector('#terbilang').innerText = response.data[0].terbilang
-        document.querySelector('#sk').innerText = `${response.data[0].pelaksanaan_dasar.nomor} tanggal ${response.data[0].pelaksanaan_dasar.tanggal}`
+        document.querySelector('#total-seluruhnya').innerText = `Rp. ${formatRupiah(response.data[0].total)}`
+        document.querySelector('#terbilang').innerText = `${response.data[0].terbilang} Rupiah`
+        document.querySelector('#kode-akun').innerText = response.data[0].kode_akun.kode
+        document.querySelector('#nomor-bukti').innerText = response.data[0].pelaksanaan_dasar.nomor
+        document.querySelector('#penerima-nama').innerText = response.data[0].penerima_nama
+        document.querySelector('#penerima-jabatan').innerText = response.data[0].penerima_jabatan
+        document.querySelector('#penerima-nip').innerText = response.data[0].penerima_jabatan
+        document.querySelector('#sptjk-nama').innerText = response.data[0].sptjk_nama
+        document.querySelector('#sptjk-nip').innerText = response.data[0].sptjk_nip
+        // document.querySelector('#spjtk-jabatan').innerText = response.data[0].sptjk_jabatan
+        document.querySelector('#penerima-nip').innerText = response.data[0].penerima_nomor
 
     }
 

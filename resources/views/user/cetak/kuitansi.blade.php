@@ -12,8 +12,14 @@
         }
 
         @media all {
+            table {
+                font-size: 18px;
+            }
+
             body {
                 background-color: #FFFFFF;
+                font-family: arial;
+
             }
 
             .page-break {
@@ -42,7 +48,7 @@
 <body onload="window.print()" onfocus="window.close()">
 -->
 
-<body style="color:#000;font-size:12;">
+<body style="color:#000;font-size:18px;">
 
     <div style="width:21cm;margin:0 auto;">
 
@@ -53,9 +59,9 @@
                     <img src="https://simpeg.iainkendari.ac.id/./upload/logo/49sqk.png" style="width: 70px;" />
                 </td>
                 <td style="vertical-align: top; width: 70%;"><strong>
-                        <span style="font-size:18">KEMENTERIAN AGAMA REPUBLIK INDONESIA</span><br />
-                        <span style="font-size:17">INSTITUT AGAMA ISLAM NEGERI (IAIN) KENDARI</span></strong><br />
-                    <span style="font-size:12">
+                        <span style="font-size:20px">KEMENTERIAN AGAMA REPUBLIK INDONESIA</span><br />
+                        <span style="font-size:20px">INSTITUT AGAMA ISLAM NEGERI (IAIN) KENDARI</span></strong><br />
+                    <span style="font-size:12px">
                         Jl. Sultan Qaimuddin No. 17, Telp (0401) 3192081 Fax (0401) 3193710<br />
                         Email : humas@iainkendari.ac.id, Website : iainkendari.ac.id
                     </span>
@@ -69,7 +75,7 @@
         <!--KOP END-->
 
         <!--TITLE-->
-        <h2 class="text-center">KWITANSI</h2><br />
+        <h2 class="text-center">KUITANSI</h2><br />
         <br />
         <!--TITLE END-->
 
@@ -77,9 +83,9 @@
         <table border="0" cellpadding="2" cellspacing="2">
             <tbody>
                 <tr>
-                    <td style="width:3.5cm">Sub Kegiatan</td>
+                    <td style="width:4.5cm">Sub Kegiatan</td>
                     <td style="width:0.5cm">:</td>
-                    <td style="width:16cm"><span id="sub_kegiatan"></span></td>
+                    <td style="width:15cm"><span id="sub_kegiatan"></span></td>
                 </tr>
                 <tr>
                     <td>Akun</td>

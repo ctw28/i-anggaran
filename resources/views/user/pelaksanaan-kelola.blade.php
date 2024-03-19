@@ -158,23 +158,9 @@
                                 <button type="button" class="nav-link active" role="tab" data-bs-toggle="tab" data-bs-target="#show-daftar-nominal" aria-controls="navs-justified-home" aria-selected="true"><i class="tf-icons bx bx-grid me-1"></i> Daftar Nominal</button>
                             </li>
                             <li class="nav-item" role="presentation">
-                                <button type="button" onclick="showDokumenPencairanNominal(this)" id="kuitansi" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#show-kuitansi" aria-controls="navs-justified-profile" aria-selected="false"><i class="tf-icons bx bx-money me-1"></i> kuitansi</button>
+                                <button type="button" id="cetak-nominal" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#show-cetak-nominal" aria-controls="navs-justified-profile" aria-selected="false"><i class="tf-icons bx bx-printer me-1"></i> Cetak Dokumen</button>
                             </li>
-                            <li class="nav-item" role="presentation">
-                                <button type="button" onclick="showDokumenPencairanNominal(this)" id="rekap" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#show-rekap" aria-controls="navs-justified-messages" aria-selected="false"><i class="tf-icons bx bx-file me-1"></i> Rekap</button>
-                            </li>
-                            <li class="nav-item" role="presentation">
-                                <button type="button" onclick="showDokumenPencairanNominal(this)" id="sptjb" class="nav-link " role="tab" data-bs-toggle="tab" data-bs-target="#show-sptjb" aria-controls="navs-justified-messages" aria-selected="false"><i class="tf-icons bx bx-dialpad me-1"></i> SPTJB</button>
-                            </li>
-                            <li class="nav-item" role="presentation">
-                                <button type="button" onclick="showDokumenPencairanNominal(this)" id="spm" class="nav-link " role="tab" data-bs-toggle="tab" data-bs-target="#show-spm" aria-controls="navs-justified-messages" aria-selected="false"><i class="tf-icons bx bx-dice-1 me-1"></i> SPM</button>
-                            </li>
-                            <li class="nav-item" role="presentation">
-                                <button type="button" onclick="showDokumenPencairanNominal(this)" id="spi" class="nav-link " role="tab" data-bs-toggle="tab" data-bs-target="#show-spi" aria-controls="navs-justified-messages" aria-selected="false"><i class="tf-icons bx bx-dice-3 me-1"></i> SPI</button>
-                            </li>
-                            <li class="nav-item" role="presentation">
-                                <button type="button" onclick="showDokumenPencairanNominal(this)" id="sptjk" class="nav-link " role="tab" data-bs-toggle="tab" data-bs-target="#show-sptjk" aria-controls="#show-sptjk" aria-selected="false"><i class="tf-icons bx bx-dice-2 me-1"></i> SPTJK</button>
-                            </li>
+
                         </ul>
                         <div class="tab-content">
                             <div class="tab-pane fade" id="show-data-nominal" role="tabpanel">
@@ -183,25 +169,33 @@
                             <div class="tab-pane fade active show" id="show-daftar-nominal" role="tabpanel">
                                 @include('user/daftar-nominal/daftar-nominal')
                             </div>
-                            <div class="tab-pane fade" id="show-kuitansi" role="tabpanel">
-                                <iframe id="frame-kuitansi" width="100%" height="1000vh"></iframe>
+                            <div class="tab-pane fade" id="show-cetak-nominal" role="tabpanel">
+                                <div class="row">
+                                    <div class="col-md-2 col-12 mb-3 mb-md-0">
+                                        <div class="list-group" role="tablist">
+                                            <a class="list-group-item list-group-item-action" onclick="showDokumenPencairanNominal(this)" data-bs-toggle="list" id="ampra" href="#show-ampra" aria-selected="false" role="tab" tabindex="-1">Ampra</a>
+                                            <a class="list-group-item list-group-item-action" onclick="showDokumenPencairanNominal(this)" data-bs-toggle="list" id="kuitansi" href="#show-kuitansi" aria-selected="false" role="tab" tabindex="-1">Kuintasi</a>
+                                            <a class="list-group-item list-group-item-action" onclick="showDokumenPencairanNominal(this)" data-bs-toggle="list" id="rekap" href="#show-rekap" aria-selected="false" role="tab" tabindex="-1">Rekap</a>
+                                            <a class="list-group-item list-group-item-action" onclick="showDokumenPencairanNominal(this)" data-bs-toggle="list" id="sptjb" href="#show-sptjb" aria-selected="false" role="tab" tabindex="-1">SPTJB</a>
+                                            <a class="list-group-item list-group-item-action" onclick="showDokumenPencairanNominal(this)" data-bs-toggle="list" id="spm" href="#show-spm" aria-selected="true" role="tab">SPM</a>
+                                            <a class="list-group-item list-group-item-action" onclick="showDokumenPencairanNominal(this)" data-bs-toggle="list" id="spi" href="#show-spi" aria-selected="true" role="tab">SPI</a>
+                                            <a class="list-group-item list-group-item-action" onclick="showDokumenPencairanNominal(this)" data-bs-toggle="list" id="sptjk" href="#show-sptjk" aria-selected="true" role="tab">SPTJK</a>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-10 col-12">
+                                        <div class="tab-content p-0">
+                                            <div class="tab-pane fade" id="show-ampra" role="tabpanel" aria-labelledby="list-home-list"></div>
+                                            <div class="tab-pane fade" id="show-kuitansi" role="tabpanel" aria-labelledby="list-home-list"></div>
+                                            <div class="tab-pane fade" id="show-rekap" role="tabpanel" aria-labelledby="list-profile-list"></div>
+                                            <div class="tab-pane fade" id="show-sptjb" role="tabpanel" aria-labelledby="list-messages-list"></div>
+                                            <div class="tab-pane fade" id="show-spm" role="tabpanel" aria-labelledby="list-settings-list"></div>
+                                            <div class="tab-pane fade" id="show-sptjk" role="tabpanel" aria-labelledby="list-settings-list"></div>
+                                            <div class="tab-pane fade" id="show-spi" role="tabpanel" aria-labelledby="list-settings-list"></div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="tab-pane fade" id="show-rekap" role="tabpanel">
-                                <iframe id="frame-rekap" width="100%" height="1000vh"></iframe>
-                            </div>
-                            <div class="tab-pane fade" id="show-sptjb" role="tabpanel">
-                                <iframe id="frame-sptjb" width="100%" height="1000vh"></iframe>
-                            </div>
-                            <div class="tab-pane fade" id="show-spm" role="tabpanel">
-                                <iframe id="frame-spm" width="100%" height="1000vh"></iframe>
-                            </div>
-                            <div class="tab-pane fade" id="show-sptjk" role="tabpanel">
-                                <iframe id="frame-sptjk" width="100%" height="1000vh"></iframe>
-                            </div>
-                            <div class="tab-pane fade" id="show-spi" role="tabpanel">
-                                <iframe id="frame-spi" width="100%" height="1000vh"></iframe>
 
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -228,28 +222,13 @@
                     <div class="nav-align-top mb-4">
                         <ul class="nav nav-pills mb-3 nav-fill" role="tablist">
                             <li class="nav-item" role="presentation">
-                                <button type="button" class="nav-link btn btn-primary" onclick="showDataBelanjaBahan(this)" id="data" role="tab" data-bs-toggle="tab" data-bs-target="#show-data" aria-controls="navs-justified-home" aria-selected="true"><i class="tf-icons bx bx-home me-1"></i> Data</button>
+                                <button type="button" class="nav-link btn btn-primary" onclick="showDataBelanjaBahan(this)" id="data" role="tab" data-bs-toggle="tab" data-bs-target="#show-data" aria-controls="navs-justified-home" aria-selected="true"><i class="tf-icons bx bx-home me-1"></i> Edit Data</button>
                             </li>
                             <li class="nav-item" role="presentation">
                                 <button type="button" class="nav-link active" role="tab" data-bs-toggle="tab" data-bs-target="#show-daftar" aria-controls="navs-justified-home" aria-selected="true"><i class="tf-icons bx bx-grid me-1"></i> Daftar Belanja Bahan</button>
                             </li>
                             <li class="nav-item" role="presentation">
-                                <button type="button" onclick="showDokumenPencairan(this)" id="kuitansi2" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#show-kuitansi2" aria-controls="navs-justified-profile" aria-selected="false"><i class="tf-icons bx bx-money me-1"></i> kuitansi</button>
-                            </li>
-                            <li class="nav-item" role="presentation">
-                                <button type="button" onclick="showDokumenPencairan(this)" id="rekap2" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#show-rekap2" aria-controls="navs-justified-messages" aria-selected="false"><i class="tf-icons bx bx-file me-1"></i> Rekap</button>
-                            </li>
-                            <li class="nav-item" role="presentation">
-                                <button type="button" onclick="showDokumenPencairan(this)" id="sptjb2" class="nav-link " role="tab" data-bs-toggle="tab" data-bs-target="#show-sptjb2" aria-controls="navs-justified-messages" aria-selected="false"><i class="tf-icons bx bx-dialpad me-1"></i> SPTJB</button>
-                            </li>
-                            <li class="nav-item" role="presentation">
-                                <button type="button" onclick="showDokumenPencairan(this)" id="spm-2" class="nav-link " role="tab" data-bs-toggle="tab" data-bs-target="#show-spm-2" aria-controls="navs-justified-messages" aria-selected="false"><i class="tf-icons bx bx-dice-1 me-1"></i> SPM</button>
-                            </li>
-                            <li class="nav-item" role="presentation">
-                                <button type="button" onclick="showDokumenPencairan(this)" id="spi-2" class="nav-link " role="tab" data-bs-toggle="tab" data-bs-target="#show-spi-2" aria-controls="navs-justified-messages" aria-selected="false"><i class="tf-icons bx bx-dice-3 me-1"></i> SPI</button>
-                            </li>
-                            <li class="nav-item" role="presentation">
-                                <button type="button" onclick="showDokumenPencairan(this)" id="sptjk-2" class="nav-link " role="tab" data-bs-toggle="tab" data-bs-target="#show-sptjk-2" aria-controls="#show-sptjk" aria-selected="false"><i class="tf-icons bx bx-dice-2 me-1"></i> SPTJK</button>
+                                <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#show-cetak" aria-controls="navs-justified-home" aria-selected="true"><i class="tf-icons bx bx-printer me-1"></i> Cetak</button>
                             </li>
                         </ul>
                         <div class="tab-content">
@@ -259,25 +238,36 @@
                             <div class="tab-pane fade" id="show-data" role="tabpanel">
                                 @include('user/data-belanja-bahan')
                             </div>
-                            <div class="tab-pane fade" id="show-kuitansi2" role="tabpanel">
-                                <iframe id="frame-kuitansi" width="100%" height="1000vh"></iframe>
+                            <div class="tab-pane fade" id="show-cetak" role="tabpanel">
+                                <div class="row">
+                                    <div class="col-md-2 col-12 mb-3 mb-md-0">
+                                        <div class="list-group" role="tablist">
+                                            <a class="list-group-item list-group-item-action" onclick="showDokumenPencairan(this)" data-bs-toggle="list" id="kuitansi2" href="#show-kuitansi2" aria-selected="false" role="tab" tabindex="-1">Kuintasi</a>
+                                            <a class="list-group-item list-group-item-action" onclick="showDokumenPencairan(this)" data-bs-toggle="list" id="rekap2" href="#show-rekap2" aria-selected="false" role="tab" tabindex="-1">Rekap</a>
+                                            <a class="list-group-item list-group-item-action" onclick="showDokumenPencairan(this)" data-bs-toggle="list" id="sptjb2" href="#show-sptjb2" aria-selected="false" role="tab" tabindex="-1">SPTJB</a>
+                                            <a class="list-group-item list-group-item-action" onclick="showDokumenPencairan(this)" data-bs-toggle="list" id="spm-2" href="#show-spm-2" aria-selected="true" role="tab">SPM</a>
+                                            <a class="list-group-item list-group-item-action" onclick="showDokumenPencairan(this)" data-bs-toggle="list" id="spi-2" href="#show-spi-2" aria-selected="true" role="tab">SPI</a>
+                                            <a class="list-group-item list-group-item-action" onclick="showDokumenPencairan(this)" data-bs-toggle="list" id="sptjk-2" href="#show-sptjk-2" aria-selected="true" role="tab">SPTJK</a>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-10 col-12">
+                                        <div class="tab-content p-0">
+                                            <div class="tab-pane fade active show" id="show-kuitansi2" role="tabpanel" aria-labelledby="list-home-list"></div>
+                                            <div class="tab-pane fade" id="show-rekap2" role="tabpanel" aria-labelledby="list-profile-list"></div>
+                                            <div class="tab-pane fade" id="show-sptjb2" role="tabpanel" aria-labelledby="list-messages-list"></div>
+                                            <div class="tab-pane fade" id="show-spm-2" role="tabpanel" aria-labelledby="list-settings-list"></div>
+                                            <div class="tab-pane fade" id="show-sptjk-2" role="tabpanel" aria-labelledby="list-settings-list"></div>
+                                            <div class="tab-pane fade" id="show-spi-2" role="tabpanel" aria-labelledby="list-settings-list"></div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="tab-pane fade" id="show-rekap2" role="tabpanel">
-                                <iframe id="frame-rekap" width="100%" height="1000vh"></iframe>
-                            </div>
-                            <div class="tab-pane fade" id="show-sptjb2" role="tabpanel">
-                                <iframe id="frame-sptjb" width="100%" height="1000vh"></iframe>
-                            </div>
-                            <div class="tab-pane fade" id="show-spm-2" role="tabpanel">
-                                <iframe id="frame-spm" width="100%" height="1000vh"></iframe>
-                            </div>
-                            <div class="tab-pane fade" id="show-sptjk-2" role="tabpanel">
-                                <iframe id="frame-sptjk" width="100%" height="1000vh"></iframe>
-                            </div>
-                            <div class="tab-pane fade" id="show-spi-2" role="tabpanel">
-                                <iframe id="frame-spi" width="100%" height="1000vh"></iframe>
-
-                            </div>
+                            <!-- <div class="tab-pane fade" id="" role="tabpanel"></div>
+                            <div class="tab-pane fade" id="" role="tabpanel"></div>
+                            <div class="tab-pane fade" id="show-sptjb2" role="tabpanel"></div>
+                            <div class="tab-pane fade" id="" role="tabpanel"></div>
+                            <div class="tab-pane fade" id="" role="tabpanel"></div>
+                            <div class="tab-pane fade" id="" role="tabpanel"></div> -->
                         </div>
                     </div>
                 </div>
@@ -416,8 +406,8 @@
 
 @endsection
 @section('scripts')
+@include('user/javascript/daftar-nominal-script')
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
-
 <script>
     loadData()
 
@@ -1390,17 +1380,19 @@
                         contents += `<td><button data-bs-toggle="modal" onclick="loadBelanjaBahan(${data.id})" data-bs-target="#daftar-belanja-bahan"  class="btn btn-info"><i class="tf-icons bx bx-spreadsheet"></i> Dokumen</button></td>`
                     else
                         contents += `<td><button data-bs-toggle="modal" onclick="loadSesiData(${data.id})"  data-bs-target="#daftar-nominal-modals"  class="btn btn-dark"><i class="tf-icons bx bx-spreadsheet"></i> Dokumen</button></td>`
-                    contents += `<td>${data.pencairan_nama}</td>
-                    <td><span class="badge bg-label-success">${data.kode_akun.kode}</span> - ${data.kode_akun.nama_akun} <br>`
-                    if (data.usul != null) {
+                    contents += `<td>${data.pencairan_nama}`
+                    if (data.usul != null && data.usul.periksa_sesi != null) {
                         if (data.usul.periksa_sesi.status == 0)
                             contents += `<span class="badge bg-label-success">Terkirim ke SPI</span>`
                         else if (data.usul.periksa_sesi.status == 1)
                             contents += `<button data-id="${data.id}" class="btn btn-warning btn-sm" onclick="sendSPI(this)">Kirim ke SPI</button>`
                     } else {
-                        contents += `<button data-id="${data.id}" class="btn btn-warning btn-sm" onclick="sendSPI(this)">Kirim ke SPI</button>`
+                        if (data.usul.periksa_sesi == null)
+                            contents += `<span class="badge bg-label-success">Terkirim ke SPI</span>`
+                        else
+                            contents += `<button data-id="${data.id}" class="btn btn-warning btn-sm" onclick="sendSPI(this)">Kirim ke SPI</button>`
                     }
-
+                    contents += `</td><td><span class="badge bg-label-success">${data.kode_akun.kode}</span> - ${data.kode_akun.nama_akun} </td>`
                     contents += `<td>
                         <b>Waktu Pelaksanaan</b><br>
                         ${data.pelaksanaan.tanggal_mulai} - ${data.pelaksanaan.tanggal_selesai}
@@ -1492,6 +1484,7 @@
             toastr.options.positionClass = 'toast-top-center mt-3';
             toastr.success('Sukses');
             button.innerText = "Terkirim ke SPI"
+            button.setAttribute('disabled', 'disabled')
         }
     }
     async function showDataBelanjaBahan(button) {
@@ -2111,8 +2104,8 @@
             contents += `
             <tr data-urut="${data.urutan}">
             <td>
-                <a href="#" onclick="goUp(this)"><i class="tf-icons bx bx-chevron-up"></i></a>
-                <a href="#" onclick="goDown(this)"><i class="tf-icons bx bx-chevron-down"></i></a>
+                <a href="#" onclick="up(this)"><i class="tf-icons bx bx-chevron-up"></i></a>
+                <a href="#" onclick="down(this)"><i class="tf-icons bx bx-chevron-down"></i></a>
             </td>
             <td>${data.urutan}</td>
             <td>
@@ -2237,8 +2230,8 @@
         let contents = `
             <tr data-urut="${tbody.rows.length+1}">
             <td>
-                <a href="#" onclick="goUp(this)"><i class="tf-icons bx bx-chevron-up"></i></a>
-                <a href="#" onclick="goDown(this)"><i class="tf-icons bx bx-chevron-down"></i></a>
+                <a href="#" onclick="up(this)"><i class="tf-icons bx bx-chevron-up"></i></a>
+                <a href="#" onclick="down(this)"><i class="tf-icons bx bx-chevron-down"></i></a>
             </td>
             <td>${tbody.rows.length+1}</td>
             <td>
@@ -2356,6 +2349,7 @@
         row.querySelector('#diterima').value = formatRupiah(diterima);
 
     }
+
 
     function goUp(button) {
         var row = button.parentNode.parentNode;

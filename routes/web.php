@@ -40,3 +40,4 @@ Route::get('sesi/{id}/cetak/{kategori}', [WebViewController::class, 'cetak'])->n
 Route::get('/spi/dashboard', [SpiWebViewController::class, 'dashboard'])->name('spi.dashboard');
 Route::get('/spi/usulan', [SpiWebViewController::class, 'usulan'])->name('spi.usulan');
 Route::get('/spi/periksa-dokumen', [SpiWebViewController::class, 'periksaDokumen'])->name('spi.periksa-dokumen');
+Route::get('/spi/sesi/{sesiId}/kategori/{kategori}', [SpiWebViewController::class, 'cetak'])->name('spi.cetak');

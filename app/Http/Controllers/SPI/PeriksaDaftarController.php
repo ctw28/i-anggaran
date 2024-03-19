@@ -21,7 +21,7 @@ class PeriksaDaftarController extends Controller
             'periksaTemplate.periksaDaftar.periksaKategori.periksaKategoriList.periksaDokumen'
             => function ($periksaDokumen) use ($id) {
                 $periksaDokumen->where('periksa_sesi_id', $id);
-            }, 'periksaSesi'
+            }, 'periksaSesi.periksaUsul.pencairanSesi.kegiatan.organisasi.organisasi', 'periksaSesi.verifikator.pegawai.dataDiri'
         ])
             ->where('periksa_sesi_id', $id)
             ->get();

@@ -18,7 +18,8 @@
             table {
                 background-color: #FFFFFF;
                 color: #000;
-                font-size: medium;
+                font-size: 18px;
+                font-family: arial;
             }
 
             .page-break {
@@ -54,7 +55,7 @@
 <body>
 
     <!-- <div style="width:29.7cm;margin:0 auto;"> -->
-    <div style="width:21cm;margin:0 auto;">
+    <div style="width:21cm;margin:0 auto; font-size: 18px">
 
         <!--TITLE-->
         <h2 class="text-center"><u>SURAT PERNYATAAN TANGGUNG JAWAB BELANJA</u></h2>
@@ -68,9 +69,9 @@
         <table border="0" cellpadding="0" cellspacing="0">
             <tbody>
                 <tr>
-                    <td style="width:4.5cm">1. Kode Satuan Kerja</td>
+                    <td style="width:5.0cm">1. Kode Satuan Kerja</td>
                     <td style="width:0.5cm">:</td>
-                    <td style="width:10.7cm">307665</td>
+                    <td style="width:15.7cm">307665</td>
                 </tr>
                 <tr>
                     <td>2. Nama Satuan Kerja</td>
@@ -80,7 +81,7 @@
                 <tr>
                     <td>3. Tanggal / No. DIPA</td>
                     <td>:</td>
-                    <td>dipa</td>
+                    <td id="dipa">dipa</td>
                 </tr>
                 <tr>
                     <td>4. Klasifikasi Anggaran</td>
@@ -103,16 +104,16 @@
 
         <table border="1" cellpadding="0" cellspacing="0">
             <thead>
-                <tr>
-                    <th style="width:1cm" rowspan="2">No.</th>
+                <tr style="background-color: #0AB0D9">
+                    <th style=" width:1cm" rowspan="2">No.</th>
                     <th style="width:1.5cm" rowspan="2">Akun</th>
                     <th style="width:4.5cm" rowspan="2">Penerima</th>
                     <th style="width:19.2cm" rowspan="2">Uraian</th>
                     <th style="width:3cm" rowspan="2">Jumlah</th>
                     <th style="width:6cm" colspan="2">Pajak yang dipungut</th>
                 </tr>
-                <tr>
-                    <th style="width:3cm">PPN</th>
+                <tr style="background-color: #0AB0D9">
+                    <th style=" width:3cm">PPN</th>
                     <th style="width:3cm">PPh</th>
                 </tr>
             </thead>
@@ -120,12 +121,11 @@
 
             </tbody>
             <tfooter>
-                <tr>
+                <tr style="background-color: #0AB0D9">
                     <th colspan="4">Jumlah</th>
-                    <th>-
-                    </th>
-                    <th>-</th>
-                    <th>-</th>
+                    <th id="total-nilai">-</th>
+                    <th id="total-ppn">-</th>
+                    <th id="total-pph">-</th>
                 </tr>
             </tfooter>
         </table>
@@ -192,7 +192,13 @@
         document.querySelector('#sptjb-nomor').innerText = response.data[0].sptjb_nomor
 
         let contents = ''
+        let totalNilai = 0
+        let totalPPN = 0
+        let totalPPH = 0
         response.data[0].belanja_bahan.map((data, index) => {
+            totalNilai = totalNilai + parseInt(data.nilai)
+            totalPPN = totalPPN + parseInt(data.ppn)
+            totalPPH = totalPPH + parseInt(data.pph)
             contents += `
             <tr>
                     <td class="text-center">${index+1}</td>
@@ -205,15 +211,19 @@
                          ${formatRupiah(data.nilai)}
                     </td>
                     <td class="text-center">
-                        ${formatRupiah(data.pph + data.ppn)}
+                        ${formatRupiah(data.ppn)}
                     </td>
                     <td class="text-center">
-                    ${formatRupiah(data.nilai-(data.pph + data.ppn))}
+                    ${formatRupiah(data.pph)}
 
                     </td>
                 </tr>
             `
         })
+        document.querySelector('#total-nilai').innerText = formatRupiah(totalNilai)
+        document.querySelector('#total-ppn').innerText = formatRupiah(totalPPN)
+        document.querySelector('#total-pph').innerText = formatRupiah(totalPPH)
+
         document.querySelector('#data').innerHTML = ''
         document.querySelector('#data').innerHTML = contents
 

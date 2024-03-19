@@ -13,12 +13,17 @@
         }
 
         @media all {
+            .head-color {
+                background-color: #0AB0D9
+            }
 
             body,
             table {
                 background-color: #FFFFFF;
                 color: #000;
                 font-size: medium;
+                font-family: arial;
+                font-size: 18px;
             }
 
             .page-break {
@@ -45,6 +50,16 @@
                 border: 1px solid #000
             }
         }
+
+        @media print {
+            .head-color {
+                background-color: #0AB0D9
+            }
+        }
+
+        .head-color {
+            background-color: #0AB0D9
+        }
     </style>
 </head>
 <!--
@@ -53,7 +68,7 @@
 
 <body>
 
-    <div style="width:21cm;margin:0 auto;">
+    <div style="width:21cm;margin:0 auto; font-size:18px">
 
         <!--TITLE-->
         <h3 class="text-center" style="text-transform: uppercase;">REKAP BELANJA BAHAN KEGIATAN <span id="kegiatan-nama"></span></h3>
@@ -64,24 +79,31 @@
 
         <table border="1" cellpadding="2" cellspacing="0">
             <thead>
-                <tr>
+                <tr class="head-color">
                     <th style="width:1cm">No.</th>
                     <th style="width:10.7cm">Uraian</th>
                     <th style="width:3cm">Jumlah</th>
                     <th style="width:3cm">Pajak</th>
                     <th style="width:3cm">Jumlah yang<br> diterima</th>
                 </tr>
+                <tr>
+                    <th>1</th>
+                    <th>2</th>
+                    <th>3</th>
+                    <th>4</th>
+                    <th>5</th>
+                </tr>
             </thead>
             <tbody id="data">
 
             </tbody>
             <tfooter>
-                <tr>
+                <tr class="head-color">
                     <th colspan="2">Jumlah</th>
-                    <th>total
+                    <th id="total-nilai">total
                     </th>
-                    <th>total</th>
-                    <th> total
+                    <th id="total-pajak">total</th>
+                    <th id="total-terima"> total
 
                     </th>
                 </tr>
@@ -144,12 +166,22 @@
         document.querySelector('#bendahara-nip').innerText = response.data[0].bendahara.pegawai.pegawai_nomor_induk
         document.querySelector('#kegiatan-nama').innerText = response.data[0].kegiatan.kegiatan_nama
         let contents = ''
+        let totalNilai = 0
+        let totalPajak = 0
+        let totalTerima = 0
         response.data[0].belanja_bahan.map((data, index) => {
+            totalNilai = totalNilai + parseInt(data.nilai)
+            totalPajak = totalPajak + (data.pph + data.ppn)
+            totalTerima = totalTerima + (data.nilai - (data.pph + data.ppn))
             contents += `
             <tr>
                     <td class="text-center">${index+1}</td>
                     <td class="text-justify">
-                        ${data.item} kegiatan ${response.data[0].kegiatan.kegiatan_nama} sesuai Kuitansi No ${response.data[0].kuitansi_nomor} tanggal ${response.data[0].tanggal_dokumen_indonesia}
+                        ${data.item} kegiatan ${response.data[0].kegiatan.kegiatan_nama} 
+                        
+                        sesuai Kuitansi No ${response.data[0].kuitansi_nomor} 
+                        
+                        tanggal ${response.data[0].tanggal_dokumen_indonesia}
                     </td>
                     <td class="text-center">
                     ${formatRupiah(data.nilai)}
@@ -163,6 +195,11 @@
                 </tr>
             `
         })
+
+        document.querySelector('#total-nilai').innerText = formatRupiah(totalNilai)
+        document.querySelector('#total-pajak').innerText = formatRupiah(totalPajak)
+        document.querySelector('#total-terima').innerText = formatRupiah(totalTerima)
+
         document.querySelector('#data').innerHTML = ''
         document.querySelector('#data').innerHTML = contents
 

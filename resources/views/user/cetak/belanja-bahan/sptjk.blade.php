@@ -1,7 +1,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 
 <head>
-    <title>Cetak SPM</title>
+    <title>Cetak Lembar Permohonan Pemeriksaan Berkas Pencairan Anggaran</title>
     <link rel="shortcut icon" href="https://simpeg.iainkendari.ac.id/assets/img/favicon.ico">
     <style type="text/css" media="all">
         @page {
@@ -17,8 +17,10 @@
                 font-family: arial;
             }
 
+            body,
             table {
-                font-size: 18px;
+                font-size: 19px;
+
             }
 
             .page-break {
@@ -52,7 +54,7 @@
 <body onload="window.print()" onfocus="window.close()">
 -->
 
-<body style="color:#000;font-size:18px;">
+<body style="color:#000;font-size:19px;">
 
     <div style="width:21cm;margin:0 auto;">
 
@@ -79,42 +81,71 @@
         <!--KOP END-->
 
         <!--TITLE-->
-        <h3 class="text-center">LEMBAR PERMOHONAN PENERBITAN SPM</h3><br />
+        <h3 class="text-center">LEMBAR PERNYATAAN TANGGUNG JAWAB KEGIATAN</h3>
         <br />
         <!--TITLE END-->
 
 
-        <p>Kepada Yth :<br>
-            Pejabat Penanda Tangan Surat Perintah Membayar<br>
-            IAIN Kendari<br>
-            Di -<br>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Kendari</p><br>
+        <p>Yang bertanda tangan di bawah ini :</p>
+        <table border="0" cellpadding="2" cellspacing="2">
+            <tbody>
+                <tr>
+                    <td style="width:6cm">Nama</td>
+                    <td style="width:0.5cm">:</td>
+                    <td style="width:14.5cm"><span id="sptjk-nama-ket"></span></td>
+                </tr>
+                <tr>
+                    <td style="width:5cm">Jabatan dalam kegiatan</td>
+                    <td style="width:0.5cm">:</td>
+                    <td style="width:10.7cm"><span id="sptjk-jabatan"></span></td>
+                </tr>
+            </tbody>
+        </table>
 
-
-        <p style="text-align:justify">Assalamu Alaikum Warahmatullahi Wabarakatuh<br>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            Dengan ini kami mengajukan permintaan pembayaran
-            <b><i><span id="pencairan-nama"></span></i></b> sesuai SK No. <span id="sk"></span>
-            sebesar
-            <b><i><span id="total-seluruhnya"></span> (<span id="terbilang"></span> Rupiah).</i></b><br>
-            Demikian, permohonan ini atas kerjasamanya diucapkan terima kasih.
+        <p>Dengan ini menyatakan :</p>
+        <ol style="text-align:justify">
+            <li>Bertanggungjawab sepenuhnya atas pelaksanaan dan pengeluaran
+                semua dana/anggaran yang dipergunakan dalam
+                <span id="pencairan-nama"></span> sesuai Kuitansi No.
+                <span id="kuitansi"></span> sebesar
+                <span id="total-seluruhnya"></span>
+                (<span id="terbilang"></span> Rupiah)
+            </li>
+            <li>
+                Apabila dikemudian hari terbukti dalam pelaksanaannya tidak benar dan
+                menimbulkan kerugian negara, saya bersedia menyetorkan kerugian negara tersebut ke Kas Negara.
+            </li>
+        </ol>
+        <p>
+            Demikian pernyataan ini dibuat dengan sebenarnya, dalam keadaan sadar tidak dibawah
+            tekanan dan mempunyai kekuatan hukum.
+            <br>
+            <br>
+            <br>
+            Wassalamu Alaikum Wr. Wb.
         </p>
 
 
 
-        <br>
-
         <table border="0" cellpadding="2" cellspacing="2">
             <tbody>
                 <tr>
-                    <td style="width:7cm">
-                    </td>
-                    <td style="width:7cm">
-                    </td>
-                    <td style="width:7cm">
+                    <td style="width:9.5cm"></td>
+                    <td style="width:9.5cm"></td>
+                    <td style="width:10.7cm">
                         Kendari,
-                        <span id="tanggal-dokumen"></span>,<br />
+                        <span id="tanggal-dokumen"></span><br />
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width:9.5cm">
+                        Mengetahui,<br>
                         Pejabat Pembuat Komitmen
+                    </td>
+                    <td style="width:9.5cm">
+                    </td>
+                    <td style="width:10.7cm">
+                        Yang Membuat Pernyataan
                     </td>
                 </tr>
                 <tr>
@@ -123,14 +154,14 @@
                     <td></td>
                 </tr>
                 <tr>
-                    <td><b></b></td>
-                    <td><b></b></td>
                     <td><b><span id="ppk-nama"></span></b></td>
+                    <td></td>
+                    <td><b><span id="sptjk-nama"></span></b></td>
                 </tr>
                 <tr>
-                    <td></td>
-                    <td></td>
                     <td>NIP. <span id="ppk-nip"></span></td>
+                    <td></td>
+                    <td>NIP. <span id="sptjk-nip"></span></td>
                 </tr>
             </tbody>
         </table>
@@ -140,7 +171,7 @@
 <script>
     loadSesiData()
     async function loadSesiData() {
-        let url = '{{route("daftar.nominal.index",":id")}}'
+        let url = '{{route("belanja.bahan.index",":id")}}'
         url = url.replace(":id", "{{$sesi_id}}")
         let sendRequest = await fetch(url, {
             headers: {
@@ -154,9 +185,14 @@
         document.querySelector('#tanggal-dokumen').innerText = response.data[0].tanggal_dokumen_indonesia
         document.querySelector('#ppk-nama').innerText = response.data[0].ppk.nama_pejabat
         document.querySelector('#ppk-nip').innerText = response.data[0].ppk.pegawai.pegawai_nomor_induk
-        document.querySelector('#total-seluruhnya').innerText = formatRupiah(response.data[0].total)
         document.querySelector('#terbilang').innerText = response.data[0].terbilang
-        document.querySelector('#sk').innerText = `${response.data[0].pelaksanaan_dasar.nomor} tanggal ${response.data[0].pelaksanaan_dasar.tanggal}`
+        document.querySelector('#kuitansi').innerText = `${response.data[0].kuitansi_nomor} tanggal ${response.data[0].tanggal_dokumen_indonesia}`
+        let contents = ''
+        document.querySelector('#total-seluruhnya').innerText = formatRupiah(response.data[0].total)
+        document.querySelector('#sptjk-nip').innerText = response.data[0].sptjk_nip
+        document.querySelector('#sptjk-nama').innerText = response.data[0].sptjk_nama
+        document.querySelector('#sptjk-jabatan').innerText = response.data[0].sptjk_jabatan
+        document.querySelector('#sptjk-nama-ket').innerText = response.data[0].sptjk_nama
 
     }
 

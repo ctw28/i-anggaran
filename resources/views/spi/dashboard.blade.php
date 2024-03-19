@@ -79,7 +79,7 @@
             usulanDataContainer.innerHTML = contents
             return
         }
-        usulanDataContainer.innerHTML = '<tr><td>Tidak ada Data</td></tr>'
+        usulanDataContainer.innerHTML = '<tr><td colspan="4" style="text-align: center">Tidak ada Data</td></tr>'
     }
 
     async function klaim(button) {

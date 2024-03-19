@@ -17,7 +17,12 @@
             table {
                 background-color: #FFFFFF;
                 color: #000;
-                font-size: medium;
+                font-size: 18px;
+                font-family: arial;
+            }
+
+            table {
+                font-size: 18px;
             }
 
             .page-break {
@@ -52,7 +57,7 @@
 
 <body>
 
-    <div style="width:29.7cm;margin:0 auto;">
+    <div style="width:29.7cm;margin:0 auto; font-size:18px">
 
         <!--TITLE-->
         <h1 class="text-center"><u>REKAP</u></h1>

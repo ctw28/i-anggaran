@@ -14,6 +14,13 @@
         @media all {
             body {
                 background-color: #FFFFFF;
+                font-family: arial;
+            }
+
+            body,
+            table {
+                font-size: 18px;
+
             }
 
             .page-break {
@@ -47,7 +54,7 @@
 <body onload="window.print()" onfocus="window.close()">
 -->
 
-<body style="color:#000;font-size:15px;">
+<body style="color:#000;font-size:18px;">
 
     <div style="width:21cm;margin:0 auto;">
 
@@ -80,21 +87,21 @@
 
 
         <p>Kepada Yth :<br>
-            Ketua SPI<br>
-            IAIN Kendari<br>
+            Ketua SPI IAIN Kendari<br>
             Di -<br>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Kendari</p><br>
+            Kendari</p><br>
 
 
-        <p style="text-align:justify">Assalamu Alaikum Warahmatullahi Wabarakatuh<br>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <p style="text-align:justify">Assalamu Alaikum Warahmatullahi Wabarakatuh</p>
+        <p>
             Dengan ini kami mengajukan permintaan pembayaran
             <b><i><span id="pencairan-nama"></span></i></b>
             Sesuai SK <span id="sk"></span>
             sebesar
             <b><i>Rp. <span id="total-seluruhnya"></span>, –
-                    (<span id="terbilang"></span> Rupiah).</i></b><br>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    (<span id="terbilang"></span> Rupiah).</i></b>
+        </p>
+        <p>
             Demikian, permohonan ini atas kerjasamanya diucapkan terima kasih.
         </p>
 

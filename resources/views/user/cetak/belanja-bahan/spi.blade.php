@@ -1,7 +1,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 
 <head>
-    <title>Cetak SPM</title>
+    <title>Cetak Lembar Permohonan Pemeriksaan Berkas Pencairan Anggaran</title>
     <link rel="shortcut icon" href="https://simpeg.iainkendari.ac.id/assets/img/favicon.ico">
     <style type="text/css" media="all">
         @page {
@@ -17,8 +17,10 @@
                 font-family: arial;
             }
 
+            body,
             table {
                 font-size: 18px;
+
             }
 
             .page-break {
@@ -79,24 +81,27 @@
         <!--KOP END-->
 
         <!--TITLE-->
-        <h3 class="text-center">LEMBAR PERMOHONAN PENERBITAN SPM</h3><br />
+        <h3 class="text-center">LEMBAR PERMOHONAN PEMERIKSAAN BERKAS<br />PENCAIRAN ANGGARAN</h3>
         <br />
         <!--TITLE END-->
 
 
         <p>Kepada Yth :<br>
-            Pejabat Penanda Tangan Surat Perintah Membayar<br>
-            IAIN Kendari<br>
+            Ketua SPI IAIN Kendari<br>
             Di -<br>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Kendari</p><br>
+            Kendari</p><br>
 
 
-        <p style="text-align:justify">Assalamu Alaikum Warahmatullahi Wabarakatuh<br>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            Dengan ini kami mengajukan permintaan pembayaran
-            <b><i><span id="pencairan-nama"></span></i></b> sesuai SK No. <span id="sk"></span>
+        <p style="text-align:justify">Assalamu Alaikum Warahmatullahi Wabarakatuh</p>
+        <p>
+            Dengan ini kami mengajukan permintaan permohonan pemeriksaan berkas pencairan anggaran
+            <b><i><span id="pencairan-nama"></span></i></b>
+            Sesuai Kwitansi No. <span id="kuitansi"></span>
             sebesar
-            <b><i><span id="total-seluruhnya"></span> (<span id="terbilang"></span> Rupiah).</i></b><br>
+            <b><i>Rp. <span id="total-seluruhnya"></span>, –
+                    (<span id="terbilang"></span> Rupiah).</i></b>
+        </p>
+        <p>
             Demikian, permohonan ini atas kerjasamanya diucapkan terima kasih.
         </p>
 
@@ -140,7 +145,7 @@
 <script>
     loadSesiData()
     async function loadSesiData() {
-        let url = '{{route("daftar.nominal.index",":id")}}'
+        let url = '{{route("belanja.bahan.index",":id")}}'
         url = url.replace(":id", "{{$sesi_id}}")
         let sendRequest = await fetch(url, {
             headers: {
@@ -154,9 +159,10 @@
         document.querySelector('#tanggal-dokumen').innerText = response.data[0].tanggal_dokumen_indonesia
         document.querySelector('#ppk-nama').innerText = response.data[0].ppk.nama_pejabat
         document.querySelector('#ppk-nip').innerText = response.data[0].ppk.pegawai.pegawai_nomor_induk
-        document.querySelector('#total-seluruhnya').innerText = formatRupiah(response.data[0].total)
         document.querySelector('#terbilang').innerText = response.data[0].terbilang
-        document.querySelector('#sk').innerText = `${response.data[0].pelaksanaan_dasar.nomor} tanggal ${response.data[0].pelaksanaan_dasar.tanggal}`
+        document.querySelector('#kuitansi').innerText = `${response.data[0].kuitansi_nomor} tanggal ${response.data[0].tanggal_dokumen_indonesia}`
+        let contents = ''
+        document.querySelector('#total-seluruhnya').innerText = formatRupiah(response.data[0].total)
 
     }
 

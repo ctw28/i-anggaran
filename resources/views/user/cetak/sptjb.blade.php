@@ -5,7 +5,7 @@
     <link rel="shortcut icon" href="https://simpeg.iainkendari.ac.id/assets/img/favicon.ico">
     <style type="text/css" media="all">
         @page {
-            size: 21cm 29.7cm lanscape;
+            size: 21cm 29.7cm landscape;
             /* A4 size */
             margin: 1cm 2cm 1cm 2cm;
             /* this affects the margin in the printer settings */
@@ -17,7 +17,12 @@
             table {
                 background-color: #FFFFFF;
                 color: #000;
-                font-size: medium;
+                font-size: 18px;
+                font-family: arial;
+            }
+
+            table {
+                font-size: 18px;
             }
 
             .page-break {
@@ -52,7 +57,7 @@
 
 <body>
 
-    <div style="width:29.7cm;margin:0 auto;">
+    <div style="width:21.0cm;margin:0 auto; font-size:18px">
 
         <!--TITLE-->
         <h2 class="text-center"><u>SURAT PERNYATAAN TANGGUNG JAWAB BELANJA</u></h2>
@@ -66,9 +71,9 @@
         <table border="0" cellpadding="0" cellspacing="0">
             <tbody>
                 <tr>
-                    <td style="width:4.5cm">1. Kode Satuan Kerja</td>
+                    <td style="width:6.5cm">1. Kode Satuan Kerja</td>
                     <td style="width:0.5cm">:</td>
-                    <td style="width:24.7cm">307665</td>
+                    <td style="width:20.7cm">307665</td>
                 </tr>
                 <tr>
                     <td>2. Nama Satuan Kerja</td>
