@@ -1387,10 +1387,10 @@
                         else if (data.usul.periksa_sesi.status == 1)
                             contents += `<button data-id="${data.id}" class="btn btn-warning btn-sm" onclick="sendSPI(this)">Kirim ke SPI</button>`
                     } else {
-                        if (data.usul.periksa_sesi == null)
-                            contents += `<span class="badge bg-label-success">Terkirim ke SPI</span>`
-                        else
-                            contents += `<button data-id="${data.id}" class="btn btn-warning btn-sm" onclick="sendSPI(this)">Kirim ke SPI</button>`
+                        // if (data.usul.periksa_sesi == null)
+                        //     contents += `<span class="badge bg-label-success">Terkirim ke SPI</span>`
+                        // else
+                        contents += `<button data-id="${data.id}" class="btn btn-warning btn-sm" onclick="sendSPI(this)">Kirim ke SPI</button>`
                     }
                     contents += `</td><td><span class="badge bg-label-success">${data.kode_akun.kode}</span> - ${data.kode_akun.nama_akun} </td>`
                     contents += `<td>
