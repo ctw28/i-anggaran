@@ -117,6 +117,7 @@ Route::group([
     Route::post('periksa-sesi/', [PeriksaSesiController::class, 'index'])->name('periksa.sesi.index');
     Route::post('periksa-sesi/simpan', [PeriksaSesiController::class, 'store'])->name('periksa.sesi.store');
     Route::post('periksa-sesi/{id}/update', [PeriksaSesiController::class, 'update'])->name('periksa.sesi.update');
+    Route::post('periksa-sesi/{id}/update-sumber-dana', [PeriksaSesiController::class, 'updateSumberDana'])->name('periksa.sesi.update-sumber-dana');
 
     //PERIKSA DAFTAR
     Route::get('periksa-daftar/{id}/daftar/', [PeriksaDaftarController::class, 'index'])->name('periksa.daftar.index');

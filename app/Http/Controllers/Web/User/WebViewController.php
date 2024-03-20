@@ -70,4 +70,12 @@ class WebViewController extends Controller
         else if ($kategori == "sptjk-2")
             return view('user.cetak.belanja-bahan.sptjk', $data);
     }
+
+    public function cetakPerjadin($kategori)
+    {
+        if ($kategori == "ampra")
+            return view('user.cetak.daftar-nominal', $data);
+        else if ($kategori == "kuitansi")
+            return view('user.cetak.kuitansi', $data);
+    }
 }

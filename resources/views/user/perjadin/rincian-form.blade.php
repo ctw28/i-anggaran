@@ -179,3 +179,22 @@
     <button type="button" onclick="saveRincian()" class="btn btn-dark btn-sm mb-3">Simpan Rincian</button>
 
 </div>
+<!-- <button type="button" onclick="saveRealCost()" class="btn btn-dark btn-sm mb-3">Simpan</button> -->
+<h5 class="mb-3 section-title">Real Cost</h5>
+
+<div class="table-responsive">
+
+    <table class="table table-striped">
+        <thead>
+            <th>Aksi</th>
+            <th>Item / Uraian</th>
+            <th>Jumlah</th>
+            <thead>Hapus</th>
+            </thead>
+        <tbody id="tabel-real-cost">
+
+        </tbody>
+
+    </table>
+    <button type="button" onclick="addRealCost()" class="btn btn-primary btn-sm mb-3">Tambah Real Cost</button>
+</div>

@@ -21,6 +21,7 @@ class CreatePeriksaSesisTable extends Migration
             $table->foreign('verifikator_id')->references('id')->on('verifikators');
             $table->enum('status', [0, 1, 2, 3])->default(0); //0 proses, 1 perbaikan, 2 ditolak, 3 sesuai
             $table->text('catatan')->nullable();
+            $table->string('sumber_dana')->nullable();
             $table->timestamps();
         });
     }

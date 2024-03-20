@@ -365,7 +365,7 @@
                                                     <button type="button" class="nav-link active" id="data" role="tab" data-bs-toggle="tab" data-bs-target="#show-rincian" aria-controls="navs-justified-home" aria-selected="true"><i class="tf-icons bx bx-home me-1"></i> Rincian</button>
                                                 </li>
                                                 <li class="nav-item" role="presentation">
-                                                    <button type="button" class="nav-link " role="tab" onclick="showRealCost()" data-bs-toggle="tab" data-bs-target="#show-real-cost" aria-controls="navs-justified-home" aria-selected="true"><i class="tf-icons bx bx-grid me-1"></i> Real Cost</button>
+                                                    <button type="button" class="nav-link " role="tab" data-bs-toggle="tab" data-bs-target="#show-perjadin-cetak" aria-controls="navs-justified-home" aria-selected="true"><i class="tf-icons bx bx-printer me-1"></i> Cetak</button>
                                                 </li>
 
                                             </ul>
@@ -373,8 +373,8 @@
                                                 <div class="tab-pane fade active show" id="show-rincian" role="tabpanel">
                                                     @include('user/perjadin/rincian-form')
                                                 </div>
-                                                <div class="tab-pane fade" id="show-real-cost" role="tabpanel">
-                                                    @include('user/perjadin/real-cost-form')
+                                                <div class="tab-pane fade" id="show-perjadin-cetak" role="tabpanel">
+                                                    @include('user/perjadin/cetak')
                                                 </div>
 
                                             </div>
@@ -411,6 +411,10 @@
 <script>
     loadData()
 
+    function cetakPerjadin(kategori) {
+        document.querySelector("#show-perjadin-cetak").dataset.id
+        let url = '{{route("perjadin.show",":id")}}'
+    }
     async function showDataPerjadin(button) {
 
         let url = '{{route("perjadin.show",":id")}}'
@@ -598,6 +602,7 @@
             element.setAttribute('placeholder', input.placeholder);
             element.setAttribute('name', input.name);
             element.setAttribute('type', input.type);
+            element.setAttribute('oninput', input.oninput);
             element.setAttribute('required', 'required');
 
             cell1.appendChild(label);
@@ -623,6 +628,8 @@
 
         document.querySelector("#rincian-container").style.display = "block"
         document.querySelector("#rincian-container").dataset.id = button.dataset.id
+        document.querySelector("#show-perjadin-cetak").dataset.id = button.dataset.id
+
         let url = '{{route("perjadin.rincian.index",[":id",":id2"])}}'
         url = url.replace(":id", perjadinId)
         url = url.replace(":id2", button.dataset.id)
@@ -1744,8 +1751,8 @@
                 </td>
                 <td><input class="form-control" id="item" placeholder="Item / Barang" value="${data.item}"></td>
                 <td><input class="form-control" type="text" id="nilai" oninput="toNumber(this)" onchange="calculateBelanjaBahan(this)" value="${formatRupiah(data.nilai)}"></td>
-                <td><input class="form-control" type="text" id="ppn" value="${formatRupiah(data.ppn)}" readonly></td>
-                <td><input class="form-control" type="text" id="pph" value="${formatRupiah(data.pph)}" readonly></td>
+                <td><input class="form-control" type="text" id="ppn" value="${formatRupiah(data.ppn)}"></td>
+                <td><input class="form-control" type="text" id="pph" value="${formatRupiah(data.pph)}"></td>
                 <td><button onclick="deleteBaris(this)" class="btn btn-danger btn-sm"><i class="tf-icons bx bx-minus"></i></button></td>
             </tr>
             `
@@ -1938,8 +1945,8 @@
                 </td>
                 <td><input class="form-control" id="item" placeholder="Item / Barang / Jasa" value=""></td>
                 <td><input class="form-control" type="text" oninput="setValue(this)" onchange="calculateBelanjaBahan(this)" id="nilai" value="0"></td>
-                <td><input class="form-control" type="text" id="ppn" value="0" readonly></td>
-                <td><input class="form-control" type="text" id="pph" value="0" readonly></td>
+                <td><input class="form-control" type="text" id="ppn" value="0"></td>
+                <td><input class="form-control" type="text" id="pph" value="0"></td>
                 <td><button onclick="deleteBaris(this)" class="btn btn-danger btn-sm"><i class="tf-icons bx bx-minus"></i></button></td>
 
             </tr>

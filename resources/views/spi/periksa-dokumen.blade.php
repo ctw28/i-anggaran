@@ -56,6 +56,24 @@
 
                     <div class="col-8 mb-3">
                         <h5>Nama Pencairan : <span id="show-pencairan-nama"></span></h5>
+                        <h5>Sumber dana :</h5>
+                        <div class="form-check form-check-inline">
+                            <input onclick="setSumberDana(this)" class="form-check-input" type="radio" id="blu" name="inlineRadioOptions" value="blu" checked>
+                            <label class="form-check-label" for="blu">BLU</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input onclick="setSumberDana(this)" class="form-check-input" type="radio" id="rm" name="inlineRadioOptions" value="rm">
+                            <label class="form-check-label" for="rm">RM</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input onclick="setSumberDana(this)" class="form-check-input" type="radio" id="boptn" name="inlineRadioOptions" value="boptn">
+                            <label class="form-check-label" for="boptn">BOPTN</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input onclick="setSumberDana(this)" class="form-check-input" type="radio" id="lainnya" name="inlineRadioOptions" value="lainnya">
+                            <label class="form-check-label" for="lainnya">Lainnya</label>
+                        </div>
+
                     </div>
                     <div class="col-4 mb-3 text-end">
 
@@ -82,6 +100,26 @@
 <script>
     loadUsulan()
 
+    async function setSumberDana(input) {
+        let dataSend = new FormData()
+        dataSend.append('sumber_dana', input.value)
+        let url = '{{route("periksa.sesi.update-sumber-dana",":id")}}'
+        url = url.replace(':id', document.querySelector("#modal").dataset.sesiId)
+        let sendRequest = await fetch(url, {
+            headers: {
+                'Authorization': 'Bearer ' + localStorage.getItem('token')
+            },
+            method: "POST",
+            body: dataSend
+        })
+        response = await sendRequest.json()
+        if (response.status) {
+            toastr.options.closeButton = true;
+            toastr.options.positionClass = 'toast-top-center mt-3';
+            toastr.success('Sukses');
+            return
+        }
+    }
     async function cetak(button) {
         let url = '{{route("spi.cetak",[":id",":kategori"])}}'
         url = url.replace(':id', 1)
@@ -238,6 +276,7 @@
         let urlCetak = "{{route('spi.cetak',[':id','lembar-periksa'])}}"
         urlCetak = urlCetak.replace(':id', button.dataset.id)
         buttonCetak.href = urlCetak
+        document.querySelector("#modal").dataset.sesiId = button.dataset.id
         document.querySelector("#btn-kembalikan").dataset.sesiId = button.dataset.id
         document.querySelector("#btn-ke-pimpinan").dataset.sesiId = button.dataset.id
         let contents = ''
@@ -246,6 +285,14 @@
         contents += `<div class="nav-align-left">`
         contents += `<ul class="nav nav-tabs" role="tablist" id="kategori">`
         contents += `<h6 class="text-center">Jenis Pemeriksaan</h6>`
+        if (response.data[0].periksa_sesi.sumber_dana == "blu")
+            document.querySelector("#blu").checked = true
+        else if (response.data[0].periksa_sesi.sumber_dana == "rm")
+            document.querySelector("#rm").checked = true
+        else if (response.data[0].periksa_sesi.sumber_dana == "boptn")
+            document.querySelector("#boptn").checked = true
+        else if (response.data[0].periksa_sesi.sumber_dana == "lainnya")
+            document.querySelector("#lainnya").checked = true
         response.data[0].periksa_template.periksa_daftar.map((data, index) => {
             contents += `
                         <li class="nav-item">

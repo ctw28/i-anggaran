@@ -14,6 +14,7 @@ class PeriksaSesi extends Model
         'verifikator_id',
         'status',
         'catatan',
+        'sumber_dana',
     ];
 
     public function periksaDokumen()

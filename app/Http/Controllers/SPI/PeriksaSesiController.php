@@ -161,4 +161,22 @@ class PeriksaSesiController extends Controller
             ], 500);
         }
     }
+
+    public function updateSumberDana($id, Request $request)
+    {
+        try {
+            //code...
+            $sesi = PeriksaSesi::find($id);
+            // $sesi->update($data);
+            $sesi->sumber_dana = $request->sumber_dana;
+            $sesi->save();
+            return response()->json([
+                'status' => true,
+                'message' => 'Data update',
+                'data' => $sesi,
+            ], 200);
+        } catch (\Throwable $th) {
+            throw $th;
+        }
+    }
 }

@@ -107,10 +107,10 @@
                 </tr>
                 <tr>
                     <td>Sumber Dana</td>
-                    <td><i class="tf-icons bx bx-checkbox me-1"></i> BLU</td>
-                    <td><i class="tf-icons bx bx-checkbox me-1"></i> RM</td>
-                    <td><i class="tf-icons bx bx-checkbox me-1"></i> BOTPN</td>
-                    <td><i class="tf-icons bx bx-checkbox me-1"></i> .....</td>
+                    <td id="blu"><i class="tf-icons bx bx-checkbox me-1"></i> BLU</td>
+                    <td id="rm"><i class="tf-icons bx bx-checkbox me-1"></i> RM</td>
+                    <td id="boptn"><i class="tf-icons bx bx-checkbox me-1"></i> BOTPN</td>
+                    <td id="lainnya"><i class="tf-icons bx bx-checkbox me-1"></i> .....</td>
                 </tr>
 
             </tbody>
@@ -159,7 +159,7 @@
                 </tr>
                 <tr>
                     <td>REKOMENDASI</td>
-                    <td colspan="4" id="rekomendasi"></td>
+                    <td colspan="4" id="rekomendasi">Catatan SPI : </td>
                 </tr>
             </tbody>
         </table>
@@ -212,7 +212,14 @@
         response = await sendRequest.json()
         console.log(response);
         // if(response.data.length > 0){
-
+        if (response.data[0].periksa_sesi.sumber_dana == "blu")
+            document.querySelector("#blu").innerHTML = `<i class="tf-icons bx bx-check-square me-1" style="font-weight:bold"></i> BLU`
+        else if (response.data[0].periksa_sesi.sumber_dana == "rm")
+            document.querySelector("#rm").innerHTML = `<i class="tf-icons bx bx-check-square me-1" style="font-weight:bold"></i> RM`
+        else if (response.data[0].periksa_sesi.sumber_dana == "boptn")
+            document.querySelector("#boptn").innerHTML = `<i class="tf-icons bx bx-check-square me-1" style="font-weight:bold"></i> BOTPN`
+        else if (response.data[0].periksa_sesi.sumber_dana == "lainnya")
+            document.querySelector("#lainnya").innerHTML = `<i class="tf-icons bx bx-check-square me-1" style="font-weight:bold"></i> .....`
         var periksa = document.querySelector('#periksa')
         document.querySelector("#organisasi").innerText = `${response.data[0].periksa_sesi.periksa_usul.pencairan_sesi.kegiatan.organisasi.organisasi.organisasi_nama} (${response.data[0].periksa_sesi.periksa_usul.pencairan_sesi.kegiatan.organisasi.organisasi.organisasi_singkatan})`
         document.querySelector("#show-pencairan-nama").innerText = response.data[0].periksa_sesi.periksa_usul.pencairan_sesi.pencairan_nama
