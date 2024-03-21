@@ -171,6 +171,11 @@ class DatabaseSeeder extends Seeder
                 'email' => 'spi@mail.com',
                 'password' => bcrypt('1234qwer'),
             ],
+            [
+                'username' => 'evi',
+                'email' => 'evi@mail.com',
+                'password' => bcrypt('1234qwer'),
+            ],
         ]);
         DB::table('user_roles')->insert([
             ["user_id" => 1, "role_id" => 1, "is_default" => true], //role administrator
@@ -787,7 +792,7 @@ class DatabaseSeeder extends Seeder
         DB::table('data_diris')->insert([
             [
                 "nik" => 123,
-                "nama_lengkap" => "nisful",
+                "nama_lengkap" => "NISFUL HIJAH,SE",
                 "jenis_kelamin" => "P",
                 "lahir_tempat" => 'kendari',
                 "lahir_tanggal" => '2023-02-20',
@@ -797,7 +802,7 @@ class DatabaseSeeder extends Seeder
             ],
             [
                 "nik" => 324,
-                "nama_lengkap" => "hasna",
+                "nama_lengkap" => "Hasna, S.HI.",
                 "jenis_kelamin" => "P",
                 "lahir_tempat" => 'kendari',
                 "lahir_tanggal" => '2023-02-20',
@@ -807,7 +812,7 @@ class DatabaseSeeder extends Seeder
             ],
             [
                 "nik" => 445,
-                "nama_lengkap" => "musdin",
+                "nama_lengkap" => "Musdin, M.Pd.I.",
                 "jenis_kelamin" => "L",
                 "lahir_tempat" => 'kendari',
                 "lahir_tanggal" => '2023-02-20',
@@ -817,7 +822,7 @@ class DatabaseSeeder extends Seeder
             ],
             [
                 "nik" => 678,
-                "nama_lengkap" => "sukadir",
+                "nama_lengkap" => "Sukadir Kete",
                 "jenis_kelamin" => "L",
                 "lahir_tempat" => 'kendari',
                 "lahir_tanggal" => '2023-02-20',
@@ -827,7 +832,7 @@ class DatabaseSeeder extends Seeder
             ],
             [
                 "nik" => 736,
-                "nama_lengkap" => "lili",
+                "nama_lengkap" => "Lily Ulfia",
                 "jenis_kelamin" => "P",
                 "lahir_tempat" => 'kendari',
                 "lahir_tanggal" => '2023-02-20',
@@ -837,7 +842,7 @@ class DatabaseSeeder extends Seeder
             ],
             [
                 "nik" => 987,
-                "nama_lengkap" => "lita",
+                "nama_lengkap" => "Arlita Aristianingsih Jufra, M.E.,QRMA",
                 "jenis_kelamin" => "P",
                 "lahir_tempat" => 'kendari',
                 "lahir_tanggal" => '2023-02-20',
@@ -847,7 +852,7 @@ class DatabaseSeeder extends Seeder
             ],
             [
                 "nik" => 967,
-                "nama_lengkap" => "Arif",
+                "nama_lengkap" => "ARIF TARAWE, S.Hi",
                 "jenis_kelamin" => "L",
                 "lahir_tempat" => 'kendari',
                 "lahir_tanggal" => '2023-02-20',
@@ -857,7 +862,7 @@ class DatabaseSeeder extends Seeder
             ],
             [
                 "nik" => 999,
-                "nama_lengkap" => "rigo",
+                "nama_lengkap" => "Moh. Bandrigo Talai",
                 "jenis_kelamin" => "L",
                 "lahir_tempat" => 'kendari',
                 "lahir_tanggal" => '2023-02-20',
@@ -898,6 +903,16 @@ class DatabaseSeeder extends Seeder
             [
                 "nik" => 837,
                 "nama_lengkap" => "ROSDIANA",
+                "jenis_kelamin" => "P",
+                "lahir_tempat" => 'kendari',
+                "lahir_tanggal" => '2023-02-20',
+                "no_hp" => '0852',
+                "alamat_ktp" => 'alamat ktp',
+                "alamat_domisili" => 'alamat domisili'
+            ],
+            [
+                "nik" => 838,
+                "nama_lengkap" => "Evie Sukma, SE., M.Ak.,Ak",
                 "jenis_kelamin" => "P",
                 "lahir_tempat" => 'kendari',
                 "lahir_tanggal" => '2023-02-20',
@@ -965,29 +980,36 @@ class DatabaseSeeder extends Seeder
             ],
             [
                 "idpeg" => 9,
-                "pegawai_nomor_induk" => "198510212009011008 ",
+                "pegawai_nomor_induk" => "198510212009011008",
                 "data_diri_id" => 9,
                 "pegawai_kategori_id" => 1,
                 "pegawai_jenis_id" => 1
             ],
             [
                 "idpeg" => 10,
-                "pegawai_nomor_induk" => "198203052005012005  ",
+                "pegawai_nomor_induk" => "198203052005012005",
                 "data_diri_id" => 10,
                 "pegawai_kategori_id" => 1,
                 "pegawai_jenis_id" => 1
             ],
             [
                 "idpeg" => 11,
-                "pegawai_nomor_induk" => "198203052005012005  ",
+                "pegawai_nomor_induk" => "198203052005012005",
                 "data_diri_id" => 11,
                 "pegawai_kategori_id" => 1,
                 "pegawai_jenis_id" => 1
             ],
             [
                 "idpeg" => 11,
-                "pegawai_nomor_induk" => "198203052005012005  ",
+                "pegawai_nomor_induk" => "198203052005012005",
                 "data_diri_id" => 12,
+                "pegawai_kategori_id" => 1,
+                "pegawai_jenis_id" => 1
+            ],
+            [
+                "idpeg" => 11,
+                "pegawai_nomor_induk" => "199501252022032005", //evi
+                "data_diri_id" => 13,
                 "pegawai_kategori_id" => 1,
                 "pegawai_jenis_id" => 1
             ],
@@ -1110,6 +1132,7 @@ class DatabaseSeeder extends Seeder
             ["user_id" => 10, "pegawai_id" => 9, "is_aktif" => true], //tommy
             ["user_id" => 11, "pegawai_id" => 11, "is_aktif" => true], //ulla
             ["user_id" => 12, "pegawai_id" => 12, "is_aktif" => true], //ros
+            ["user_id" => 27, "pegawai_id" => 13, "is_aktif" => true], //ros
         ]);
     }
 }

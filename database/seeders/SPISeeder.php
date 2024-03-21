@@ -144,6 +144,7 @@ class SPISeeder extends Seeder
         DB::table('verifikators')->insert([
             ["pegawai_id" => 6, "sebutan_jabatan" => 'Analis Audit Kepatuhan & Keuangan', "is_aktif" => 1],
             ["pegawai_id" => 7, "sebutan_jabatan" => 'Analis Audit Kepatuhan & Keuangan', "is_aktif" => 1],
+            ["pegawai_id" => 13, "sebutan_jabatan" => 'Analis Audit Kepatuhan & Keuangan', "is_aktif" => 1],
         ]);
 
         DB::table('periksa_daftars')->insert([
