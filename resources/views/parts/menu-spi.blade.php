@@ -13,11 +13,24 @@
             <div data-i18n="Basic">Usulan Periksa</div>
         </a>
     </li> -->
-    <li class="menu-item">
-        <a href="{{route('spi.periksa-dokumen')}}" class="menu-link">
+
+    <li class="menu-item open">
+        <a href="javascript:void(0)" class="menu-link menu-toggle">
             <i class="menu-icon tf-icons bx bx-food-menu"></i>
-            <div data-i18n="Basic">Periksa Dokumen</div>
+            <div data-i18n="Extended UI">Verifikasi Dokumen</div>
         </a>
+        <ul class="menu-sub">
+            <li class="menu-item">
+                <a href="{{route('spi.periksa-dokumen')}}" class="menu-link">
+                    <div data-i18n="Perfect Scrollbar">Pencairan</div>
+                </a>
+            </li>
+            <li class="menu-item">
+                <a href="#" class="menu-link">
+                    <div data-i18n="Text Divider">Barjas</div>
+                </a>
+            </li>
+        </ul>
     </li>
 
 </ul>

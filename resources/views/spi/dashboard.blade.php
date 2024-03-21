@@ -4,14 +4,15 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
 @endsection
 @section('content')
+
 <div class="col-lg-12 mb-4 order-0">
     <div class="card">
         <div class="d-flex align-items-end row">
             <div class="col-sm-7">
                 <div class="card-body">
                     <h5 class="card-title text-primary">Selamat Datang</h5>
-                    <p class="mb-4">
-                        Selamat datang di aplikasi juara
+                    <p>
+                        Selamat datang di aplikasi e-AUDIT
                     </p>
 
                     <!-- <a href="javascript:;" class="btn btn-sm btn-outline-primary">Isi RPD</a> -->
@@ -20,7 +21,90 @@
         </div>
     </div>
 </div>
-
+<div class="col-lg-3 col-sm-6 mb-4">
+    <div class="card">
+        <div class="card-body">
+            <div class="d-flex justify-content-between">
+                <div class="card-info">
+                    <p class="card-text">Pemeriksaan</p>
+                    <div class="d-flex align-items-end mb-2">
+                        <h4 class="card-title mb-0 me-2">100</h4>
+                        <!-- <small class="text-success">(+29%)</small> -->
+                    </div>
+                    <small>Total Periksa Dokumen</small>
+                </div>
+                <div class="card-icon">
+                    <span class="badge bg-label-primary rounded p-2">
+                        <i class="bx bx-trending-up bx-sm"></i>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="col-lg-3 col-sm-6 mb-4">
+    <div class="card">
+        <div class="card-body">
+            <div class="d-flex justify-content-between">
+                <div class="card-info">
+                    <p class="card-text">Session</p>
+                    <div class="d-flex align-items-end mb-2">
+                        <h4 class="card-title mb-0 me-2">58,352</h4>
+                        <small class="text-success">(+29%)</small>
+                    </div>
+                    <small>Last Week Analytics</small>
+                </div>
+                <div class="card-icon">
+                    <span class="badge bg-label-primary rounded p-2">
+                        <i class="bx bx-trending-up bx-sm"></i>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="col-lg-3 col-sm-6 mb-4">
+    <div class="card">
+        <div class="card-body">
+            <div class="d-flex justify-content-between">
+                <div class="card-info">
+                    <p class="card-text">Session</p>
+                    <div class="d-flex align-items-end mb-2">
+                        <h4 class="card-title mb-0 me-2">58,352</h4>
+                        <small class="text-success">(+29%)</small>
+                    </div>
+                    <small>Last Week Analytics</small>
+                </div>
+                <div class="card-icon">
+                    <span class="badge bg-label-primary rounded p-2">
+                        <i class="bx bx-trending-up bx-sm"></i>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="col-lg-3 col-sm-6 mb-4">
+    <div class="card">
+        <div class="card-body">
+            <div class="d-flex justify-content-between">
+                <div class="card-info">
+                    <p class="card-text">Session</p>
+                    <div class="d-flex align-items-end mb-2">
+                        <h4 class="card-title mb-0 me-2">58,352</h4>
+                        <small class="text-success">(+29%)</small>
+                    </div>
+                    <small>Last Week Analytics</small>
+                </div>
+                <div class="card-icon">
+                    <span class="badge bg-label-primary rounded p-2">
+                        <i class="bx bx-trending-up bx-sm"></i>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 <div class="col-md-12">
     <div class="card mb-4">
         <h5 class="card-header">Daftar Usulan Pemeriksaan Dokumen</h5>

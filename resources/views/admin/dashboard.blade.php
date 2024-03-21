@@ -7,11 +7,10 @@
             <div class="col-sm-7">
                 <div class="card-body">
                     <h5 class="card-title text-primary">Selamat Datang Admin</h5>
-                    <p class="mb-4">
+                    <p>
                         Selamat datang di aplikasi juara
                     </p>
 
-                    <!-- <a href="javascript:;" class="btn btn-sm btn-outline-primary">Isi RPD</a> -->
                 </div>
             </div>
         </div>

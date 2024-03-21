@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Web\User;
 
 use App\Http\Controllers\Controller;
+use App\Models\PerjadinAnggota;
 use Illuminate\Http\Request;
 
 class WebViewController extends Controller
@@ -39,6 +40,10 @@ class WebViewController extends Controller
         $data['rencana_id'] = $rencanaId;
         return view('user.pencairan', $data);
     }
+    public function tracking()
+    {
+        return view('user.tracking');
+    }
 
     public function cetak($sesiId, $kategori)
     {
@@ -71,11 +76,15 @@ class WebViewController extends Controller
             return view('user.cetak.belanja-bahan.sptjk', $data);
     }
 
-    public function cetakPerjadin($kategori)
+    public function cetakPerjadin($anggotaId, $kategori)
     {
-        if ($kategori == "ampra")
-            return view('user.cetak.daftar-nominal', $data);
-        else if ($kategori == "kuitansi")
-            return view('user.cetak.kuitansi', $data);
+        $data['data'] = PerjadinAnggota::with(['perjadin', 'rincian', 'realCost'])
+            ->where('id', '=', $anggotaId)->first();
+        // return $data;
+
+        if ($kategori == "checklist")
+            return view('user.perjadin.cetak.checklist', $data);
+        else if ($kategori == "real-cost")
+            return view('user.perjadin.cetak.realcost', $data);
     }
 }

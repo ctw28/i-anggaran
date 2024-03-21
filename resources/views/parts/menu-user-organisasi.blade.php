@@ -21,9 +21,9 @@
     </li>
     <li class="menu-header small text-uppercase"><span class="menu-header-text">Proses Pencairan</span></li>
     <li class="menu-item">
-        <a href="#" class="menu-link">
+        <a href="{{route('tracking')}}" class="menu-link">
             <i class="menu-icon tf-icons bx bx-transfer-alt"></i>
-            <div data-i18n="Basic">Tracking</div>
+            <div data-i18n="Basic">Tracking Dokumen</div>
         </a>
     </li>
 </ul>

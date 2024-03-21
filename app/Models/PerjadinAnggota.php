@@ -26,6 +26,6 @@ class PerjadinAnggota extends Model
     }
     public function realCost()
     {
-        return $this->hasOne('App\Models\PerjadinRealCost');
+        return $this->hasMany('App\Models\PerjadinRealCost');
     }
 }

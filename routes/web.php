@@ -26,6 +26,9 @@ Route::get('/pelaksaan', [WebViewController::class, 'pelaksanaan'])->name('user.
 
 Route::get('/kegiatan/{id}/pelaksanaan/kelola', [WebViewController::class, 'pelaksanaanKelola'])->name('pelaksanaan.kelola');
 Route::get('/kegiatan/{id}/rencana/{id2}/pencairan', [WebViewController::class, 'pencairan'])->name('pencairan');
+Route::get('/dokumen/tracking', [WebViewController::class, 'tracking'])->name('tracking');
+
+Route::get('/anggota/{id}/kategori/{kategori}/cetak', [WebViewController::class, 'cetakPerjadin'])->name('cetak.perjadin');
 
 
 

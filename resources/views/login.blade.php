@@ -64,7 +64,7 @@
     <script src="{{asset('/')}}assets/js/config.js"></script>
   </head>
 
-  <body>
+  <body style="background-image: url('{{asset('/')}}/background-juara.jpeg');">
     <!-- Content -->
 
     <div class="container-xxl">
@@ -72,7 +72,7 @@
         <div class="authentication-inner">
           <!-- Register -->
           <div class="card">
-            <div class="card-body">
+            <div class="card-body text-center">
               <!-- Logo -->
               <div class="app-brand justify-content-center">
                 <a href="index.html" class="app-brand-link gap-2">
@@ -133,14 +133,19 @@
                   </span>
                   <span class="app-brand-text demo text-body fw-bolder">Juara</span>
                 </a>
+                
+                <img src="{{asset('/')}}/logo-e-audit.png" width="150" style="margin-left: 20px;">
+
               </div>
               <!-- /Logo -->
-              <h4 class="mb-2">Welcome di aplikasi Juara!</h4>
+              <h4 class="mb-2 text-uppercase">Selamat datang di aplikasi Juara dan e-audit</h4>
               <p class="mb-4">Login untuk masuk</p>
 
               <form id="loginForm" class="mb-3">
                 <div class="mb-3">
-                  <label for="email" class="form-label">Email or Username</label>
+                <div class="d-flex justify-content-between">
+                    <label class="form-label" for="password">email</label>
+                  </div>
                   <input
                     type="text"
                     class="form-control"

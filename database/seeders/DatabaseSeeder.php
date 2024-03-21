@@ -121,6 +121,56 @@ class DatabaseSeeder extends Seeder
                 'email' => 'pasca@mail.com',
                 'password' => bcrypt('1234qwer'),
             ],
+            [
+                'username' => 'fatik',
+                'email' => 'fatik@mail.com',
+                'password' => bcrypt('1234qwer'),
+            ],
+            [
+                'username' => 'fasya',
+                'email' => 'fasya@mail.com',
+                'password' => bcrypt('1234qwer'),
+            ],
+            [
+                'username' => 'fuad',
+                'email' => 'fuad@mail.com',
+                'password' => bcrypt('1234qwer'),
+            ],
+            [
+                'username' => 'lpm',
+                'email' => 'lpm@mail.com',
+                'password' => bcrypt('1234qwer'),
+            ],
+            [
+                'username' => 'lp2m',
+                'email' => 'lp2m@mail.com',
+                'password' => bcrypt('1234qwer'),
+            ],
+            [
+                'username' => 'upt_bahasa',
+                'email' => 'upt_bahasa@mail.com',
+                'password' => bcrypt('1234qwer'),
+            ],
+            [
+                'username' => 'perpus',
+                'email' => 'perpus@mail.com',
+                'password' => bcrypt('1234qwer'),
+            ],
+            [
+                'username' => 'mahad',
+                'email' => 'mahad@mail.com',
+                'password' => bcrypt('1234qwer'),
+            ],
+            [
+                'username' => 'tipd',
+                'email' => 'tipd@mail.com',
+                'password' => bcrypt('1234qwer'),
+            ],
+            [
+                'username' => 'spi',
+                'email' => 'spi@mail.com',
+                'password' => bcrypt('1234qwer'),
+            ],
         ]);
         DB::table('user_roles')->insert([
             ["user_id" => 1, "role_id" => 1, "is_default" => true], //role administrator
@@ -141,6 +191,17 @@ class DatabaseSeeder extends Seeder
             ["user_id" => 14, "role_id" => 9, "is_default" => true], //role user_organisasi
             ["user_id" => 15, "role_id" => 9, "is_default" => true], //role user_organisasi
             ["user_id" => 16, "role_id" => 9, "is_default" => true], //role user_organisasi
+
+            ["user_id" => 17, "role_id" => 9, "is_default" => true], //role 19
+            ["user_id" => 18, "role_id" => 9, "is_default" => true], //role 20
+            ["user_id" => 19, "role_id" => 9, "is_default" => true], //role user_organisasi
+            ["user_id" => 20, "role_id" => 9, "is_default" => true], //role user_organisasi
+            ["user_id" => 21, "role_id" => 9, "is_default" => true], //role user_organisasi
+            ["user_id" => 22, "role_id" => 9, "is_default" => true], //role user_organisasi
+            ["user_id" => 23, "role_id" => 9, "is_default" => true], //role user_organisasi
+            ["user_id" => 24, "role_id" => 9, "is_default" => true], //role user_organisasi
+            ["user_id" => 25, "role_id" => 9, "is_default" => true], //role user_organisasi
+            ["user_id" => 26, "role_id" => 9, "is_default" => true], //role user_organisasi
         ]);
         DB::table('satkers')->insert([
             [
@@ -659,6 +720,18 @@ class DatabaseSeeder extends Seeder
             ["user_role_id" => 16, "organisasi_id" => 43, "sebutan" => ""], //wr2
             ["user_role_id" => 17, "organisasi_id" => 44, "sebutan" => ""], //wr3
             ["user_role_id" => 18, "organisasi_id" => 5, "sebutan" => ""], //pasca
+
+            ["user_role_id" => 19, "organisasi_id" => 2, "sebutan" => ""], //fatik
+            ["user_role_id" => 20, "organisasi_id" => 3, "sebutan" => ""], //fasya
+            ["user_role_id" => 21, "organisasi_id" => 4, "sebutan" => ""], //fuad
+            ["user_role_id" => 22, "organisasi_id" => 32, "sebutan" => ""], //pasca
+            ["user_role_id" => 23, "organisasi_id" => 31, "sebutan" => ""], //pasca
+            ["user_role_id" => 24, "organisasi_id" => 35, "sebutan" => ""], //pasca
+            ["user_role_id" => 25, "organisasi_id" => 34, "sebutan" => ""], //pasca
+            ["user_role_id" => 26, "organisasi_id" => 36, "sebutan" => ""], //pasca
+            ["user_role_id" => 27, "organisasi_id" => 37, "sebutan" => ""], //pasca
+            ["user_role_id" => 28, "organisasi_id" => 33, "sebutan" => ""], //pasca
+
         ]);
         DB::table('tahun_anggarans')->insert([
             ["satker_id" => 1, "tahun" => 2024, "sebutan" => "Tahun Anggaran 2024"]

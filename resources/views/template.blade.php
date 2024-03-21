@@ -56,7 +56,8 @@
 
             <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
                 <div class="app-brand demo">
-                    <a href="index.html" class="app-brand-link">
+
+                    <a href="index.html" class="app-brand-link" id="identity">
                         <img src="https://appel.iainkendari.ac.id/logo-iain-kendari.png" width="35">
                         <span style="text-transform:none" class="app-brand-text demo menu-text fw-bolder ms-2">JUARA</span>
                     </a>
@@ -290,6 +291,15 @@
                     document.querySelector("#menu-spi").style.display = "block";
                 if (decodedToken.current_role === "spi_pimpinan")
                     document.querySelector("#menu-spi-pimpinan").style.display = "block";
+
+                if (decodedToken.current_role === "verifikator_spi" || decodedToken.current_role === "spi_pimpinan") {
+
+                    document.querySelector("#identity").innerHTML = `
+                    <img src="{{asset('/')}}/logo-e-audit.png" width="150">
+                    `;
+                }
+
+
                 let roles = ""
                 decodedToken.roles.map(function(role) {
                     if (decodedToken.roles.length == 1) {

@@ -1,28 +1,25 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 
 <head>
-    <title>CETAK REKAP</title>
+    <title>Checklist Perjadin</title>
     <link rel="shortcut icon" href="https://simpeg.iainkendari.ac.id/assets/img/favicon.ico">
     <style type="text/css" media="all">
         @page {
-            size: 21cm 29.7cm lanscape;
+            size: 21cm 29.7cm portrait;
             /* A4 size */
             margin: 1cm 2cm 1cm 2cm;
             /* this affects the margin in the printer settings */
         }
 
         @media all {
-
-            body,
             table {
-                background-color: #FFFFFF;
-                color: #000;
                 font-size: 18px;
-                font-family: arial;
             }
 
-            table {
-                font-size: 18px;
+            body {
+                background-color: #FFFFFF;
+                font-family: arial;
+
             }
 
             .page-break {
@@ -34,10 +31,6 @@
             .text-center {
                 text-align: center;
                 margin: 0 auto;
-            }
-
-            .text-justify {
-                text-align: justify;
             }
 
             .text-up {
@@ -55,125 +48,324 @@
 <body onload="window.print()" onfocus="window.close()">
 -->
 
-<body>
+<body style="color:#000;font-size:18px;">
 
-    <div style="width:29.7cm;margin:0 auto; font-size:18px">
+    <div style="width:21cm;margin:0 auto;">
 
-        <!--TITLE-->
-        <h1 class="text-center"><u>REKAP</u></h1>
+        <!--KOP-->
+        <table border="1" cellpadding="1" cellspacing="0" style="width:100%;" class="text-center">
+            <tr>
+                <td style="text-align: center; vertical-align: top;">
+                    <img src="https://simpeg.iainkendari.ac.id/./upload/logo/49sqk.png" style="width: 50px; float:left" />
+                    <div>
+                        <span style="font-size:16px; font-weight:600">KEMENTERIAN AGAMA REPUBLIK INDONESIA</span><br />
+                        <span style="font-size:16px; font-weight:600">INSTITUT AGAMA ISLAM NEGERI (IAIN) KENDARI</span></strong><br />
 
-
-        <br />
-        <!--TITLE END-->
-
-        <table border="1" cellpadding="2" cellspacing="0">
-            <thead>
-                <tr>
-                    <th style="width:1cm">No.</th>
-                    <th style="width:19.7cm">Uraian</th>
-                    <th style="width:3cm">Jumlah</th>
-                    <th style="width:3cm">PPh Pasal 21</th>
-                    <th style="width:3cm">Jumlah Rupiah</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td class="text-center">1</td>
-                    <td class="text-justify" style="text-transform:uppercase">
-                        Pembayaran
-                        <span id="pencairan-nama"></span>
-                    </td>
-                    <td class="text-center">
-                        <span id="total-seluruhnya"></span>
-                    </td>
-                    <td class="text-center">
-                        <span id="total-pajak"></span>
-                    </td>
-                    <td class="text-center">
-                        <span id="total-terima"></span>
-                    </td>
-                </tr>
-            </tbody>
-            <tfooter>
-                <tr>
-                    <th colspan="2">Jumlah</th>
-                    <th>total
-                    </th>
-                    <th>total</th>
-                    <th> total
-
-                    </th>
-                </tr>
-            </tfooter>
+                    </div>
+                    <div style=" margin-top:25px">
+                        <span style="font-size:16px">FORMULIR <br>VERIFIKASI PERJALANAN DINAS</span>
+                    </div>
+                </td>
+                <td style="text-align: left; vertical-align: middle; width: 40%;">
+                    Nomor Surat Tugas :<br>
+                    &nbsp;&nbsp;&nbsp;{{$data->perjadin->no_surat_tugas}}<br>
+                    Tanggal, {{$data->perjadin->tanggal_dokumen}}
+                </td>
+            </tr>
         </table>
-        <br>
+        <!--KOP END-->
 
-        <table border="0" cellpadding="2" cellspacing="2">
-            <tbody>
+        <div style="border: 2px solid #000; padding: 0; border-top:none">
+            <table>
                 <tr>
-                    <td style="width:9.5cm">
-                        Mengetahui,<br>
-                        Pejabat Pembuat Komitmen
-                    </td>
-                    <td style="width:9.5cm">
-                    </td>
-                    <td style="width:10.7cm">
-                        Kendari,
-                        <span id="tanggal-dokumen"></span>,<br />
-                        Bendahara Pengeluaran
-                    </td>
-                </tr>
-                <tr>
-                    <td><br><br><br><br></td>
-                    <td></td>
+                    <td width="25px">1.</td>
+                    <td>IDENTITAS</td>
                     <td></td>
                 </tr>
                 <tr>
-                    <td><b><span id="ppk-nama"></span></b></td>
                     <td></td>
-                    <td><b><span id="bendahara-nama"></span></b></td>
+                    <td width="180px">NAMA</td>
+                    <td width="10px">:</td>
+                    <td>{{$data->nama}}</td>
                 </tr>
                 <tr>
-                    <td>NIP. <span id="ppk-nip"></span></td>
                     <td></td>
-                    <td>NIP. <span id="bendahara-nip"></span></td>
+                    <td>NIP</td>
+                    <td>:</td>
+                    <td>{{$data->nip}}</td>
                 </tr>
-            </tbody>
-        </table>
+                <tr>
+                    <td></td>
+                    <td>WILAYAH/SUBBAG</td>
+                    <td>:</td>
+                    <td>{{$data->jabatan}}</td>
+                </tr>
+            </table>
+        </div>
+        <div style="border: 2px solid #000; padding: 0; border-top:none">
+            <table>
+                <tr>
+                    <td width="25px">2.</td>
+                    <td>PERJALANAN DINAS</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td width="200px">KEGIATAN</td>
+                    <td width="10px">:</td>
+                    <td>{{$data->perjadin->nama_perjadin}}</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>KOTA TUJUAN</td>
+                    <td>:</td>
+                    <td>{{$data->perjadin->kota_tujuan}}</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>LAMA PELAKSANAAN</td>
+                    <td>:</td>
+                    <td>2 Hari</td>
+                </tr>
+            </table>
+        </div>
+        <div style="border: 2px solid #000; padding: 0; border-top:none">
+            <table>
+                <tr>
+                    <td width="25px">3.</td>
+                    <td>RINCIAN BAIAYA RILL PERJALANAN DINAS</td>
+                    <td></td>
+                </tr>
+            </table>
+            <div style="padding:0 35px;">
+                <table border=" 1" cellspacing="0" cellpadding="2" style="width:100%;margin-bottom:5px">
+                    <thead>
+                        <th>JENIS PENGELUARAN</th>
+                        <th>PENGELUARAN RIIL</th>
+                        <th>KETERANGAN</th>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Uang Harian 1</td>
+                            <td>Rp. {{$data->rincian->uang_harian1}} x {{$data->rincian->uang_harian1_hari}} hari = </td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td style="position: relative;">Rp. <span style="position:absolute; right:10">390000</span> </td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>Uang Harian 2</td>
+                            <td>Rp. {{$data->rincian->uang_harian2}} x {{$data->rincian->uang_harian2_hari}} hari = </td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td style="position: relative;">Rp. <span style="position:absolute; right:10">390000</span> </td>
+                            <td></td>
+                        </tr>
 
+                        <tr>
+                            <td>Uang Representatif</td>
+                            <td>Rp. {{$data->rincian->uang_harian2}} x {{$data->rincian->representatif_hari}} hari = </td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td style="position: relative;">Rp. <span style="position:absolute; right:10">390000</span> </td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>Biaya Penginapan 1</td>
+                            <td>Rp. {{$data->rincian->penginapan1}} x {{$data->rincian->penginapan1_malam}} hari = </td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td style="position: relative;">Rp. <span style="position:absolute; right:10">390000</span> </td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>Biaya Penginapan 1</td>
+                            <td>Rp. {{$data->rincian->penginapan2}} x {{$data->rincian->penginapan2_malam}} hari = </td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td style="position: relative;">Rp. <span style="position:absolute; right:10">390000</span> </td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>Tiket Pergi</td>
+                            <td>Rp. {{$data->rincian->tiket_pergi}}</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>Tiket Pulang</td>
+                            <td>Rp. {{$data->rincian->tiket_pulang}}</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>Transport</td>
+                            <td>Rp. {{$data->rincian->transport_kota_2}}</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>Kantor - B/S/T<sup>**</sup> (PP)</td>
+                            <td>Rp. {{$data->rincian->kantor_bst}}</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>B/S/T<sup>**</sup> - Lokasi (PP)</td>
+                            <td>Rp. {{$data->rincian->transport2}}</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>Airport Tax Pergi</td>
+                            <td>Rp. {{$data->rincian->airport_tax_pergi}}</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>Airport Tax Pulang</td>
+                            <td>Rp. {{$data->rincian->airport_tax_pulang}}</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td style="text-align:center">JUMLAH</td>
+                            <td style="position: relative;">Rp. <span style="position:absolute; right:10">390000</span> </td>
+                            <td></td>
+                        </tr>
+
+
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+        <div style="border: 2px solid #000; padding: 0; border-top:none">
+            <table>
+                <tr>
+                    <td width="25px">4.</td>
+                    <td width="500px">BUKTI PERJALANAN DINAS<sup>*</sup></td>
+                    <td></td>
+                </tr>
+            </table>
+            <div style="padding:0 25px;">
+
+                <table>
+                    <tr>
+                        <td></td>
+                        <td width="200px">a. Surat Tugas</td>
+                        <td width="30px" style="border: 1px solid #888"></td>
+                        <td width="150px">Ada</td>
+                        <td width="200px">e. Airport Tax Pergi</td>
+                        <td width="30px" style="border: 1px solid #888"></td>
+                        <td>Ada</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td width="200px">b. SPPD</td>
+                        <td width="30px" style="border: 1px solid #888"></td>
+                        <td width="150px">Ada</td>
+                        <td width="200px">e. Airport Tax Pulang</td>
+                        <td width="30px" style="border: 1px solid #888"></td>
+                        <td>Ada</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td width="200px">c. Undangan</td>
+                        <td width="30px" style="border: 1px solid #888"></td>
+                        <td width="150px">Ada</td>
+                        <td width="200px">g. Tiket Pergi</td>
+                        <td width="30px" style="border: 1px solid #888"></td>
+                        <td>Ada</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td width="200px">d. Invoice Hotel</td>
+                        <td width="30px" style="border: 1px solid #888"></td>
+                        <td width="150px">Ada</td>
+                        <td width="200px">h. Tiket Pulang</td>
+                        <td width="30px" style="border: 1px solid #888"></td>
+                        <td>Ada</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td width="200px"></td>
+                        <td width="30px"></td>
+                        <td width="150px"></td>
+                        <td width="200px">i. Kuitansi kota 2</td>
+                        <td width="30px" style="border: 1px solid #888"></td>
+                        <td>Ada</td>
+                    </tr>
+
+                </table>
+            </div>
+        </div>
+
+        <div style="border: 2px solid #000; padding: 0; border-top:none">
+            <table>
+                <tr>
+                    <td width="25px">5.</td>
+                    <td width="500px">KETERANGAN</td>
+                    <td></td>
+                </tr>
+            </table>
+        </div>
+        <div style="border: 2px solid #000; padding: 0; border-top:none">
+
+            <table border="1" cellpadding="2" cellspacing="0">
+                <tbody>
+                    <tr>
+                        <td style="width:8cm;">
+                            <div style="text-align:center">Saya menyatakan bahwa<br />
+                                form ini diisi dengan sebenarnya</div>
+                            <br>
+                            <span style="text-align:left">Tanggal,</span>
+                            <br>
+                            <br>
+                            <br>
+                            <br>
+                            <div style="text-align:center">{{$data->nama}}<br>
+                                {{$data->nip}}
+                            </div>
+
+                        </td>
+                        <td style="width:7cm;">
+                            <div style="text-align: center;">
+                                Pejabat Pembuat Komitmen<br />
+                                Kendari, {{$data->perjadin->tanggal_dokumen}}
+                                <br>
+                                <br>
+                                <br>
+                                Hasnah
+                                NIP. 120912981928971827917
+                            </div>
+                            <hr>
+                            Verifikasi : <br>
+                            Tanggal,
+                            <br>
+                            <br>
+                            <div style="text-align: center;">
+                                _____________________
+                            </div>
+
+                        </td>
+                        <td style="width:7cm; vertical-align:top">
+                            Catatan :
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div style="margin-left : 30px; margin-top:5px">
+            Catatan <br>
+            <sup>*</sup> Diisi oleh Petugas<br>
+            <sup>**</sup> B/S/T Bandara/Stasiun/Terminal
+        </div>
     </div>
 </body>
-<script>
-    loadSesiData()
-    async function loadSesiData() {
-        let url = '{{route("daftar.nominal.index",":id")}}'
-        url = url.replace(":id", "{{$sesi_id}}")
-        let sendRequest = await fetch(url, {
-            headers: {
-                'Authorization': 'Bearer ' + localStorage.getItem('token')
-            },
-        })
-        response = await sendRequest.json()
-        console.log(response);
-        let subkegiatan = `${response.data[0].kegiatan.sub_kegiatan_kode1}.${response.data[0].kegiatan.sub_kegiatan_kode2}.${response.data[0].kegiatan.sub_kegiatan_kode3}.${response.data[0].kegiatan.sub_kegiatan_kode4}.${response.data[0].kegiatan.sub_kegiatan_kode5}`
-        document.querySelector('#pencairan-nama').innerText = response.data[0].pencairan_nama
-        document.querySelector('#tanggal-dokumen').innerText = response.data[0].tanggal_dokumen_indonesia
-        document.querySelector('#ppk-nama').innerText = response.data[0].ppk.nama_pejabat
-        document.querySelector('#ppk-nip').innerText = response.data[0].ppk.pegawai.pegawai_nomor_induk
-        document.querySelector('#bendahara-nama').innerText = response.data[0].bendahara.nama_pejabat
-        document.querySelector('#bendahara-nip').innerText = response.data[0].bendahara.pegawai.pegawai_nomor_induk
-        document.querySelector('#total-seluruhnya').innerText = formatRupiah(response.data[0].total)
-        document.querySelector('#total-pajak').innerText = formatRupiah(response.data[0].pajak)
-        document.querySelector('#total-terima').innerText = formatRupiah(response.data[0].terima)
-
-    }
-
-    function formatRupiah(angka) {
-        let reverse = angka.toString().split('').reverse().join('');
-        let ribuan = reverse.match(/\d{1,3}/g);
-        let formatted = ribuan.join('.').split('').reverse().join('');
-        return `${formatted}`;
-    }
-</script>
 
 </html>

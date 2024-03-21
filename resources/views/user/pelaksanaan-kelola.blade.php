@@ -374,7 +374,7 @@
                                                     @include('user/perjadin/rincian-form')
                                                 </div>
                                                 <div class="tab-pane fade" id="show-perjadin-cetak" role="tabpanel">
-                                                    @include('user/perjadin/cetak')
+                                                    @include('user/perjadin/cetak-list')
                                                 </div>
 
                                             </div>
@@ -412,8 +412,12 @@
     loadData()
 
     function cetakPerjadin(kategori) {
-        document.querySelector("#show-perjadin-cetak").dataset.id
-        let url = '{{route("perjadin.show",":id")}}'
+
+        let url = '{{route("cetak.perjadin",[":id",":kategori"])}}'
+        url = url.replace(':id', document.querySelector("#show-perjadin-cetak").dataset.id)
+        url = url.replace(':kategori', kategori)
+        window.open(url, '_blank');
+
     }
     async function showDataPerjadin(button) {
 
@@ -1393,6 +1397,8 @@
                             contents += `<span class="badge bg-label-success">Terkirim ke SPI</span>`
                         else if (data.usul.periksa_sesi.status == 1)
                             contents += `<button data-id="${data.id}" class="btn btn-warning btn-sm" onclick="sendSPI(this)">Kirim ke SPI</button>`
+                        else if (data.usul.periksa_sesi.status == 3)
+                            contents += `<span class="badge bg-label-success">diteruskan ke keuangan</span>`
                     } else {
                         // if (data.usul.periksa_sesi == null)
                         //     contents += `<span class="badge bg-label-success">Terkirim ke SPI</span>`

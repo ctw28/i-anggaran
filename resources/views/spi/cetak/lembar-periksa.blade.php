@@ -159,7 +159,7 @@
                 </tr>
                 <tr>
                     <td>REKOMENDASI</td>
-                    <td colspan="4" id="rekomendasi">Catatan SPI : </td>
+                    <td colspan="4" id="rekomendasi" style="text-transform:capitalize">Catatan SPI : hasil pemeriksaan SPI telah sesuai prosedur Pencairan Anggaran, selanjutnya segera diproses pembayarannya</td>
                 </tr>
             </tbody>
         </table>

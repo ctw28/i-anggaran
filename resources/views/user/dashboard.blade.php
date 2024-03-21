@@ -7,22 +7,100 @@
             <div class="col-sm-7">
                 <div class="card-body">
                     <h5 class="card-title text-primary">Selamat Datang</h5>
-                    <p class="mb-4">
+                    <p>
                         Selamat datang di aplikasi juara
                     </p>
 
                     <!-- <a href="javascript:;" class="btn btn-sm btn-outline-primary">Isi RPD</a> -->
                 </div>
             </div>
-            <div class="col-sm-5 text-center text-sm-left">
-                <div class="card-body pb-0 px-0 px-md-4">
-                    <img src="{{asset('/')}}assets/img/illustrations/man-with-laptop-light.png" height="140" alt="View Badge User" data-app-dark-img="illustrations/man-with-laptop-dark.png" data-app-light-img="illustrations/man-with-laptop-light.png" />
+        </div>
+    </div>
+</div>
+<div class="col-lg-3 col-sm-6 mb-4">
+    <div class="card">
+        <div class="card-body">
+            <div class="d-flex justify-content-between">
+                <div class="card-info">
+                    <p class="card-text">Session</p>
+                    <div class="d-flex align-items-end mb-2">
+                        <h4 class="card-title mb-0 me-2">58,352</h4>
+                        <small class="text-success">(+29%)</small>
+                    </div>
+                    <small>Last Week Analytics</small>
+                </div>
+                <div class="card-icon">
+                    <span class="badge bg-label-primary rounded p-2">
+                        <i class="bx bx-trending-up bx-sm"></i>
+                    </span>
                 </div>
             </div>
         </div>
     </div>
 </div>
-
+<div class="col-lg-3 col-sm-6 mb-4">
+    <div class="card">
+        <div class="card-body">
+            <div class="d-flex justify-content-between">
+                <div class="card-info">
+                    <p class="card-text">Session</p>
+                    <div class="d-flex align-items-end mb-2">
+                        <h4 class="card-title mb-0 me-2">58,352</h4>
+                        <small class="text-success">(+29%)</small>
+                    </div>
+                    <small>Last Week Analytics</small>
+                </div>
+                <div class="card-icon">
+                    <span class="badge bg-label-primary rounded p-2">
+                        <i class="bx bx-trending-up bx-sm"></i>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="col-lg-3 col-sm-6 mb-4">
+    <div class="card">
+        <div class="card-body">
+            <div class="d-flex justify-content-between">
+                <div class="card-info">
+                    <p class="card-text">Session</p>
+                    <div class="d-flex align-items-end mb-2">
+                        <h4 class="card-title mb-0 me-2">58,352</h4>
+                        <small class="text-success">(+29%)</small>
+                    </div>
+                    <small>Last Week Analytics</small>
+                </div>
+                <div class="card-icon">
+                    <span class="badge bg-label-primary rounded p-2">
+                        <i class="bx bx-trending-up bx-sm"></i>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="col-lg-3 col-sm-6 mb-4">
+    <div class="card">
+        <div class="card-body">
+            <div class="d-flex justify-content-between">
+                <div class="card-info">
+                    <p class="card-text">Session</p>
+                    <div class="d-flex align-items-end mb-2">
+                        <h4 class="card-title mb-0 me-2">58,352</h4>
+                        <small class="text-success">(+29%)</small>
+                    </div>
+                    <small>Last Week Analytics</small>
+                </div>
+                <div class="card-icon">
+                    <span class="badge bg-label-primary rounded p-2">
+                        <i class="bx bx-trending-up bx-sm"></i>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 @endsection
 @section('scripts')
 <script>

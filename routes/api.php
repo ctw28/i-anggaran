@@ -12,7 +12,7 @@ use App\Http\Controllers\PencairanSesiController;
 use App\Http\Controllers\RencanaSesiController;
 use App\Http\Controllers\TahunAnggaranSesiController;
 use App\Http\Controllers\TahunAnggaranDipaController;
-use App\Http\Controllers\JabatanController;
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\NominalPengaturanController;
 use App\Http\Controllers\BelanjaBahanController;
 use App\Http\Controllers\SPI\PeriksaUsulController;
@@ -72,6 +72,9 @@ Route::group([
     //PELAKSANAAN
     Route::post('/pelaksanaan/simpan', [PelaksanaanController::class, 'store'])->name('pelaksanaan.store');
     Route::post('/pelaksanaan/{id}/data', [PelaksanaanController::class, 'show'])->name('pelaksanaan.show');
+
+    //TRACKING
+    Route::post('/traking/data', [AdminController::class, 'tracking'])->name('tracking.index');
 
     //PELAKSANAAN DASAR
     Route::get('/kegiatan/{id}/pelaksanaan-dasar', [PelaksanaanDasarController::class, 'index'])->name('pelaksanaan.dasar');
