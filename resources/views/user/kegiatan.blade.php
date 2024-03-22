@@ -123,6 +123,7 @@
                 <!-- <button type="button" class="btn btn-warning mb-3" onclick="kirimRpd()"><i class="tf-icons bx bx-send"></i> Kirim RPD</button> -->
                 <p>Status Pengisian RPD : <span id="status-pengisian-rpd"></span></p>
                 <p>Waktu Pengisian RPD : <span id="waktu-pengisian-rpd"></span></p>
+                <button onclick="showRpd()" class="btn btn-success btn-sm mb-3">Resfresh Jika data tidak tampil</button>
                 <div class="table-responsive">
                     <!-- <div class="table-container"> -->
                     <!-- <table id="data-table"> -->
