@@ -22,12 +22,12 @@
         <div class="card-body">
             <div class="d-flex justify-content-between">
                 <div class="card-info">
-                    <p class="card-text">Session</p>
+                    <p class="card-text">Statistik</p>
                     <div class="d-flex align-items-end mb-2">
-                        <h4 class="card-title mb-0 me-2">58,352</h4>
-                        <small class="text-success">(+29%)</small>
+                        <h4 class="card-title mb-0 me-2">00,00</h4>
+                        <small class="text-success">(+0%)</small>
                     </div>
-                    <small>Last Week Analytics</small>
+                    <small>Total Pagu</small>
                 </div>
                 <div class="card-icon">
                     <span class="badge bg-label-primary rounded p-2">
@@ -43,12 +43,12 @@
         <div class="card-body">
             <div class="d-flex justify-content-between">
                 <div class="card-info">
-                    <p class="card-text">Session</p>
+                    <p class="card-text">Statistik</p>
                     <div class="d-flex align-items-end mb-2">
-                        <h4 class="card-title mb-0 me-2">58,352</h4>
-                        <small class="text-success">(+29%)</small>
+                        <h4 class="card-title mb-0 me-2">00,00</h4>
+                        <small class="text-success">(+0%)</small>
                     </div>
-                    <small>Last Week Analytics</small>
+                    <small>Total Pagu</small>
                 </div>
                 <div class="card-icon">
                     <span class="badge bg-label-primary rounded p-2">
@@ -64,12 +64,12 @@
         <div class="card-body">
             <div class="d-flex justify-content-between">
                 <div class="card-info">
-                    <p class="card-text">Session</p>
+                    <p class="card-text">Statistik</p>
                     <div class="d-flex align-items-end mb-2">
-                        <h4 class="card-title mb-0 me-2">58,352</h4>
-                        <small class="text-success">(+29%)</small>
+                        <h4 class="card-title mb-0 me-2">00,00</h4>
+                        <small class="text-success">(+0%)</small>
                     </div>
-                    <small>Last Week Analytics</small>
+                    <small>Total Pagu</small>
                 </div>
                 <div class="card-icon">
                     <span class="badge bg-label-primary rounded p-2">
@@ -85,12 +85,12 @@
         <div class="card-body">
             <div class="d-flex justify-content-between">
                 <div class="card-info">
-                    <p class="card-text">Session</p>
+                    <p class="card-text">Statistik</p>
                     <div class="d-flex align-items-end mb-2">
-                        <h4 class="card-title mb-0 me-2">58,352</h4>
-                        <small class="text-success">(+29%)</small>
+                        <h4 class="card-title mb-0 me-2">00,00</h4>
+                        <small class="text-success">(+0%)</small>
                     </div>
-                    <small>Last Week Analytics</small>
+                    <small>Total Pagu</small>
                 </div>
                 <div class="card-icon">
                     <span class="badge bg-label-primary rounded p-2">
