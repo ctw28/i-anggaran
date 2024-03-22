@@ -310,7 +310,7 @@
                                                 <div class="col-3">
                                                     <label class="form-label" for="anggota_nama">Nama</label>
                                                     <!-- <input type="text" class="form-control" id="anggota_nama" placeholder="Nama" /> -->
-                                                    <input autocomplete="off" oninput="cariPegawai(this)" data-urut="9090" onchange="setNIP(this)" class="form-control pegawai" list="datalistOptions9090" id="anggota_nama" data-nip="" placeholder="ketik nama / nip" value="" />
+                                                    <input oninput="cariPegawai(this)" data-urut="9090" onchange="setNIP(this)" class="form-control pegawai" list="datalistOptions9090" id="anggota_nama" data-nip="" placeholder="ketik nama / nip" value="" />
                                                     <datalist id="datalistOptions9090">
                                                     </datalist>
 
@@ -779,7 +779,8 @@
         let dataSend = new FormData()
         let state = button.dataset.state
         // return console.log(state);
-        if (state == 'edit') {
+        // if (state == 'edit') {
+        if (state != 'simpan') {
             let perjadinContainer = document.querySelector('#show-data-perjadin')
             let perjadinId = document.querySelector('#perjadin-modal').dataset.sesiId
 
@@ -1238,6 +1239,8 @@
     }
 
     async function loadPerjadin(id) {
+        document.querySelector("#rincian-container").style.display = "none"
+
         document.querySelector('#perjadin-modal').dataset.sesiId = id
         let perjadinId = document.querySelector('#perjadin-modal').dataset.sesiId
         let url = '{{route("perjadin.anggota.index",":id")}}'
@@ -1644,9 +1647,12 @@
         url = url.replace(':jenis', button.id)
         let modal = document.querySelector('#daftar-nominal-modals')
 
-        modal.querySelector('#show-' + button.id).innerHTML = `<button class="btn btn-dark" onclick="printSpecificURL('${url}')"><i class="tf-icons bx bx-printer"></i> Cetak</button>
+        modal.querySelector('#show-' + button.id).innerHTML = `<a href="${url}" target="_blank" class="btn btn-dark" ><i class="tf-icons bx bx-printer"></i> Cetak</a>
         <iframe src="${url}" width="100%" height="1000vh"></iframe>
         `
+        // modal.querySelector('#show-' + button.id).innerHTML = `<button class="btn btn-dark" onclick="printSpecificURL('${url}')"><i class="tf-icons bx bx-printer"></i> Cetak</button>
+        // <iframe src="${url}" width="100%" height="1000vh"></iframe>
+        // `
     }
 
     function showDokumenPencairan(button) {
@@ -1656,9 +1662,12 @@
         url = url.replace(':jenis', button.id)
         let modal = document.querySelector('#daftar-belanja-bahan')
 
-        modal.querySelector('#show-' + button.id).innerHTML = `<button class="btn btn-dark" onclick="printSpecificURL('${url}')"><i class="tf-icons bx bx-printer"></i> Cetak</button>
+        modal.querySelector('#show-' + button.id).innerHTML = `<a href="${url}" target="_blank" class="btn btn-dark"><i class="tf-icons bx bx-printer"></i> Cetak</a>
         <iframe src="${url}" width="100%" height="1000vh"></iframe>
         `
+        // modal.querySelector('#show-' + button.id).innerHTML = `<button class="btn btn-dark" onclick="printSpecificURL('${url}')"><i class="tf-icons bx bx-printer"></i> Cetak</button>
+        // <iframe src="${url}" width="100%" height="1000vh"></iframe>
+        // `
     }
 
     function editBelanja(button) {
@@ -1976,7 +1985,7 @@
         let pph = row.querySelector('#pph');
         let ppnHasil = 0
         let pphHasil = 0
-        let pajakNpwp = 0.15
+        let pajakNpwp = 0.015
         // snack
         // jasa
         // pengadaan

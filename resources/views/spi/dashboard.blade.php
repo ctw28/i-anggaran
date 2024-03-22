@@ -155,7 +155,7 @@
                     <td>${data.pencairan_sesi.kegiatan.organisasi.organisasi.organisasi_nama} (${data.pencairan_sesi.kegiatan.organisasi.organisasi.organisasi_singkatan} )</td>
                     <td>${data.pencairan_sesi.pencairan_nama}</td>`
                 if (data.periksa_sesi == null)
-                    contents += `<td class="text-center"><button class="btn btn-primary btn-sm" data-id="${data.id}" onclick="klaim(this)"><i class="tf-icons bx bx-list-check"></i> Klaim</button></td>`
+                    contents += `<td class="text-center"><button class="btn btn-primary btn-sm" data-id="${data.id}" onclick="klaim(this)"><i class="tf-icons bx bx-list-check"></i> Ambil Periksa</button></td>`
                 else
                     contents += `<td class="text-center">${data.periksa_sesi.verifikator.pegawai.data_diri.nama_lengkap}</td>`
                 contents += `</tr>`
@@ -185,8 +185,8 @@
         if (response.status) {
             toastr.options.closeButton = true;
             toastr.options.positionClass = 'toast-top-center mt-3';
-            toastr.success('Sukses Klaim!');
-            button.innerText = "Sudah diklaim"
+            toastr.success('Anda Sukses ambil periksa!');
+            button.innerText = "sukses ambil"
             button.setAttribute('disabled', 'disabled')
 
         }

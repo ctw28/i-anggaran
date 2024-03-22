@@ -16,7 +16,7 @@ class CreatePeriksaBarjasKategorisTable extends Migration
         Schema::create('periksa_barjas_kategoris', function (Blueprint $table) {
             $table->id();
             $table->string('nama_kategori');
-            $table->text('keterangan)')->nullable();
+            $table->text('keterangan')->nullable();
 
             $table->timestamps();
         });

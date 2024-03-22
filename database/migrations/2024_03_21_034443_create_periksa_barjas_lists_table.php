@@ -18,7 +18,7 @@ class CreatePeriksaBarjasListsTable extends Migration
             $table->unsignedBigInteger('periksa_barjas_kategori_id');
             $table->foreign('periksa_barjas_kategori_id')->references('id')->on('periksa_barjas_kategoris');
             $table->string('nama_dokumen');
-            $table->text('keterangan)')->nullable();
+            $table->text('keterangan')->nullable();
             $table->timestamps();
         });
     }

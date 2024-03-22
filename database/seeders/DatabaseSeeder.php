@@ -43,137 +43,137 @@ class DatabaseSeeder extends Seeder
         DB::table('users')->insert([
             [
                 'username' => 'admin',
-                'email' => 'admin@mail.com',
+                'email' => 'admin@iainkendari.ac.id',
                 'password' => bcrypt('1234qwer'),
             ],
             [
                 'username' => 'uci',
-                'email' => 'uci@mail.com',
+                'email' => 'uci@iainkendari.ac.id',
                 'password' => bcrypt('1234qwer'),
             ],
             [
                 'username' => 'hasnah',
-                'email' => 'hasnah@mail.com',
+                'email' => 'hasnah@iainkendari.ac.id',
                 'password' => bcrypt('1234qwer'),
             ],
             [
                 'username' => 'musdin',
-                'email' => 'musdin@mail.com',
+                'email' => 'musdin@iainkendari.ac.id',
                 'password' => bcrypt('1234qwer'),
             ],
             [
                 'username' => 'sukadir',
-                'email' => 'sukadir@mail.com',
+                'email' => 'sukadir@iainkendari.ac.id',
                 'password' => bcrypt('1234qwer'),
             ],
             [
                 'username' => 'lily',
-                'email' => 'lily@mail.com',
+                'email' => 'lily@iainkendari.ac.id',
                 'password' => bcrypt('1234qwer'),
             ],
             [
                 'username' => 'lita',
-                'email' => 'lita@mail.com',
+                'email' => 'lita@iainkendari.ac.id',
                 'password' => bcrypt('1234qwer'),
             ],
             [
                 'username' => 'arif',
-                'email' => 'arif@mail.com',
+                'email' => 'arif@iainkendari.ac.id',
                 'password' => bcrypt('1234qwer'),
             ],
             [
                 'username' => 'rigo',
-                'email' => 'rigo@mail.com',
+                'email' => 'rigo@iainkendari.ac.id',
                 'password' => bcrypt('1234qwer'),
             ],
             [
                 'username' => 'tommy',
-                'email' => 'tommy@mail.com',
+                'email' => 'tommy@iainkendari.ac.id',
                 'password' => bcrypt('1234qwer'),
             ],
             [
                 'username' => 'ulla',
-                'email' => 'ulla@mail.com',
+                'email' => 'ulla@iainkendari.ac.id',
                 'password' => bcrypt('1234qwer'),
             ],
             [
                 'username' => 'febi',
-                'email' => 'febi@mail.com',
+                'email' => 'febi@iainkendari.ac.id',
                 'password' => bcrypt('1234qwer'),
             ],
             [
                 'username' => 'wr1',
-                'email' => 'wr1@mail.com',
+                'email' => 'wr1@iainkendari.ac.id',
                 'password' => bcrypt('1234qwer'),
             ],
             [
                 'username' => 'wr2',
-                'email' => 'wr2@mail.com',
+                'email' => 'wr2@iainkendari.ac.id',
                 'password' => bcrypt('1234qwer'),
             ],
             [
                 'username' => 'wr3',
-                'email' => 'wr3@mail.com',
+                'email' => 'wr3@iainkendari.ac.id',
                 'password' => bcrypt('1234qwer'),
             ],
             [
                 'username' => 'pasca',
-                'email' => 'pasca@mail.com',
+                'email' => 'pasca@iainkendari.ac.id',
                 'password' => bcrypt('1234qwer'),
             ],
             [
                 'username' => 'fatik',
-                'email' => 'fatik@mail.com',
+                'email' => 'fatik@iainkendari.ac.id',
                 'password' => bcrypt('1234qwer'),
             ],
             [
                 'username' => 'fasya',
-                'email' => 'fasya@mail.com',
+                'email' => 'fasya@iainkendari.ac.id',
                 'password' => bcrypt('1234qwer'),
             ],
             [
                 'username' => 'fuad',
-                'email' => 'fuad@mail.com',
+                'email' => 'fuad@iainkendari.ac.id',
                 'password' => bcrypt('1234qwer'),
             ],
             [
                 'username' => 'lpm',
-                'email' => 'lpm@mail.com',
+                'email' => 'lpm@iainkendari.ac.id',
                 'password' => bcrypt('1234qwer'),
             ],
             [
                 'username' => 'lp2m',
-                'email' => 'lp2m@mail.com',
+                'email' => 'lp2m@iainkendari.ac.id',
                 'password' => bcrypt('1234qwer'),
             ],
             [
                 'username' => 'upt_bahasa',
-                'email' => 'upt_bahasa@mail.com',
+                'email' => 'upt_bahasa@iainkendari.ac.id',
                 'password' => bcrypt('1234qwer'),
             ],
             [
                 'username' => 'perpus',
-                'email' => 'perpus@mail.com',
+                'email' => 'perpus@iainkendari.ac.id',
                 'password' => bcrypt('1234qwer'),
             ],
             [
                 'username' => 'mahad',
-                'email' => 'mahad@mail.com',
+                'email' => 'mahad@iainkendari.ac.id',
                 'password' => bcrypt('1234qwer'),
             ],
             [
                 'username' => 'tipd',
-                'email' => 'tipd@mail.com',
+                'email' => 'tipd@iainkendari.ac.id',
                 'password' => bcrypt('1234qwer'),
             ],
             [
                 'username' => 'spi',
-                'email' => 'spi@mail.com',
+                'email' => 'spi@iainkendari.ac.id',
                 'password' => bcrypt('1234qwer'),
             ],
             [
                 'username' => 'evi',
-                'email' => 'evi@mail.com',
+                'email' => 'evi@iainkendari.ac.id',
                 'password' => bcrypt('1234qwer'),
             ],
         ]);
@@ -207,6 +207,8 @@ class DatabaseSeeder extends Seeder
             ["user_id" => 24, "role_id" => 9, "is_default" => true], //role user_organisasi
             ["user_id" => 25, "role_id" => 9, "is_default" => true], //role user_organisasi
             ["user_id" => 26, "role_id" => 9, "is_default" => true], //role user_organisasi
+
+            ["user_id" => 27, "role_id" => 4, "is_default" => true], //role user_organisasi
         ]);
         DB::table('satkers')->insert([
             [
@@ -734,8 +736,8 @@ class DatabaseSeeder extends Seeder
             ["user_role_id" => 24, "organisasi_id" => 35, "sebutan" => ""], //pasca
             ["user_role_id" => 25, "organisasi_id" => 34, "sebutan" => ""], //pasca
             ["user_role_id" => 26, "organisasi_id" => 36, "sebutan" => ""], //pasca
-            ["user_role_id" => 27, "organisasi_id" => 37, "sebutan" => ""], //pasca
-            ["user_role_id" => 28, "organisasi_id" => 33, "sebutan" => ""], //pasca
+            ["user_role_id" => 27, "organisasi_id" => 33, "sebutan" => ""], //pasca
+            ["user_role_id" => 28, "organisasi_id" => 37, "sebutan" => ""], //pasca
 
         ]);
         DB::table('tahun_anggarans')->insert([
