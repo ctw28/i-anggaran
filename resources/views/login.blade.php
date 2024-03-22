@@ -134,7 +134,7 @@
                   <span class="app-brand-text demo text-body fw-bolder">Juara</span>
                 </a>
                 
-                <img src="{{asset('/')}}/logo-e-audit.png" width="150" style="margin-left: 20px;">
+                <img src="{{asset('/')}}/logo-e-audit-2.png" width="150" style="margin-left: 20px;">
 
               </div>
               <!-- /Logo -->
