@@ -295,7 +295,7 @@
                 if (decodedToken.current_role === "verifikator_spi" || decodedToken.current_role === "spi_pimpinan") {
 
                     document.querySelector("#identity").innerHTML = `
-                    <img src="{{asset('/')}}/logo-e-audit.png" width="150">
+                    <img src="{{asset('/')}}/logo-e-audit-2.png" width="150">
                     `;
                 }
 
