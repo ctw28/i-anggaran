@@ -122,7 +122,8 @@ class APIController extends Controller
                 ->whereHas('organisasiJabatan', function ($organisasiJabatan)  use ($flag) {
                     $organisasiJabatan->where('jabatan_flag', $flag);
                 })
-                ->where('organisasi_id', $parentData->organisasi_parent_id)->get();
+                // ->where('organisasi_id', $parentData->organisasi_parent_id)
+                ->get();
         }
         return response()->json([
             'status' => true,

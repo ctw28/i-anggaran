@@ -1394,19 +1394,19 @@
                         contents += `<td><button data-bs-toggle="modal" onclick="loadBelanjaBahan(${data.id})" data-bs-target="#daftar-belanja-bahan"  class="btn btn-info"><i class="tf-icons bx bx-spreadsheet"></i> Dokumen</button></td>`
                     else
                         contents += `<td><button data-bs-toggle="modal" onclick="loadSesiData(${data.id})"  data-bs-target="#daftar-nominal-modals"  class="btn btn-dark"><i class="tf-icons bx bx-spreadsheet"></i> Dokumen</button></td>`
-                    contents += `<td>${data.pencairan_nama}`
+                    contents += `<td>${data.pencairan_nama}<br>`
                     if (data.usul != null && data.usul.periksa_sesi != null) {
                         if (data.usul.periksa_sesi.status == 0)
                             contents += `<span class="badge bg-label-success">Terkirim ke SPI</span>`
                         else if (data.usul.periksa_sesi.status == 1)
-                            contents += `<button data-id="${data.id}" class="btn btn-warning btn-sm" onclick="sendSPI(this)">Kirim ke SPI</button>`
+                            contents += `<button data-id="${data.id}" class="btn btn-warning btn-sm" onclick="sendSPI(this)"><i class="tf-icons bx bx-send"></i> Kirim ke SPI</button>`
                         else if (data.usul.periksa_sesi.status == 3)
                             contents += `<span class="badge bg-label-success">diteruskan ke keuangan</span>`
                     } else {
                         // if (data.usul.periksa_sesi == null)
                         //     contents += `<span class="badge bg-label-success">Terkirim ke SPI</span>`
                         // else
-                        contents += `<button data-id="${data.id}" class="btn btn-warning btn-sm" onclick="sendSPI(this)">Kirim ke SPI</button>`
+                        contents += `<button data-id="${data.id}" class="btn btn-warning btn-sm" onclick="sendSPI(this)"><i class="tf-icons bx bx-send"></i>  Kirim ke SPI</button>`
                     }
                     contents += `</td><td><span class="badge bg-label-success">${data.kode_akun.kode}</span> - ${data.kode_akun.nama_akun} </td>`
                     contents += `<td>
