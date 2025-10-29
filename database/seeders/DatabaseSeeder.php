@@ -749,7 +749,7 @@ class DatabaseSeeder extends Seeder
 
         ]);
         DB::table('tahun_anggarans')->insert([
-            ["satker_id" => 1, "tahun" => 2024, "sebutan" => "Tahun Anggaran 2024"]
+            ["satker_id" => 1, "tahun" => 2025, "sebutan" => "Tahun Anggaran 2025"]
         ]);
         DB::table('organisasi_rpds')->insert([
             ["tahun_anggaran_id" => 1, "organisasi_id" => 2],
