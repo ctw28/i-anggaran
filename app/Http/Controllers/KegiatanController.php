@@ -26,46 +26,13 @@ class KegiatanController extends Controller
 
     public function index(Request $request)
     {
-        // return $request->all();
-        $data = OrganisasiRpd::with('kegiatan.rencana')->find($request->id);
-        if ($data->kegiatan->count() > 0) {
-            foreach ($data->kegiatan as $index => $kegiatan) {
-                $total = 0;
-                $arrayBaru = []; // Buat array baru untuk menyimpan data baru
-
-                foreach ($kegiatan->rencana as $rencana) {
-                    if ($rencana->tanggal_pencairan) {
-                        $total = $total + $rencana->rencana_jumlah;
-                        $tanggal = Carbon::createFromFormat('Y-m-d', $rencana->tanggal_pencairan)->day;
-                        $bulan = Carbon::createFromFormat('Y-m-d', $rencana->tanggal_pencairan)->month;
-                        $formattedNumber = number_format($rencana->rencana_jumlah, 0, ',', '.'); // Mengubah 1000 menjadi 1.000
-                        $arrayBaru[$bulan]['bulan_indonesia'] = Str::ucfirst(Carbon::createFromFormat('m', $bulan)->translatedFormat('F'));
-
-                        $arrayBaru[$bulan]['id'] = $rencana->id;
-                        $arrayBaru[$bulan]['tanggal'] = $tanggal;
-                        $arrayBaru[$bulan]['bulan'] = $bulan;
-                        $arrayBaru[$bulan]['jumlah'] = $formattedNumber;
-                        $arrayBaru[$bulan]['rencana_jumlah'] = $rencana->rencana_jumlah;
-                    }
-                }
-
-                // Menambahkan array baru ke dalam variabel $kegiatan
-                unset($data->kegiatan[$index]['rencana']);
-                $data->kegiatan[$index]['rencana'] = $arrayBaru;
-                $data->kegiatan[$index]['sisa'] = $kegiatan->jumlah_biaya - $total;
-            }
-            return response()->json([
-                'status' => true,
-                'message' => 'Data ditemukan',
-                'data' => $data,
-            ], 200);
-        }
+        $data = Kegiatan::where('organisasi_rpd_id', $request->id)->get();
 
         return response()->json([
-            'status' => false,
-            'message' => 'Data tidak ditemukan',
-            'data' => [],
-        ], 404);
+            'status' => $data->isNotEmpty(),
+            'message' => $data->isNotEmpty() ? 'Data ditemukan' : 'Data tidak ditemukan',
+            'data' => $data->isNotEmpty() ? $data : null,
+        ], 200);
     }
 
     public function store(Request $request)
@@ -84,7 +51,7 @@ class KegiatanController extends Controller
             if (!$request->has('id')) {
                 return response()->json([
                     'status' => false,
-                    'message' => 'Data sub kegiatan tidak boleh sama',
+                    'message' => 'Data sub kegiatan sudah ada, periksa kode sub kegiatan',
                     'data' => $check,
                 ], 422);
             }
@@ -106,15 +73,19 @@ class KegiatanController extends Controller
                 'jumlah_biaya' => 'required|numeric',
                 'sumber_dana' => 'required|string',
                 'urutan' => 'required|integer'
+            ], [
+                'kegiatan_nama.required' => 'Nama kegiatan wajib diisi.',
+                'jumlah_biaya.required' => 'Jumlah biaya tidak boleh kosong.',
+                'jumlah_biaya.numeric' => 'Jumlah biaya harus berupa angka.',
+                'jumlah_biaya.min' => 'Jumlah biaya tidak boleh negatif.',
             ]);
 
             if ($validator->fails()) {
                 // return $validator->errors()->all();
                 return response()->json([
                     'status' => false,
-                    'message' => 'periksa inputan',
-                    'details' => $validator->errors()->all(),
-                ], 500);
+                    'message' => $validator->errors()->all(),
+                ], 422);
             }
 
             $kegiatan = Kegiatan::updateOrCreate(
@@ -136,8 +107,6 @@ class KegiatanController extends Controller
                     'urutan' => $request->urutan,
                 ]
             );
-
-
             DB::commit();
 
             return response()->json([
@@ -218,7 +187,6 @@ class KegiatanController extends Controller
 
     public function rpdstore(Request $request)
     {
-        // return $request->all();
         try {
             $validator = Validator::make(
                 $request->all(),

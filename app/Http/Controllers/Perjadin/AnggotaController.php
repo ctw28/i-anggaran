@@ -18,7 +18,16 @@ class AnggotaController extends Controller
 
     public function index($id)
     {
-        $data = PerjadinAnggota::where('perjadin_id', $id)->get();
+        $data = PerjadinAnggota::where('pencairan_id', $id)->get();
+        return response()->json([
+            'status' => true,
+            'message' => 'Data ditemukan',
+            'data' => $data,
+        ], 200);
+    }
+    public function show($id)
+    {
+        $data = PerjadinAnggota::with(['rincian', 'pencairan'])->find($id);
         return response()->json([
             'status' => true,
             'message' => 'Data ditemukan',
@@ -29,7 +38,7 @@ class AnggotaController extends Controller
     {
         try {
             $validator = Validator::make($request->all(), [
-                'perjadin_id' => 'required|integer',
+                'pencairan_id' => 'required|integer',
                 'nama' => 'required|string',
                 'nip' => 'nullable|string',
                 'jabatan' => 'nullable|string',
@@ -43,10 +52,9 @@ class AnggotaController extends Controller
                     'details' => $validator->errors()->all(),
                 ], 500);
             }
-            $data = PerjadinAnggota::updateOrCreate(
-                ['id' => $request->id], // Kunci utama untuk mencari entri
+            $data = PerjadinAnggota::create(
                 [
-                    'perjadin_id' => $request->perjadin_id,
+                    'pencairan_id' => $request->pencairan_id,
                     'nama' => $request->nama,
                     'nip' => $request->nip,
                     'jabatan' => $request->jabatan

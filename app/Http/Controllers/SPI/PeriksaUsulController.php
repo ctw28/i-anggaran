@@ -54,7 +54,7 @@ class PeriksaUsulController extends Controller
         DB::beginTransaction();
         try {
             $validator = Validator::make($request->all(), [
-                'dokumen_pencairan_sesi_id' => 'required|integer',
+                'pencairan_id' => 'required|integer',
                 'is_finish' => 'required|boolean',
                 'catatan' => 'nullable|string',
             ]);
@@ -67,7 +67,7 @@ class PeriksaUsulController extends Controller
                     'details' => $validator->errors()->all(),
                 ], 500);
             }
-            $check = PeriksaUsul::where('dokumen_pencairan_sesi_id', $request->dokumen_pencairan_sesi_id)->first();
+            $check = PeriksaUsul::where('pencairan_id', $request->pencairan_id)->first();
             if ($check) {
                 $data = PeriksaSesi::where('periksa_usul_id', $check->id)->first();
                 if ($data) {
@@ -80,7 +80,7 @@ class PeriksaUsulController extends Controller
             } else {
                 $data = PeriksaUsul::create(
                     [
-                        'dokumen_pencairan_sesi_id' => $request->dokumen_pencairan_sesi_id,
+                        'pencairan_id' => $request->pencairan_id,
                         'is_finish' => false,
                         'catatan' => null,
                     ]

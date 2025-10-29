@@ -15,10 +15,11 @@ class CreatePeriksaUsulsTable extends Migration
     {
         Schema::create('periksa_usuls', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('dokumen_pencairan_sesi_id');
-            $table->foreign('dokumen_pencairan_sesi_id')->references('id')->on('dokumen_pencairan_sesis');
+            $table->unsignedBigInteger('pencairan_id');
+            $table->foreign('pencairan_id')->references('id')->on('pencairans')->onDelete('cascade');
             $table->boolean('is_finish')->default(false);
             $table->string('catatan')->nullable();
+            $table->enum('pemeriksa', ['ppk', 'spi']);
             $table->timestamps();
         });
     }

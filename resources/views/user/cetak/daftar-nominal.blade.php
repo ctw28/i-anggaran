@@ -154,8 +154,7 @@
 <script>
     loadSesiData()
     async function loadSesiData() {
-        let url = '{{route("daftar.nominal.index",":id")}}'
-        url = url.replace(":id", "{{$sesi_id}}")
+        let url = '{{route("cetak.nominal","$pencairan_id")}}'
         let sendRequest = await fetch(url, {
             headers: {
                 'Authorization': 'Bearer ' + localStorage.getItem('token')
@@ -163,23 +162,23 @@
         })
         response = await sendRequest.json()
         console.log(response);
-        document.querySelector('#pencairan-nama').innerText = response.data[0].pencairan_nama
-        document.querySelector('#tanggal-dokumen').innerText = response.data[0].tanggal_dokumen_indonesia
-        document.querySelector('#ppk').innerText = response.data[0].ppk.nama_pejabat
-        document.querySelector('#ppk-nip').innerText = response.data[0].ppk.pegawai.pegawai_nomor_induk
-        document.querySelector('#bendahara').innerText = response.data[0].bendahara.nama_pejabat
-        document.querySelector('#bendahara-nip').innerText = response.data[0].bendahara.pegawai.pegawai_nomor_induk
+        document.querySelector('#pencairan-nama').innerText = response.data.pencairan_nama
+        document.querySelector('#tanggal-dokumen').innerText = response.data.detail.tanggal_dokumen_indonesia
+        document.querySelector('#ppk').innerText = response.data.detail.ppk.nama_pejabat
+        document.querySelector('#ppk-nip').innerText = response.data.detail.ppk.pegawai.pegawai_nomor_induk
+        document.querySelector('#bendahara').innerText = response.data.detail.bendahara.nama_pejabat
+        document.querySelector('#bendahara-nip').innerText = response.data.detail.bendahara.pegawai.pegawai_nomor_induk
 
-        document.querySelector('#total-kotor').innerText = formatRupiah(response.data[0].total)
-        document.querySelector('#total-pajak').innerText = formatRupiah(response.data[0].pajak)
-        document.querySelector('#total-diterima').innerText = formatRupiah(response.data[0].terima)
+        document.querySelector('#total-kotor').innerText = formatRupiah(response.data.total)
+        document.querySelector('#total-pajak').innerText = formatRupiah(response.data.pajak)
+        document.querySelector('#total-diterima').innerText = formatRupiah(response.data.terima)
 
 
 
 
         let tbody = document.getElementById('nominal-data');
         let contents = ''
-        response.data[0].daftar_nominal.map(data => {
+        response.data.daftar_nominal.map(data => {
             contents += `
             <tr>
             <td class="border text-center">${data.urutan}</td>

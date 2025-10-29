@@ -194,8 +194,10 @@
 <script>
     loadSesiData()
     async function loadSesiData() {
-        let url = '{{route("daftar.nominal.index",":id")}}'
-        url = url.replace(":id", "{{$sesi_id}}")
+        let jenis = "{{$jenis}}"
+        let url = '{{route("cetak.nominal","$pencairan_id")}}'
+        if (jenis == "belanja")
+            url = '{{route("cetak.belanja","$pencairan_id")}}'
         let sendRequest = await fetch(url, {
             headers: {
                 'Authorization': 'Bearer ' + localStorage.getItem('token')
@@ -203,17 +205,17 @@
         })
         response = await sendRequest.json()
         console.log(response);
-        let subkegiatan = `${response.data[0].kegiatan.sub_kegiatan_kode1}.${response.data[0].kegiatan.sub_kegiatan_kode2}.${response.data[0].kegiatan.sub_kegiatan_kode3}.${response.data[0].kegiatan.sub_kegiatan_kode4}.${response.data[0].kegiatan.sub_kegiatan_kode5}`
-        document.querySelector('#pencairan-nama').innerText = response.data[0].pencairan_nama
-        document.querySelector('#tanggal-dokumen').innerText = response.data[0].tanggal_dokumen_indonesia
-        document.querySelector('#ppk-nama').innerText = response.data[0].ppk.nama_pejabat
-        document.querySelector('#ppk-nip').innerText = response.data[0].ppk.pegawai.pegawai_nomor_induk
-        document.querySelector('#total-seluruhnya').innerText = formatRupiah(response.data[0].total)
-        document.querySelector('#total-pajak').innerText = formatRupiah(response.data[0].pajak)
-        document.querySelector('#penerima-nama').innerText = response.data[0].penerima_nama
-        document.querySelector('#akun').innerText = response.data[0].kode_akun.kode
-        document.querySelector('#klasifikasi-anggaran').innerText = `${subkegiatan}.${response.data[0].kode_akun.kode}`
-        document.querySelector('#sptjb-nomor').innerText = response.data[0].sptjb_nomor
+        let subkegiatan = `${response.data.kegiatan.sub_kegiatan_kode1}.${response.data.kegiatan.sub_kegiatan_kode2}.${response.data.kegiatan.sub_kegiatan_kode3}.${response.data.kegiatan.sub_kegiatan_kode4}.${response.data.kegiatan.sub_kegiatan_kode5}`
+        document.querySelector('#pencairan-nama').innerText = response.data.pencairan_nama
+        document.querySelector('#tanggal-dokumen').innerText = response.data.detail.tanggal_dokumen_indonesia
+        document.querySelector('#ppk-nama').innerText = response.data.detail.ppk.nama_pejabat
+        document.querySelector('#ppk-nip').innerText = response.data.detail.ppk.pegawai.pegawai_nomor_induk
+        document.querySelector('#total-seluruhnya').innerText = formatRupiah(response.data.total)
+        document.querySelector('#total-pajak').innerText = formatRupiah(response.data.pajak)
+        document.querySelector('#penerima-nama').innerText = response.data.detail.penerima_nama
+        document.querySelector('#akun').innerText = response.data.kode_akun.kode
+        document.querySelector('#klasifikasi-anggaran').innerText = `${subkegiatan}.${response.data.kode_akun.kode}`
+        document.querySelector('#sptjb-nomor').innerText = response.data.detail.sptjb_nomor
 
     }
 

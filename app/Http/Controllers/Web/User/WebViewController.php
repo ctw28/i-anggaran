@@ -23,8 +23,18 @@ class WebViewController extends Controller
     }
     public function kegiatan()
     {
-        return view('user.kegiatan');
+        return view('user.kegiatan-data');
     }
+
+    public function dokumenPencairan()
+    {
+        return view('user.dokumen-pencairan');
+    }
+    public function detail()
+    {
+        return view('user.dokumen-pencairan-detail');
+    }
+
     public function pelaksanaan()
     {
         return view('user.pelaksanaan');
@@ -45,9 +55,10 @@ class WebViewController extends Controller
         return view('user.tracking');
     }
 
-    public function cetak($sesiId, $kategori)
+    public function cetak($pencairanId, $kategori, $jenis)
     {
-        $data['sesi_id'] = $sesiId;
+        $data['pencairan_id'] = $pencairanId;
+        $data['jenis'] = $jenis;
         if ($kategori == "ampra")
             return view('user.cetak.daftar-nominal', $data);
         else if ($kategori == "kuitansi")
@@ -78,12 +89,12 @@ class WebViewController extends Controller
 
     public function cetakPerjadin($anggotaId, $kategori)
     {
-        $data['data'] = PerjadinAnggota::with(['perjadin', 'rincian', 'realCost'])
-            ->where('id', '=', $anggotaId)->first();
+        $data['data'] = PerjadinAnggota::with(['pencairan.perjadin', 'rincian', 'realCost'])
+            ->find($anggotaId);
         // return $data;
 
         if ($kategori == "checklist")
-            return view('user.perjadin.cetak.checklist', $data);
+            return view('user.components.perjadin.cetak.checklist', $data);
         else if ($kategori == "real-cost")
             return view('user.perjadin.cetak.realcost', $data);
     }

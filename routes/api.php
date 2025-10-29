@@ -15,11 +15,16 @@ use App\Http\Controllers\TahunAnggaranDipaController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\NominalPengaturanController;
 use App\Http\Controllers\BelanjaBahanController;
+use App\Http\Controllers\PencairanController;
+use App\Http\Controllers\PencairanDetailController;
 use App\Http\Controllers\SPI\PeriksaUsulController;
 use App\Http\Controllers\SPI\PeriksaSesiController;
 use App\Http\Controllers\SPI\PeriksaDaftarController;
 use App\Http\Controllers\SPI\PeriksaDokumenController;
 use App\Http\Controllers\SPI\PeriksaPimpinanController;
+use App\Http\Controllers\SPI\BarjasSesiPeriksaController;
+use App\Http\Controllers\SPI\BarjasSesiController;
+use App\Http\Controllers\SPI\BarjasTemplateController;
 use App\Http\Controllers\PerjadinController;
 use App\Http\Controllers\Perjadin\AnggotaController;
 use App\Http\Controllers\Perjadin\RincianController;
@@ -44,6 +49,9 @@ Route::group([
     'middleware' => ['api', 'checkToken'],
 ], function ($router) {
     //GENERAL
+    Route::get('/pencairan-cetak/{id}/nominal', [PencairanController::class, 'cetakNominal'])->name('cetak.nominal');
+    Route::get('/pencairan-cetak/{id}/belanja-bahan', [PencairanController::class, 'cetakBelanja'])->name('cetak.belanja');
+
     Route::get('/tahun-anggaran', [APIController::class, 'tahunAnggaran'])->name('tahun.anggaran.data');
     Route::post('/organisasi/sesi/', [APIController::class, 'setOrganisasiSesi'])->name('set.organisasi.sesi');
     Route::get('/kode-akun', [APIController::class, 'kodeAkun'])->name('kode.akun');
@@ -81,25 +89,32 @@ Route::group([
     Route::post('/pelaksanaan-dasar/simpan', [PelaksanaanDasarController::class, 'store'])->name('pelaksanaan-dasar.store');
     Route::get('/pelaksanaan-dasar/{id}/hapus', [PelaksanaanDasarController::class, 'delete'])->name('pelaksanaan-dasar.delete');
 
-    //PENCAIRAN SESI
-    Route::get('/rencana/{id}/pencairan-sesi/data', [PencairanSesiController::class, 'index'])->name('pencairan-sesi.index');
-    Route::post('/pencairan-sesi/simpan', [PencairanSesiController::class, 'store'])->name('pencairan-sesi.store');
-    Route::get('/pencairan-sesi/{id}', [PencairanSesiController::class, 'show'])->name('pencairan-sesi.show');
-    Route::get('/pencairan-sesi/{id}/delete', [PencairanSesiController::class, 'delete'])->name('pencairan-sesi.delete');
+    //PENCAIRAN
+    Route::get('/pencairan/{id}/data', [PencairanController::class, 'index'])->name('pencairan.get');
+    Route::get('/pencairan/{id}', [PencairanController::class, 'show'])->name('pencairan.show');
+    Route::post('/pencairan/simpan', [PencairanController::class, 'store'])->name('pencairan.store');
+    Route::put('/pencairan/{id}', [PencairanController::class, 'update'])->name('pencairan.update');
+    Route::get('/pencairan/{id}/delete', [PencairanController::class, 'delete'])->name('pencairan.delete');
+
+    //PENCAIRAN DETAIL
+    Route::get('/pencairan-detail/{id}', [PencairanDetailController::class, 'index'])->name('pencairan-detail.index');
+    Route::post('/pencairan-detail', [PencairanDetailController::class, 'store'])->name('pencairan-detail.store');
 
     //NOMINAL PENGATURAN
     Route::get('/pencairan-sesi/{id}/nominal-pengaturan', [NominalPengaturanController::class, 'index'])->name('pencairan-sesi.nominal-pengaturan');
     Route::post('/pencairan-sesi/{id}/nominal-pengaturan/update', [NominalPengaturanController::class, 'update'])->name('pencairan-sesi.nominal-pengaturan.update');
 
     //DAFTAR NOMINAL
-    Route::get('/pencairan-sesi/{id}/daftar-nominal', [DaftarNominalController::class, 'index'])->name('daftar.nominal.index');
+    Route::get('/pencairan/{id}/daftar-nominal', [DaftarNominalController::class, 'index'])->name('daftar.nominal.get');
     Route::post('daftar-nominal/simpan', [DaftarNominalController::class, 'store'])->name('daftar.nominal.store');
+    //CETAK
 
     //BELANJA BAHAN
-    Route::get('/pencairan-sesi/{id}/belanja-bahan', [BelanjaBahanController::class, 'index'])->name('belanja.bahan.index');
+    Route::get('/pencairan/{id}/belanja-bahan', [BelanjaBahanController::class, 'index'])->name('belanja.bahan.get');
     Route::post('belanja-bahan/simpan', [BelanjaBahanController::class, 'store'])->name('belanja.bahan.store');
 
     //BELANJA BAHAN NPWP
+    Route::get('pencairan/{id}/belanja-bahan/npwp/', [BelanjaBahanController::class, 'npwp'])->name('npwp.get');
     Route::post('belanja-bahan/npwp/update', [BelanjaBahanController::class, 'npwpUpdate'])->name('npwp.update');
 
     //ADMIN
@@ -131,18 +146,28 @@ Route::group([
     Route::post('periksa-daftar/{id}/delete', [PeriksaDokumenController::class, 'delete'])->name('periksa-dokumen.delete');
     Route::post('periksa-daftar/history', [PeriksaDokumenController::class, 'history'])->name('periksa-dokumen.story');
 
+    //PERIKSA BARJAS
+    // Route::get('barjas/verifikator/{id}', [BarjasController::class, 'index'])->name('barjas.index');
+    // Route::get('barjas//save', [BarjasController::class, 'storeSesi'])->name('barjas.sesi.store');
+
+    Route::apiResource('barjas_sesi', BarjasSesiController::class);
+    Route::apiResource('barjas_template', BarjasTemplateController::class);
+    Route::apiResource('barjas_sesi_periksa', BarjasSesiPeriksaController::class);
+
+
     //PERIKSA PIMPINAN
     Route::get('periksa-pimpinan', [PeriksaPimpinanController::class, 'index'])->name('periksa-pimpinan.index');
     Route::post('periksa-pimpinan/simpan', [PeriksaPimpinanController::class, 'store'])->name('periksa-pimpinan.store');
 
     //PERJADIN
-    Route::get('pencairan-sesi/{id}/perjadin', [PerjadinController::class, 'index'])->name('perjadin.index');
+    Route::get('pencairan-sesi/{id}/perjadin', [PerjadinController::class, 'index'])->name('perjadin.get');
     Route::post('perjadin/simpan', [PerjadinController::class, 'store'])->name('perjadin.store');
     Route::get('perjadin/{id}', [PerjadinController::class, 'show'])->name('perjadin.show');
     Route::get('perjadin/{id}/hapus', [PerjadinController::class, 'delete'])->name('perjadin.delete');
 
     //PERJADIN ANGGOTA
     Route::get('perjadin-anggota/{id}/data', [AnggotaController::class, 'index'])->name('perjadin.anggota.index');
+    Route::get('perjadin-anggota/{id}/show-rincian', [AnggotaController::class, 'show'])->name('perjadin.anggota.show');
     Route::post('perjadin-anggota/simpan', [AnggotaController::class, 'store'])->name('perjadin.anggota.store');
 
     //PERJADIN RINCIAN

@@ -160,6 +160,9 @@
                             <li class="nav-item" role="presentation">
                                 <button type="button" id="cetak-nominal" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#show-cetak-nominal" aria-controls="navs-justified-profile" aria-selected="false"><i class="tf-icons bx bx-printer me-1"></i> Cetak Dokumen</button>
                             </li>
+                            <li class="nav-item" role="presentation">
+                                <button type="button" id="cetak-sp2d" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#show-cetak-sp2d" aria-controls="navs-justified-profile" aria-selected="false"><i class="tf-icons bx bx-printer me-1"></i> SP2D</button>
+                            </li>
 
                         </ul>
                         <div class="tab-content">
@@ -168,6 +171,9 @@
                             </div>
                             <div class="tab-pane fade active show" id="show-daftar-nominal" role="tabpanel">
                                 @include('user/daftar-nominal/daftar-nominal')
+                            </div>
+                            <div class="tab-pane fade active show" id="show-cetak-sp2d" role="tabpanel">
+                                <input type="file" class="form-control">
                             </div>
                             <div class="tab-pane fade" id="show-cetak-nominal" role="tabpanel">
                                 <div class="row">
@@ -1416,6 +1422,7 @@
                         <b>Dasar Pelaksanaan</b> : <br>
                         <a href="${filePath}" target="_blank"><span class="text-uppercase">${data.pelaksanaan_dasar.dasar_jenis}</span> No. ${data.pelaksanaan_dasar.nomor} tanggal ${data.pelaksanaan_dasar.tanggal_format}</a>
                     </td>`
+                    // contents += `<td><button class="btn btn-danger btn-sm"></button></td>`
                     contents += `<td><button onclick="hapus(${data.id})" class="btn btn-danger btn-sm"><i class="tf-icons bx bx-trash"></i></button></td>`
                     contents += `</tr>`
                 })

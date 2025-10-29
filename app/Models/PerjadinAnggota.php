@@ -10,15 +10,15 @@ class PerjadinAnggota extends Model
     use HasFactory;
 
     protected $fillable = [
-        'perjadin_id',
+        'pencairan_id',
         'nama',
         'nip',
         'jabatan',
     ];
 
-    public function perjadin()
+    public function pencairan()
     {
-        return $this->belongsTo('App\Models\Perjadin');
+        return $this->belongsTo('App\Models\Pencairan');
     }
     public function rincian()
     {

@@ -15,8 +15,8 @@ class CreateBelanjaBahanPerusahaansTable extends Migration
     {
         Schema::create('belanja_bahan_perusahaans', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('dokumen_pencairan_sesi_id');
-            $table->foreign('dokumen_pencairan_sesi_id')->references('id')->on('dokumen_pencairan_sesis')->onDelete('cascade');;
+            $table->unsignedBigInteger('pencairan_id');
+            $table->foreign('pencairan_id')->references('id')->on('pencairans')->onDelete('cascade');;
             $table->boolean('is_ada_npwp')->default(false);
             $table->string('npwp')->nullable();
             $table->string('npwp_nama')->nullable();

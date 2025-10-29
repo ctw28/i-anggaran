@@ -17,16 +17,16 @@ class RincianController extends Controller
         $this->middleware('auth:api', ['except' => ['login']]);
     }
 
-    public function index($id, $anggotaId)
+    public function index($anggotaId)
     {
         // $data = PerjadinRincian::where('perjadin_anggota_id', $id)->get();
-        $data = Perjadin::with(['referensiUang', 'anggota' => function ($anggota) use ($anggotaId) {
+        $data = PerjadinRincian::with(['pencairan.Perjadin', 'anggota' => function ($anggota) use ($anggotaId) {
             $anggota->where('id', $anggotaId)->with('rincian');
         }])
             ->whereHas('anggota', function ($anggota) use ($anggotaId) {
                 $anggota->where('id', $anggotaId);
             })
-            ->where('id', $id)->get();
+            ->where('perjadin_anggota_id', $anggotaId)->get();
         return response()->json([
             'status' => true,
             'message' => 'Data ditemukan',
@@ -38,7 +38,7 @@ class RincianController extends Controller
         // return $request->all();
         try {
             $validator = Validator::make($request->all(), [
-                'perjadin_id' => 'required|integer',
+                'pencairan_id' => 'required|integer',
                 'perjadin_anggota_id' => 'required|integer',
                 // 'nip' => 'nullable|string',
                 // 'jabatan' => 'nullable|string',
@@ -53,9 +53,9 @@ class RincianController extends Controller
                 ], 500);
             }
             $data = PerjadinRincian::updateOrCreate(
-                ['id' => $request->id], // Kunci utama untuk mencari entri
+                ['perjadin_anggota_id' => $request->perjadin_anggota_id], // Kunci utama untuk mencari entri
                 [
-                    'perjadin_id' => $request->perjadin_id,
+                    'pencairan_id' => $request->pencairan_id,
                     'perjadin_anggota_id' => $request->perjadin_anggota_id,
                     'tanggal_pergi' => $request->tanggal_pergi,
                     'tanggal_pulang' => $request->tanggal_pulang,

@@ -10,14 +10,14 @@ class PeriksaUsul extends Model
     use HasFactory;
 
     protected $fillable = [
-        'dokumen_pencairan_sesi_id',
+        'pencairan_id',
         'is_finish',
         'catatan',
     ];
 
-    public function pencairanSesi()
+    public function pencairan()
     {
-        return $this->belongsTo('App\Models\DokumenPencairanSesi', 'dokumen_pencairan_sesi_id');
+        return $this->belongsTo('App\Models\Pencairan');
     }
     public function periksaSesi()
     {

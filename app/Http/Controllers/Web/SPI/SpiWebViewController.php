@@ -20,7 +20,6 @@ class SpiWebViewController extends Controller
     {
         return view('spi.periksa-dokumen');
     }
-
     public function cetak($periksaSesiId, $kategori)
     {
         $data['sesi_id'] = $periksaSesiId;
@@ -28,5 +27,14 @@ class SpiWebViewController extends Controller
             return view('spi.cetak.lembar-periksa', $data);
         else if ($kategori == "berita-acara")
             return view('spi.cetak.berita-acara', $data);
+    }
+    public function barjas()
+    {
+        return view('spi.barjas');
+    }
+    public function barjasCetak($id)
+    {
+        $data['barjas_sesi_id'] = $id;
+        return view('spi.barjas-cetak', $data);
     }
 }

@@ -9,14 +9,14 @@ class PerjadinRefUang extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'perjadin_id',
+        'pencairan_id',
         'dinas_ke',
         'uang_harian',
         'uang_penginapan',
     ];
 
-    public function perjadin()
+    public function pencairan()
     {
-        return $this->belongsTo('App\Models\Perjadin');
+        return $this->belongsTo('App\Models\Pencairan');
     }
 }

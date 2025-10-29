@@ -256,7 +256,7 @@
                             }
                         })
                         .then(response => {
-                            console.log(response);
+                            // console.log(response);
                             if (!response.ok) {
                                 alert('Sesi login habis, silahkan login kembali')
                                 localStorage.removeItem('tahun_anggaran');
@@ -278,7 +278,7 @@
                 }
 
                 let decodedToken = jwt_decode(token);
-                console.log(decodedToken);
+                // console.log(decodedToken);
                 if (!localStorage.getItem('tahun_anggaran'))
                     return window.location.href = '{{route("pilih.tahun.anggaran")}}';
 

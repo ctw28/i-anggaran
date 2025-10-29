@@ -15,8 +15,8 @@ class CreatePerjadinRefUangsTable extends Migration
     {
         Schema::create('perjadin_ref_uangs', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('perjadin_id');
-            $table->foreign('perjadin_id')->references('id')->on('perjadins')->onDelete('cascade');
+            $table->unsignedBigInteger('pencairan_id');
+            $table->foreign('pencairan_id')->references('id')->on('pencairans')->onDelete('cascade');
             $table->enum('dinas_ke', ["1", "2"]);
             $table->double('uang_harian')->nullable();
             $table->double('uang_penginapan')->nullable();

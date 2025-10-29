@@ -171,8 +171,10 @@
 <script>
     loadSesiData()
     async function loadSesiData() {
-        let url = '{{route("daftar.nominal.index",":id")}}'
-        url = url.replace(":id", "{{$sesi_id}}")
+        let jenis = "{{$jenis}}"
+        let url = '{{route("cetak.nominal","$pencairan_id")}}'
+        if (jenis == "belanja")
+            url = '{{route("cetak.belanja","$pencairan_id")}}'
         let sendRequest = await fetch(url, {
             headers: {
                 'Authorization': 'Bearer ' + localStorage.getItem('token')
@@ -180,19 +182,19 @@
         })
         response = await sendRequest.json()
         console.log(response);
-        let subkegiatan = `${response.data[0].kegiatan.sub_kegiatan_kode1}.${response.data[0].kegiatan.sub_kegiatan_kode2}.${response.data[0].kegiatan.sub_kegiatan_kode3}.${response.data[0].kegiatan.sub_kegiatan_kode4}.${response.data[0].kegiatan.sub_kegiatan_kode5}`
-        document.querySelector('#pencairan-nama').innerText = response.data[0].pencairan_nama
-        document.querySelector('#tanggal-dokumen').innerText = response.data[0].tanggal_dokumen_indonesia
-        document.querySelector('#ppk-nama').innerText = response.data[0].ppk.nama_pejabat
-        document.querySelector('#ppk-nip').innerText = response.data[0].ppk.pegawai.pegawai_nomor_induk
-        document.querySelector('#terbilang').innerText = response.data[0].terbilang
-        document.querySelector('#kuitansi').innerText = `${response.data[0].kuitansi_nomor} tanggal ${response.data[0].tanggal_dokumen_indonesia}`
+        let subkegiatan = `${response.data.kegiatan.sub_kegiatan_kode1}.${response.data.kegiatan.sub_kegiatan_kode2}.${response.data.kegiatan.sub_kegiatan_kode3}.${response.data.kegiatan.sub_kegiatan_kode4}.${response.data.kegiatan.sub_kegiatan_kode5}`
+        document.querySelector('#pencairan-nama').innerText = response.data.pencairan_nama
+        document.querySelector('#tanggal-dokumen').innerText = response.data.detail.tanggal_dokumen_indonesia
+        document.querySelector('#ppk-nama').innerText = response.data.detail.ppk.nama_pejabat
+        document.querySelector('#ppk-nip').innerText = response.data.detail.ppk.pegawai.pegawai_nomor_induk
+        document.querySelector('#terbilang').innerText = response.data.terbilang
+        document.querySelector('#kuitansi').innerText = `${response.data.detail.kuitansi_nomor} tanggal ${response.data.detail.tanggal_dokumen_indonesia}`
         let contents = ''
-        document.querySelector('#total-seluruhnya').innerText = formatRupiah(response.data[0].total)
-        document.querySelector('#sptjk-nip').innerText = response.data[0].sptjk_nip
-        document.querySelector('#sptjk-nama').innerText = response.data[0].sptjk_nama
-        document.querySelector('#sptjk-jabatan').innerText = response.data[0].sptjk_jabatan
-        document.querySelector('#sptjk-nama-ket').innerText = response.data[0].sptjk_nama
+        document.querySelector('#total-seluruhnya').innerText = formatRupiah(response.data.total)
+        document.querySelector('#sptjk-nip').innerText = response.data.detail.sptjk_nip
+        document.querySelector('#sptjk-nama').innerText = response.data.detail.sptjk_nama
+        document.querySelector('#sptjk-jabatan').innerText = response.data.detail.sptjk_jabatan
+        document.querySelector('#sptjk-nama-ket').innerText = response.data.detail.sptjk_nama
 
     }
 

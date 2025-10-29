@@ -10,9 +10,7 @@ class Perjadin extends Model
     use HasFactory;
 
     protected $fillable = [
-        'rencana_id',
-        'kegiatan_id',
-        'nama_perjadin',
+        'pencairan_id',
         'kota_tujuan',
         'tanggal_dokumen',
         'no_surat_tugas',
@@ -21,13 +19,9 @@ class Perjadin extends Model
         'tgl_selesai',
     ];
 
-    public function rencana()
+    public function pencairan()
     {
-        return $this->belongsTo('App\Models\Rencana');
-    }
-    public function kegiatan()
-    {
-        return $this->belongsTo('App\Models\Kegiatan');
+        return $this->belongsTo('App\Models\Pencairan');
     }
     public function referensiUang()
     {
@@ -37,8 +31,8 @@ class Perjadin extends Model
     {
         return $this->hasMany('App\Models\PerjadinAnggota');
     }
-    // public function rincian()
-    // {
-    //     return $this->hasOne('App\Models\PerjadinRincian');
-    // }
+    public function rincian()
+    {
+        return $this->hasOne('App\Models\PerjadinRincian');
+    }
 }

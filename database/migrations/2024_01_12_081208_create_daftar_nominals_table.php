@@ -15,8 +15,8 @@ class CreateDaftarNominalsTable extends Migration
     {
         Schema::create('daftar_nominals', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('dokumen_pencairan_sesi_id');
-            $table->foreign('dokumen_pencairan_sesi_id')->references('id')->on('dokumen_pencairan_sesis')->onDelete('cascade');;
+            $table->unsignedBigInteger('pencairan_id');
+            $table->foreign('pencairan_id')->references('id')->on('pencairans')->onDelete('cascade');;
 
             $table->string('pegawai_nomor_induk')->nullable();
             $table->string('nama');

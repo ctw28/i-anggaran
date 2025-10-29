@@ -10,7 +10,7 @@ class BelanjaBahan extends Model
     use HasFactory;
 
     protected $fillable = [
-        'dokumen_pencairan_sesi_id',
+        'pencairan_id',
         'item',
         'nilai',
         'ppn',
@@ -19,8 +19,8 @@ class BelanjaBahan extends Model
         'urutan',
     ];
 
-    public function pencairanSesi()
+    public function pencairan()
     {
-        return $this->belongsTo('App\Models\DokumenPencairanSesi');
+        return $this->belongsTo('App\Models\Pencairan');
     }
 }

@@ -15,8 +15,8 @@ class CreatePelaksanaansTable extends Migration
     {
         Schema::create('pelaksanaans', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('rencana_id');
-            $table->foreign('rencana_id')->references('id')->on('rencanas')->onDelete('cascade');
+            // $table->unsignedBigInteger('rencana_id');
+            // $table->foreign('rencana_id')->references('id')->on('rencanas')->onDelete('cascade');
             $table->date('tanggal_mulai');
             $table->date('tanggal_selesai');
             $table->double('jumlah')->nullable();

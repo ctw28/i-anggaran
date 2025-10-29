@@ -35,10 +35,10 @@ class DatabaseSeeder extends Seeder
             ["role_nama" => "user_kegiatan", "role_keterangan" => "User yang ditunjuk untuk buat pencairan"], //9
         ]);
         DB::table('kode_akuns')->insert([
-            ["kode" => "524114", "nama_akun" => "Belanja Perjalanan Dinas Paket Meeting Dalam Kota", 'keterangan' => '', 'jenis_kuitansi' => 1, 'is_pajak' => 0],
-            ["kode" => "521211", "nama_akun" => "Belanja Bahan", 'keterangan' => '', 'jenis_kuitansi' => 2, 'is_pajak' => 1],
-            ["kode" => "521213", "nama_akun" => "Belanja Honor Output Kegiatan", 'keterangan' => '', 'jenis_kuitansi' => 1, 'is_pajak' => 1],
-            ["kode" => "524111", "nama_akun" => "Biaya Perjalanan Biasa", 'keterangan' => '', 'jenis_kuitansi' => 3, 'is_pajak' => 0],
+            ["kode" => "524114", "nama_akun" => "Belanja Perjalanan Dinas Paket Meeting Dalam Kota", 'keterangan' => '', 'jenis_kuitansi' => 1, 'is_pajak' => 0, "jenis_pencairan" => "nominal", "jenis_form_detail" => "nominal"],
+            ["kode" => "521211", "nama_akun" => "Belanja Bahan", 'keterangan' => '', 'jenis_kuitansi' => 2, 'is_pajak' => 1, "jenis_pencairan" => "belanja_bahan", "jenis_form_detail" => "nominal"],
+            ["kode" => "521213", "nama_akun" => "Belanja Honor Output Kegiatan", 'keterangan' => '', 'jenis_kuitansi' => 1, 'is_pajak' => 1, "jenis_pencairan" => "nominal", "jenis_form_detail" => "nominal"],
+            ["kode" => "524111", "nama_akun" => "Biaya Perjalanan Biasa", 'keterangan' => '', 'jenis_kuitansi' => 3, 'is_pajak' => 0, "jenis_pencairan" => "perjadin", "jenis_form_detail" => "perjadin"],
         ]);
         DB::table('users')->insert([
             [
@@ -212,13 +212,16 @@ class DatabaseSeeder extends Seeder
         ]);
         DB::table('satkers')->insert([
             [
-                "kode_satker" => "307665", "nama_satker" => "Institut Agama Islam Negeri Kendari",
-                "alamat" => "Jalan Sultan Qaimuddin", "is_current" => true
+                "kode_satker" => "307665",
+                "nama_satker" => "Institut Agama Islam Negeri Kendari",
+                "alamat" => "Jalan Sultan Qaimuddin",
+                "is_current" => true
             ],
         ]);
         DB::table('satker_npwps')->insert([
             [
-                "satker_id" => 1, "npwp_nomor" => "123npwpnomor",
+                "satker_id" => 1,
+                "npwp_nomor" => "123npwpnomor",
                 "npwp_alamat" => "Jalan Sultan Qaimuddin"
             ],
         ]);
@@ -229,31 +232,36 @@ class DatabaseSeeder extends Seeder
                 'pimpinan_sebutan' => "Rektor",
                 'grup_flag' => "rektor",
                 'grup_keterangan' => "Grup Institusi"
-            ], [
+            ],
+            [
                 "grup_nama" => "Fakultas",
                 "grup_singkatan" => "Fakultas",
                 'pimpinan_sebutan' => "Dekan",
                 'grup_flag' => "dekan",
                 'grup_keterangan' => "Grup Fakultas"
-            ], [
+            ],
+            [
                 "grup_nama" => "Program Studi",
                 "grup_singkatan" => "Prodi",
                 'pimpinan_sebutan' => "Kepal Program Studi",
                 'grup_flag' => "prodi",
                 'grup_keterangan' => "Grup Prodi"
-            ], [
+            ],
+            [
                 "grup_nama" => "Pascasarjana",
                 "grup_singkatan" => "Pascasarjana",
                 'pimpinan_sebutan' => "Direktur",
                 'grup_flag' => "pasca",
                 'grup_keterangan' => "Grup Pascasarjana"
-            ], [
+            ],
+            [
                 "grup_nama" => "Lembaga",
                 "grup_singkatan" => "Lembaga",
                 'pimpinan_sebutan' => "ketua",
                 'grup_flag' => "lembaga",
                 'grup_keterangan' => "Grup Lembaga"
-            ], [
+            ],
+            [
                 "grup_nama" => "Unit Pelaksana Teknis",
                 "grup_singkatan" => "UPT",
                 'pimpinan_sebutan' => "Kepala",

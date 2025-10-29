@@ -44,7 +44,7 @@ class Kegiatan extends Model
     }
     public function rencana()
     {
-        return $this->hasMany("App\Models\Rencana");
+        return $this->hasMany("App\Models\Rpd");
     }
     public function laporan()
     {

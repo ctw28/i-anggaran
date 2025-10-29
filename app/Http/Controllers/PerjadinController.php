@@ -18,7 +18,16 @@ class PerjadinController extends Controller
 
     public function index($id)
     {
-        $data = Perjadin::where('rencana_id', $id)->get();
+        $data = Perjadin::with('referensiUang')->where('pencairan_id', $id)->first();
+
+        if (!$data) {
+            return response()->json([
+                'status' => false,
+                'message' => 'Data tidak ditemukan',
+                'data' => null,
+            ], 200);
+        }
+
         return response()->json([
             'status' => true,
             'message' => 'Data ditemukan',
@@ -37,14 +46,12 @@ class PerjadinController extends Controller
 
     public function store(Request $request)
     {
-        // return $request->all();
+        // return $request->data;
         DB::beginTransaction();
 
         try {
             $validator = Validator::make($request->all(), [
-                'rencana_id' => 'required|integer',
-                'kegiatan_id' => 'required|integer',
-                'nama_perjadin' => 'required|string',
+                'pencairan_id' => 'required|integer',
                 'kota_tujuan' => 'required|string',
                 'tanggal_dokumen' => 'required|date',
                 'no_surat_tugas' => 'required|string',
@@ -52,8 +59,10 @@ class PerjadinController extends Controller
                 'dinas_ke' => 'string',
                 'tgl_mulai' => 'required|date',
                 'tgl_selesai' => 'required|date',
-                'uang_harian' => 'nullable|numeric',
-                'uang_penginapan' => 'nullable|numeric',
+                'uang_harian1' => 'required|numeric',
+                'uang_penginapan1' => 'required|numeric',
+                'uang_harian2' => 'nullable|numeric',
+                'uang_penginapan2' => 'nullable|numeric',
             ]);
 
             if ($validator->fails()) {
@@ -65,11 +74,9 @@ class PerjadinController extends Controller
                 ], 500);
             }
             $data = Perjadin::updateOrCreate(
-                ['id' => $request->id], // Kunci utama untuk mencari entri
+                ['pencairan_id' => $request->pencairan_id], // Kunci utama untuk mencari entri
                 [
-                    'rencana_id' => $request->rencana_id,
-                    'kegiatan_id' => $request->kegiatan_id,
-                    'nama_perjadin' => $request->nama_perjadin,
+                    'pencairan_id' => $request->pencairan_id,
                     'kota_tujuan' => $request->kota_tujuan,
                     'tanggal_dokumen' => $request->tanggal_dokumen,
                     'no_surat_tugas' => $request->no_surat_tugas,
@@ -83,8 +90,8 @@ class PerjadinController extends Controller
                 [
                     'perjadin_id' => $data->id,
                     'dinas_ke' => "1",
-                    'uang_harian' => $request->uang_harian,
-                    'uang_penginapan' => $request->uang_penginapan,
+                    'uang_harian' => $request->uang_harian1,
+                    'uang_penginapan' => $request->uang_penginapan1,
                 ],
                 [
                     'perjadin_id' => $data->id,

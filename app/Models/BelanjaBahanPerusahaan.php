@@ -10,15 +10,15 @@ class BelanjaBahanPerusahaan extends Model
     use HasFactory;
 
     protected $fillable = [
-        'dokumen_pencairan_sesi_id',
+        'pencairan_id',
         'is_ada_npwp',
         'npwp',
         'npwp_nama',
         'npwp_alamat',
     ];
 
-    public function pencairanSesi()
+    public function pencairan()
     {
-        return $this->belongsTo('App\Models\DokumenPencairanSesi');
+        return $this->belongsTo('App\Models\Pencairan');
     }
 }

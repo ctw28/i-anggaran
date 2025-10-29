@@ -41,7 +41,7 @@
                     <div class="mb-2 mt-3">
 
                         <button class="btn btn-warning btn-sm mb-2" data-bs-toggle="modal" data-bs-target="#importModal"><i class="tf-icons bx bx-import"></i> Import Kegiatan</button>
-                        <button onclick="showRpd()" class="btn btn-dark btn-sm mb-2" data-bs-toggle="modal" data-bs-target="#fullscreenModal"><i class="tf-icons bx bx-data"></i> Kelola RPD</button>
+                        <!-- <button onclick="showRpd()" class="btn btn-dark btn-sm mb-2" data-bs-toggle="modal" data-bs-target="#fullscreenModal"><i class="tf-icons bx bx-data"></i> Kelola RPD</button> -->
                         <!-- <button type="button" class="btn btn-primary btn-sm mb-2" onclick="kirimRpd()"><i class="tf-icons bx bx-send"></i> Kirim RPD</button> -->
 
                     </div>
@@ -53,9 +53,10 @@
                             <thead class="text-center align-middle">
                                 <th width="2%" rowspan="2" width="50px">Edit</th>
                                 <th width="1%" rowspan="2">No</th>
-                                <th width="50%" rowspan="2">Program</th>
-                                <th rowspan="2">Rencana Penarikan Dana<br>(RPD)</th>
-                                <th width="2%" rowspan="2">hapus</th>
+                                <th rowspan="2">Program</th>
+                                <th rowspan="2">Kode Akun</th>
+                                <th rowspan="2">Pagu</th>
+                                <th rowspan="2">hapus</th>
                             </thead>
                             <tbody id="kegiatan-data">
 
@@ -308,81 +309,43 @@
                 method: 'POST',
                 body: formData
             })
-            .then(response => {
-                console.log(response);
-                if (!response.ok) {
-
-                    if (response.status === 404) {
-                        // console.log(document.getElementById('data-table'));
-                        document.querySelector("#kegiatan-data").innerHTML = '<tr><td colspan="5" class="text-center">Data tidak ada</td></tr>'
-                        document.querySelector("#tambah-baris").dataset.isNoResult = true
-                    }
-                    throw new Error('ada kesalahan.');
-                }
-                // if (!response.ok) {
-                // }
-                return response.json();
-            })
-            .then(data => {
+            .then(response => response.json()) // Ubah response ke JSON
+            .then(data => { // 'data' adalah objek JSON yang dikembalikan dari server
                 if (document.querySelector("#tambah-baris").hasAttribute('data-is-no-result')) {
                     document.querySelector("#tambah-baris").removeAttribute('data-is-no-result')
                 }
-                console.log(data);
-                let contents = '' // Mengambil token dari response JSON
-                data.data.kegiatan.map((data, index) => {
-                    console.log(Object.values(data.rencana).length);
-                    contents += `<tr data-id="${data.id}">
-                    <td><button class="btn btn-sm btn-warning"onclick="editBaris(this)"><i class="tf-icons bx bx-pencil"></i></button></td>
-                    <td class="text-center">${index+1}</td>
-                    <td>
-                    <span class="badge bg-label-primary mb-1">
-                    <small>
-                    ${data.sub_kegiatan_kode1}.
-                    ${data.sub_kegiatan_kode2}.
-                    ${data.sub_kegiatan_kode3}.
-                    ${data.sub_kegiatan_kode4}.
-                    ${data.sub_kegiatan_kode5}
-                    </small>
-                    </span>
-                    <br><strong>${data.kegiatan_nama}</strong>
-                    <br> 
-                    <span class="badge bg-label-dark mt-1">
-                    Pagu : Rp. ${formatRupiah(data.jumlah_biaya)} (${data.sumber_dana})
-                    </span>
-                    </td>`
-                    contents += `<td>`
-                    if (Object.values(data.rencana).length > 0) {
-                        console.log(data.rencana);
-                        Object.values(data.rencana).forEach(rencana => {
-                            const namaBulan = {
-                                1: 'Januari',
-                                2: 'Februari',
-                                3: 'Maret',
-                                4: 'April',
-                                5: 'Mei',
-                                6: 'Juni',
-                                7: 'Juli',
-                                8: 'Agustus',
-                                9: 'September',
-                                10: 'Oktober',
-                                11: 'November',
-                                12: 'Desember'
-                            };
-                            console.log(rencana);
-                            contents += `<a href="javascript:void(0)"><span class="badge rounded-pill bg-dark">${namaBulan[rencana.bulan]}</span></a>`
-                        })
-                    }
-                    contens = `</td>`
-                    contents += `<td class="text-center"><button class="btn btn-sm btn-danger"onclick="deleteBaris(this)"><i class="tf-icons bx bx-trash"></i></button></td>`
-                    contents += `</tr>`
-                })
-                document.querySelector("#kegiatan-data").innerHTML = ''
-                document.querySelector("#kegiatan-data").innerHTML = contents
+                console.log(data.data[0]);
+
+                let contents = ''
+
+                // Pastikan data yang akan dipetakan adalah array
+                if (Array.isArray(data.data)) {
+                    data.data.map((item, index) => {
+                        // console.log(Object.values(item.rencana).length);
+                        contents += `<tr data-id="${item.id}">
+                                    <td><button class="btn btn-sm btn-warning"onclick="editBaris(this)"><i class="tf-icons bx bx-pencil"></i></button></td>
+                                    <td class="text-center">${index+1}</td>
+                                    <td>${item.kegiatan_nama}</td>
+                                    <td>${item.sub_kegiatan_kode1}.
+                                    ${item.sub_kegiatan_kode2}.
+                                    ${item.sub_kegiatan_kode3}.
+                                    ${item.sub_kegiatan_kode4}.
+                                    ${item.sub_kegiatan_kode5}</td>
+                                    <td>Rp. ${formatRupiah(item.jumlah_biaya)} (${item.sumber_dana})</td>
+                                    `
+                        contents += `<td class="text-center"><button class="btn btn-sm btn-danger"onclick="deleteBaris(this)"><i class="tf-icons bx bx-trash"></i></button></td>`
+                        contents += `</tr>`
+                    })
+                } else {
+                    contents = '<tr><td colspan="3" class="text-center">Data tidak ditemukan</td></tr>';
+                }
+
+                document.querySelector("#kegiatan-data").innerHTML = contents;
             })
             .catch(error => {
                 console.error('error:', error);
-                // Tampilkan pesan error atau lakukan sesuatu jika login gagal
             });
+
     }
 
     function showRpd() {
