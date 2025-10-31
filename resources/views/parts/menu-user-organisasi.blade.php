@@ -13,7 +13,7 @@
             <div data-i18n="Basic">Daftar Kegiatan</div>
         </a>
     </li>
-    <li class="menu-item">
+    <!-- <li class="menu-item">
         <a href="javascript:void(0)" class="menu-link menu-toggle">
             <i class="menu-icon tf-icons bx bx-task"></i>
             <div data-i18n="Extended UI">RPD</div>
@@ -30,7 +30,7 @@
                 </a>
             </li>
         </ul>
-    </li>
+    </li> -->
 
     <!-- <li class="menu-item">
         <a href="{{route('user.pelaksanaan')}}" class="menu-link">
@@ -45,10 +45,10 @@
             <div data-i18n="Basic">Dokumen Pencairan</div>
         </a>
     </li>
-    <li class="menu-item">
+    <!-- <li class="menu-item">
         <a href="{{route('tracking')}}" class="menu-link">
             <i class="menu-icon tf-icons bx bx-transfer-alt"></i>
             <div data-i18n="Basic">Tracking Dokumen</div>
         </a>
-    </li>
+    </li> -->
 </ul>
