@@ -350,12 +350,22 @@
                     });
                     const sheetName = workbook.SheetNames[0];
                     const worksheet = workbook.Sheets[sheetName];
-                    const jsonData = XLSX.utils.sheet_to_json(worksheet, {
+                    const jsonDataRaw = XLSX.utils.sheet_to_json(worksheet, {
                         defval: ''
                     });
+
+                    // 🔧 Bersihkan nama kolom (header) dari spasi atau karakter aneh
+                    const jsonData = jsonDataRaw.map(row => {
+                        const cleanRow = {};
+                        for (let key in row) {
+                            const cleanKey = key.trim().replace(/\s+/g, '_'); // hapus spasi dan ubah jadi underscore
+                            cleanRow[cleanKey] = row[key];
+                        }
+                        return cleanRow;
+                    });
+
                     console.log(jsonData);
 
-                    // Rename kolom agar sesuai dengan model input Vue
                     this.rows_import_kegiatan = jsonData.map((item, i) => ({
                         no: item.no || i + 1,
                         sub_kegiatan: item.sub_kegiatan || '',
@@ -365,8 +375,10 @@
                         status_message: 'Belum disimpan'
                     }));
                 };
+
                 reader.readAsArrayBuffer(file);
             },
+
             async simpanSemuaImport() {
                 const organisasi_rpd = JSON.parse(localStorage.getItem('tahun_anggaran')).organisasi_rpd;
 
