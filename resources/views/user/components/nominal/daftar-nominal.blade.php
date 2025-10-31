@@ -40,9 +40,15 @@
                 <td class="text-center">@{{ index + 1 }}</td>
                 <td style="position: relative;">
                     <!-- Input untuk mencari pegawai -->
-                    <input type="text" v-model="searchQuery[index]" @input="fetchPegawai(index)"
-                        @focus="activeDropdown = index" @blur="hideDropdown(index)"
-                        placeholder="Cari Pegawai..." :disabled="!isNominalEditing || isSaving" class="form-control">
+                    <input
+                        type="text"
+                        v-model="searchQuery[index]"
+                        @input="fetchPegawai(index)"
+                        @focus="activeDropdown = index"
+                        @blur="handleManualInput(index)"
+                        placeholder="Cari Pegawai..."
+                        :disabled="!isNominalEditing || isSaving"
+                        class="form-control">
 
                     <!-- Dropdown hasil pencarian -->
                     <ul v-if="activeDropdown === index && searchResults[index]?.length" class="dropdown">

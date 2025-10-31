@@ -14,6 +14,7 @@ kodeAkunNama() {
 formattedBelanja() {
     return this.dataBelanjaBahan.map(item => ({
         ...item,
+        harga_satuan: item.harga_satuan ? Number(item.harga_satuan).toLocaleString('id-ID') : "0",
         nilai: item.nilai ? Number(item.nilai).toLocaleString('id-ID') : "0",
         ppn: item.ppn ? Number(item.ppn).toLocaleString('id-ID') : "0",
         pph: item.pph ? Number(item.pph).toLocaleString('id-ID') : "0",

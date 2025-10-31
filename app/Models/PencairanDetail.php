@@ -38,4 +38,8 @@ class PencairanDetail extends Model
     {
         return $this->belongsTo('App\Models\OrganisasiJabatanSesi', 'bendahara');
     }
+    public function dasar()
+    {
+        return $this->hasOne('App\Models\PencairanDasar');
+    }
 }

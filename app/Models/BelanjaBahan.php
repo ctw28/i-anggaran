@@ -17,6 +17,11 @@ class BelanjaBahan extends Model
         'pph',
         'jenis',
         'urutan',
+        'isPpn',
+        'isPph22',
+        'isPph23',
+        'qty',
+        'harga_satuan',
     ];
 
     public function pencairan()

@@ -5,8 +5,7 @@
     <link rel="shortcut icon" href="https://simpeg.iainkendari.ac.id/assets/img/favicon.ico">
     <style type="text/css" media="all">
         @page {
-            /* size: 21cm 29.7cm lanscape; */
-            size: 29.7cm 21cm portrait;
+            size: 21cm 29.7cm landscape;
             /* A4 size */
             margin: 1cm 2cm 1cm 2cm;
             /* this affects the margin in the printer settings */
@@ -20,6 +19,10 @@
                 color: #000;
                 font-size: 18px;
                 font-family: arial;
+            }
+
+            table {
+                font-size: 18px;
             }
 
             .page-break {
@@ -54,8 +57,7 @@
 
 <body>
 
-    <!-- <div style="width:29.7cm;margin:0 auto;"> -->
-    <div style="width:21cm;margin:0 auto; font-size: 18px">
+    <div style="width:21.0cm;margin:0 auto; font-size:18px">
 
         <!--TITLE-->
         <h2 class="text-center"><u>SURAT PERNYATAAN TANGGUNG JAWAB BELANJA</u></h2>
@@ -69,9 +71,9 @@
         <table border="0" cellpadding="0" cellspacing="0">
             <tbody>
                 <tr>
-                    <td style="width:5.0cm">1. Kode Satuan Kerja</td>
+                    <td style="width:6.5cm">1. Kode Satuan Kerja</td>
                     <td style="width:0.5cm">:</td>
-                    <td style="width:15.7cm">307665</td>
+                    <td style="width:20.7cm">307665</td>
                 </tr>
                 <tr>
                     <td>2. Nama Satuan Kerja</td>
@@ -81,7 +83,7 @@
                 <tr>
                     <td>3. Tanggal / No. DIPA</td>
                     <td>:</td>
-                    <td id="dipa">dipa</td>
+                    <td>02 Desember 2024/ DIPA-025.04.2.307665/2025</td>
                 </tr>
                 <tr>
                     <td>4. Klasifikasi Anggaran</td>
@@ -104,28 +106,46 @@
 
         <table border="1" cellpadding="0" cellspacing="0">
             <thead>
-                <tr style="background-color: #0AB0D9">
-                    <th style=" width:1cm" rowspan="2">No.</th>
+                <tr>
+                    <th style="width:1cm" rowspan="2">No.</th>
                     <th style="width:1.5cm" rowspan="2">Akun</th>
                     <th style="width:4.5cm" rowspan="2">Penerima</th>
                     <th style="width:19.2cm" rowspan="2">Uraian</th>
                     <th style="width:3cm" rowspan="2">Jumlah</th>
                     <th style="width:6cm" colspan="2">Pajak yang dipungut</th>
                 </tr>
-                <tr style="background-color: #0AB0D9">
-                    <th style=" width:3cm">PPN</th>
+                <tr>
+                    <th style="width:3cm">PPN</th>
                     <th style="width:3cm">PPh</th>
                 </tr>
             </thead>
-            <tbody id="data">
+            <tbody>
+                <tr>
+                    <td class="text-center">1</td>
+                    <td><span id="akun"></span></td>
+                    <td><span id="penerima-nama"></span></td>
+                    <td class="text-justify">
+                        Pembayaran
+                        <span id="pencairan-nama"></span>.
+                    </td>
+                    <td class="text-center">
+                        <span id="jumlah"></span>
+                    </td>
+                    <td class="text-center">
+                        <span id="ppn"></span>
 
+                    </td>
+                    <td class="text-center">
+                        <span id="pph"></span>
+                    </td>
+                </tr>
             </tbody>
             <tfooter>
-                <tr style="background-color: #0AB0D9">
+                <tr>
                     <th colspan="4">Jumlah</th>
-                    <th id="total-nilai">-</th>
-                    <th id="total-ppn">-</th>
-                    <th id="total-pph">-</th>
+                    <th id="keseluruhan"></th>
+                    <th id="ppn-total">-</th>
+                    <th id="pph-total">-</th>
                 </tr>
             </tfooter>
         </table>
@@ -175,57 +195,35 @@
 <script>
     loadSesiData()
     async function loadSesiData() {
-        let url = '{{route("belanja.bahan.index",":id")}}'
-        url = url.replace(":id", "{{$sesi_id}}")
+        let jenis = "{{$jenis}}"
+        let url = '{{route("cetak.nominal","$pencairan_id")}}'
+        if (jenis == "belanja")
+            url = '{{route("cetak.belanja","$pencairan_id")}}'
         let sendRequest = await fetch(url, {
             headers: {
                 'Authorization': 'Bearer ' + localStorage.getItem('token')
             },
         })
         response = await sendRequest.json()
-        console.log(response.data[0]);
-        let subkegiatan = `${response.data[0].kegiatan.sub_kegiatan_kode1}.${response.data[0].kegiatan.sub_kegiatan_kode2}.${response.data[0].kegiatan.sub_kegiatan_kode3}.${response.data[0].kegiatan.sub_kegiatan_kode4}.${response.data[0].kegiatan.sub_kegiatan_kode5}`
-        document.querySelector('#tanggal-dokumen').innerText = response.data[0].tanggal_dokumen_indonesia
-        document.querySelector('#ppk-nama').innerText = response.data[0].ppk.nama_pejabat
-        document.querySelector('#ppk-nip').innerText = response.data[0].ppk.pegawai.pegawai_nomor_induk
-        document.querySelector('#klasifikasi-anggaran').innerText = `${subkegiatan}.${response.data[0].kode_akun.kode}`
-        document.querySelector('#sptjb-nomor').innerText = response.data[0].sptjb_nomor
+        console.log(response);
+        let subkegiatan = `${response.data.kegiatan.sub_kegiatan_kode1}.${response.data.kegiatan.sub_kegiatan_kode2}.${response.data.kegiatan.sub_kegiatan_kode3}.${response.data.kegiatan.sub_kegiatan_kode4}.${response.data.kegiatan.sub_kegiatan_kode5}`
+        document.querySelector('#pencairan-nama').innerText = response.data.pencairan_nama
+        document.querySelector('#tanggal-dokumen').innerText = response.data.detail.tanggal_dokumen_indonesia
+        document.querySelector('#ppk-nama').innerText = response.data.detail.ppk.nama_pejabat
+        document.querySelector('#ppk-nip').innerText = response.data.detail.ppk.pegawai.pegawai_nomor_induk
+        document.querySelector('#jumlah').innerText = formatRupiah(response.data.total)
+        document.querySelector('#keseluruhan').innerText = formatRupiah(response.data.total)
+        document.querySelector('#pph').innerText = formatRupiah(response.data.belanja_bahan.reduce((sum, item) => sum + (Number(item.pph) || 0), 0))
+        document.querySelector('#pph-total').innerText = formatRupiah(response.data.belanja_bahan.reduce((sum, item) => sum + (Number(item.pph) || 0), 0))
+        document.querySelector('#ppn').innerText = formatRupiah(response.data.belanja_bahan.reduce((sum, item) => sum + (Number(item.ppn) || 0), 0))
+        document.querySelector('#ppn-total').innerText = formatRupiah(response.data.belanja_bahan.reduce((sum, item) => sum + (Number(item.ppn) || 0), 0))
+        document.querySelector('#penerima-nama').innerText = response.data.detail.penerima_nama
+        document.querySelector('#akun').innerText = response.data.kode_akun.kode
+        document.querySelector('#klasifikasi-anggaran').innerText = `${subkegiatan}.${response.data.kode_akun.kode}`
+        document.querySelector('#sptjb-nomor').innerText = response.data.detail.sptjb_nomor
 
-        let contents = ''
-        let totalNilai = 0
-        let totalPPN = 0
-        let totalPPH = 0
-        response.data[0].belanja_bahan.map((data, index) => {
-            totalNilai = totalNilai + parseInt(data.nilai)
-            totalPPN = totalPPN + parseInt(data.ppn)
-            totalPPH = totalPPH + parseInt(data.pph)
-            contents += `
-            <tr>
-                    <td class="text-center">${index+1}</td>
-                    <td class="text-center">${response.data[0].kode_akun.kode}</td>
-                    <td class="text-center">${response.data[0].penerima_nama}</td>
-                    <td class="text-justify">
-                        ${data.item} kegiatan ${response.data[0].kegiatan.kegiatan_nama} sesuai Kuitansi No ${response.data[0].kuitansi_nomor} tanggal ${response.data[0].tanggal_dokumen_indonesia}
-                    </td>
-                    <td class="text-center">
-                         ${formatRupiah(data.nilai)}
-                    </td>
-                    <td class="text-center">
-                        ${formatRupiah(data.ppn)}
-                    </td>
-                    <td class="text-center">
-                    ${formatRupiah(data.pph)}
-
-                    </td>
-                </tr>
-            `
-        })
-        document.querySelector('#total-nilai').innerText = formatRupiah(totalNilai)
-        document.querySelector('#total-ppn').innerText = formatRupiah(totalPPN)
-        document.querySelector('#total-pph').innerText = formatRupiah(totalPPH)
-
-        document.querySelector('#data').innerHTML = ''
-        document.querySelector('#data').innerHTML = contents
+        // console.log("Total PPN:", totalPPN);
+        // console.log("Total PPH:", totalPPH);
 
     }
 

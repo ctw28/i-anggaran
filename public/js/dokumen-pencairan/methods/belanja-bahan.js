@@ -10,21 +10,34 @@ const belanjaBahanMethods = {
                 }
             });
             console.log(response);
-    
+
             // Pastikan response berisi data
             if (response.data.status) {
                 this.dataBelanjaBahan = response.data.data; // Simpan data dari API ke dalam state
                 console.log(this.dataBelanjaBahan);
-    
+                this.dataBelanjaBahan = response.data.data.map(item => ({
+                    ...item,
+                    isPpn: item.isPpn == true || item.isPpn == 1 || item.isPpn === '1',
+                    isPph22: item.isPph22 == true || item.isPph22 == 1 || item.isPph22 === '1',
+                    isPph23: item.isPph23 == true || item.isPph23 == 1 || item.isPph23 === '1'
+                }));
+
+
             } else {
                 this.dataBelanjaBahan = [{
                     pencairan_id: this.pencairan_id,
                     item: "",
                     nilai: 0,
+                    qty: 1,
+                    harga_satuan: 0,
                     ppn: 0,
                     pph: 0,
-                    jenis: "",
+                    jenis: "-",
                     urutan: 1,
+                    isPpn: false,
+                    isPph22: false,
+                    isPph23: false,
+
                 }]
             }
             this.getTotalPencairan()
@@ -40,9 +53,15 @@ const belanjaBahanMethods = {
             pencairan_id: this.pencairan_id,
             item: "",
             nilai: 0,
+            qty: 1,
+            harga_satuan: 0,
             ppn: 0,
             pph: 0,
-            jenis: "",
+            jenis: "-",
+            isPpn: false,
+            isPph22: false,
+            isPph23: false,
+
             urutan: this.dataBelanjaBahan.length + 1,
         });
     },
@@ -50,22 +69,29 @@ const belanjaBahanMethods = {
         console.log(this.dataBelanjaBahan);
         try {
             this.isSaving = true; // Aktifkan loading indicator
-    
-            let payload = this.dataBelanjaBahan.map(item => ({
+
+            let payload = this.dataBelanjaBahan.map((item, index) => ({
                 pencairan_id: item.pencairan_id,
                 item: item.item,
+                nilai: item.nilai,
+                qty: item.qty,
+                harga_satuan: item.harga_satuan,
                 nilai: item.nilai,
                 ppn: item.ppn,
                 pph: item.pph,
                 jenis: item.jenis,
-                urutan: item.urutan,
+                isPpn: item.isPpn,
+                isPph22: item.isPph22,
+                isPph23: item.isPph23,
+                isPph23: item.isPph23,
+                urutan: index + 1,
             }));
-    
+
             console.log("Mengirim data:", payload);
             let isValid = payload.every(item => {
                 return Object.values(item).every(value => value !== "" && value !== null && value !== undefined);
             });
-        
+
             if (!isValid) {
                 alert("Data tidak boleh kosong! Pastikan semua kolom terisi.");
                 this.isSaving = false; // Matikan loading indicator
@@ -80,8 +106,8 @@ const belanjaBahanMethods = {
                     "Authorization": "Bearer " + localStorage.getItem("token") // Kalau pakai JWT
                 }
             });
-    
-    
+
+
             if (response.status) {
                 toastr.options.closeButton = true;
                 toastr.options.positionClass = 'toast-top-center mt-3';
@@ -102,23 +128,78 @@ const belanjaBahanMethods = {
             toastr.error("Terjadi kesalahan saat menyimpan data.");
         }
     },
+    // calculateBelanjaBahan(index) { //ditutup karena om tommy ada konsep lainnya
+    //     // console.log(this.dataBelanjaBahan[index].nilai);
+    //     let ppnHasil = 0
+    //     let pphHasil = 0
+    //     let pajakNpwp = 0.015
+    //     if (this.dataBelanjaBahan[index].jenis != "fc" && this.dataBelanjaBahan[index].nilai > 2000000) {
+    //         ppnHasil = this.dataBelanjaBahan[index].nilai * (100 / 111) * 0.11
+    //     }
+    //     if (ppnHasil > 0 && this.dataBelanjaBahan[index].jenis != "fc") {
+    //         pphHasil = (this.dataBelanjaBahan[index].nilai - ppnHasil) * pajakNpwp
+    //     }
+    //     // console.log(this.dataBelanjaBahan[index].nilai * (100 / 111) * 0.11);
+    //     // console.log(pphHasil);
+
+    //     this.dataBelanjaBahan[index].ppn = ppnHasil.toFixed(0)
+    //     this.dataBelanjaBahan[index].pph = pphHasil.toFixed(0)
+    // },    
     calculateBelanjaBahan(index) {
-        // console.log(this.dataBelanjaBahan[index].nilai);
-        let ppnHasil = 0
-        let pphHasil = 0
-        let pajakNpwp = 0.015
-        if (this.dataBelanjaBahan[index].jenis != "fc" && this.dataBelanjaBahan[index].jenis != "snack" && this.dataBelanjaBahan[index].nilai > 2000000) {
-            ppnHasil = this.dataBelanjaBahan[index].nilai * (100 / 111) * 0.11
+        const item = this.dataBelanjaBahan[index];
+        const nilai = parseFloat(item.nilai) || 0;
+
+        let ppnHasil = 0;
+        let pphHasil = 0;
+
+        // Status NPWP dari radio button
+        const adaNpwp = this.isNpwp === true;
+
+        // PPN 11%
+        if (item.isPpn) {
+            ppnHasil = nilai * 0.11;
         }
-        if (ppnHasil > 0 && this.dataBelanjaBahan[index].jenis != "fc") {
-            pphHasil = (this.dataBelanjaBahan[index].nilai - ppnHasil) * pajakNpwp
+
+        // Jika ada PPh 22
+        if (item.isPph22) {
+            const dasarPph = nilai * (100 / 111) * 0.11;
+            pphHasil += dasarPph * (adaNpwp ? 0.015 : 0.03);
         }
-        // console.log(this.dataBelanjaBahan[index].nilai * (100 / 111) * 0.11);
-        // console.log(pphHasil);
-    
-        this.dataBelanjaBahan[index].ppn = ppnHasil.toFixed(0)
-        this.dataBelanjaBahan[index].pph = pphHasil.toFixed(0)
-    },    
+
+        // Jika ada PPh 23
+        if (item.isPph23) {
+            const dasarPph = nilai * (100 / 111) * 0.11;
+            pphHasil += dasarPph * (adaNpwp ? 0.02 : 0.04);
+        }
+
+        // Simpan hasil ke data
+        this.dataBelanjaBahan[index].ppn = Math.round(ppnHasil);
+        this.dataBelanjaBahan[index].pph = Math.round(pphHasil);
+
+        // Simpan juga versi format ribuan (jika kamu pakai formattedBelanja)
+        // this.formattedBelanja[index].ppn = this.formatAngka(ppnHasil);
+        // this.formattedBelanja[index].pph = this.formatAngka(pphHasil);
+    },
+
+    updateTotal(index) {
+        // alert('aa')
+        const item = this.dataBelanjaBahan[index];
+        const qty = parseFloat(item.qty) || 1;
+        const harga = parseFloat(item.harga_satuan) || 0;
+        item.harga_satuan.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+
+        // Hitung total
+        const total = qty * harga;
+
+        // Simpan nilai total ke data utama
+        this.dataBelanjaBahan[index].nilai = total;
+
+        // Format tampilannya (ribuan)
+        // this.formattedBelanja[index].nilai = this.formatAngka(total);
+
+        // Setelah total berubah, hitung ulang pajak
+        this.calculateBelanjaBahan(index);
+    },
 
     handleNpwpChange() {
         console.log("NPWP berubah:", this.isNpwp);
@@ -189,5 +270,5 @@ const belanjaBahanMethods = {
             this.isNpwp = this.isNpwp;
         }
 
-}
+    }
 }

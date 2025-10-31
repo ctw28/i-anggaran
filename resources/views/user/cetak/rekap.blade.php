@@ -84,25 +84,22 @@
                         <span id="pencairan-nama"></span>
                     </td>
                     <td class="text-center">
-                        <span id="total-seluruhnya"></span>
+                        <span id="jumlah"></span>
                     </td>
                     <td class="text-center">
-                        <span id="total-pajak"></span>
+                        <span id="pajak"></span>
                     </td>
                     <td class="text-center">
-                        <span id="total-terima"></span>
+                        <span id="terima"></span>
                     </td>
                 </tr>
             </tbody>
             <tfooter>
                 <tr>
                     <th colspan="2">Jumlah</th>
-                    <th>total
-                    </th>
-                    <th>total</th>
-                    <th> total
-
-                    </th>
+                    <th id="total"></th>
+                    <th id="total-pajak"></th>
+                    <th id="total-terima"></th>
                 </tr>
             </tfooter>
         </table>
@@ -157,6 +154,9 @@
         })
         response = await sendRequest.json()
         console.log(response);
+        const pph = response.data.daftar_nominal.reduce((sum, item) => sum + (Number(item.pph) || 0), 0)
+        // const ppn = response.data.daftar_nominal.reduce((sum, item) => sum + (Number(item.ppn) || 0), 0)
+        const total = pph
         let subkegiatan = `${response.data.kegiatan.sub_kegiatan_kode1}.${response.data.kegiatan.sub_kegiatan_kode2}.${response.data.kegiatan.sub_kegiatan_kode3}.${response.data.kegiatan.sub_kegiatan_kode4}.${response.data.kegiatan.sub_kegiatan_kode5}`
         document.querySelector('#pencairan-nama').innerText = response.data.pencairan_nama
         document.querySelector('#tanggal-dokumen').innerText = response.data.detail.tanggal_dokumen_indonesia
@@ -164,9 +164,13 @@
         document.querySelector('#ppk-nip').innerText = response.data.detail.ppk.pegawai.pegawai_nomor_induk
         document.querySelector('#bendahara-nama').innerText = response.data.detail.bendahara.nama_pejabat
         document.querySelector('#bendahara-nip').innerText = response.data.detail.bendahara.pegawai.pegawai_nomor_induk
-        document.querySelector('#total-seluruhnya').innerText = formatRupiah(response.data.total)
-        document.querySelector('#total-pajak').innerText = formatRupiah(response.data.pajak)
+        document.querySelector('#jumlah').innerText = formatRupiah(response.data.total)
+        document.querySelector('#pajak').innerText = formatRupiah(total)
+        document.querySelector('#terima').innerText = formatRupiah(response.data.terima)
+        document.querySelector('#total').innerText = formatRupiah(response.data.total)
+        document.querySelector('#total-pajak').innerText = formatRupiah(total)
         document.querySelector('#total-terima').innerText = formatRupiah(response.data.terima)
+
 
     }
 

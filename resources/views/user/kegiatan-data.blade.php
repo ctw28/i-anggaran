@@ -359,7 +359,7 @@
                     this.rows_import_kegiatan = jsonData.map((item, i) => ({
                         no: item.no || i + 1,
                         sub_kegiatan: item.sub_kegiatan || '',
-                        kegiatan_nama: item.kegiatan_nama || '',
+                        kegiatan_nama: item.program_kegiatan || '',
                         jumlah_biaya: item.jumlah_biaya || 0,
                         sumber_dana: item.sumber_dana || '',
                         status_message: 'Belum disimpan'

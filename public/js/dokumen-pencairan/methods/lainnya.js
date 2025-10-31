@@ -175,6 +175,24 @@ const lainnyaMethods = {
             this.dataNominal[fieldOrIndex].golongan = pegawai.golongan; // Set golongan sesuai data pegawai
         }
     },
+    handleManualInput(index) {
+    // Ambil teks yang diketik manual
+    const namaManual = this.searchQuery[index]?.trim();
+
+    if (namaManual) {
+        // Simpan nama ke dataNominal, kalau belum dipilih dari dropdown
+        this.dataNominal[index].nama = namaManual;
+
+        // Kalau user ketik manual, set nip dan golongan jadi kosong
+        if (!this.dataNominal[index].pegawai_nomor_induk)
+            this.dataNominal[index].pegawai_nomor_induk = '-';
+        if (!this.dataNominal[index].golongan)
+            this.dataNominal[index].golongan = '-';
+    }
+
+    // Tutup dropdown (biar rapi)
+    this.activeDropdown = null;
+},
     hideDropdown(fieldOrIndex) {
         let isGlobalSearch = typeof fieldOrIndex === "string";
     

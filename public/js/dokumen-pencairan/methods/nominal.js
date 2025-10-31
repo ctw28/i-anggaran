@@ -7,13 +7,16 @@ async showDetailNominal() {
             }
         });
 
-        // console.log(response.data);
+        console.log(response);
         if (response.data.status) {
             let data = response.data.data;
 
             // Pastikan ppk dan bendahara tidak undefined sebelum ambil .id
             data.ppk = data.ppk?.id || null;
             data.bendahara = data.bendahara?.id || null;
+            data.dasar.isSK = data.dasar?.isSK || false;
+            data.dasar.isSuratTugas = data.dasar?.isSuratTugas || false;
+            data.dasar.isKuitansi = data.dasar?.isKuitansi || false;
 
             Object.assign(this.detail, data);
         }
@@ -53,11 +56,11 @@ tambahBaris() {
 
 async saveNominal() {
     // console.log("Data disimpan:", this.dataNominal);
-    // console.log(this.dataNominal);
+    console.log(this.dataNominal);
     let payload = this.dataNominal.map(item => ({
         pencairan_id: item.pencairan_id,
         nama: item.nama,
-        pegawai_nomor_induk: item.pegawai_nomor_induk,
+        pegawai_nomor_induk: item.pegawai_nomor_induk || '-',
         golongan: item.golongan,
         jabatan: item.jabatan,
         jumlah: item.jumlah,

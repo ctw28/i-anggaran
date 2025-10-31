@@ -24,12 +24,51 @@
             </div>
         </div>
     </div>
-    <div class="row">
+    <div class="row mb-3 ">
         <div class="col-6">
             <label class="form-label" for="tanggal_dokumen">Tanggal Dokumen Pencairan</label>
             <input type="date" class="form-control" v-model="detail.tanggal_dokumen" :disabled="!isDetailEditing" />
         </div>
     </div>
+    <!-- Dasar Surat -->
+    <div class="mb-3">
+        <label class="form-label d-block">Dasar Surat</label>
+        <div class="form-check form-check-inline">
+            <input
+                class="form-check-input"
+                type="checkbox"
+                id="dasarSK"
+                v-model="detail.dasar.isSK"
+                true-value="1"
+                false-value="0"
+                :disabled="!isDetailEditing" />
+            <label class="form-check-label" for="dasarSK">Surat Keputusan (SK)</label>
+        </div>
+        <div class="form-check form-check-inline">
+            <input
+                class="form-check-input"
+                type="checkbox"
+                id="dasarKuitansi"
+                v-model="detail.dasar.isKuitansi"
+                true-value="1"
+                false-value="0"
+                :disabled="!isDetailEditing" />
+            <label class="form-check-label" for="dasarKuitansi">Kuitansi</label>
+        </div>
+        <div class="form-check form-check-inline">
+            <input
+                class="form-check-input"
+                type="checkbox"
+                id="dasarST"
+                v-model="detail.dasar.isSuratTugas"
+                true-value="1"
+                false-value="0"
+                :disabled="!isDetailEditing" />
+            <label class="form-check-label" for="dasarST">Surat Tugas (ST)</label>
+        </div>
+
+    </div>
+
 </div>
 <div class="col-md-7 col-sm-12">
     <h5 class="mb-3 section-title">Penandatangan Dokumen</h5>

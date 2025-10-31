@@ -83,7 +83,7 @@
                 <tr>
                     <td>3. Tanggal / No. DIPA</td>
                     <td>:</td>
-                    <td>dipa</td>
+                    <td>02 Desember 2024/ DIPA-025.04.2.307665/2025</td>
                 </tr>
                 <tr>
                     <td>4. Klasifikasi Anggaran</td>
@@ -129,22 +129,23 @@
                         <span id="pencairan-nama"></span>.
                     </td>
                     <td class="text-center">
-                        <span id="total-seluruhnya"></span>
+                        <span id="jumlah"></span>
                     </td>
                     <td class="text-center">
+                        <span id="ppn"></span>
+
                     </td>
                     <td class="text-center">
-                        <span id="total-pajak"></span>
+                        <span id="pph"></span>
                     </td>
                 </tr>
             </tbody>
             <tfooter>
                 <tr>
                     <th colspan="4">Jumlah</th>
-                    <th>-
-                    </th>
-                    <th>-</th>
-                    <th>-</th>
+                    <th id="keseluruhan"></th>
+                    <th id="ppn-total">-</th>
+                    <th id="pph-total">-</th>
                 </tr>
             </tfooter>
         </table>
@@ -210,8 +211,12 @@
         document.querySelector('#tanggal-dokumen').innerText = response.data.detail.tanggal_dokumen_indonesia
         document.querySelector('#ppk-nama').innerText = response.data.detail.ppk.nama_pejabat
         document.querySelector('#ppk-nip').innerText = response.data.detail.ppk.pegawai.pegawai_nomor_induk
-        document.querySelector('#total-seluruhnya').innerText = formatRupiah(response.data.total)
-        document.querySelector('#total-pajak').innerText = formatRupiah(response.data.pajak)
+        document.querySelector('#jumlah').innerText = formatRupiah(response.data.total)
+        document.querySelector('#keseluruhan').innerText = formatRupiah(response.data.total)
+        document.querySelector('#pph').innerText = formatRupiah(response.data.daftar_nominal.reduce((sum, item) => sum + (Number(item.pph) || 0), 0))
+        document.querySelector('#pph-total').innerText = formatRupiah(response.data.daftar_nominal.reduce((sum, item) => sum + (Number(item.pph) || 0), 0))
+        // document.querySelector('#ppn').innerText = formatRupiah(response.data.daftar_nominal.reduce((sum, item) => sum + (Number(item.ppn) || 0), 0))
+        // document.querySelector('#ppn-total').innerText = formatRupiah(response.data.daftar_nominal.reduce((sum, item) => sum + (Number(item.ppn) || 0), 0))
         document.querySelector('#penerima-nama').innerText = response.data.detail.penerima_nama
         document.querySelector('#akun').innerText = response.data.kode_akun.kode
         document.querySelector('#klasifikasi-anggaran').innerText = `${subkegiatan}.${response.data.kode_akun.kode}`

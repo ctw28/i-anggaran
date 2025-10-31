@@ -72,7 +72,7 @@ const pencairanMethods = {
     },
     async detailSave() {
         try {
-            // console.log(this.detail);
+            console.log(this.detail);
             
             let isValid = Object.values(this.detail).every(value => value !== "" && value !== null && value !== undefined);
 

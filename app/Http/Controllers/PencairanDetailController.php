@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\PencairanDasar;
 use App\Models\PencairanDetail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -17,7 +18,7 @@ class PencairanDetailController extends Controller
     public function index($id)
     {
         // return $id;
-        $data = PencairanDetail::with(['ppk', 'bendahara'])
+        $data = PencairanDetail::with(['ppk', 'bendahara', 'dasar'])
             ->where('pencairan_id', $id)
             ->first();
         // return $data;
@@ -73,8 +74,8 @@ class PencairanDetailController extends Controller
             //     'bendahara' => 'nullable|exists:organisasi_jabatan_sesis,id',
             // ]);
 
-            $detail = PencairanDetail::updateOrInsert(
-                ['pencairan_id' => $request->pencairan_id], // Kondisi pencocokan (jika sudah ada)
+            $detail = PencairanDetail::updateOrCreate(
+                ['pencairan_id' => $request->pencairan_id], // kondisi pencarian
                 [
                     'nomor_sk' => $request->nomor_sk,
                     'tanggal_sk' => $request->tanggal_sk,
@@ -90,10 +91,16 @@ class PencairanDetailController extends Controller
                     'sptjk_jabatan' => $request->sptjk_jabatan,
                     'ppk' => $request->ppk,
                     'bendahara' => $request->bendahara,
-                    'updated_at' => now(), // Agar timestamp diperbarui
                 ]
             );
-
+            $dasar = PencairanDasar::updateOrCreate(
+                ['pencairan_detail_id' => $detail->id], // kondisi pencarian
+                [
+                    'isKuitansi' => $request->dasar['isKuitansi'] ?? 0,
+                    'isSK' => $request->dasar['isSK'] ?? 0,
+                    'isSuratTugas' => $request->dasar['isSuratTugas'] ?? 0,
+                ]
+            );
 
             DB::commit();
 

@@ -5,24 +5,23 @@
     <link rel="shortcut icon" href="https://simpeg.iainkendari.ac.id/assets/img/favicon.ico">
     <style type="text/css" media="all">
         @page {
-            /* size: 21cm 29.7cm lanscape; */
-            size: 29.7cm 21cm portrait;
+            size: 21cm 29.7cm lanscape;
             /* A4 size */
             margin: 1cm 2cm 1cm 2cm;
             /* this affects the margin in the printer settings */
         }
 
         @media all {
-            .head-color {
-                background-color: #0AB0D9
-            }
 
             body,
             table {
                 background-color: #FFFFFF;
                 color: #000;
-                font-size: medium;
+                font-size: 18px;
                 font-family: arial;
+            }
+
+            table {
                 font-size: 18px;
             }
 
@@ -50,16 +49,6 @@
                 border: 1px solid #000
             }
         }
-
-        @media print {
-            .head-color {
-                background-color: #0AB0D9
-            }
-        }
-
-        .head-color {
-            background-color: #0AB0D9
-        }
     </style>
 </head>
 <!--
@@ -68,10 +57,10 @@
 
 <body>
 
-    <div style="width:21cm;margin:0 auto; font-size:18px">
+    <div style="width:29.7cm;margin:0 auto; font-size:18px">
 
         <!--TITLE-->
-        <h3 class="text-center" style="text-transform: uppercase;">REKAP BELANJA BAHAN KEGIATAN <span id="kegiatan-nama"></span></h3>
+        <h1 class="text-center"><u>REKAP</u></h1>
 
 
         <br />
@@ -79,33 +68,38 @@
 
         <table border="1" cellpadding="2" cellspacing="0">
             <thead>
-                <tr class="head-color">
-                    <th style="width:1cm">No.</th>
-                    <th style="width:10.7cm">Uraian</th>
-                    <th style="width:3cm">Jumlah</th>
-                    <th style="width:3cm">Pajak</th>
-                    <th style="width:3cm">Jumlah yang<br> diterima</th>
-                </tr>
                 <tr>
-                    <th>1</th>
-                    <th>2</th>
-                    <th>3</th>
-                    <th>4</th>
-                    <th>5</th>
+                    <th style="width:1cm">No.</th>
+                    <th style="width:19.7cm">Uraian</th>
+                    <th style="width:3cm">Jumlah</th>
+                    <th style="width:3cm">PPh Pasal 21</th>
+                    <th style="width:3cm">Jumlah Rupiah</th>
                 </tr>
             </thead>
-            <tbody id="data">
-
+            <tbody>
+                <tr>
+                    <td class="text-center">1</td>
+                    <td class="text-justify" style="text-transform:uppercase">
+                        Pembayaran
+                        <span id="pencairan-nama"></span>
+                    </td>
+                    <td class="text-center">
+                        <span id="jumlah"></span>
+                    </td>
+                    <td class="text-center">
+                        <span id="pajak"></span>
+                    </td>
+                    <td class="text-center">
+                        <span id="terima"></span>
+                    </td>
+                </tr>
             </tbody>
             <tfooter>
-                <tr class="head-color">
+                <tr>
                     <th colspan="2">Jumlah</th>
-                    <th id="total-nilai">total
-                    </th>
-                    <th id="total-pajak">total</th>
-                    <th id="total-terima"> total
-
-                    </th>
+                    <th id="total"></th>
+                    <th id="total-pajak"></th>
+                    <th id="total-terima"></th>
                 </tr>
             </tfooter>
         </table>
@@ -149,59 +143,33 @@
 <script>
     loadSesiData()
     async function loadSesiData() {
-        let url = '{{route("belanja.bahan.index",":id")}}'
-        url = url.replace(":id", "{{$sesi_id}}")
+        let jenis = "{{$jenis}}"
+        let url = '{{route("cetak.nominal","$pencairan_id")}}'
+        if (jenis == "belanja")
+            url = '{{route("cetak.belanja","$pencairan_id")}}'
         let sendRequest = await fetch(url, {
             headers: {
                 'Authorization': 'Bearer ' + localStorage.getItem('token')
             },
         })
         response = await sendRequest.json()
-        console.log(response.data[0]);
-        let subkegiatan = `${response.data[0].kegiatan.sub_kegiatan_kode1}.${response.data[0].kegiatan.sub_kegiatan_kode2}.${response.data[0].kegiatan.sub_kegiatan_kode3}.${response.data[0].kegiatan.sub_kegiatan_kode4}.${response.data[0].kegiatan.sub_kegiatan_kode5}`
-        document.querySelector('#tanggal-dokumen').innerText = response.data[0].tanggal_dokumen_indonesia
-        document.querySelector('#ppk-nama').innerText = response.data[0].ppk.nama_pejabat
-        document.querySelector('#ppk-nip').innerText = response.data[0].ppk.pegawai.pegawai_nomor_induk
-        document.querySelector('#bendahara-nama').innerText = response.data[0].bendahara.nama_pejabat
-        document.querySelector('#bendahara-nip').innerText = response.data[0].bendahara.pegawai.pegawai_nomor_induk
-        document.querySelector('#kegiatan-nama').innerText = response.data[0].kegiatan.kegiatan_nama
-        let contents = ''
-        let totalNilai = 0
-        let totalPajak = 0
-        let totalTerima = 0
-        response.data[0].belanja_bahan.map((data, index) => {
-            totalNilai = totalNilai + parseInt(data.nilai)
-            totalPajak = totalPajak + (data.pph + data.ppn)
-            totalTerima = totalTerima + (data.nilai - (data.pph + data.ppn))
-            contents += `
-            <tr>
-                    <td class="text-center">${index+1}</td>
-                    <td class="text-justify">
-                        ${data.item} kegiatan ${response.data[0].kegiatan.kegiatan_nama} 
-                        
-                        sesuai Kuitansi No ${response.data[0].kuitansi_nomor} 
-                        
-                        tanggal ${response.data[0].tanggal_dokumen_indonesia}
-                    </td>
-                    <td class="text-center">
-                    ${formatRupiah(data.nilai)}
-                    </td>
-                    <td class="text-center">
-                        ${formatRupiah(data.pph + data.ppn)}
-                    </td>
-                    <td class="text-center">
-                    ${formatRupiah(data.nilai - (data.pph + data.ppn))}
-                    </td>
-                </tr>
-            `
-        })
-
-        document.querySelector('#total-nilai').innerText = formatRupiah(totalNilai)
-        document.querySelector('#total-pajak').innerText = formatRupiah(totalPajak)
-        document.querySelector('#total-terima').innerText = formatRupiah(totalTerima)
-
-        document.querySelector('#data').innerHTML = ''
-        document.querySelector('#data').innerHTML = contents
+        console.log(response);
+        const pph = response.data.belanja_bahan.reduce((sum, item) => sum + (Number(item.pph) || 0), 0)
+        const ppn = response.data.belanja_bahan.reduce((sum, item) => sum + (Number(item.ppn) || 0), 0)
+        const total = pph + ppn
+        let subkegiatan = `${response.data.kegiatan.sub_kegiatan_kode1}.${response.data.kegiatan.sub_kegiatan_kode2}.${response.data.kegiatan.sub_kegiatan_kode3}.${response.data.kegiatan.sub_kegiatan_kode4}.${response.data.kegiatan.sub_kegiatan_kode5}`
+        document.querySelector('#pencairan-nama').innerText = response.data.pencairan_nama
+        document.querySelector('#tanggal-dokumen').innerText = response.data.detail.tanggal_dokumen_indonesia
+        document.querySelector('#ppk-nama').innerText = response.data.detail.ppk.nama_pejabat
+        document.querySelector('#ppk-nip').innerText = response.data.detail.ppk.pegawai.pegawai_nomor_induk
+        document.querySelector('#bendahara-nama').innerText = response.data.detail.bendahara.nama_pejabat
+        document.querySelector('#bendahara-nip').innerText = response.data.detail.bendahara.pegawai.pegawai_nomor_induk
+        document.querySelector('#jumlah').innerText = formatRupiah(response.data.total)
+        document.querySelector('#pajak').innerText = formatRupiah(total)
+        document.querySelector('#terima').innerText = formatRupiah(response.data.terima - total)
+        document.querySelector('#total').innerText = formatRupiah(response.data.total)
+        document.querySelector('#total-pajak').innerText = formatRupiah(total)
+        document.querySelector('#total-terima').innerText = formatRupiah(response.data.terima - total)
 
     }
 

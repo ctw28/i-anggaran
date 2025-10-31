@@ -18,7 +18,12 @@ class CreateBelanjaBahansTable extends Migration
             $table->unsignedBigInteger('pencairan_id');
             $table->foreign('pencairan_id')->references('id')->on('pencairans')->onDelete('cascade');;
 
+            $table->string('isPpn');
+            $table->string('isPph22');
+            $table->string('isPph23');
             $table->string('item');
+            $table->string('qty');
+            $table->string('harga_satuan');
             $table->string('nilai');
             $table->double('ppn');
             $table->double('pph');

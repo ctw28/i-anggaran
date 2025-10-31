@@ -73,17 +73,17 @@ class WebViewController extends Controller
             return view('user.cetak.sptjk', $data);
         else if ($kategori == "spi")
             return view('user.cetak.spi', $data);
-        else if ($kategori == "kuitansi2")
-            return view('user.cetak.belanja-bahan.kuitansi2', $data);
-        else if ($kategori == "rekap2")
+        else if ($kategori == "kuitansi-belanja-bahan")
+            return view('user.cetak.belanja-bahan.kuitansi', $data);
+        else if ($kategori == "rekap-belanja-bahan")
             return view('user.cetak.belanja-bahan.rekap', $data);
-        else if ($kategori == "sptjb2")
+        else if ($kategori == "sptjb-belanja-bahan")
             return view('user.cetak.belanja-bahan.sptjb', $data);
-        else if ($kategori == "spi-2")
+        else if ($kategori == "spi-belanja-bahan")
             return view('user.cetak.belanja-bahan.spi', $data);
-        else if ($kategori == "spm-2")
+        else if ($kategori == "spm-belanja-bahan")
             return view('user.cetak.belanja-bahan.spm', $data);
-        else if ($kategori == "sptjk-2")
+        else if ($kategori == "sptjk-belanja-bahan")
             return view('user.cetak.belanja-bahan.sptjk', $data);
     }
 

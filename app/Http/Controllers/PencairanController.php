@@ -190,7 +190,7 @@ class PencairanController extends Controller
 
         $data = Pencairan::with(['kegiatan', 'belanjaBahan' => function ($belanjaBahan) {
             $belanjaBahan->orderBy('urutan');
-        }, 'kodeAkun', 'detail.ppk.pegawai', 'detail.bendahara.pegawai', 'belanjaBahanPerusahaan'])->where('id', $id)->first();
+        }, 'kodeAkun', 'detail.ppk.pegawai', 'detail.bendahara.pegawai', 'detail.dasar', 'belanjaBahanPerusahaan'])->where('id', $id)->first();
         if (!$data) {
             return response()->json([
                 'status' => false,
