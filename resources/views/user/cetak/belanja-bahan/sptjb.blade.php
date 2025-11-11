@@ -217,7 +217,7 @@
         document.querySelector('#pph-total').innerText = formatRupiah(response.data.belanja_bahan.reduce((sum, item) => sum + (Number(item.pph) || 0), 0))
         document.querySelector('#ppn').innerText = formatRupiah(response.data.belanja_bahan.reduce((sum, item) => sum + (Number(item.ppn) || 0), 0))
         document.querySelector('#ppn-total').innerText = formatRupiah(response.data.belanja_bahan.reduce((sum, item) => sum + (Number(item.ppn) || 0), 0))
-        document.querySelector('#penerima-nama').innerText = response.data.detail.penerima_nama
+        document.querySelector('#penerima-nama').innerText = response.data.detail.penerima_2
         document.querySelector('#akun').innerText = response.data.kode_akun.kode
         document.querySelector('#klasifikasi-anggaran').innerText = `${subkegiatan}.${response.data.kode_akun.kode}`
         document.querySelector('#sptjb-nomor').innerText = response.data.detail.sptjb_nomor
