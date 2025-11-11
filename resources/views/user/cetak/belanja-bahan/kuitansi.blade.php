@@ -80,7 +80,7 @@
                     <tr>
                         <td style="width:4.0cm">TA</td>
                         <td style="width:0.5cm">:</td>
-                        <td style="width:5.0cm">2024</td>
+                        <td style="width:5.0cm">2025</td>
                     </tr>
                     <tr>
                         <td>Nomor Bukti</td>
