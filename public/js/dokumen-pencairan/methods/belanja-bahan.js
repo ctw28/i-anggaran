@@ -151,13 +151,16 @@ const belanjaBahanMethods = {
 
         let ppnHasil = 0;
         let pphHasil = 0;
+        let dpp =0
 
         // Status NPWP dari radio button
         const adaNpwp = this.isNpwp === true;
 
         // PPN 11%
         if (item.isPpn) {
-            ppnHasil = nilai * 0.11;
+            // ppnHasil = nilai * 0.11;
+            dpp=(nilai / 1.11)
+            ppnHasil = dpp * 0.11;
         }
 
         // Jika ada PPh 22
@@ -165,7 +168,7 @@ const belanjaBahanMethods = {
             // const dasarPph = nilai * (100 / 111) * 0.11;
             let dasarPph = nilai;
             if (item.isPpn) {
-                dasarPph = nilai * (100 / 111) * 0.11;
+                dasarPph = dpp;
             }
 
             pphHasil += dasarPph * (adaNpwp ? 0.015 : 0.03);
@@ -176,7 +179,7 @@ const belanjaBahanMethods = {
             // let dasarPph = nilai * (100 / 111) * 0.11;
             let dasarPph = nilai;
             if (item.isPpn) {
-                dasarPph = nilai * (100 / 111) * 0.11;
+                dasarPph = dpp;
             }
             pphHasil += dasarPph * (adaNpwp ? 0.02 : 0.04);
         }
