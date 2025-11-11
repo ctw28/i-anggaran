@@ -204,7 +204,7 @@
 <!-- pisahkan koding methods vue -->
 <script src="{{ asset('js/dokumen-pencairan/methods/pencairan.js') }}"></script>
 <script src="{{ asset('js/dokumen-pencairan/methods/nominal.js') }}"></script>
-<script src="{{ asset('js/dokumen-pencairan/methods/belanja-bahan.js') }}"></script>
+<script src="{{ asset('js/dokumen-pencairan/methods/belanja-bahan.js?v=1') }}"></script>
 <script src="{{ asset('js/dokumen-pencairan/methods/perjadin.js') }}"></script>
 <script src="{{ asset('js/dokumen-pencairan/methods/lainnya.js') }}"></script>
 <script src="{{ asset('js/dokumen-pencairan/methods/spi.js') }}"></script>
