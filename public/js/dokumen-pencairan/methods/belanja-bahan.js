@@ -146,6 +146,7 @@ const belanjaBahanMethods = {
     //     this.dataBelanjaBahan[index].pph = pphHasil.toFixed(0)
     // },    
     calculateBelanjaBahan(index) {
+        alert('test')
         const item = this.dataBelanjaBahan[index];
         const nilai = parseFloat(item.nilai) || 0;
         console.log(nilai);
