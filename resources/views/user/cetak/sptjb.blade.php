@@ -126,7 +126,7 @@
                     <td><span id="penerima-nama"></span></td>
                     <td class="text-justify">
                         Pembayaran
-                        <span id="pencairan-nama"></span>.
+                        <span id="pencairan-nama"></span> sesuai <span id="dasar"></span>.
                     </td>
                     <td class="text-center">
                         <span id="jumlah"></span>
@@ -217,11 +217,34 @@
         document.querySelector('#pph-total').innerText = formatRupiah(response.data.daftar_nominal.reduce((sum, item) => sum + (Number(item.pph) || 0), 0))
         // document.querySelector('#ppn').innerText = formatRupiah(response.data.daftar_nominal.reduce((sum, item) => sum + (Number(item.ppn) || 0), 0))
         // document.querySelector('#ppn-total').innerText = formatRupiah(response.data.daftar_nominal.reduce((sum, item) => sum + (Number(item.ppn) || 0), 0))
-        document.querySelector('#penerima-nama').innerText = response.data.detail.penerima_nama
+        document.querySelector('#penerima-nama').innerText = response.data.detail.penerima_2
         document.querySelector('#akun').innerText = response.data.kode_akun.kode
         document.querySelector('#klasifikasi-anggaran').innerText = `${subkegiatan}.${response.data.kode_akun.kode}`
         document.querySelector('#sptjb-nomor').innerText = response.data.detail.sptjb_nomor
+        // Jika SK dicentang
+        let contentDasar = "";
+        const isSK = response.data.detail.dasar.isSK;
+        const isKuitansi = response.data.detail.dasar.isKuitansi;
+        const nomorSK = response.data.detail.nomor_sk;
+        const tanggalSK = response.data.detail.tanggal_sk_indonesia;
+        const nomorKuitansi = response.data.detail.kuitansi_nomor;
+        const tanggalIndonesia = response.data.detail.tanggal_dokumen_indonesia;
 
+        if (isSK) {
+            contentDasar += `SK No. ${nomorSK} tanggal ${tanggalSK}`;
+        }
+
+        // Jika Kuitansi dicentang
+        if (isKuitansi) {
+            // Kalau sudah ada isi sebelumnya (ada SK), tambahkan " dan "
+            if (contentDasar !== "") {
+                contentDasar += " dan ";
+            }
+
+            contentDasar += `Kuitansi No. ${nomorKuitansi} tanggal ${tanggalIndonesia}`;
+        }
+
+        document.querySelector('#dasar').innerText = contentDasar;
     }
 
     function formatRupiah(angka) {

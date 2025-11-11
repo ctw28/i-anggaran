@@ -22,6 +22,7 @@ const getDefaultState = () => ({
         tanggal_dokumen: "",
         tanggal_lunas: "2025-01-01",
         penerima_nama: "",
+        penerima_2: "",
         penerima_jabatan: "",
         penerima_nomor: "",
         kuitansi_nomor: "",

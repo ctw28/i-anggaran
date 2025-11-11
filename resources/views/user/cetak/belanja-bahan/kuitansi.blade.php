@@ -197,7 +197,8 @@
         document.querySelector('#ppk-nip').innerText = response.data.detail.ppk.pegawai.pegawai_nomor_induk
         document.querySelector('#penerima-nama').innerText = response.data.detail.penerima_nama
         document.querySelector('#penerima-jabatan').innerText = response.data.detail.penerima_jabatan
-        document.querySelector('#penerima-nip').innerText = response.data.detail.penerima_nomor
+        document.querySelector('#penerima-nip').innerText =
+            response.data.detail.penerima_nomor == '-' ? '' : response.data.detail.penerima_nomor;
         document.querySelector('#total-seluruhnya').innerText = formatRupiah(response.data.total)
         document.querySelector('#terbilang').innerText = response.data.terbilang
         document.querySelector('#sptjk-nama').innerText = response.data.detail.sptjk_nama

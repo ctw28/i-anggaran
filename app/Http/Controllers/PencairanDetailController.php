@@ -82,6 +82,7 @@ class PencairanDetailController extends Controller
                     'tanggal_dokumen' => $request->tanggal_dokumen,
                     'tanggal_lunas' => $request->tanggal_lunas,
                     'penerima_nama' => $request->penerima_nama,
+                    'penerima_2' => $request->penerima_2,
                     'penerima_jabatan' => $request->penerima_jabatan,
                     'penerima_nomor' => $request->penerima_nomor,
                     'kuitansi_nomor' => $request->kuitansi_nomor,

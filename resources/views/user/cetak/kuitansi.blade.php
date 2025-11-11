@@ -189,7 +189,10 @@
         document.querySelector('#bendahara-nama').innerText = response.data.detail.bendahara.nama_pejabat
         document.querySelector('#bendahara-nip').innerText = response.data.detail.bendahara.pegawai.pegawai_nomor_induk
         document.querySelector('#penerima-nama').innerText = response.data.detail.penerima_nama
-        document.querySelector('#penerima-nomor').innerText = response.data.detail.penerima_nomor
+        // document.querySelector('#penerima-nomor').innerText = response.data.detail.penerima_nomor
+        document.querySelector('#penerima-nomor').innerText =
+            response.data.detail.penerima_nomor == '-' ? '' : response.data.detail.penerima_nomor;
+
         document.querySelector('#total-seluruhnya').innerText = formatRupiah(response.data.total)
         document.querySelector('#terbilang').innerText = response.data.terbilang
 

@@ -107,6 +107,12 @@
                 <input type="text" class="form-control" v-model="detail.penerima_jabatan" :disabled="!isDetailEditing" />
             </div>
             <div class="col-4 mt-3">
+                <label class="form-label" for="penerima_nomor">Label Penerima</label>
+                <input type="text" class="form-control" v-model="detail.penerima_2" :disabled="!isDetailEditing" />
+
+            </div>
+            <div class="row"></div>
+            <div class="col-4 mt-3">
                 <label class="form-label" for="sptjk_nama">Nama Penanggung Jawab</label>
                 <input type="text" v-model="detail.sptjk_nama" @input="fetchPegawai('sptjk')"
                     @focus="activeDropdownGlobal = 'sptjk'" @blur="hideDropdown('sptjk')"

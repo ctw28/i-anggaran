@@ -15,6 +15,7 @@ class PencairanDetail extends Model
         'tanggal_dokumen',
         'tanggal_lunas',
         'penerima_nama',
+        'penerima_2',
         'penerima_nomor',
         'penerima_jabatan',
         'kuitansi_nomor',

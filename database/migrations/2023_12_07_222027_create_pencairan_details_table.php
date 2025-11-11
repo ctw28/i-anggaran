@@ -22,6 +22,7 @@ class CreatePencairanDetailsTable extends Migration
             $table->date('tanggal_dokumen');
             $table->date('tanggal_lunas')->nullable();
             $table->string('penerima_nama');
+            $table->string('penerima_2');
             $table->string('penerima_jabatan');
             $table->string('penerima_nomor')->nullable();
             $table->string('kuitansi_nomor')->nullable();
