@@ -162,13 +162,22 @@ const belanjaBahanMethods = {
 
         // Jika ada PPh 22
         if (item.isPph22) {
-            const dasarPph = nilai * (100 / 111) * 0.11;
+            // const dasarPph = nilai * (100 / 111) * 0.11;
+            let dasarPph = nilai;
+            if (item.isPpn) {
+                dasarPph = nilai * (100 / 111) * 0.11;
+            }
+
             pphHasil += dasarPph * (adaNpwp ? 0.015 : 0.03);
         }
 
         // Jika ada PPh 23
         if (item.isPph23) {
-            const dasarPph = nilai * (100 / 111) * 0.11;
+            // let dasarPph = nilai * (100 / 111) * 0.11;
+            let dasarPph = nilai;
+            if (item.isPpn) {
+                dasarPph = nilai * (100 / 111) * 0.11;
+            }
             pphHasil += dasarPph * (adaNpwp ? 0.02 : 0.04);
         }
 

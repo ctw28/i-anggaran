@@ -46,7 +46,7 @@ class PerjadinController extends Controller
 
     public function store(Request $request)
     {
-        // return $request->data;
+        return $request->data;
         DB::beginTransaction();
 
         try {

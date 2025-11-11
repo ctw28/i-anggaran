@@ -72,7 +72,7 @@
                     <th style="width:1cm">No.</th>
                     <th style="width:19.7cm">Uraian</th>
                     <th style="width:3cm">Jumlah</th>
-                    <th style="width:3cm">PPh Pasal 21</th>
+                    <th style="width:3cm">Pajak</th>
                     <th style="width:3cm">Jumlah Rupiah</th>
                 </tr>
             </thead>
