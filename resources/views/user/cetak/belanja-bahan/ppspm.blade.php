@@ -1,28 +1,26 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 
 <head>
-    <title>CETAK REKAP</title>
+    <title>Cetak Lembar Permohonan Pemeriksaan Berkas Pencairan Anggaran</title>
     <link rel="shortcut icon" href="https://simpeg.iainkendari.ac.id/assets/img/favicon.ico">
     <style type="text/css" media="all">
         @page {
-            size: 21cm 29.7cm lanscape;
+            size: 21cm 29.7cm portrait;
             /* A4 size */
             margin: 1cm 2cm 1cm 2cm;
             /* this affects the margin in the printer settings */
         }
 
         @media all {
-
-            body,
-            table {
+            body {
                 background-color: #FFFFFF;
-                color: #000;
-                font-size: 18px;
                 font-family: arial;
             }
 
+            body,
             table {
                 font-size: 18px;
+
             }
 
             .page-break {
@@ -36,10 +34,6 @@
                 margin: 0 auto;
             }
 
-            .text-justify {
-                text-align: justify;
-            }
-
             .text-up {
                 vertical-align: top;
             }
@@ -48,6 +42,11 @@
                 transform: skew(-20deg);
                 border: 1px solid #000
             }
+
+            .p0 {
+                margin-block-start: 0;
+                margin-block-end: 0;
+            }
         }
     </style>
 </head>
@@ -55,69 +54,72 @@
 <body onload="window.print()" onfocus="window.close()">
 -->
 
-<body>
+<body style="color:#000;font-size:18px;">
 
-    <div style="width:29.7cm;margin:0 auto; font-size:18px">
+    <div style="width:21cm;margin:0 auto;">
+
+        <!--KOP-->
+        <table border="0" cellpadding="1" cellspacing="1" style="width:100%;" class="text-center">
+            <tr>
+                <td style="text-align: center; vertical-align: middle; width: 15%;">
+                    <img src="https://simpeg.iainkendari.ac.id/./upload/logo/49sqk.png" style="width: 70px;" />
+                </td>
+                <td style="vertical-align: top; width: 70%;"><strong>
+                        <span style="font-size:18">KEMENTERIAN AGAMA REPUBLIK INDONESIA</span><br />
+                        <span style="font-size:17">INSTITUT AGAMA ISLAM NEGERI (IAIN) KENDARI</span></strong><br />
+                    <span style="font-size:12">
+                        Jl. Sultan Qaimuddin No. 17, Telp (0401) 3192081 Fax (0401) 3193710<br />
+                        Email : humas@iainkendari.ac.id, Website : iainkendari.ac.id
+                    </span>
+                </td>
+                <td style="text-align: center; vertical-align: middle; width: 15%;">&nbsp;</td>
+            </tr>
+            <tr>
+                <td colspan="3" style="text-align: center; vertical-align: top;border-top:2px #000 solid;">&nbsp;</td>
+            </tr>
+        </table>
+        <!--KOP END-->
 
         <!--TITLE-->
-        <h1 class="text-center"><u>REKAP</u></h1>
-
-
+        <h3 class="text-center">LEMBAR PERMOHONAN PEMERIKSAAN BERKAS<br />PENCAIRAN ANGGARAN</h3>
         <br />
         <!--TITLE END-->
 
-        <table border="1" cellpadding="2" cellspacing="0">
-            <thead>
-                <tr>
-                    <th style="width:1cm">No.</th>
-                    <th style="width:19.7cm">Uraian</th>
-                    <th style="width:3cm">Jumlah</th>
-                    <th style="width:3cm">Pajak</th>
-                    <th style="width:3cm">Jumlah Rupiah</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td class="text-center">1</td>
-                    <td class="text-justify" style="text-transform:uppercase">
-                        Pembayaran
-                        <span id="pencairan-nama"></span> sesuai <span id="dasar"></span>
-                    </td>
-                    <td class="text-center">
-                        <span id="jumlah"></span>
-                    </td>
-                    <td class="text-center">
-                        <span id="pajak"></span>
-                    </td>
-                    <td class="text-center">
-                        <span id="terima"></span>
-                    </td>
-                </tr>
-            </tbody>
-            <tfooter>
-                <tr>
-                    <th colspan="2">Jumlah</th>
-                    <th id="total"></th>
-                    <th id="total-pajak"></th>
-                    <th id="total-terima"></th>
-                </tr>
-            </tfooter>
-        </table>
+
+        <p>Kepada Yth :<br>
+            Pejabat Penanda Tangan Surat Perintah Membayar IAIN Kendari<br>
+            Di -<br>
+            Kendari</p><br>
+
+
+        <p style="text-align:justify">Assalamu Alaikum Warahmatullahi Wabarakatuh</p>
+        <p>
+            Dengan ini kami mengajukan permintaan pembayaran
+            <b><i><span id="pencairan-nama"></span></i></b>
+            Sesuai <span id="dasar"></span>
+            sebesar
+            <b><i>Rp. <span id="total-seluruhnya"></span>, –
+                    (<span id="terbilang"></span> Rupiah).</i></b>
+        </p>
+        <p>
+            Demikian, permohonan ini atas kerjasamanya diucapkan terima kasih.
+        </p>
+
+
+
         <br>
 
         <table border="0" cellpadding="2" cellspacing="2">
             <tbody>
                 <tr>
-                    <td style="width:9.5cm">
-                        Mengetahui,<br>
-                        Pejabat Pembuat Komitmen
+                    <td style="width:7cm">
                     </td>
-                    <td style="width:9.5cm">
+                    <td style="width:7cm">
                     </td>
-                    <td style="width:10.7cm">
+                    <td style="width:7cm">
                         Kendari,
                         <span id="tanggal-dokumen"></span>,<br />
-                        Bendahara Pengeluaran
+                        Pejabat Pembuat Komitmen
                     </td>
                 </tr>
                 <tr>
@@ -126,14 +128,14 @@
                     <td></td>
                 </tr>
                 <tr>
+                    <td><b></b></td>
+                    <td><b></b></td>
                     <td><b><span id="ppk-nama"></span></b></td>
-                    <td></td>
-                    <td><b><span id="bendahara-nama"></span></b></td>
                 </tr>
                 <tr>
-                    <td>NIP. <span id="ppk-nip"></span></td>
                     <td></td>
-                    <td>NIP. <span id="bendahara-nip"></span></td>
+                    <td></td>
+                    <td>NIP. <span id="ppk-nip"></span></td>
                 </tr>
             </tbody>
         </table>
@@ -154,22 +156,13 @@
         })
         response = await sendRequest.json()
         console.log(response);
-        const pph = response.data.belanja_bahan.reduce((sum, item) => sum + (Number(item.pph) || 0), 0)
-        const ppn = response.data.belanja_bahan.reduce((sum, item) => sum + (Number(item.ppn) || 0), 0)
-        const total = pph + ppn
         let subkegiatan = `${response.data.kegiatan.sub_kegiatan_kode1}.${response.data.kegiatan.sub_kegiatan_kode2}.${response.data.kegiatan.sub_kegiatan_kode3}.${response.data.kegiatan.sub_kegiatan_kode4}.${response.data.kegiatan.sub_kegiatan_kode5}`
         document.querySelector('#pencairan-nama').innerText = response.data.pencairan_nama
         document.querySelector('#tanggal-dokumen').innerText = response.data.detail.tanggal_dokumen_indonesia
         document.querySelector('#ppk-nama').innerText = response.data.detail.ppk.nama_pejabat
         document.querySelector('#ppk-nip').innerText = response.data.detail.ppk.pegawai.pegawai_nomor_induk
-        document.querySelector('#bendahara-nama').innerText = response.data.detail.bendahara.nama_pejabat
-        document.querySelector('#bendahara-nip').innerText = response.data.detail.bendahara.pegawai.pegawai_nomor_induk
-        document.querySelector('#jumlah').innerText = formatRupiah(response.data.total)
-        document.querySelector('#pajak').innerText = formatRupiah(total)
-        document.querySelector('#terima').innerText = formatRupiah(response.data.terima - total)
-        document.querySelector('#total').innerText = formatRupiah(response.data.total)
-        document.querySelector('#total-pajak').innerText = formatRupiah(total)
-        document.querySelector('#total-terima').innerText = formatRupiah(response.data.terima - total)
+        document.querySelector('#total-seluruhnya').innerText = formatRupiah(response.data.total)
+        document.querySelector('#terbilang').innerText = response.data.terbilang
 
         let contentDasar = "";
         const isSK = response.data.detail.dasar.isSK;
@@ -179,6 +172,7 @@
         const nomorKuitansi = response.data.detail.kuitansi_nomor;
         const tanggalIndonesia = response.data.detail.tanggal_dokumen_indonesia;
 
+        // Jika SK dicentang
         if (isSK) {
             contentDasar += `SK No. ${nomorSK} tanggal ${tanggalSK}`;
         }
@@ -194,6 +188,7 @@
         }
 
         document.querySelector('#dasar').innerText = contentDasar;
+
     }
 
     function formatRupiah(angka) {

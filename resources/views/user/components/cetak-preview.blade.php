@@ -7,6 +7,7 @@
             <a class="list-group-item list-group-item-action" @click="showPreviewCetak('sptjb')" data-bs-toggle="list" id="sptjb" href="#show-sptjb" aria-selected="false" role="tab" tabindex="-1">SPTJB</a>
             <a class="list-group-item list-group-item-action" @click="showPreviewCetak('spm')" data-bs-toggle="list" id="spm" href="#show-spm" aria-selected="true" role="tab">SPM</a>
             <a class="list-group-item list-group-item-action" @click="showPreviewCetak('spi')" data-bs-toggle="list" id="spi" href="#show-spi" aria-selected="true" role="tab">SPI</a>
+            <a class="list-group-item list-group-item-action" @click="showPreviewCetak('ppspm')" data-bs-toggle="list" id="spi" href="#show-ppspm" aria-selected="true" role="tab">PPSPM</a>
             <a class="list-group-item list-group-item-action" @click="showPreviewCetak('sptjk')" data-bs-toggle="list" id="sptjk" href="#show-sptjk" aria-selected="true" role="tab">SPTJK</a>
         </div>
         <div class="list-group" role="tablist" v-if="isBelanjaBahan">
@@ -15,6 +16,7 @@
             <a class="list-group-item list-group-item-action" @click="showPreviewCetak('sptjb-belanja-bahan')" data-bs-toggle="list" id="sptjb" href="#show-sptjb-belanja-bahan" aria-selected="false" role="tab" tabindex="-1">SPTJB</a>
             <a class="list-group-item list-group-item-action" @click="showPreviewCetak('spm-belanja-bahan')" data-bs-toggle="list" id="spm" href="#show-spm-belanja-bahan" aria-selected="true" role="tab">SPM</a>
             <a class="list-group-item list-group-item-action" @click="showPreviewCetak('spi-belanja-bahan')" data-bs-toggle="list" id="spi" href="#show-spi-belanja-bahan" aria-selected="true" role="tab">SPI</a>
+            <a class="list-group-item list-group-item-action" @click="showPreviewCetak('ppspm-belanja-bahan')" data-bs-toggle="list" id="spi" href="#show-ppspm-belanja-bahan" aria-selected="true" role="tab">PPSPM</a>
             <a class="list-group-item list-group-item-action" @click="showPreviewCetak('sptjk-belanja-bahan')" data-bs-toggle="list" id="sptjk" href="#show-sptjk-belanja-bahan" aria-selected="true" role="tab">SPTJK</a>
         </div>
     </div>
@@ -27,6 +29,7 @@
             <div class="tab-pane fade" id="show-spm" role="tabpanel" aria-labelledby="list-settings-list"></div>
             <div class="tab-pane fade" id="show-sptjk" role="tabpanel" aria-labelledby="list-settings-list"></div>
             <div class="tab-pane fade" id="show-spi" role="tabpanel" aria-labelledby="list-settings-list"></div>
+            <div class="tab-pane fade" id="show-ppspm" role="tabpanel" aria-labelledby="list-settings-list"></div>
         </div>
         <div class="tab-content p-0" v-if="isBelanjaBahan">
             <div class="tab-pane fade" id="show-kuitansi-belanja-bahan" role="tabpanel" aria-labelledby="list-home-list"></div>
@@ -36,6 +39,7 @@
             <div class="tab-pane fade" id="show-spm-belanja-bahan" role="tabpanel" aria-labelledby="list-settings-list"></div>
             <div class="tab-pane fade" id="show-sptjk-belanja-bahan" role="tabpanel" aria-labelledby="list-settings-list"></div>
             <div class="tab-pane fade" id="show-spi-belanja-bahan" role="tabpanel" aria-labelledby="list-settings-list"></div>
+            <div class="tab-pane fade" id="show-ppspm-belanja-bahan" role="tabpanel" aria-labelledby="list-settings-list"></div>
         </div>
     </div>
 </div>
