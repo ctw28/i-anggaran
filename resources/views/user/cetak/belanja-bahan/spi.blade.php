@@ -96,7 +96,7 @@
         <p>
             Dengan ini kami mengajukan permintaan pembayaran
             <b><i><span id="pencairan-nama"></span></i></b>
-            Sesuai SK <span id="sk"></span>
+            Sesuai <span id="dasar"></span>
             sebesar
             <b><i>Rp. <span id="total-seluruhnya"></span>, –
                     (<span id="terbilang"></span> Rupiah).</i></b>
@@ -163,7 +163,31 @@
         document.querySelector('#ppk-nip').innerText = response.data.detail.ppk.pegawai.pegawai_nomor_induk
         document.querySelector('#total-seluruhnya').innerText = formatRupiah(response.data.total)
         document.querySelector('#terbilang').innerText = response.data.terbilang
-        document.querySelector('#sk').innerText = `${response.data.detail.nomor_sk} tanggal ${response.data.detail.tanggal_sk}`
+
+        let contentDasar = "";
+        const isSK = response.data.detail.dasar.isSK;
+        const isKuitansi = response.data.detail.dasar.isKuitansi;
+        const nomorSK = response.data.detail.nomor_sk;
+        const tanggalSK = response.data.detail.tanggal_sk_indonesia;
+        const nomorKuitansi = response.data.detail.kuitansi_nomor;
+        const tanggalIndonesia = response.data.detail.tanggal_dokumen_indonesia;
+
+        // Jika SK dicentang
+        if (isSK) {
+            contentDasar += `SK No. ${nomorSK} tanggal ${tanggalSK}`;
+        }
+
+        // Jika Kuitansi dicentang
+        if (isKuitansi) {
+            // Kalau sudah ada isi sebelumnya (ada SK), tambahkan " dan "
+            if (contentDasar !== "") {
+                contentDasar += " dan ";
+            }
+
+            contentDasar += `Kuitansi No. ${nomorKuitansi} tanggal ${tanggalIndonesia}`;
+        }
+
+        document.querySelector('#dasar').innerText = contentDasar;
 
     }
 

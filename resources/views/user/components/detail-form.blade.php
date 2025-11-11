@@ -44,7 +44,7 @@
                 :disabled="!isDetailEditing" />
             <label class="form-check-label" for="dasarSK">Surat Keputusan (SK)</label>
         </div>
-        <div class="form-check form-check-inline">
+        <div class="form-check form-check-inline" v-if="isBelanjaBahan">
             <input
                 class="form-check-input"
                 type="checkbox"
@@ -54,17 +54,6 @@
                 false-value="0"
                 :disabled="!isDetailEditing" />
             <label class="form-check-label" for="dasarKuitansi">Kuitansi</label>
-        </div>
-        <div class="form-check form-check-inline">
-            <input
-                class="form-check-input"
-                type="checkbox"
-                id="dasarST"
-                v-model="detail.dasar.isSuratTugas"
-                true-value="1"
-                false-value="0"
-                :disabled="!isDetailEditing" />
-            <label class="form-check-label" for="dasarST">Surat Tugas (ST)</label>
         </div>
 
     </div>

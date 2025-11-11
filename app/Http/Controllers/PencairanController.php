@@ -149,7 +149,7 @@ class PencairanController extends Controller
 
     public function cetakNominal($id)
     {
-        $data = Pencairan::with(['kegiatan', 'detail.ppk.pegawai', 'daftarNominal', 'detail.bendahara.pegawai', 'kodeAkun'])->where('id', $id)->first();
+        $data = Pencairan::with(['kegiatan', 'detail.dasar', 'detail.ppk.pegawai', 'daftarNominal', 'detail.bendahara.pegawai', 'kodeAkun'])->where('id', $id)->first();
         // return $data->detail;
         if (!$data) {
             return response()->json([
@@ -203,6 +203,10 @@ class PencairanController extends Controller
         $date->settings(['formatFunction' => 'translatedFormat']);
 
         $data->detail->tanggal_dokumen_indonesia = $date->format('j F Y');
+
+        $date = Carbon::parse($data->detail->tanggal_sk)->locale('id');
+        $date->settings(['formatFunction' => 'translatedFormat']);
+        $data->detail->tanggal_sk_indonesia = $date->format('j F Y');
 
         $total = 0;
         $pajak = 0;

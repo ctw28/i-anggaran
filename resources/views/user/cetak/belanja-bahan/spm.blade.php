@@ -165,25 +165,27 @@
         const isSK = response.data.detail.dasar.isSK;
         const isKuitansi = response.data.detail.dasar.isKuitansi;
         const nomorSK = response.data.detail.nomor_sk;
+        const tanggalSK = response.data.detail.tanggal_sk_indonesia;
         const nomorKuitansi = response.data.detail.kuitansi_nomor;
         const tanggalIndonesia = response.data.detail.tanggal_dokumen_indonesia;
 
+        // Jika SK dicentang
         if (isSK) {
-            contentDasar += `SK No. ${nomorSK}`;
+            contentDasar += `SK No. ${nomorSK} tanggal ${tanggalSK}`;
         }
 
+        // Jika Kuitansi dicentang
         if (isKuitansi) {
-            // Menambahkan 'dan ' hanya jika isSK juga benar
-            if (isSK) {
-                contentDasar += ` dan Surat Tugas No.${nomorKuitansi}`;
-            } else {
-                // Jika hanya isKuitansi yang benar, tidak perlu kata 'dan' di awal
-                contentDasar += `Surat Tugas No.${nomorKuitansi}`;
+            // Kalau sudah ada isi sebelumnya (ada SK), tambahkan " dan "
+            if (contentDasar !== "") {
+                contentDasar += " dan ";
             }
+
+            contentDasar += `Kuitansi No. ${nomorKuitansi} tanggal ${tanggalIndonesia}`;
         }
 
-        contentDasar += ` tanggal ${tanggalIndonesia}`;
-        document.querySelector('#dasar').innerText = `${contentDasar}`;
+        document.querySelector('#dasar').innerText = contentDasar;
+
 
     }
 

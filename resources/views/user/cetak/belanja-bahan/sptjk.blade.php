@@ -106,8 +106,7 @@
         <ol style="text-align:justify">
             <li>Bertanggungjawab sepenuhnya atas pelaksanaan dan pengeluaran
                 semua dana/anggaran yang dipergunakan dalam
-                <span id="pencairan-nama"></span> sesuai Kuitansi No.
-                <span id="kuitansi"></span> sebesar
+                <span id="pencairan-nama"></span> sesuai <span id="dasar"></span> sebesar
                 <span id="total-seluruhnya"></span>
                 (<span id="terbilang"></span> Rupiah)
             </li>
@@ -188,13 +187,38 @@
         document.querySelector('#ppk-nama').innerText = response.data.detail.ppk.nama_pejabat
         document.querySelector('#ppk-nip').innerText = response.data.detail.ppk.pegawai.pegawai_nomor_induk
         document.querySelector('#terbilang').innerText = response.data.terbilang
-        document.querySelector('#kuitansi').innerText = `${response.data.detail.kuitansi_nomor} tanggal ${response.data.detail.tanggal_dokumen_indonesia}`
+        // document.querySelector('#kuitansi').innerText = `${response.data.detail.kuitansi_nomor} tanggal ${response.data.detail.tanggal_dokumen_indonesia}`
         let contents = ''
         document.querySelector('#total-seluruhnya').innerText = formatRupiah(response.data.total)
         document.querySelector('#sptjk-nip').innerText = response.data.detail.sptjk_nip
         document.querySelector('#sptjk-nama').innerText = response.data.detail.sptjk_nama
         document.querySelector('#sptjk-jabatan').innerText = response.data.detail.sptjk_jabatan
         document.querySelector('#sptjk-nama-ket').innerText = response.data.detail.sptjk_nama
+
+        let contentDasar = "";
+        const isSK = response.data.detail.dasar.isSK;
+        const isKuitansi = response.data.detail.dasar.isKuitansi;
+        const nomorSK = response.data.detail.nomor_sk;
+        const tanggalSK = response.data.detail.tanggal_sk_indonesia;
+        const nomorKuitansi = response.data.detail.kuitansi_nomor;
+        const tanggalIndonesia = response.data.detail.tanggal_dokumen_indonesia;
+
+        // Jika SK dicentang
+        if (isSK) {
+            contentDasar += `SK No. ${nomorSK} tanggal ${tanggalSK}`;
+        }
+
+        // Jika Kuitansi dicentang
+        if (isKuitansi) {
+            // Kalau sudah ada isi sebelumnya (ada SK), tambahkan " dan "
+            if (contentDasar !== "") {
+                contentDasar += " dan ";
+            }
+
+            contentDasar += `Kuitansi No. ${nomorKuitansi} tanggal ${tanggalIndonesia}`;
+        }
+
+        document.querySelector('#dasar').innerText = contentDasar;
 
     }
 

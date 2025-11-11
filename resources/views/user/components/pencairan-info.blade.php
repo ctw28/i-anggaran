@@ -14,7 +14,6 @@
                                 <span v-if="isLoadingEdit">⏳ Loading...</span>
                                 <span v-else><i class="icon-base bx bx-pencil me-1"></i> Edit</span>
                             </button>
-                            <button class="btn btn-success btn-sm"><i class="icon-base bx bx-check me-1"></i> Tandai Selesai</button>
 
                         </div>
                         <form v-else @submit.prevent="updatePencairan">
@@ -62,6 +61,8 @@
                         <button v-if="!isKirimPpk" class="btn btn-danger btn-sm me-2" :disabled="isKirimSpi" data-bs-toggle="modal" data-bs-target="#backDropModal">
                             <span><i class="icon-base bx bx-send me-1"></i> Kirim ke PPK</span>
                         </button>
+                        <button class="btn btn-success btn-sm"><i class="icon-base bx bx-check me-1"></i> Tandai Selesai</button>
+
                     </div>
                 </div>
             </div>

@@ -163,7 +163,7 @@
         document.querySelector('#ppk-nip').innerText = response.data.detail.ppk.pegawai.pegawai_nomor_induk
         document.querySelector('#total-seluruhnya').innerText = formatRupiah(response.data.total)
         document.querySelector('#terbilang').innerText = response.data.terbilang
-        document.querySelector('#sk').innerText = `${response.data.detail.nomor_sk} tanggal ${response.data.detail.tanggal_sk}`
+        document.querySelector('#sk').innerText = `${response.data.detail.nomor_sk} tanggal ${response.data.detail.tanggal_sk_indonesia}`
 
     }
 
