@@ -146,52 +146,37 @@ const belanjaBahanMethods = {
     //     this.dataBelanjaBahan[index].pph = pphHasil.toFixed(0)
     // },    
     calculateBelanjaBahan(index) {
-        const item = this.dataBelanjaBahan[index];
-        const nilai = parseFloat(item.nilai) || 0;
+    const item = this.dataBelanjaBahan[index];
 
-        let ppnHasil = 0;
-        let pphHasil = 0;
-        let dpp =0
+    const nilai = parseFloat(String(item.nilai).replace(/\./g, '').replace(/,/g, '.')) || 0;
 
-        // Status NPWP dari radio button
-        const adaNpwp = this.isNpwp === true;
+    let ppnHasil = 0;
+    let pphHasil = 0;
+    let dpp = 0;
 
-        // PPN 11%
-        if (item.isPpn) {
-            // ppnHasil = nilai * 0.11;
-            dpp=(nilai / 1.11)
-            ppnHasil = dpp * 0.11;
-        }
+    const adaNpwp = this.isNpwp == true || this.isNpwp == "true";
+    const isPpn = item.isPpn == true || item.isPpn == "true";
+    const isPph22 = item.isPph22 == true || item.isPph22 == "true";
+    const isPph23 = item.isPph23 == true || item.isPph23 == "true";
 
-        // Jika ada PPh 22
-        if (item.isPph22) {
-            // const dasarPph = nilai * (100 / 111) * 0.11;
-            let dasarPph = nilai;
-            if (item.isPpn) {
-                dasarPph = dpp;
-            }
+    if (isPpn) {
+        dpp = nilai / 1.11;
+        ppnHasil = dpp * 0.11;
+    }
 
-            pphHasil += dasarPph * (adaNpwp ? 0.015 : 0.03);
-        }
+    if (isPph22) {
+        const dasar = isPpn ? dpp : nilai;
+        pphHasil += dasar * (adaNpwp ? 0.015 : 0.03);
+    }
 
-        // Jika ada PPh 23
-        if (item.isPph23) {
-            // let dasarPph = nilai * (100 / 111) * 0.11;
-            let dasarPph = nilai;
-            if (item.isPpn) {
-                dasarPph = dpp;
-            }
-            pphHasil += dasarPph * (adaNpwp ? 0.02 : 0.04);
-        }
+    if (isPph23) {
+        const dasar = isPpn ? dpp : nilai;
+        pphHasil += dasar * (adaNpwp ? 0.02 : 0.04);
+    }
 
-        // Simpan hasil ke data
-        this.dataBelanjaBahan[index].ppn = Math.round(ppnHasil);
-        this.dataBelanjaBahan[index].pph = Math.round(pphHasil);
-
-        // Simpan juga versi format ribuan (jika kamu pakai formattedBelanja)
-        // this.formattedBelanja[index].ppn = this.formatAngka(ppnHasil);
-        // this.formattedBelanja[index].pph = this.formatAngka(pphHasil);
-    },
+    this.dataBelanjaBahan[index].ppn = Math.round(ppnHasil);
+    this.dataBelanjaBahan[index].pph = Math.round(pphHasil);
+},
 
     updateTotal(index) {
         // alert('aa')
