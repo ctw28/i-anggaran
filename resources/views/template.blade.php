@@ -30,7 +30,7 @@
     <link rel="stylesheet" href="{{asset('/')}}assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
 
     <link rel="stylesheet" href="{{asset('/')}}assets/vendor/libs/apex-charts/apex-charts.css" />
-
+    <link href='https://cdn.boxicons.com/3.0.3/fonts/basic/boxicons.min.css' rel='stylesheet'>
     <!-- Page CSS -->
 
     <!-- Helpers -->

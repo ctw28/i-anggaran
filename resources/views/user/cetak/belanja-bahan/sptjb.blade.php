@@ -56,17 +56,13 @@
 -->
 
 <body>
-
     <div style="width:21.0cm;margin:0 auto; font-size:18px">
 
         <!--TITLE-->
         <h2 class="text-center"><u>SURAT PERNYATAAN TANGGUNG JAWAB BELANJA</u></h2>
-        <h3 class="text-center">NOMOR : <span id="sptjb-nomor"></span>
-        </h3>
-
+        <h3 class="text-center">NOMOR : {{ $data->detail->sptjb_nomor ?? '-' }}</h3>
         <br />
         <!--TITLE END-->
-
 
         <table border="0" cellpadding="0" cellspacing="0">
             <tbody>
@@ -88,7 +84,14 @@
                 <tr>
                     <td>4. Klasifikasi Anggaran</td>
                     <td>:</td>
-                    <td><span id="klasifikasi-anggaran"></span></td>
+                    <td>
+                        {{ $data->kegiatan->sub_kegiatan_kode1 ?? '' }}.
+                        {{ $data->kegiatan->sub_kegiatan_kode2 ?? '' }}.
+                        {{ $data->kegiatan->sub_kegiatan_kode3 ?? '' }}.
+                        {{ $data->kegiatan->sub_kegiatan_kode4 ?? '' }}.
+                        {{ $data->kegiatan->sub_kegiatan_kode5 ?? '' }}.
+                        {{ $data->kode_akun->kode ?? '' }}
+                    </td>
                 </tr>
                 <tr>
                     <td colspan="3" style="border-bottom:2px solid #000">&nbsp;</td>
@@ -97,11 +100,9 @@
         </table>
 
         <p class="text-justify">
-            Yang bertanda tangan dibawah ini atas nama Kuasa Pengguna Anggaran Satuan Kerja IAIN Kendari menyatakan
-            bahwa saya
-            bertanggung jawab secara formal dan material dan kebenaran perhitungan pemungutan pajak atas segala
-            pembayaran tagihan yang
-            telah kami perintahkan dalam SPM ini dengan perincian sebagai berikut :
+            Yang bertanda tangan di bawah ini atas nama Kuasa Pengguna Anggaran Satuan Kerja IAIN Kendari menyatakan
+            bahwa saya bertanggung jawab secara formal dan material atas kebenaran perhitungan pemungutan pajak atas segala pembayaran tagihan
+            yang telah kami perintahkan dalam SPM ini dengan perincian sebagai berikut:
         </p>
 
         <table border="1" cellpadding="0" cellspacing="0">
@@ -122,37 +123,45 @@
             <tbody>
                 <tr>
                     <td class="text-center">1</td>
-                    <td><span id="akun"></span></td>
-                    <td><span id="penerima-nama"></span></td>
+                    <td>{{ $data->kodeAkun->kode ?? '-' }}</td>
+                    <td>{{ $data->detail->penerima_2 ?? '-' }}</td>
                     <td class="text-justify">
-                        Pembayaran
-                        <span id="pencairan-nama"></span> sesuai <span id="dasar"></span>.
+                        Pembayaran {{ $data->pencairan_nama ?? '-' }} sesuai
+                        @php
+                        $dasar = [];
+                        if ($data->detail->dasar->isSK ?? false) {
+                        $dasar[] = "SK No. {$data->detail->nomor_sk} tanggal {$data->detail->tanggal_sk_indonesia}";
+                        }
+                        if ($data->detail->dasar->isKuitansi ?? false) {
+                        $dasar[] = "Kuitansi No. {$data->detail->kuitansi_nomor} tanggal {$data->detail->tanggal_dokumen_indonesia}";
+                        }
+                        @endphp
+                        {{ implode(' dan ', $dasar) }}.
                     </td>
                     <td class="text-center">
-                        <span id="jumlah"></span>
+                        {{ number_format($data->total ?? 0, 0, ',', '.') }}
                     </td>
                     <td class="text-center">
-                        <span id="ppn"></span>
-
+                        {{ number_format(collect($data->belanjaBahan)->sum('ppn'), 0, ',', '.') }}
                     </td>
                     <td class="text-center">
-                        <span id="pph"></span>
+                        {{ number_format(collect($data->belanjaBahan)->sum('pph'), 0, ',', '.') }}
                     </td>
                 </tr>
             </tbody>
-            <tfooter>
+            <tfoot>
                 <tr>
                     <th colspan="4">Jumlah</th>
-                    <th id="keseluruhan"></th>
-                    <th id="ppn-total">-</th>
-                    <th id="pph-total">-</th>
+                    <th>{{ number_format($data->total ?? 0, 0, ',', '.') }}</th>
+                    <th>{{ number_format(collect($data->belanjaBahan)->sum('ppn'), 0, ',', '.') }}</th>
+                    <th>{{ number_format(collect($data->belanjaBahan)->sum('pph'), 0, ',', '.') }}</th>
                 </tr>
-            </tfooter>
+            </tfoot>
         </table>
 
         <p class="text-justify">
-            Bukti-bukti pengeluaran anggaran dan asli setoran pajak (SSP/BPN) Tersebut diatas disimpan oleh Pengguna
-            Anggaran/Kuasa Pengguna Anggaran Untuk Kelengkapan administrasi dan pemeriksaan aparat pengawasan
+            Bukti-bukti pengeluaran anggaran dan asli setoran pajak (SSP/BPN) tersebut di atas disimpan oleh Pengguna
+            Anggaran/Kuasa Pengguna Anggaran untuk kelengkapan administrasi dan pemeriksaan aparat pengawasan
             fungsional.
         </p>
         <p class="text-justify">
@@ -162,13 +171,10 @@
         <table border="0" cellpadding="2" cellspacing="2">
             <tbody>
                 <tr>
-                    <td style="width:9.5cm">
-                    </td>
-                    <td style="width:9.5cm">
-                    </td>
+                    <td style="width:9.5cm"></td>
+                    <td style="width:9.5cm"></td>
                     <td style="width:10.7cm">
-                        Kendari,
-                        <span id="tanggal-dokumen"></span>,<br />
+                        Kendari, {{ $data->detail->tanggal_dokumen_indonesia ?? '-' }}<br />
                         Pejabat Pembuat Komitmen
                     </td>
                 </tr>
@@ -180,82 +186,17 @@
                 <tr>
                     <td></td>
                     <td></td>
-                    <td><b><span id="ppk-nama"></span></b></td>
+                    <td><b>{{ $data->detail->ppk->nama_pejabat ?? '-' }}</b></td>
                 </tr>
                 <tr>
                     <td></td>
                     <td></td>
-                    <td>NIP. <span id="ppk-nip"></span></td>
+                    <td>NIP. {{ $data->detail->ppk->pegawai->pegawai_nomor_induk ?? '-' }}</td>
                 </tr>
             </tbody>
         </table>
 
     </div>
 </body>
-<script>
-    loadSesiData()
-    async function loadSesiData() {
-        let jenis = "{{$jenis}}"
-        let url = '{{route("cetak.nominal","$pencairan_id")}}'
-        if (jenis == "belanja")
-            url = '{{route("cetak.belanja","$pencairan_id")}}'
-        let sendRequest = await fetch(url, {
-            headers: {
-                'Authorization': 'Bearer ' + localStorage.getItem('token')
-            },
-        })
-        response = await sendRequest.json()
-        console.log(response);
-        let subkegiatan = `${response.data.kegiatan.sub_kegiatan_kode1}.${response.data.kegiatan.sub_kegiatan_kode2}.${response.data.kegiatan.sub_kegiatan_kode3}.${response.data.kegiatan.sub_kegiatan_kode4}.${response.data.kegiatan.sub_kegiatan_kode5}`
-        document.querySelector('#pencairan-nama').innerText = response.data.pencairan_nama
-        document.querySelector('#tanggal-dokumen').innerText = response.data.detail.tanggal_dokumen_indonesia
-        document.querySelector('#ppk-nama').innerText = response.data.detail.ppk.nama_pejabat
-        document.querySelector('#ppk-nip').innerText = response.data.detail.ppk.pegawai.pegawai_nomor_induk
-        document.querySelector('#jumlah').innerText = formatRupiah(response.data.total)
-        document.querySelector('#keseluruhan').innerText = formatRupiah(response.data.total)
-        document.querySelector('#pph').innerText = formatRupiah(response.data.belanja_bahan.reduce((sum, item) => sum + (Number(item.pph) || 0), 0))
-        document.querySelector('#pph-total').innerText = formatRupiah(response.data.belanja_bahan.reduce((sum, item) => sum + (Number(item.pph) || 0), 0))
-        document.querySelector('#ppn').innerText = formatRupiah(response.data.belanja_bahan.reduce((sum, item) => sum + (Number(item.ppn) || 0), 0))
-        document.querySelector('#ppn-total').innerText = formatRupiah(response.data.belanja_bahan.reduce((sum, item) => sum + (Number(item.ppn) || 0), 0))
-        document.querySelector('#penerima-nama').innerText = response.data.detail.penerima_2
-        document.querySelector('#akun').innerText = response.data.kode_akun.kode
-        document.querySelector('#klasifikasi-anggaran').innerText = `${subkegiatan}.${response.data.kode_akun.kode}`
-        document.querySelector('#sptjb-nomor').innerText = response.data.detail.sptjb_nomor
-        // Jika SK dicentang
-        let contentDasar = "";
-        const isSK = response.data.detail.dasar.isSK;
-        const isKuitansi = response.data.detail.dasar.isKuitansi;
-        const nomorSK = response.data.detail.nomor_sk;
-        const tanggalSK = response.data.detail.tanggal_sk_indonesia;
-        const nomorKuitansi = response.data.detail.kuitansi_nomor;
-        const tanggalIndonesia = response.data.detail.tanggal_dokumen_indonesia;
-
-        if (isSK) {
-            contentDasar += `SK No. ${nomorSK} tanggal ${tanggalSK}`;
-        }
-
-        // Jika Kuitansi dicentang
-        if (isKuitansi) {
-            // Kalau sudah ada isi sebelumnya (ada SK), tambahkan " dan "
-            if (contentDasar !== "") {
-                contentDasar += " dan ";
-            }
-
-            contentDasar += `Kuitansi No. ${nomorKuitansi} tanggal ${tanggalIndonesia}`;
-        }
-
-        document.querySelector('#dasar').innerText = contentDasar;
-        // console.log("Total PPN:", totalPPN);
-        // console.log("Total PPH:", totalPPH);
-
-    }
-
-    function formatRupiah(angka) {
-        let reverse = angka.toString().split('').reverse().join('');
-        let ribuan = reverse.match(/\d{1,3}/g);
-        let formatted = ribuan.join('.').split('').reverse().join('');
-        return `${formatted}`;
-    }
-</script>
 
 </html>

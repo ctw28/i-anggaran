@@ -185,6 +185,9 @@
                 <div class="tab-pane fade" id="navs-cetak" role="tabpanel">
                     @include('user/components/cetak-preview')
                 </div>
+                <div class="tab-pane fade" id="navs-cetak2" role="tabpanel">
+                    @include('user/components/cetak-preview2')
+                </div>
 
             </div>
             @include('user/components/perjadin/rincian-modals')

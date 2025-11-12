@@ -31,9 +31,9 @@ class CreatePencairanDetailsTable extends Migration
             $table->string('sptjk_nip');
             $table->string('sptjk_jabatan');
             $table->unsignedBigInteger('ppk')->nullable();
-            $table->foreign('ppk')->references('id')->on('organisasi_jabatan_sesis')->onDelete('set null');
+            $table->foreign('ppk_id')->references('id')->on('organisasi_jabatan_sesis')->onDelete('set null');
             $table->unsignedBigInteger('bendahara')->nullable();
-            $table->foreign('bendahara')->references('id')->on('organisasi_jabatan_sesis')->onDelete('set null');
+            $table->foreign('bendahara_id')->references('id')->on('organisasi_jabatan_sesis')->onDelete('set null');
             $table->timestamps();
         });
     }

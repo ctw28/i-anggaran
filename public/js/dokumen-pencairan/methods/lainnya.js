@@ -77,9 +77,12 @@ const lainnyaMethods = {
         url = url.replace(':jenis', jenis)
     
     
-        document.querySelector('#show-' + kategori).innerHTML = `<a href="${url}" target="_blank" class="btn btn-dark" ><i class="tf-icons bx bx-printer"></i> Cetak</a>
+        document.querySelector('#show-' + kategori).innerHTML = `
                                                                 <iframe src="${url}" width="100%" height="1000vh"></iframe>
                                                                 `
+        // document.querySelector('#show-' + kategori).innerHTML = `<a href="${url}" target="_blank" class="btn btn-dark" ><i class="tf-icons bx bx-printer"></i> Cetak</a>
+        //                                                         <iframe src="${url}" width="100%" height="1000vh"></iframe>
+        //                                                         `
     },
     cancel() {
         this.isPencairanEditing = false;
@@ -297,4 +300,26 @@ const lainnyaMethods = {
             this.showNominal()
         }
     },
+
+    printSelected(jenis) {
+        let selected = this.daftarDokumenNominal.filter(d => d.checked);
+        if(this.isBelanjaBahan)
+            selected = this.daftarDokumenBelanjaBahan.filter(d => d.checked);
+        if (selected.length === 0) {
+            alert("Pilih minimal satu dokumen.");
+            return;
+        }
+        const container = document.getElementById('iframe-container');
+        container.innerHTML = ''; // bersihkan dulu
+        selected.forEach((doc, index) => {
+            const iframe = document.createElement('iframe');
+            let url = this.urls.urlCetak
+                    url = url.replace(':id', this.pencairan_id)
+                    url = url.replace(':kategori', doc.id)
+                    url = url.replace(':jenis', this.jenis)
+            iframe.src = url;
+            iframe.onload = () => iframe.contentWindow.print();
+            container.appendChild(iframe);
+        });
+    }
 }

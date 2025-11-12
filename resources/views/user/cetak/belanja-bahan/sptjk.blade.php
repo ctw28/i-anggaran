@@ -85,46 +85,51 @@
         <br />
         <!--TITLE END-->
 
-
         <p>Yang bertanda tangan di bawah ini :</p>
         <table border="0" cellpadding="2" cellspacing="2">
             <tbody>
                 <tr>
                     <td style="width:6cm">Nama</td>
                     <td style="width:0.5cm">:</td>
-                    <td style="width:14.5cm"><span id="sptjk-nama-ket"></span></td>
+                    <td style="width:14.5cm"><b>{{ $data->detail->sptjk_nama ?? '-' }}</b></td>
                 </tr>
                 <tr>
                     <td style="width:5cm">Jabatan dalam kegiatan</td>
                     <td style="width:0.5cm">:</td>
-                    <td style="width:10.7cm"><span id="sptjk-jabatan"></span></td>
+                    <td style="width:10.7cm">{{ $data->detail->sptjk_jabatan ?? '-' }}</td>
                 </tr>
             </tbody>
         </table>
 
         <p>Dengan ini menyatakan :</p>
         <ol style="text-align:justify">
-            <li>Bertanggungjawab sepenuhnya atas pelaksanaan dan pengeluaran
-                semua dana/anggaran yang dipergunakan dalam
-                <span id="pencairan-nama"></span> sesuai <span id="dasar"></span> sebesar
-                <span id="total-seluruhnya"></span>
-                (<span id="terbilang"></span> Rupiah)
+            <li>
+                Bertanggungjawab sepenuhnya atas pelaksanaan dan pengeluaran semua dana/anggaran yang dipergunakan
+                dalam <b>{{ $data->pencairan_nama ?? '-' }}</b>
+                sesuai
+                @php
+                $dasar = [];
+                if (!empty($data->detail->dasar->isSK)) {
+                $dasar[] = 'SK No. ' . ($data->detail->nomor_sk ?? '-') . ' tanggal ' . ($data->detail->tanggal_sk_indonesia ?? '-');
+                }
+                if (!empty($data->detail->dasar->isKuitansi)) {
+                $dasar[] = 'Kuitansi No. ' . ($data->detail->kuitansi_nomor ?? '-') . ' tanggal ' . ($data->detail->tanggal_dokumen_indonesia ?? '-');
+                }
+                @endphp
+                <i>{{ implode(' dan ', $dasar) }}</i>
+                sebesar <b>{{ number_format($data->total ?? 0, 0, ',', '.') }}</b>
+                (<i>{{ $data->terbilang ?? '-' }} Rupiah</i>)
             </li>
             <li>
-                Apabila dikemudian hari terbukti dalam pelaksanaannya tidak benar dan
-                menimbulkan kerugian negara, saya bersedia menyetorkan kerugian negara tersebut ke Kas Negara.
+                Apabila dikemudian hari terbukti dalam pelaksanaannya tidak benar dan menimbulkan kerugian negara,
+                saya bersedia menyetorkan kerugian negara tersebut ke Kas Negara.
             </li>
         </ol>
         <p>
-            Demikian pernyataan ini dibuat dengan sebenarnya, dalam keadaan sadar tidak dibawah
-            tekanan dan mempunyai kekuatan hukum.
-            <br>
-            <br>
-            <br>
+            Demikian pernyataan ini dibuat dengan sebenarnya, dalam keadaan sadar tidak dibawah tekanan dan mempunyai kekuatan hukum.
+            <br><br><br>
             Wassalamu Alaikum Wr. Wb.
         </p>
-
-
 
         <table border="0" cellpadding="2" cellspacing="2">
             <tbody>
@@ -132,20 +137,13 @@
                     <td style="width:9.5cm"></td>
                     <td style="width:9.5cm"></td>
                     <td style="width:10.7cm">
-                        Kendari,
-                        <span id="tanggal-dokumen"></span><br />
+                        Kendari, {{ $data->detail->tanggal_dokumen_indonesia ?? '-' }}<br />
                     </td>
                 </tr>
                 <tr>
-                    <td style="width:9.5cm">
-                        Mengetahui,<br>
-                        Pejabat Pembuat Komitmen
-                    </td>
-                    <td style="width:9.5cm">
-                    </td>
-                    <td style="width:10.7cm">
-                        Yang Membuat Pernyataan
-                    </td>
+                    <td>Mengetahui,<br>Pejabat Pembuat Komitmen</td>
+                    <td></td>
+                    <td>Yang Membuat Pernyataan</td>
                 </tr>
                 <tr>
                     <td><br><br><br><br></td>
@@ -153,81 +151,19 @@
                     <td></td>
                 </tr>
                 <tr>
-                    <td><b><span id="ppk-nama"></span></b></td>
+                    <td><b>{{ $data->detail->ppk->nama_pejabat ?? '-' }}</b></td>
                     <td></td>
-                    <td><b><span id="sptjk-nama"></span></b></td>
+                    <td><b>{{ $data->detail->sptjk_nama ?? '-' }}</b></td>
                 </tr>
                 <tr>
-                    <td>NIP. <span id="ppk-nip"></span></td>
+                    <td>NIP. {{ $data->detail->ppk->pegawai->pegawai_nomor_induk ?? '-' }}</td>
                     <td></td>
-                    <td>NIP. <span id="sptjk-nip"></span></td>
+                    <td>NIP. {{ $data->detail->sptjk_nip ?? '-' }}</td>
                 </tr>
             </tbody>
         </table>
 
     </div>
 </body>
-<script>
-    loadSesiData()
-    async function loadSesiData() {
-        let jenis = "{{$jenis}}"
-        let url = '{{route("cetak.nominal","$pencairan_id")}}'
-        if (jenis == "belanja")
-            url = '{{route("cetak.belanja","$pencairan_id")}}'
-        let sendRequest = await fetch(url, {
-            headers: {
-                'Authorization': 'Bearer ' + localStorage.getItem('token')
-            },
-        })
-        response = await sendRequest.json()
-        console.log(response);
-        let subkegiatan = `${response.data.kegiatan.sub_kegiatan_kode1}.${response.data.kegiatan.sub_kegiatan_kode2}.${response.data.kegiatan.sub_kegiatan_kode3}.${response.data.kegiatan.sub_kegiatan_kode4}.${response.data.kegiatan.sub_kegiatan_kode5}`
-        document.querySelector('#pencairan-nama').innerText = response.data.pencairan_nama
-        document.querySelector('#tanggal-dokumen').innerText = response.data.detail.tanggal_dokumen_indonesia
-        document.querySelector('#ppk-nama').innerText = response.data.detail.ppk.nama_pejabat
-        document.querySelector('#ppk-nip').innerText = response.data.detail.ppk.pegawai.pegawai_nomor_induk
-        document.querySelector('#terbilang').innerText = response.data.terbilang
-        // document.querySelector('#kuitansi').innerText = `${response.data.detail.kuitansi_nomor} tanggal ${response.data.detail.tanggal_dokumen_indonesia}`
-        let contents = ''
-        document.querySelector('#total-seluruhnya').innerText = formatRupiah(response.data.total)
-        document.querySelector('#sptjk-nip').innerText = response.data.detail.sptjk_nip
-        document.querySelector('#sptjk-nama').innerText = response.data.detail.sptjk_nama
-        document.querySelector('#sptjk-jabatan').innerText = response.data.detail.sptjk_jabatan
-        document.querySelector('#sptjk-nama-ket').innerText = response.data.detail.sptjk_nama
-
-        let contentDasar = "";
-        const isSK = response.data.detail.dasar.isSK;
-        const isKuitansi = response.data.detail.dasar.isKuitansi;
-        const nomorSK = response.data.detail.nomor_sk;
-        const tanggalSK = response.data.detail.tanggal_sk_indonesia;
-        const nomorKuitansi = response.data.detail.kuitansi_nomor;
-        const tanggalIndonesia = response.data.detail.tanggal_dokumen_indonesia;
-
-        // Jika SK dicentang
-        if (isSK) {
-            contentDasar += `SK No. ${nomorSK} tanggal ${tanggalSK}`;
-        }
-
-        // Jika Kuitansi dicentang
-        if (isKuitansi) {
-            // Kalau sudah ada isi sebelumnya (ada SK), tambahkan " dan "
-            if (contentDasar !== "") {
-                contentDasar += " dan ";
-            }
-
-            contentDasar += `Kuitansi No. ${nomorKuitansi} tanggal ${tanggalIndonesia}`;
-        }
-
-        document.querySelector('#dasar').innerText = contentDasar;
-
-    }
-
-    function formatRupiah(angka) {
-        let reverse = angka.toString().split('').reverse().join('');
-        let ribuan = reverse.match(/\d{1,3}/g);
-        let formatted = ribuan.join('.').split('').reverse().join('');
-        return `${formatted}`;
-    }
-</script>
 
 </html>

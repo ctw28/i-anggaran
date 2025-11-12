@@ -34,7 +34,7 @@ class Pencairan extends Model
     }
     public function kodeAkun()
     {
-        return $this->belongsTo('App\Models\KodeAkun');
+        return $this->belongsTo('App\Models\KodeAkun', 'kode_akun_id');
     }
     public function nominalPengaturan()
     {

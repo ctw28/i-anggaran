@@ -174,4 +174,25 @@ const getDefaultState = () => ({
         item: "",
         nilai: "",
     }],
+    //untuk cetak
+    jenis: 'nominal',
+    daftarDokumenNominal: [
+      { id: 'ampra', label: 'Ampra', checked: false },
+      { id: 'kuitansi', label: 'Kuitansi', checked: false },
+      { id: 'rekap', label: 'Rekap', checked: false },
+      { id: 'sptjb', label: 'SPTJB', checked: false },
+      { id: 'spm', label: 'SPM', checked: false },
+      { id: 'spi', label: 'SPI', checked: false },
+      { id: 'ppspm', label: 'PPSPM', checked: false },
+      { id: 'sptjk', label: 'SPTJK', checked: false },
+    ],
+    daftarDokumenBelanjaBahan: [
+      { id: 'kuitansi-belanja-bahan', label: 'Kuitansi', checked: false },
+      { id: 'rekap-belanja-bahan', label: 'Rekap', checked: false },
+      { id: 'sptjb-belanja-bahan', label: 'SPTJB', checked: false },
+      { id: 'spm-belanja-bahan', label: 'SPM', checked: false },
+      { id: 'spi-belanja-bahan', label: 'SPI', checked: false },
+      { id: 'ppspm-belanja-bahan', label: 'PPSPM', checked: false },
+      { id: 'sptjk-belanja-bahan', label: 'SPTJK', checked: false },
+    ]
 });

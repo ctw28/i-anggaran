@@ -72,30 +72,25 @@
                 <td colspan="3" style="text-align: center; vertical-align: top;border-top:2px #000 solid;">&nbsp;</td>
             </tr>
         </table>
-        <!--KOP END-->
 
-        <!--TITLE-->
-        <h2 class="text-center">KUITANSI</h2><br />
-        <br />
-        <!--TITLE END-->
-
+        <h2 class="text-center">KUITANSI</h2><br /><br />
 
         <table border="0" cellpadding="2" cellspacing="2">
             <tbody>
                 <tr>
                     <td style="width:4.5cm">Sub Kegiatan</td>
                     <td style="width:0.5cm">:</td>
-                    <td style="width:15cm"><span id="sub_kegiatan"></span></td>
+                    <td style="width:15cm">{{ $data->kegiatan->sub_kegiatan_kode1 }}.{{ $data->kegiatan->sub_kegiatan_kode2 }}.{{ $data->kegiatan->sub_kegiatan_kode3 }}.{{ $data->kegiatan->sub_kegiatan_kode4 }}.{{ $data->kegiatan->sub_kegiatan_kode5 }}</td>
                 </tr>
                 <tr>
                     <td>Akun</td>
                     <td>:</td>
-                    <td><span id="akun"></span></td>
+                    <td>{{ $data->kodeAkun->kode ?? '-' }}</td>
                 </tr>
                 <tr>
                     <td>No. Bukti</td>
                     <td>:</td>
-                    <td><span id="no-bukti"></span></td>
+                    <td></td>
                 </tr>
                 <tr>
                     <td>Telah Terima Dari</td>
@@ -103,24 +98,21 @@
                     <td>Kuasa Pengguna Anggaran IAIN Kendari</td>
                 </tr>
                 <tr>
-                    <td class="text-up">Uang Sejumlah</td>
+                    <td>Uang Sejumlah</td>
                     <td>:</td>
-                    <td style="border:1px solid #000">Rp
-                        <span id="total-seluruhnya"></span>
-                    </td>
+                    <td style="border:1px solid #000">Rp {{ number_format($data->total, 0, ',', '.') }}</td>
                 </tr>
                 <tr>
-                    <td class="text-up">Untuk Pembayaran</td>
+                    <td>Untuk Pembayaran</td>
                     <td>:</td>
-                    <td style="border:1px solid #000; text-transform:uppercase">
-                        Pembayaran
-                        <span id="pencairan-nama"></span>
+                    <td style="border:1px solid #000;">
+                        Pembayaran {{ $data->pencairan_nama }}
                     </td>
                 </tr>
                 <tr>
                     <td>Terbilang</td>
                     <td>:</td>
-                    <td class="trapezium"><span id="terbilang"></span> Rupiah,-</td>
+                    <td class="trapezium">{{ $data->terbilang }} Rupiah,-</td>
                 </tr>
             </tbody>
         </table>
@@ -139,8 +131,7 @@
                         Bendahara Pengeluaran
                     </td>
                     <td style="width:7cm">
-                        Kendari,
-                        <span id="tanggal-dokumen"></span><br />
+                        Kendari, {{ $data->detail->tanggal_dokumen_indonesia }}<br />
                         Yang Menerima
                     </td>
                 </tr>
@@ -150,60 +141,24 @@
                     <td></td>
                 </tr>
                 <tr>
-                    <td><b><span id="ppk-nama"></span></b></td>
-                    <td><b><span id="bendahara-nama"></span></b></td>
-                    <td><b><span id="penerima-nama"></span></b></td>
+                    <td><b>{{ $data->detail->ppk->nama_pejabat }}</b></td>
+                    <td><b>{{ $data->detail->bendahara->nama_pejabat }}</b></td>
+                    <td><b>{{ $data->detail->penerima_nama }}</b></td>
                 </tr>
                 <tr>
-                    <td>NIP. <span id="ppk-nip"></span></td>
-                    <td>NIP. <span id="bendahara-nip"></span></td>
-                    <td><span id="penerima-nomor"></span></td>
+                    <td>NIP. {{ $data->detail->ppk->pegawai->pegawai_nomor_induk }}</td>
+                    <td>NIP. {{ $data->detail->bendahara->pegawai->pegawai_nomor_induk }}</td>
+                    <td>{{ $data->detail->penerima_nomor == '-' ? '' : $data->detail->penerima_nomor }}</td>
                 </tr>
             </tbody>
         </table>
 
     </div>
+
+
+
 </body>
-<script>
-    loadSesiData()
-    async function loadSesiData() {
-        let jenis = "{{$jenis}}"
-        let url = '{{route("cetak.nominal","$pencairan_id")}}'
-        if (jenis == "belanja")
-            url = '{{route("cetak.belanja","$pencairan_id")}}'
 
-        let sendRequest = await fetch(url, {
-            headers: {
-                'Authorization': 'Bearer ' + localStorage.getItem('token')
-            },
-        })
-        response = await sendRequest.json()
-        console.log(response);
-        let subkegiatan = `${response.data.kegiatan.sub_kegiatan_kode1}.${response.data.kegiatan.sub_kegiatan_kode2}.${response.data.kegiatan.sub_kegiatan_kode3}.${response.data.kegiatan.sub_kegiatan_kode4}.${response.data.kegiatan.sub_kegiatan_kode5}`
-        document.querySelector('#sub_kegiatan').innerText = subkegiatan
-        document.querySelector('#akun').innerText = response.data.kode_akun.kode
-        document.querySelector('#pencairan-nama').innerText = response.data.pencairan_nama
-        document.querySelector('#tanggal-dokumen').innerText = response.data.detail.tanggal_dokumen_indonesia
-        document.querySelector('#ppk-nama').innerText = response.data.detail.ppk.nama_pejabat
-        document.querySelector('#ppk-nip').innerText = response.data.detail.ppk.pegawai.pegawai_nomor_induk
-        document.querySelector('#bendahara-nama').innerText = response.data.detail.bendahara.nama_pejabat
-        document.querySelector('#bendahara-nip').innerText = response.data.detail.bendahara.pegawai.pegawai_nomor_induk
-        document.querySelector('#penerima-nama').innerText = response.data.detail.penerima_nama
-        // document.querySelector('#penerima-nomor').innerText = response.data.detail.penerima_nomor
-        document.querySelector('#penerima-nomor').innerText =
-            response.data.detail.penerima_nomor == '-' ? '' : response.data.detail.penerima_nomor;
 
-        document.querySelector('#total-seluruhnya').innerText = formatRupiah(response.data.total)
-        document.querySelector('#terbilang').innerText = response.data.terbilang
-
-    }
-
-    function formatRupiah(angka) {
-        let reverse = angka.toString().split('').reverse().join('');
-        let ribuan = reverse.match(/\d{1,3}/g);
-        let formatted = ribuan.join('.').split('').reverse().join('');
-        return `${formatted}`;
-    }
-</script>
 
 </html>

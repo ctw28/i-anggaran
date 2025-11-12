@@ -54,10 +54,8 @@
 -->
 
 <body style="color:#000;font-size:18px;">
-
     <div style="width:21cm;margin:0 auto;">
         <div class="text-center" style="margin-bottom:10px">
-
             <img src="https://simpeg.iainkendari.ac.id/./upload/logo/49sqk.png" style="width: 100px;" />
         </div>
 
@@ -66,14 +64,9 @@
             INSTITUT AGAMA ISLAM NEGERI KENDARI
         </h3><br />
 
-
-        <!--TITLE-->
-        <!--TITLE END-->
-
         <div style="border: 2px solid #000; padding: 20px">
             <h3 class="text-center">KUITANSI PEMBAYARAN LANGSUNG</h3>
             <br>
-
 
             <table border="0" cellpadding="0" cellspacing="0" style="padding-left:7cm;">
                 <tbody>
@@ -85,12 +78,12 @@
                     <tr>
                         <td>Nomor Bukti</td>
                         <td>:</td>
-                        <td id="nomor-bukti"></td>
+                        <td>{{ $data->detail->kuitansi_nomor ?? '-' }}</td>
                     </tr>
                     <tr>
                         <td>Mata Anggaran</td>
                         <td>:</td>
-                        <td id="mata-anggaran"></td>
+                        <td>{{ $data->kodeAkun->kode ?? '-' }}</td>
                     </tr>
                 </tbody>
             </table>
@@ -98,54 +91,54 @@
             <br>
             <h3 class="text-center">KUITANSI / BUKTI PEMBAYARAN</h3>
             <br>
+
             <table border="0" cellpadding="0" cellspacing="0">
                 <tbody>
                     <tr>
                         <td style="width:5.0cm">Sudah Terima Dari</td>
                         <td style="width:0.5cm">:</td>
-                        <td style="width:15.5cm">Pejabat Pembuat Komitmen Satker IAIN kendari</td>
+                        <td style="width:15.5cm">Pejabat Pembuat Komitmen Satker IAIN Kendari</td>
                     </tr>
                     <tr>
                         <td><br></td>
                     </tr>
-                    <tr style="padding-top: 12px">
+
+                    <tr>
                         <td>Jumlah Uang</td>
                         <td>:</td>
-                        <td id="total-seluruhnya"></td>
+                        <td>Rp {{ number_format($data->total ?? 0, 0, ',', '.') }}</td>
                     </tr>
                     <tr>
                         <td>Terbilang</td>
                         <td>:</td>
-                        <td id="terbilang"></td>
+                        <td>{{ $data->terbilang ?? '-' }}</td>
                     </tr>
+
                     <tr>
                         <td><br></td>
                     </tr>
-                    <tr style="padding-top: 12px">
+
+                    <tr>
                         <td>Untuk pembayaran</td>
                         <td>:</td>
-                        <td id="pencairan-nama"></td>
+                        <td>{{ $data->pencairan_nama ?? '-' }}</td>
                     </tr>
                 </tbody>
             </table>
 
-            <br>
-            <br>
-            <br>
+            <br><br><br>
 
             <table border="0" cellpadding="2" cellspacing="2">
                 <tbody>
                     <tr>
                         <td style="width:10.5cm">
-                            a.n. Kuasa Pengguna Anggara,<br>
+                            a.n. Kuasa Pengguna Anggaran,<br>
                             Pejabat Pembuat Komitmen
                         </td>
-                        <td style="width:5.5cm">
-                        </td>
+                        <td style="width:5.5cm"></td>
                         <td style="width:10.7cm">
-                            Kendari,
-                            <span id="tanggal-dokumen">30 November 2024</span>,<br />
-                            <span id="penerima-jabatan">Sekertarisa</span>
+                            Kendari, {{ $data->detail->tanggal_dokumen_indonesia ?? '-' }}<br />
+                            {{ $data->detail->penerima_jabatan ?? '-' }}
                         </td>
                     </tr>
                     <tr>
@@ -153,66 +146,32 @@
                         <td></td>
                         <td></td>
                     </tr>
+
                     <tr>
-                        <td><b><span id="ppk-nama">Hasnah</span></b></td>
+                        <td><b>{{ $data->detail->ppk->nama_pejabat ?? '-' }}</b></td>
                         <td></td>
-                        <td><b><span id="penerima-nama">Ibrahim</span></b></td>
+                        <td><b>{{ $data->detail->penerima_nama ?? '-' }}</b></td>
                     </tr>
                     <tr>
-                        <td>NIP. <span id="ppk-nip">1901901901</span></td>
+                        <td>NIP. {{ $data->detail->ppk->pegawai->pegawai_nomor_induk ?? '-' }}</td>
                         <td></td>
-                        <td><span id="penerima-nip">-</span></td>
+                        <td>{{ $data->detail->penerima_nomor == '-' ? '' : $data->detail->penerima_nomor }}</td>
                     </tr>
                 </tbody>
             </table>
         </div>
-        <div style="border: 2px solid #000; padding: 20px; border-top:none">
 
+        <div style="border: 2px solid #000; padding: 20px; border-top:none">
             <p>Barang/Pekerjaan tersebut telah diterima/diselesaikan dengan lengkap dan baik</p>
-            <p>Pejabat yang bertanggung Jawab</p>
-            <br>
-            <br>
-            <p><u><span id="sptjk-nama">Sakri, S.Si</span></u>
-                <br>
-                NIP. <span id="sptjk-nip">19999999</span>
+            <p>Pejabat yang bertanggung jawab</p>
+            <br><br>
+            <p>
+                <u>{{ $data->detail->sptjk_nama ?? '-' }}</u><br>
+                NIP. {{ $data->detail->sptjk_nip ?? '-' }}
             </p>
         </div>
     </div>
 </body>
-<script>
-    loadSesiData()
-    async function loadSesiData() {
-        url = '{{route("cetak.belanja","$pencairan_id")}}'
-        let sendRequest = await fetch(url, {
-            headers: {
-                'Authorization': 'Bearer ' + localStorage.getItem('token')
-            },
-        })
-        response = await sendRequest.json()
-        console.log(response);
-        let subkegiatan = `${response.data.kegiatan.sub_kegiatan_kode1}.${response.data.kegiatan.sub_kegiatan_kode2}.${response.data.kegiatan.sub_kegiatan_kode3}.${response.data.kegiatan.sub_kegiatan_kode4}.${response.data.kegiatan.sub_kegiatan_kode5}`
-        document.querySelector('#pencairan-nama').innerText = response.data.pencairan_nama
-        document.querySelector('#tanggal-dokumen').innerText = response.data.detail.tanggal_dokumen_indonesia
-        document.querySelector('#ppk-nama').innerText = response.data.detail.ppk.nama_pejabat
-        document.querySelector('#ppk-nip').innerText = response.data.detail.ppk.pegawai.pegawai_nomor_induk
-        document.querySelector('#penerima-nama').innerText = response.data.detail.penerima_nama
-        document.querySelector('#penerima-jabatan').innerText = response.data.detail.penerima_jabatan
-        document.querySelector('#penerima-nip').innerText =
-            response.data.detail.penerima_nomor == '-' ? '' : response.data.detail.penerima_nomor;
-        document.querySelector('#total-seluruhnya').innerText = formatRupiah(response.data.total)
-        document.querySelector('#terbilang').innerText = response.data.terbilang
-        document.querySelector('#sptjk-nama').innerText = response.data.detail.sptjk_nama
-        document.querySelector('#sptjk-nip').innerText = response.data.detail.sptjk_nip
-        document.querySelector('#nomor-bukti').innerText = response.data.detail.kuitansi_nomor
-        document.querySelector('#mata-anggaran').innerText = response.data.kode_akun.kode
-    }
 
-    function formatRupiah(angka) {
-        let reverse = angka.toString().split('').reverse().join('');
-        let ribuan = reverse.match(/\d{1,3}/g);
-        let formatted = ribuan.join('.').split('').reverse().join('');
-        return `${formatted}`;
-    }
-</script>
 
 </html>

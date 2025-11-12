@@ -85,35 +85,34 @@
 
 
         <p>Kepada Yth :<br>
-            Pejabat Penanda Tangan Surat Perintah Membayar<br>
+            Pejabat Penanda Tangan Surat Perintah Membayar
             IAIN Kendari<br>
             Di -<br>
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Kendari</p><br>
 
 
-        <p style="text-align:justify">Assalamu Alaikum Warahmatullahi Wabarakatuh<br>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <p style="text-align:justify">
+            Assalamu Alaikum Warahmatullahi Wabarakatuh<br><br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             Dengan ini kami mengajukan permintaan pembayaran
-            <b><i><span id="pencairan-nama"></span></i></b> sesuai SK No. <span id="sk"></span>
-            sebesar
-            <b><i><span id="total-seluruhnya"></span> (<span id="terbilang"></span> Rupiah).</i></b><br>
+            <b><i>{{ $data->pencairan_nama ?? '-' }}</i></b>
+            sesuai SK Nomor {{ $data->detail->nomor_sk ?? '-' }} tanggal {{ $data->detail->tanggal_sk_indonesia ?? '-' }}
+            sebesar Rp.
+            <b><i>{{ number_format($data->total ?? 0, 0, ',', '.') }}
+                    ({{ $data->terbilang ?? '-' }}) Rupiah.</i></b><br><br>
             Demikian, permohonan ini atas kerjasamanya diucapkan terima kasih.
         </p>
-
-
 
         <br>
 
         <table border="0" cellpadding="2" cellspacing="2">
             <tbody>
                 <tr>
-                    <td style="width:7cm">
-                    </td>
-                    <td style="width:7cm">
-                    </td>
+                    <td style="width:7cm"></td>
+                    <td style="width:7cm"></td>
                     <td style="width:7cm">
                         Kendari,
-                        <span id="tanggal-dokumen"></span>,<br />
+                        {{ $data->detail->tanggal_dokumen_indonesia ?? '-' }},<br />
                         Pejabat Pembuat Komitmen
                     </td>
                 </tr>
@@ -125,49 +124,17 @@
                 <tr>
                     <td><b></b></td>
                     <td><b></b></td>
-                    <td><b><span id="ppk-nama"></span></b></td>
+                    <td><b>{{ $data->ppk->nama_pejabat ?? '-' }}</b></td>
                 </tr>
                 <tr>
                     <td></td>
                     <td></td>
-                    <td>NIP. <span id="ppk-nip"></span></td>
+                    <td>NIP. {{ $data->ppk->nip ?? '-' }}</td>
                 </tr>
             </tbody>
         </table>
 
     </div>
 </body>
-<script>
-    loadSesiData()
-    async function loadSesiData() {
-        let jenis = "{{$jenis}}"
-        let url = '{{route("cetak.nominal","$pencairan_id")}}'
-        if (jenis == "belanja")
-            url = '{{route("cetak.belanja","$pencairan_id")}}'
-        let sendRequest = await fetch(url, {
-            headers: {
-                'Authorization': 'Bearer ' + localStorage.getItem('token')
-            },
-        })
-        response = await sendRequest.json()
-        console.log(response);
-        let subkegiatan = `${response.data.kegiatan.sub_kegiatan_kode1}.${response.data.kegiatan.sub_kegiatan_kode2}.${response.data.kegiatan.sub_kegiatan_kode3}.${response.data.kegiatan.sub_kegiatan_kode4}.${response.data.kegiatan.sub_kegiatan_kode5}`
-        document.querySelector('#pencairan-nama').innerText = response.data.pencairan_nama
-        document.querySelector('#tanggal-dokumen').innerText = response.data.detail.tanggal_dokumen_indonesia
-        document.querySelector('#ppk-nama').innerText = response.data.detail.ppk.nama_pejabat
-        document.querySelector('#ppk-nip').innerText = response.data.detail.ppk.pegawai.pegawai_nomor_induk
-        document.querySelector('#total-seluruhnya').innerText = formatRupiah(response.data.total)
-        document.querySelector('#terbilang').innerText = response.data.terbilang
-        document.querySelector('#sk').innerText = `${response.data.detail.nomor_sk} tanggal ${response.data.detail.tanggal_sk_indonesia}`
-
-    }
-
-    function formatRupiah(angka) {
-        let reverse = angka.toString().split('').reverse().join('');
-        let ribuan = reverse.match(/\d{1,3}/g);
-        let formatted = ribuan.join('.').split('').reverse().join('');
-        return `${formatted}`;
-    }
-</script>
 
 </html>

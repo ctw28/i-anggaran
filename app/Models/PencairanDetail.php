@@ -23,8 +23,8 @@ class PencairanDetail extends Model
         'sptjk_nama',
         'sptjk_nip',
         'sptjk_jabatan',
-        'ppk',
-        'bendahara',
+        'ppk_id',
+        'bendahara_id',
     ];
     public function pencairan()
     {
@@ -33,11 +33,11 @@ class PencairanDetail extends Model
 
     public function ppk()
     {
-        return $this->belongsTo('App\Models\OrganisasiJabatanSesi', 'ppk');
+        return $this->belongsTo('App\Models\OrganisasiJabatanSesi', 'ppk_id');
     }
     public function bendahara()
     {
-        return $this->belongsTo('App\Models\OrganisasiJabatanSesi', 'bendahara');
+        return $this->belongsTo('App\Models\OrganisasiJabatanSesi', 'bendahara_id');
     }
     public function dasar()
     {
