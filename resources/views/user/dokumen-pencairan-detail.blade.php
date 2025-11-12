@@ -209,7 +209,7 @@
 <script src="{{ asset('js/dokumen-pencairan/methods/nominal.js') }}"></script>
 <script src="{{ asset('js/dokumen-pencairan/methods/belanja-bahan.js?v=1') }}"></script>
 <script src="{{ asset('js/dokumen-pencairan/methods/perjadin.js') }}"></script>
-<script src="{{ asset('js/dokumen-pencairan/methods/lainnya.js') }}"></script>
+<script src="{{ asset('js/dokumen-pencairan/methods/lainnya.js?v=1') }}"></script>
 <script src="{{ asset('js/dokumen-pencairan/methods/spi.js') }}"></script>
 <!-- pisahkan koding default vue -->
 <script src="{{ asset('js/dokumen-pencairan/default-data.js') }}"></script>
@@ -232,6 +232,7 @@
                 ...getDefaultState(),
                 urls: {
                     urlShowPencairan: "{{route('pencairan.show',':id')}}",
+                    urlCetakNominal: "{{route('cetak.nominal',':id')}}",
                     urlCetakNominal: "{{route('cetak.nominal',':id')}}",
                     urlCetakBelanja: "{{route('cetak.belanja',':id')}}",
                     urlGoTo: "{{ route('dokumen-pencairan.detail', ':id') }}",
