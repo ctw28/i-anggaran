@@ -124,12 +124,12 @@
                 <tr>
                     <td><b></b></td>
                     <td><b></b></td>
-                    <td><b>{{ $data->ppk->nama_pejabat ?? '-' }}</b></td>
+                    <td><b>{{ $data->detail->ppk->nama_pejabat ?? '-' }}</b></td>
                 </tr>
                 <tr>
                     <td></td>
                     <td></td>
-                    <td>NIP. {{ $data->ppk->nip ?? '-' }}</td>
+                    <td>NIP. {{ $data->detail->ppk->pegawai->pegawai_nomor_induk ?? '-' }}</td>
                 </tr>
             </tbody>
         </table>
