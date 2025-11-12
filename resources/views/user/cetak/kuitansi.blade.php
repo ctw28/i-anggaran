@@ -141,9 +141,9 @@
                     <td></td>
                 </tr>
                 <tr>
-                    <td><b>{{ $data->detail->ppk->nama_pejabat }}</b></td>
-                    <td><b>{{ $data->detail->bendahara->nama_pejabat }}</b></td>
-                    <td><b>{{ $data->detail->penerima_nama }}</b></td>
+                    <td>{{ $data->detail->ppk->nama_pejabat }}</td>
+                    <td>{{ $data->detail->bendahara->nama_pejabat }}</td>
+                    <td>{{ $data->detail->penerima_nama }}</td>
                 </tr>
                 <tr>
                     <td>NIP. {{ $data->detail->ppk->pegawai->pegawai_nomor_induk }}</td>

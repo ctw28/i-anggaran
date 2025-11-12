@@ -196,8 +196,6 @@
     <!-- diletakkan di sini agar tampil sesuai modals rincian perjadin -->
 </div>
 
-
-
 @endsection
 @section('scripts')
 <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
