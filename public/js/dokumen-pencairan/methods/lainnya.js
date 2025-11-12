@@ -77,12 +77,12 @@ const lainnyaMethods = {
         url = url.replace(':jenis', jenis)
     
     
-        document.querySelector('#show-' + kategori).innerHTML = `
+        // document.querySelector('#show-' + kategori).innerHTML = `
+                                                                // <iframe src="${url}" width="100%" height="1000vh"></iframe>
+                                                                // `
+        document.querySelector('#show-' + kategori).innerHTML = `<a href="${url}" target="_blank" class="btn btn-dark" ><i class="tf-icons bx bx-printer"></i> Cetak</a>
                                                                 <iframe src="${url}" width="100%" height="1000vh"></iframe>
                                                                 `
-        // document.querySelector('#show-' + kategori).innerHTML = `<a href="${url}" target="_blank" class="btn btn-dark" ><i class="tf-icons bx bx-printer"></i> Cetak</a>
-        //                                                         <iframe src="${url}" width="100%" height="1000vh"></iframe>
-        //                                                         `
     },
     cancel() {
         this.isPencairanEditing = false;
