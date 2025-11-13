@@ -155,6 +155,9 @@ const perjadinMethods = {
     async loadRincian(index){
         // alert(this.perjadinAnggota[index]['id'])
         try {
+            this.anggotaId = this.perjadinAnggota[index]['id']
+            alert(this.anggotaId)
+
             let url = this.urls.urlloadRincian
             url = url.replace(':id', this.perjadinAnggota[index]['id'])
             let response = await axios.get(url, {
@@ -213,7 +216,6 @@ const perjadinMethods = {
                 this.rincianAnggotaSelected =  response.data.data.id
             }
             this.loadRealCost(this.perjadinAnggota[index]['id'])
-            this.anggotaId = this.perjadinAnggota[index]['id']
         } catch (error) {
             console.error("Gagal mengambil data:", error);
             toastr.options.closeButton = true;

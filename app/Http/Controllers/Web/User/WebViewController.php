@@ -156,15 +156,56 @@ class WebViewController extends Controller
 
     public function cetakPerjadin($anggotaId, $kategori)
     {
-        $data['data'] = PerjadinAnggota::with(['perjadin.pencairan', 'perjadin.rincian', 'realCost'])
+        // return $anggotaId;  
+        $data['data'] = PerjadinAnggota::with(['perjadin.pencairan', 'rincian', 'realCost'])
             ->find($anggotaId);
-        // return $data;
+        $r = $data['data']->rincian ?? null;
+
+        // hitung nilai tiap item, aman dari null
+        $uang_harian1_total = ($r->uang_harian1 ?? 0) * ($r->uang_harian1_hari ?? 0);
+        $uang_harian2_total = ($r->uang_harian2 ?? 0) * ($r->uang_harian2_hari ?? 0);
+        $representatif_total = ($r->representatif ?? 0) * ($r->representatif_hari ?? 0);
+        $penginapan1_total = ($r->penginapan1 ?? 0) * ($r->penginapan1_malam ?? 0);
+        $penginapan2_total = ($r->penginapan2 ?? 0) * ($r->penginapan2_malam ?? 0);
+
+        // komponen lain (langsung)
+        $tiket_pergi = $r->tiket_pergi ?? 0;
+        $tiket_pulang = $r->tiket_pulang ?? 0;
+        $transport_kota_2 = $r->transport_kota_2 ?? 0;
+        $kantor_bst = $r->kantor_bst ?? 0;
+        $transport2 = $r->transport2 ?? 0;
+        $airport_tax_pergi = $r->airport_tax_pergi ?? 0;
+        $airport_tax_pulang = $r->airport_tax_pulang ?? 0;
+
+        // total keseluruhan
+        $total = $uang_harian1_total + $uang_harian2_total + $representatif_total +
+            $penginapan1_total + $penginapan2_total +
+            $tiket_pergi + $tiket_pulang + $transport_kota_2 +
+            $kantor_bst + $transport2 + $airport_tax_pergi + $airport_tax_pulang;
+
+        // kirim semua hasil ke view
+        $data['rincianTotal'] = [
+            'uang_harian1_total' => $uang_harian1_total,
+            'uang_harian2_total' => $uang_harian2_total,
+            'representatif_total' => $representatif_total,
+            'penginapan1_total' => $penginapan1_total,
+            'penginapan2_total' => $penginapan2_total,
+            'tiket_pergi' => $tiket_pergi,
+            'tiket_pulang' => $tiket_pulang,
+            'transport_kota_2' => $transport_kota_2,
+            'kantor_bst' => $kantor_bst,
+            'transport2' => $transport2,
+            'airport_tax_pergi' => $airport_tax_pergi,
+            'airport_tax_pulang' => $airport_tax_pulang,
+            'total' => $total
+        ];
 
         if ($kategori == "checklist")
             return view('user.components.perjadin.cetak.checklist', $data);
         else if ($kategori == "real-cost")
             return view('user.perjadin.cetak.realcost', $data);
     }
+
 
     function terbilang($nilai)
     {

@@ -69,7 +69,7 @@
                 <td style="text-align: left; vertical-align: middle; width: 40%;">
                     Nomor Surat Tugas :<br>
                     &nbsp;&nbsp;&nbsp;{{$data->perjadin->no_surat_tugas}}<br>
-                    Tanggal, {{$data->perjadin->tanggal_dokumen}}
+                    Tanggal, {{ \Carbon\Carbon::parse($data->perjadin->tanggal_dokumen)->translatedFormat('d F Y') }}
                 </td>
             </tr>
         </table>
@@ -147,116 +147,175 @@
                     <tbody>
                         <tr>
                             <td>Uang Harian 1</td>
-                            <td>Rp. {{$data->perjadin->rincian->uang_harian1}} x {{$data->perjadin->rincian->uang_harian1_hari}} hari = </td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td style="position: relative;">Rp. <span style="position:absolute; right:10">
-                                    {{ number_format(($data->perjadin->rincian->uang_harian1 ?? 0) * ($data->perjadin->rincian->uang_harian1_hari ?? 0), 0, ',', '.') }}
+                            <td>
+                                Rp. {{ number_format($data->rincian->uang_harian1 ?? 0, 0, ',', '.') }}
+                                x {{ $data->rincian->uang_harian1_hari ?? 0 }} hari =
 
-
-                                </span> </td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td>Uang Harian 2</td>
-                            <td>Rp. {{$data->perjadin->rincian->uang_harian2}} x {{$data->perjadin->rincian->uang_harian2_hari}} hari = </td>
+                            </td>
                             <td></td>
                         </tr>
                         <tr>
                             <td></td>
-                            <td style="position: relative;">
-                                Rp.
-                                <span style="position: absolute; right: 10px;">
-                                    {{ number_format(($data->perjadin->rincian->uang_harian2 ?? 0) * ($data->perjadin->rincian->uang_harian2_hari ?? 0), 0, ',', '.') }}
+                            <td style="position: relative;">Rp.
+                                <span style="float:right;">
+                                    {{ number_format($rincianTotal['uang_harian1_total'], 0, ',', '.') }}
                                 </span>
                             </td>
                             <td></td>
                         </tr>
 
                         <tr>
+                            <td>Uang Harian 2</td>
+                            <td>
+                                Rp. {{ number_format($data->rincian->uang_harian2 ?? 0, 0, ',', '.') }}
+                                x {{ $data->rincian->uang_harian2_hari ?? 0 }} hari =
+
+                            </td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td style="position: relative;">Rp.
+                                <span style="float:right;">
+                                    {{ number_format($rincianTotal['uang_harian2_total'], 0, ',', '.') }}
+                                </span>
+                            </td>
+                            <td></td>
+                        </tr>
+                        <tr>
                             <td>Uang Representatif</td>
-                            <td>Rp. {{$data->perjadin->rincian->representatif}} x {{$data->perjadin->rincian->representatif_hari}} hari = </td>
+                            <td>
+                                Rp. {{ number_format($data->rincian->representatif ?? 0, 0, ',', '.') }}
+                                x {{ $data->rincian->representatif_hari ?? 0 }} hari =
+                            </td>
                             <td></td>
                         </tr>
                         <tr>
                             <td></td>
-                            <td style="position: relative;">Rp. <span style="position:absolute; right:10">
-                                    {{ number_format(($data->perjadin->rincian->representatif ?? 0) * ($data->perjadin->rincian->representatif_hari ?? 0), 0, ',', '.') }}
-
-                                </span> </td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td>Biaya Penginapan 1</td>
-                            <td>Rp. {{$data->perjadin->rincian->penginapan1}} x {{$data->perjadin->rincian->penginapan1_malam}} hari = </td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td style="position: relative;">Rp. <span style="position:absolute; right:10">
-                                    {{ number_format(($data->perjadin->rincian->penginapan1 ?? 0) * ($data->perjadin->rincian->penginapan1_malam ?? 0), 0, ',', '.') }}
-
-                                </span> </td>
+                            <td style="position: relative;">Rp.
+                                <span style="float:right;">
+                                    {{ number_format($rincianTotal['representatif_total'], 0, ',', '.') }}
+                                </span>
+                            </td>
                             <td></td>
                         </tr>
                         <tr>
                             <td>Biaya Penginapan 1</td>
-                            <td>Rp. {{$data->perjadin->rincian->penginapan2}} x {{$data->perjadin->rincian->penginapan2_malam}} hari = </td>
+                            <td>
+                                Rp. {{ number_format($data->rincian->penginapan1 ?? 0, 0, ',', '.') }}
+                                x {{ $data->rincian->penginapan1_malam ?? 0 }} malam =
+
+                            </td>
                             <td></td>
                         </tr>
                         <tr>
                             <td></td>
-                            <td style="position: relative;">Rp. <span style="position:absolute; right:10">
-                                    {{ number_format(($data->perjadin->rincian->penginapan2 ?? 0) * ($data->perjadin->rincian->penginapan2_malam ?? 0), 0, ',', '.') }}
+                            <td style="position: relative;">Rp.
+                                <span style="float:right;">
+                                    {{ number_format($rincianTotal['penginapan1_total'], 0, ',', '.') }}
+                                </span>
+                            </td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>Biaya Penginapan 2</td>
+                            <td>
+                                Rp. {{ number_format($data->rincian->penginapan2 ?? 0, 0, ',', '.') }}
+                                x {{ $data->rincian->penginapan2_malam ?? 0 }} malam =
 
-                                </span> </td>
+                            </td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td style="position: relative;">Rp.
+                                <span style="float:right;">
+                                    {{ number_format($rincianTotal['penginapan2_total'], 0, ',', '.') }}
+                                </span>
+                            </td>
                             <td></td>
                         </tr>
                         <tr>
                             <td>Tiket Pergi</td>
-                            <td>Rp. {{$data->perjadin->rincian->tiket_pergi}}</td>
+                            <td>
+                                <span style="float:right;">
+                                    Rp. {{ number_format($rincianTotal['tiket_pergi'], 0, ',', '.') }}
+                                </span>
+                            </td>
                             <td></td>
                         </tr>
+
                         <tr>
                             <td>Tiket Pulang</td>
-                            <td>Rp. {{$data->perjadin->rincian->tiket_pulang}}</td>
+                            <td>
+                                <span style="float:right;">
+                                    Rp. {{ number_format($rincianTotal['tiket_pulang'], 0, ',', '.') }}
+                                </span>
+                            </td>
                             <td></td>
                         </tr>
+
                         <tr>
-                            <td>Transport</td>
-                            <td>Rp. {{$data->perjadin->rincian->transport_kota_2}}</td>
+                            <td>Transport Dalam Kota</td>
+                            <td>
+                                <span style="float:right;">
+                                    Rp. {{ number_format($rincianTotal['transport_kota_2'], 0, ',', '.') }}
+                                </span>
+                            </td>
                             <td></td>
                         </tr>
+
                         <tr>
                             <td>Kantor - B/S/T<sup>**</sup> (PP)</td>
-                            <td>Rp. {{$data->perjadin->rincian->kantor_bst}}</td>
+                            <td>
+                                <span style="float:right;">
+                                    Rp. {{ number_format($rincianTotal['kantor_bst'], 0, ',', '.') }}
+                                </span>
+                            </td>
                             <td></td>
                         </tr>
+
                         <tr>
                             <td>B/S/T<sup>**</sup> - Lokasi (PP)</td>
-                            <td>Rp. {{$data->perjadin->rincian->transport2}}</td>
+                            <td>
+                                <span style="float:right;">
+                                    Rp. {{ number_format($rincianTotal['transport2'], 0, ',', '.') }}
+                                </span>
+                            </td>
                             <td></td>
                         </tr>
+
                         <tr>
                             <td>Airport Tax Pergi</td>
-                            <td>Rp. {{$data->perjadin->rincian->airport_tax_pergi}}</td>
+                            <td>
+                                <span style="float:right;">
+                                    Rp. {{ number_format($rincianTotal['airport_tax_pergi'], 0, ',', '.') }}
+                                </span>
+                            </td>
                             <td></td>
                         </tr>
+
                         <tr>
                             <td>Airport Tax Pulang</td>
-                            <td>Rp. {{$data->perjadin->rincian->airport_tax_pulang}}</td>
+                            <td>
+                                <span style="float:right;">
+                                    Rp. {{ number_format($rincianTotal['airport_tax_pulang'], 0, ',', '.') }}
+                                </span>
+                            </td>
                             <td></td>
                         </tr>
+
                         <tr>
-                            <td style="text-align:center">JUMLAH</td>
-                            <td style="position: relative;">Rp. <span style="position:absolute; right:10">belum dikerja</span> </td>
+                            <td style="text-align:center;"><strong>JUMLAH</strong></td>
+                            <td>
+                                <span style="float:right;">
+                                    <strong>Rp. {{ number_format($rincianTotal['total'], 0, ',', '.') }}</strong>
+                                </span>
+                            </td>
                             <td></td>
                         </tr>
-
-
                     </tbody>
+
                 </table>
             </div>
 
