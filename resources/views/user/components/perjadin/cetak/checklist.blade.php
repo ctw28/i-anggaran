@@ -147,13 +147,13 @@
                     <tbody>
                         <tr>
                             <td>Uang Harian 1</td>
-                            <td>Rp. {{$data->rincian->uang_harian1}} x {{$data->rincian->uang_harian1_hari}} hari = </td>
+                            <td>Rp. {{$data->perjadin->rincian->uang_harian1}} x {{$data->perjadin->rincian->uang_harian1_hari}} hari = </td>
                             <td></td>
                         </tr>
                         <tr>
                             <td></td>
                             <td style="position: relative;">Rp. <span style="position:absolute; right:10">
-                                    {{ number_format(($data->rincian->uang_harian1 ?? 0) * ($data->rincian->uang_harian1_hari ?? 0), 0, ',', '.') }}
+                                    {{ number_format(($data->perjadin->rincian->uang_harian1 ?? 0) * ($data->perjadin->rincian->uang_harian1_hari ?? 0), 0, ',', '.') }}
 
 
                                 </span> </td>
@@ -161,7 +161,7 @@
                         </tr>
                         <tr>
                             <td>Uang Harian 2</td>
-                            <td>Rp. {{$data->rincian->uang_harian2}} x {{$data->rincian->uang_harian2_hari}} hari = </td>
+                            <td>Rp. {{$data->perjadin->rincian->uang_harian2}} x {{$data->perjadin->rincian->uang_harian2_hari}} hari = </td>
                             <td></td>
                         </tr>
                         <tr>
@@ -169,7 +169,7 @@
                             <td style="position: relative;">
                                 Rp.
                                 <span style="position: absolute; right: 10px;">
-                                    {{ number_format(($data->rincian->uang_harian2 ?? 0) * ($data->rincian->uang_harian2_hari ?? 0), 0, ',', '.') }}
+                                    {{ number_format(($data->perjadin->rincian->uang_harian2 ?? 0) * ($data->perjadin->rincian->uang_harian2_hari ?? 0), 0, ',', '.') }}
                                 </span>
                             </td>
                             <td></td>
@@ -177,76 +177,76 @@
 
                         <tr>
                             <td>Uang Representatif</td>
-                            <td>Rp. {{$data->rincian->representatif}} x {{$data->rincian->representatif_hari}} hari = </td>
+                            <td>Rp. {{$data->perjadin->rincian->representatif}} x {{$data->perjadin->rincian->representatif_hari}} hari = </td>
                             <td></td>
                         </tr>
                         <tr>
                             <td></td>
                             <td style="position: relative;">Rp. <span style="position:absolute; right:10">
-                                    {{ number_format(($data->rincian->representatif ?? 0) * ($data->rincian->representatif_hari ?? 0), 0, ',', '.') }}
+                                    {{ number_format(($data->perjadin->rincian->representatif ?? 0) * ($data->perjadin->rincian->representatif_hari ?? 0), 0, ',', '.') }}
 
                                 </span> </td>
                             <td></td>
                         </tr>
                         <tr>
                             <td>Biaya Penginapan 1</td>
-                            <td>Rp. {{$data->rincian->penginapan1}} x {{$data->rincian->penginapan1_malam}} hari = </td>
+                            <td>Rp. {{$data->perjadin->rincian->penginapan1}} x {{$data->perjadin->rincian->penginapan1_malam}} hari = </td>
                             <td></td>
                         </tr>
                         <tr>
                             <td></td>
                             <td style="position: relative;">Rp. <span style="position:absolute; right:10">
-                                    {{ number_format(($data->rincian->penginapan1 ?? 0) * ($data->rincian->penginapan1_malam ?? 0), 0, ',', '.') }}
+                                    {{ number_format(($data->perjadin->rincian->penginapan1 ?? 0) * ($data->perjadin->rincian->penginapan1_malam ?? 0), 0, ',', '.') }}
 
                                 </span> </td>
                             <td></td>
                         </tr>
                         <tr>
                             <td>Biaya Penginapan 1</td>
-                            <td>Rp. {{$data->rincian->penginapan2}} x {{$data->rincian->penginapan2_malam}} hari = </td>
+                            <td>Rp. {{$data->perjadin->rincian->penginapan2}} x {{$data->perjadin->rincian->penginapan2_malam}} hari = </td>
                             <td></td>
                         </tr>
                         <tr>
                             <td></td>
                             <td style="position: relative;">Rp. <span style="position:absolute; right:10">
-                                    {{ number_format(($data->rincian->penginapan2 ?? 0) * ($data->rincian->penginapan2_malam ?? 0), 0, ',', '.') }}
+                                    {{ number_format(($data->perjadin->rincian->penginapan2 ?? 0) * ($data->perjadin->rincian->penginapan2_malam ?? 0), 0, ',', '.') }}
 
                                 </span> </td>
                             <td></td>
                         </tr>
                         <tr>
                             <td>Tiket Pergi</td>
-                            <td>Rp. {{$data->rincian->tiket_pergi}}</td>
+                            <td>Rp. {{$data->perjadin->rincian->tiket_pergi}}</td>
                             <td></td>
                         </tr>
                         <tr>
                             <td>Tiket Pulang</td>
-                            <td>Rp. {{$data->rincian->tiket_pulang}}</td>
+                            <td>Rp. {{$data->perjadin->rincian->tiket_pulang}}</td>
                             <td></td>
                         </tr>
                         <tr>
                             <td>Transport</td>
-                            <td>Rp. {{$data->rincian->transport_kota_2}}</td>
+                            <td>Rp. {{$data->perjadin->rincian->transport_kota_2}}</td>
                             <td></td>
                         </tr>
                         <tr>
                             <td>Kantor - B/S/T<sup>**</sup> (PP)</td>
-                            <td>Rp. {{$data->rincian->kantor_bst}}</td>
+                            <td>Rp. {{$data->perjadin->rincian->kantor_bst}}</td>
                             <td></td>
                         </tr>
                         <tr>
                             <td>B/S/T<sup>**</sup> - Lokasi (PP)</td>
-                            <td>Rp. {{$data->rincian->transport2}}</td>
+                            <td>Rp. {{$data->perjadin->rincian->transport2}}</td>
                             <td></td>
                         </tr>
                         <tr>
                             <td>Airport Tax Pergi</td>
-                            <td>Rp. {{$data->rincian->airport_tax_pergi}}</td>
+                            <td>Rp. {{$data->perjadin->rincian->airport_tax_pergi}}</td>
                             <td></td>
                         </tr>
                         <tr>
                             <td>Airport Tax Pulang</td>
-                            <td>Rp. {{$data->rincian->airport_tax_pulang}}</td>
+                            <td>Rp. {{$data->perjadin->rincian->airport_tax_pulang}}</td>
                             <td></td>
                         </tr>
                         <tr>
