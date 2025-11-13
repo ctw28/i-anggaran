@@ -156,7 +156,7 @@ const perjadinMethods = {
         // alert(this.perjadinAnggota[index]['id'])
         try {
             this.anggotaId = this.perjadinAnggota[index]['id']
-            alert(this.anggotaId)
+            // alert(this.anggotaId)
 
             let url = this.urls.urlloadRincian
             url = url.replace(':id', this.perjadinAnggota[index]['id'])
