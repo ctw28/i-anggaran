@@ -158,7 +158,7 @@ class WebViewController extends Controller
     {
         $data['data'] = PerjadinAnggota::with(['perjadin.pencairan', 'rincian', 'realCost'])
             ->find($anggotaId);
-        // return $data;
+        return $data;
 
         if ($kategori == "checklist")
             return view('user.components.perjadin.cetak.checklist', $data);
