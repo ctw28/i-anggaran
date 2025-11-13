@@ -53,11 +53,15 @@ const perjadinMethods = {
             console.log(response.data);
             if (response.data.status) {
                 let data = response.data.data;
+                this.perjadin_id = data.id
+                
                 this.perjadinData.uang_harian1 = data?.referensi_uang?.[0]?.uang_harian;
                 this.perjadinData.uang_penginapan1 = data?.referensi_uang?.[0]?.uang_penginapan;
                 this.perjadinData.uang_harian2 = data?.referensi_uang?.[1]?.uang_harian;
                 this.perjadinData.uang_penginapan2 = data?.referensi_uang?.[1]?.uang_penginapan;
                 Object.assign(this.perjadinData, data);
+                                this.loadAnggota()
+
             }
             else{
                 perjadinData= {
@@ -84,13 +88,15 @@ const perjadinMethods = {
     },
     addAnggota() {
         this.isAddAnggota = true
-        this.newAnggota = { pencairan_id: this.pencairan_id, nama: "", nip: "", jabatan: "" };
+        this.newAnggota = { perjadin_id: this.perjadin_id, nama: "", nip: "", jabatan: "" };
     },
     cancelAddAnggota() {
         this.isAddAnggota = false
     },
     async saveAnggota() {
         let url = this.urls.urlSaveAnggotaPerjadin
+        console.log(this.newAnggota);
+        
         let response = await axios.post(url, this.newAnggota, {
             headers: {
                 'Authorization': 'Bearer ' + localStorage.getItem('token')
@@ -108,7 +114,7 @@ const perjadinMethods = {
     },
     async loadAnggota() {
         let url = this.urls.urlLoadAnggotaPerjadin
-        url = url.replace(":id", id)
+        url = url.replace(":id", this.perjadin_id)
         let response = await axios.get(url, {
             headers: {'Authorization': 'Bearer ' + localStorage.getItem('token')}
         });
@@ -165,20 +171,28 @@ const perjadinMethods = {
 
 
                     this.rincianPerjadin = {
-                        pencairan_id: this.pencairan_id,
+                        perjadin_id: this.perjadin_id,
                         perjadin_anggota_id: this.perjadinAnggota[index]['id'],
                         tanggal_pergi: this.perjadinData.tgl_mulai,
                         tanggal_pulang: this.perjadinData.tgl_selesai,
                         uang_harian1: this.perjadinData.uang_harian1,
                         uang_harian1_hari: selisihHari+1,
                         uang_harian2: this.perjadinData.uang_harian2,
-                        uang_harian2_hari: (this.perjadinData.uang_harian2 == 0 ? 0 :selisihHari+1),
+                        uang_harian2_hari: (
+                        !this.perjadinData.uang_harian2 || this.perjadinData.uang_harian2 == 0
+                            ? 0
+                            : selisihHari + 1
+                        ),
                         representatif: 0,
                         representatif_hari: 0,
                         penginapan1: this.perjadinData.uang_penginapan1,
                         penginapan1_malam: selisihHari,
                         penginapan2: this.perjadinData.uang_penginapan2,
-                        penginapan2_malam: (this.perjadinData.uang_penginapan2==0 ? 0 :selisihHari+1),
+                        penginapan2_malam: (
+                        !this.perjadinData.uang_penginapan2
+                            ? 0
+                            : selisihHari
+                        ),
                         tiket_pergi: 0,
                         tiket_pulang: 0,
                         transport_kota_2: 0,
@@ -199,6 +213,7 @@ const perjadinMethods = {
                 this.rincianAnggotaSelected =  response.data.data.id
             }
             this.loadRealCost(this.perjadinAnggota[index]['id'])
+            this.anggotaId = this.perjadinAnggota[index]['id']
         } catch (error) {
             console.error("Gagal mengambil data:", error);
             toastr.options.closeButton = true;
@@ -316,5 +331,16 @@ const perjadinMethods = {
             row.remove();
         }
     },
-    
+    cetakPerjadin(kategori) {
+    if (!this.anggotaId) {
+      alert("ID anggota belum tersedia!");
+      return;
+    }
+
+    // Misal route-nya: /cetak/perjadin/{anggotaId}/{kategori}
+    const url = `/anggota/${this.anggotaId}/kategori/${kategori}/cetak`;
+
+    // Buka di tab baru untuk cetak
+    window.open(url, '_blank');
+  }
 }

@@ -156,7 +156,7 @@ class WebViewController extends Controller
 
     public function cetakPerjadin($anggotaId, $kategori)
     {
-        $data['data'] = PerjadinAnggota::with(['pencairan.perjadin', 'rincian', 'realCost'])
+        $data['data'] = PerjadinAnggota::with(['perjadin.pencairan', 'rincian', 'realCost'])
             ->find($anggotaId);
         // return $data;
 

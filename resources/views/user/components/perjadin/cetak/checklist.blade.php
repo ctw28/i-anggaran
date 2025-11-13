@@ -68,8 +68,8 @@
                 </td>
                 <td style="text-align: left; vertical-align: middle; width: 40%;">
                     Nomor Surat Tugas :<br>
-                    &nbsp;&nbsp;&nbsp;{{$data->pencairan->perjadin->no_surat_tugas}}<br>
-                    Tanggal, {{$data->pencairan->perjadin->tanggal_dokumen}}
+                    &nbsp;&nbsp;&nbsp;{{$data->perjadin->no_surat_tugas}}<br>
+                    Tanggal, {{$data->perjadin->tanggal_dokumen}}
                 </td>
             </tr>
         </table>
@@ -113,13 +113,13 @@
                     <td></td>
                     <td width="200px">KEGIATAN</td>
                     <td width="10px">:</td>
-                    <td>{{$data->pencairan->pencairan_nama}}</td>
+                    <td>{{$data->perjadin->pencairan->pencairan_nama}}</td>
                 </tr>
                 <tr>
                     <td></td>
                     <td>KOTA TUJUAN</td>
                     <td>:</td>
-                    <td>{{$data->pencairan->perjadin->kota_tujuan}}</td>
+                    <td>{{$data->perjadin->kota_tujuan}}</td>
                 </tr>
                 <tr>
                     <td></td>
@@ -335,7 +335,7 @@
                         <td style="width:7cm;">
                             <div style="text-align: center;">
                                 Pejabat Pembuat Komitmen<br />
-                                Kendari, {{$data->pencairan->tanggal_dokumen}}
+                                Kendari, {{$data->perjadin->pencairan->tanggal_dokumen}}
                                 <br>
                                 <br>
                                 <br>

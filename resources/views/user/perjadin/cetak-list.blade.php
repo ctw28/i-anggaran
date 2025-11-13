@@ -8,7 +8,7 @@
         <tr>
             <td>1</td>
             <td>Checklist</td>
-            <td><button onclick="cetakPerjadin('checklist')" class="btn btn-primary btn-sm">Cetak</button></td>
+            <td><button @click="cetakPerjadin('checklist')" class="btn btn-primary btn-sm">Cetak</button></td>
         </tr>
         <tr>
             <td>2</td>

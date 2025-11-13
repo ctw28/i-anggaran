@@ -137,8 +137,9 @@ const getDefaultState = () => ({
     isAddAnggota: false,
     selectedAnggotaIndex: "",
     perjadinAnggota: [], // Data anggota yang diambil dari fetch API
+    anggotaId : '',
     newAnggota: { // Data sementara sebelum ditambahkan ke tabel
-        pencairan_id: "",
+        perjadin_id: "",
         nama: "",
         nip: "",
         jabatan: "",
@@ -147,7 +148,7 @@ const getDefaultState = () => ({
     rincianNIP: "",
     rincianJabatan: "",
     rincianPerjadin: { // Data sementara sebelum ditambahkan ke tabel
-        pencairan_id: 0,
+        perjadin_id: 0,
         perjadin_anggota_id: 0,
         tanggal_pergi: "",
         tanggal_pulang: "",

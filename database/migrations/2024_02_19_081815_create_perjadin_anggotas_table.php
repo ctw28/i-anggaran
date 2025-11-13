@@ -15,8 +15,8 @@ class CreatePerjadinAnggotasTable extends Migration
     {
         Schema::create('perjadin_anggotas', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('pencairan_id');
-            $table->foreign('pencairan_id')->references('id')->on('pencairans')->onDelete('cascade');
+            $table->unsignedBigInteger('perjadin_id');
+            $table->foreign('perjadin_id')->references('id')->on('perjadins')->onDelete('cascade');
             $table->string('nama');
             $table->string('nip')->nullable();
             $table->string('jabatan')->nullable();

@@ -27,7 +27,7 @@
         <span v-if="isPerjadin" class="d-none d-sm-inline-flex align-items-center"><i class="icon-base bx bx-grid icon-sm me-1"></i> Anggota Perjadin</span>
     </button>
 </li>
-<li class="nav-item">
+<li class="nav-item" v-if="!isPerjadin">
     <button
         type="button"
         class="nav-link"
@@ -40,7 +40,7 @@
         <i class="icon-base bx bx-message-square icon-sm d-sm-none"></i>
     </button>
 </li>
-<li class="nav-item">
+<li class="nav-item" v-if="!isPerjadin">
     <button
         type="button"
         class="nav-link"

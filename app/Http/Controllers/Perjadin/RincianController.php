@@ -38,7 +38,7 @@ class RincianController extends Controller
         // return $request->all();
         try {
             $validator = Validator::make($request->all(), [
-                'pencairan_id' => 'required|integer',
+                'perjadin_id' => 'required|integer',
                 'perjadin_anggota_id' => 'required|integer',
                 // 'nip' => 'nullable|string',
                 // 'jabatan' => 'nullable|string',
@@ -55,7 +55,7 @@ class RincianController extends Controller
             $data = PerjadinRincian::updateOrCreate(
                 ['perjadin_anggota_id' => $request->perjadin_anggota_id], // Kunci utama untuk mencari entri
                 [
-                    'pencairan_id' => $request->pencairan_id,
+                    'perjadin_id' => $request->perjadin_id,
                     'perjadin_anggota_id' => $request->perjadin_anggota_id,
                     'tanggal_pergi' => $request->tanggal_pergi,
                     'tanggal_pulang' => $request->tanggal_pulang,

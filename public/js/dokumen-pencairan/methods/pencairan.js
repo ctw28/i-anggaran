@@ -57,7 +57,6 @@ const pencairanMethods = {
             if (response.data.data.kode_akun.jenis_pencairan == "perjadin"){
                 this.isPerjadin = true
                 this.isFormPerjadin = true
-                this.loadAnggota()
                 this.showDetailPerjadin()
             }        
         } catch (error) {

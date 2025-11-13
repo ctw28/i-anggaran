@@ -10,7 +10,7 @@ class PerjadinRincian extends Model
     use HasFactory;
 
     protected $fillable = [
-        'pencairan_id',
+        'perjadin_id',
         'perjadin_anggota_id',
         'tanggal_pergi',
         'tanggal_pulang',
@@ -33,9 +33,9 @@ class PerjadinRincian extends Model
         'kantor_bst',
     ];
 
-    public function pencairan()
+    public function perjadin()
     {
-        return $this->belongsTo('App\Models\Pencairan');
+        return $this->belongsTo('App\Models\Perjadin');
     }
     public function anggota()
     {
