@@ -12,48 +12,162 @@
 </style>
 @endsection
 @section('content')
-<div id="pencairan-data-app" v-cloak data-url="{{ route('pencairan.get', '2') }}">
-    <p v-if="loading">Memuat data...</p>
-    <div class="col-12">
-        <div class="row">
+<div id="pencairan-data-app" v-cloak>
+    <div class="row">
+        <div class="col-12">
+
+            <!-- HEADER + BUTTON TAMBAH -->
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h4 class="text-primary mb-0">Daftar Pencairan</h4>
+
+                <button class="btn btn-primary"
+                    data-bs-toggle="modal"
+                    data-bs-target="#pencairanModal">
+                    <i class="bx bx-plus"></i> Tambah Pencairan
+                </button>
+            </div>
+
+            <!-- FILTERS -->
             <div class="card mb-4">
                 <div class="card-body">
-                    <h5 class="card-title text-primary">Daftar Pencairan</h5>
-                    <button class="btn btn-primary mb-3" data-bs-toggle="modal"
-                        data-bs-target="#pencairanModal"><i class="tf-icons bx bx-plus"></i> Buat Dokumen Pencairan</button>
-                    <table class="table table-striped table-bordered">
-                        <thead class="text-center align-middle">
-                            <tr>
-                                <th>No</th>
-                                <th>Kegiatan</th>
-                                <th>Kode Akun</th>
-                                <th>Aksi</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr v-for="(item, index) in dataPencairan" :key="item.id">
-                                <td>@{{ index + 1 }}</td>
-                                <td>
-                                    @{{ item.pencairan_nama }}
-                                </td>
-                                <td>
-                                    @{{ item.kode_akun.kode }} - @{{ item.kode_akun.nama_akun }}
-                                </td>
-                                <td>
-                                    <button class="btn btn-info btn-sm"
-                                        :data-url="'{{ route('dokumen-pencairan.detail', ['id' => '__ID__']) }}'.replace('__ID__', item.id)"
-                                        @click="goToDetail($event)">
-                                        <i class="tf-icons bx bx-spreadsheet"></i>
-                                    </button>
-                                    <button class="btn btn-danger btn-sm" @click="hapus(index)">
-                                        <i class="tf-icons bx bx-trash"></i>
-                                    </button>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
+
+                    <div class="row g-3">
+
+                        <!-- Filter Kegiatan -->
+                        <div class="col-md-4">
+                            <label class="form-label">Filter Kegiatan</label>
+                            <select class="form-select" v-model="filterKegiatan" @focus="fetchKegiatan">
+                                <option value="">Semua Kegiatan</option>
+                                <option v-for="k in kegiatanList" :value="k.id">
+                                    @{{ k.kegiatan_nama }}
+                                </option>
+                            </select>
+                        </div>
+                        <!-- Filter Status -->
+                        <div class="col-md-4">
+                            <label class="form-label">Status Pencairan</label>
+                            <select class="form-select" v-model="filterStatus">
+                                <option value="semua">Semua Status</option>
+                                <option value="draft">Draft</option>
+                                <option value="proses">Proses</option>
+                                <option value="selesai">Selesai</option>
+                            </select>
+                        </div>
+
+                        <!-- Reset Filter -->
+                        <div class="col-md-2 d-flex align-items-end">
+                            <button class="btn btn-primary w-100" @click="applyFilter">
+                                <i class="bx bx-filter"></i> Filter
+                            </button>
+                        </div>
+                        <div class="col-md-2 d-flex align-items-end">
+                            <button class="btn btn-secondary w-100" @click="resetFilter">
+                                <i class="bx bx-refresh"></i> Reset
+                            </button>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+            <div class="card" v-if="!isFiltered">
+                <div class="card-body">
+                    <div class="alert alert-secondary mb-0 text-center">
+                        Silakan pilih kegiatan terlebih dahulu.
+                    </div>
+                </div>
+            </div>
+
+            <div v-if="isFiltered">
+
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <div class="row g-3">
+
+                            <!-- Pagu Total -->
+                            <div class="col-md-4">
+                                <div class="p-3 border rounded bg-light">
+                                    <div class="text-muted small">Pagu Total</div>
+                                    <div class="fs-4 fw-bold text-primary">
+                                        @{{ formatRupiah(dataPencairan.pagu ?? 0, 0, ',', '.') }}
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Realisasi -->
+                            <div class="col-md-4">
+                                <div class="p-3 border rounded bg-light">
+                                    <div class="text-muted small">Realisasi</div>
+                                    <div class="fs-4 fw-bold text-success">
+                                        @{{ formatRupiah(dataPencairan.total_cair ?? 0, 0, ',', '.') }}
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Sisa Pagu -->
+                            <div class="col-md-4">
+                                <div class="p-3 border rounded bg-light">
+                                    <div class="text-muted small">Sisa Pagu</div>
+                                    <div class="fs-4 fw-bold text-danger">
+                                        @{{ formatRupiah(dataPencairan.sisa ?? 0) }}
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
                 </div>
 
+                <!-- TABLE -->
+                <div class="card">
+                    <div class="card-body">
+
+
+                        <table class="table table-bordered table-striped align- middle mb-2">
+                            <thead class="text-center">
+                                <tr>
+                                    <th>No</th>
+                                    <th>Kode Akun</th>
+                                    <th>Pencairan</th>
+                                    <th>Anggaran</th>
+                                    <th>Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr v-if="loading" class="text-center">
+                                    <td colspan="4">Memuat data...</td>
+                                </tr>
+                                <tr v-if="dataPencairan.data.length==0 && !loading" class="text-center">
+                                    <td colspan="4">Tidak ada data</td>
+                                </tr>
+
+                                <tr v-for="(item, index) in dataPencairan.data" :key="item.id">
+                                    <td class="text-center">@{{ index + 1 }}</td>
+                                    <td>@{{ item.kode_akun.kode }} - @{{ item.kode_akun.nama_akun }}</td>
+                                    <td>@{{ item.pencairan_nama }}</td>
+                                    <td>@{{ formatRupiah(item.total_cair) }}</td>
+                                    <td class="text-center">
+
+                                        <!-- Detail -->
+                                        <button class="btn btn-info btn-sm me-2"
+                                            @click="goToDetail(item)">
+                                            <i class="bx bx-spreadsheet"></i>
+                                        </button>
+
+                                        <!-- Delete -->
+                                        <button class="btn btn-danger btn-sm"
+                                            @click="hapus(index)">
+                                            <i class="bx bx-trash"></i>
+                                        </button>
+
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -102,47 +216,53 @@
                     kegiatanList: [],
                     kodeAkunList: [],
                     searchQuery: "",
+                    filterKegiatan: "",
+                    filterStatus: "semua",
+                    isFiltered: 0,
+
                 };
             },
             computed: {
-                // Filter kegiatan berdasarkan searchQuery
-                filteredKegiatan() {
-                    if (!this.searchQuery) return this.kegiatanList;
-                    return this.kegiatanList.filter(kegiatan =>
-                        kegiatan.nama.toLowerCase().includes(this.searchQuery.toLowerCase())
-                    );
-                }
+
             },
             methods: {
+                applyFilter() {
+                    this.isFiltered = true
+                    this.dataPencairan = [];
+                    this.showDataPencairan();
+                },
+                resetFilter() {
+                    this.isFiltered = false
+                    this.dataPencairan = [];
+                },
+
                 async showDataPencairan() {
                     this.loading = true;
-                    let id = JSON.parse(localStorage.getItem('tahun_anggaran'))?.organisasi_rpd
                     try {
-                        let response = await axios.get(`/api/pencairan/${id}/data`, {
+                        let response = await axios.get(`/api/pencairan/summary?kegiatan_id=${this.filterKegiatan}&status=${this.filterStatus}`, {
                             headers: {
                                 'Authorization': 'Bearer ' + localStorage.getItem('token')
                             }
                         });
-                        console.log(response);
 
                         if (!response.data.status) {
                             this.dataPencairan = [];
-                            this.showTable = false;
                             return;
                         }
 
-                        this.dataPencairan = response.data.data;
-                        this.dataPencairan.map((item, index) => {
-                            if (item.usul != null)
-                                item.is_usul_periksa = true
-                            else
-                                item.is_usul_periksa = false
-                        })
-                        this.showTable = true;
+                        let hasil = response.data;
+                        // return console.log(response);
+
+
+                        this.dataPencairan = hasil;
                         console.log(this.dataPencairan);
+                        // manipulasi is_usul_periksa
+                        // this.dataPencairan.forEach(item => {
+                        //     item.is_usul_periksa = item.usul !== null;
+                        // });
 
                     } catch (error) {
-                        console.error('Error:', error);
+                        console.error(error);
                     } finally {
                         this.loading = false;
                     }
@@ -187,8 +307,8 @@
                     // window.location.href = `/pencairan/10/edit`;
 
                 },
-                goToDetail(event) {
-                    let url = event.currentTarget.getAttribute("data-url");
+                goToDetail(item) {
+                    let url = `/pencairan/${item.id}/detail`;
                     window.location.href = url;
                 },
                 async fetchKegiatan() {
@@ -283,11 +403,7 @@
                 }
             },
             mounted() {
-                let appElement = document.getElementById("pencairan-data-app");
-                if (appElement) {
-                    this.baseUrl = appElement.dataset.url;
-                }
-                this.showDataPencairan();
+
             }
         }).mount("#pencairan-data-app");
     </script>

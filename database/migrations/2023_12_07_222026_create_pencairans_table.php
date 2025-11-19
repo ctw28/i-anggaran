@@ -22,7 +22,7 @@ class CreatePencairansTable extends Migration
             $table->string('pencairan_nama');
             $table->unsignedBigInteger('oleh');
             $table->foreign('oleh')->references('id')->on('users');
-
+            $table->enum('status', ['draft', 'proses', 'selesai'])->default('draft');
             $table->timestamps();
         });
     }

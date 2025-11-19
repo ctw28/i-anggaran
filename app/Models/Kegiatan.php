@@ -26,6 +26,10 @@ class Kegiatan extends Model
         "urutan",
     ];
 
+    public function pencairan()
+    {
+        return $this->hasMany("App\Models\Pencairan");
+    }
     public function organisasi()
     {
         return $this->belongsTo("App\Models\OrganisasiRpd", 'organisasi_rpd_id');

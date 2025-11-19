@@ -14,8 +14,21 @@ class Pencairan extends Model
         'kode_akun_id',
         'pencairan_nama',
         'oleh',
+        'status',
     ];
 
+    public function daftarNominal()
+    {
+        return $this->hasMany('App\Models\DaftarNominal');
+    }
+    public function belanjaBahan()
+    {
+        return $this->hasMany('App\Models\BelanjaBahan');
+    }
+    public function perjadin()
+    {
+        return $this->hasOne('App\Models\Perjadin');
+    }
     public function kegiatan()
     {
         return $this->belongsTo('App\Models\Kegiatan');
@@ -28,10 +41,7 @@ class Pencairan extends Model
     {
         return $this->hasOne('App\Models\PencairanDetail');
     }
-    public function perjadin()
-    {
-        return $this->hasOne('App\Models\Perjadin');
-    }
+
     public function kodeAkun()
     {
         return $this->belongsTo('App\Models\KodeAkun', 'kode_akun_id');
@@ -40,14 +50,7 @@ class Pencairan extends Model
     {
         return $this->hasOne('App\Models\NominalPengaturan');
     }
-    public function daftarNominal()
-    {
-        return $this->hasMany('App\Models\DaftarNominal');
-    }
-    public function belanjaBahan()
-    {
-        return $this->hasMany('App\Models\BelanjaBahan');
-    }
+
     public function belanjaBahanPerusahaan()
     {
         return $this->hasOne('App\Models\BelanjaBahanPerusahaan');

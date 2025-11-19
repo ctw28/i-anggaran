@@ -7,7 +7,7 @@ const pencairanMethods = {
                     'Authorization': 'Bearer ' + localStorage.getItem('token')
                 }
             });
-            // console.log(response);
+            console.log(response);
 
             if (!response.data.status) {
                 this.pencairanList = [];

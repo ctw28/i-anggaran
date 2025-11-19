@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\BelanjaBahanPerusahaan;
+use App\Models\Kegiatan;
 use App\Models\KodeAkun;
 use App\Models\NominalPengaturan;
 use App\Models\Pelaksanaan;
@@ -25,29 +26,116 @@ class PencairanController extends Controller
 
     public function index($organiasiRpdId)
     {
-        // return $organiasiRpdId;
-        $data = Pencairan::with(['kodeAkun', 'usul', 'kegiatan'  => function ($kegiatan) use ($organiasiRpdId) {
-            $kegiatan->where('organisasi_rpd_id', $organiasiRpdId);
-        }])
-            ->whereHas('kegiatan', function ($kegiatan) use ($organiasiRpdId) {
-                $kegiatan->where('organisasi_rpd_id', $organiasiRpdId);
+        $perPage = request()->get('per_page', 10);
+        $kegiatanId = request()->get('kegiatan_id'); // ambil kegiatan_id jika ada
+
+        $query = Pencairan::with([
+            'kodeAkun',
+            'usul',
+            'kegiatan' => function ($k) use ($organiasiRpdId) {
+                $k->where('organisasi_rpd_id', $organiasiRpdId);
+            }
+        ]);
+
+        // Jika filter kegiatan_id dikirim, pakai where kegiatan langsung
+        if ($kegiatanId) {
+            $query->where('kegiatan_id', $kegiatanId);
+        } else {
+            // default: filter organisasi
+            $query->whereHas('kegiatan', function ($k) use ($organiasiRpdId) {
+                $k->where('organisasi_rpd_id', $organiasiRpdId);
+            });
+        }
+
+        $query->orderBy('id', 'desc');
+
+        $data = $query->paginate($perPage);
+
+        return response()->json([
+            'status' => true,
+            'message' => 'Data ditemukan',
+            'data' => $data
+        ]);
+    }
+    public function summary()
+    {
+        $kegiatanId = request()->get('kegiatan_id');
+        $status = request()->get('status');
+        // Ambil pagu
+        $kegiatan = Kegiatan::select('jumlah_biaya')
+            ->find($kegiatanId);
+
+        // Ambil pencairan
+        $pencairanList = Pencairan::with(['kodeAkun', 'usul'])
+            ->where('kegiatan_id', $kegiatanId)
+            ->when($status !== 'semua', function ($q) use ($status) {
+                $q->where('status', $status);
             })
             ->get();
+        $items = [];
+        $perjadins = [];
+        $totalSemuaCair = 0;
 
-        // return $data;
-        if ($data->count() > 0) {
-            return response()->json([
-                'status' => true,
-                'message' => 'Data rencana ditemukan',
-                'data' => $data,
-            ], 200);
+        foreach ($pencairanList as $p) {
+
+            $totalCair = 0;
+
+            // 1️⃣ HONOR (DaftarNominal)
+            if ($p->daftarNominal()->exists()) {
+                $totalCair = $p->daftarNominal()->sum('total');
+            }
+
+            // 2️⃣ BELANJA BAHAN
+            else if ($p->belanjaBahan()->exists()) {
+                $totalCair = $p->belanjaBahan()->sum('nilai');
+            }
+
+            // 3️⃣ PERJADIN
+            else if ($p->perjadin()->exists()) {
+                $perjadin = $p->perjadin;
+                $perjadins[] = $perjadin;
+                foreach ($perjadin->anggota as $anggota) {
+
+                    // Jika belum ada rincian → skip
+                    if ($anggota->rincian == null) {
+                        continue;
+                    }
+                    $r = $anggota->rincian;
+                    $totalCair +=
+                        ($r->uang_harian1 * $r->uang_harian1_hari) +
+                        ($r->uang_harian2 * $r->uang_harian2_hari) +
+                        ($r->penginapan1 * $r->penginapan1_malam) +
+                        ($r->penginapan2 * $r->penginapan2_malam) +
+                        $r->representatif +
+                        $r->tiket_pulang +
+                        $r->tiket_pergi +
+                        $r->airport_tax_pergi +
+                        $r->airport_tax_pulang +
+                        $r->transport_kota_2 +
+                        $r->transport2 +
+                        $r->kantor_bst;
+                }
+            }
+
+            $items[] = [
+                'id' => $p->id,
+                'pencairan_nama' => $p->pencairan_nama,
+                'kode_akun' => $p->kodeAkun,
+                'total_cair' => $totalCair
+            ];
+
+            $totalSemuaCair += $totalCair;
         }
+        // return $perjadins;
         return response()->json([
-            'status' => false,
-            'message' => 'Data tidak ditemukan',
-            'data' => [],
-        ], 200);
+            'status' => true,
+            'pagu' => $kegiatan->jumlah_biaya ?? 0,
+            'total_cair' => $totalSemuaCair,
+            'sisa' => ($kegiatan->jumlah_biaya ?? 0) - $totalSemuaCair,
+            'data' => $items
+        ]);
     }
+
     public function show($id)
     {
         $data = Pencairan::with(['kegiatan', 'kodeAkun', 'detail', 'daftarNominal'])->find($id);

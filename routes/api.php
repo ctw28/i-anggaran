@@ -91,6 +91,8 @@ Route::group([
 
     //PENCAIRAN
     Route::get('/pencairan/{id}/data', [PencairanController::class, 'index'])->name('pencairan.get');
+    Route::get('pencairan/summary', [PencairanController::class, 'summary'])->name('kegiatan.summary');
+
     Route::get('/pencairan/{id}', [PencairanController::class, 'show'])->name('pencairan.show');
     Route::post('/pencairan/simpan', [PencairanController::class, 'store'])->name('pencairan.store');
     Route::put('/pencairan/{id}', [PencairanController::class, 'update'])->name('pencairan.update');
