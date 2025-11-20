@@ -361,10 +361,10 @@ const perjadinMethods = {
         }
     },
     cetakPerjadin(kategori) {
-    if (!this.anggotaId) {
-      alert("ID anggota belum tersedia!");
-      return;
-    }
+    // if (!this.anggotaId) {
+    //   alert("ID anggota belum tersedia!");
+    //   return;
+    // }
 
     // Misal route-nya: /cetak/perjadin/{anggotaId}/{kategori}
     const url = `/anggota/${this.anggotaId}/kategori/${kategori}/cetak`;
