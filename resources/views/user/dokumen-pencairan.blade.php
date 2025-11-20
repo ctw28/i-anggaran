@@ -85,7 +85,7 @@
                         <div class="row g-3">
 
                             <!-- Pagu Total -->
-                            <div class="col-md-4">
+                            <div class="col-md-3">
                                 <div class="p-3 border rounded bg-light">
                                     <div class="text-muted small">Pagu Total</div>
                                     <div class="fs-4 fw-bold text-primary">
@@ -95,9 +95,9 @@
                             </div>
 
                             <!-- Realisasi -->
-                            <div class="col-md-4">
+                            <div class="col-md-3">
                                 <div class="p-3 border rounded bg-light">
-                                    <div class="text-muted small">Realisasi</div>
+                                    <div class="text-muted small">Realisasi (Status Selesai)</div>
                                     <div class="fs-4 fw-bold text-success">
                                         @{{ formatRupiah(dataPencairan.total_cair ?? 0, 0, ',', '.') }}
                                     </div>
@@ -105,7 +105,7 @@
                             </div>
 
                             <!-- Sisa Pagu -->
-                            <div class="col-md-4">
+                            <div class="col-md-3">
                                 <div class="p-3 border rounded bg-light">
                                     <div class="text-muted small">Sisa Pagu</div>
                                     <div class="fs-4 fw-bold text-danger">
@@ -113,7 +113,28 @@
                                     </div>
                                 </div>
                             </div>
+                            <!-- Status -->
+                            <div class="col-md-3">
+                                <div class="p-3 border rounded bg-light">
 
+                                    <h6 class="text-uppercase mb-2">Status Pencairan</h6>
+
+                                    <div class="d-flex justify-content-between small mb-1">
+                                        <span>Draft</span>
+                                        <span class="fw-bold">@{{ dataPencairan.count_draft }}</span>
+                                    </div>
+
+                                    <div class="d-flex justify-content-between small mb-1">
+                                        <span>Proses</span>
+                                        <span class="fw-bold">@{{ dataPencairan.count_proses }}</span>
+                                    </div>
+
+                                    <div class="d-flex justify-content-between small">
+                                        <span>Selesai</span>
+                                        <span class="fw-bold">@{{ dataPencairan.count_selesai }}</span>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -130,37 +151,48 @@
                                     <th>Kode Akun</th>
                                     <th>Pencairan</th>
                                     <th>Anggaran</th>
+                                    <th>Status</th>
                                     <th>Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr v-if="loading" class="text-center">
-                                    <td colspan="4">Memuat data...</td>
+                                    <td colspan="6">Memuat data...</td>
                                 </tr>
                                 <tr v-if="dataPencairan.data.length==0 && !loading" class="text-center">
-                                    <td colspan="4">Tidak ada data</td>
+                                    <td colspan="6">Tidak ada data</td>
                                 </tr>
 
                                 <tr v-for="(item, index) in dataPencairan.data" :key="item.id">
                                     <td class="text-center">@{{ index + 1 }}</td>
+
+
                                     <td>@{{ item.kode_akun.kode }} - @{{ item.kode_akun.nama_akun }}</td>
                                     <td>@{{ item.pencairan_nama }}</td>
                                     <td>@{{ formatRupiah(item.total_cair) }}</td>
                                     <td class="text-center">
-
-                                        <!-- Detail -->
-                                        <button class="btn btn-info btn-sm me-2"
-                                            @click="goToDetail(item)">
-                                            <i class="bx bx-spreadsheet"></i>
-                                        </button>
-
-                                        <!-- Delete -->
-                                        <button class="btn btn-danger btn-sm"
-                                            @click="hapus(index)">
-                                            <i class="bx bx-trash"></i>
-                                        </button>
-
+                                        <span v-if="item.status == 'draft'" class="badge bg-secondary">Draft</span>
+                                        <span v-if="item.status == 'proses'" class="badge bg-warning text-dark">Proses</span>
+                                        <span v-if="item.status == 'selesai'" class="badge bg-success">Selesai</span>
                                     </td>
+                                    <td class="text-center">
+                                        <div class="d-flex justify-content-center gap-1">
+
+                                            <button class="btn btn-info btn-xs"
+                                                style="padding:2px 6px; font-size:11px;"
+                                                @click="goToDetail(item)">
+                                                <i class="bx bx-spreadsheet"></i>
+                                            </button>
+
+                                            <button class="btn btn-danger btn-xs"
+                                                style="padding:2px 6px; font-size:11px;"
+                                                @click="hapus(index)">
+                                                <i class="bx bx-trash"></i>
+                                            </button>
+
+                                        </div>
+                                    </td>
+
                                 </tr>
                             </tbody>
                         </table>

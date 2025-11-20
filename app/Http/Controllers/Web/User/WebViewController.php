@@ -202,8 +202,14 @@ class WebViewController extends Controller
 
         if ($kategori == "checklist")
             return view('user.components.perjadin.cetak.checklist', $data);
-        else if ($kategori == "real-cost")
-            return view('user.perjadin.cetak.realcost', $data);
+        else if ($kategori == "realcost")
+            return view('user.components.perjadin.cetak.realcost', $data);
+        else if ($kategori == "nominatif")
+            return view('user.components.perjadin.cetak.nominatifperjadin', $data);
+        else if ($kategori == "rincian")
+            return view('user.components.perjadin.cetak.rincian', $data);
+        else if ($kategori == "kwitansi")
+            return view('user.components.perjadin.cetak.kwitansi', $data);
     }
 
 

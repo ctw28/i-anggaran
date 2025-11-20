@@ -249,8 +249,8 @@
                     urlLoadAnggotaPerjadin: "{{route('perjadin.anggota.index',':id')}}",
                     urlstoreRincian: "{{route('perjadin.rincian.store')}}",
                     urlloadRincian: "{{route('perjadin.anggota.show',':id')}}",
-                    urlLoadRealCost: "{{route('perjadin.real-cost.index',':id')}}",
-                    urlStoreRealCost: "{{route('perjadin.real-cost.store')}}",
+                    urlLoadRealCost: "{{route('perjadin.realcost.index',':id')}}",
+                    urlStoreRealCost: "{{route('perjadin.realcost.store')}}",
                 }
             }
         },

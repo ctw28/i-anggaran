@@ -1,6 +1,7 @@
 <div class="nav-align-top mb-4">
     <div class="tab-pane fade active show mt-3" id="show-anggota" role="tabpanel">
-        <button type="button" v-if="!isAddAnggota" @click="addAnggota" class="btn btn-primary btn-sm"><i class="bx bx-plus"></i> Anggota</button>
+        <button type="button" v-if="!isAddAnggota" @click="addAnggota" class="btn btn-primary btn-sm me-2"><i class="bx bx-plus"></i> Anggota</button>
+        <button type="button" v-if="!isAddAnggota" @click="cetakPerjadin('nominatif')" class="btn btn-dark btn-sm"><i class="bx bx-printer"></i> Cetak Nominatif Perjadin</button>
         <!-- <div class="my-3" id="tambah-anggota-form"> -->
         <div v-if="isAddAnggota" class="mt-3" id="tambah-anggota-form">
             <div class="col-12">

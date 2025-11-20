@@ -267,25 +267,23 @@ const perjadinMethods = {
         })
         response = await sendRequest.json()
         console.log(response);
-        if (response.status) {
-            let contents = ``
-            const table = document.getElementById('tabel-real-cost');
-            response.data.map(data => {
-                contents += `<tr data-id="${data.id}">
-                    <td><button data-state="update" class="btn btn-warning btn-sm mt-2" onclick="editRealCost(this)">Edit</button>
-                    </td>
-                    <td><label class="form-label">Item / Uraian</label>
-                        <input value="${data.item}" id="item-real-cost" class="form-control form-control-sm" placeholder="Uraian" name="item-real-cost" type="text" required="required" readonly>
-                    </td>
-                    <td><label class="form-label">Jumlah harga</label>
-                        <input value="${formatRupiah(data.nilai)}" oninput="toNumber(this)" id="nilai-real-cost" class="form-control form-control-sm" placeholder="Jumlah harga" name="nilai-real-cost" type="text" required="required" readonly>
-                    </td>
-                    <td><button class="btn btn-danger btn-sm" onclick="deleteRealCost(this)">Hapus</button></td>
-                </tr>`
-            })
-            table.innerHTML = ``
-            table.innerHTML = contents
-        }
+        this.realCostsAnggota = response.data
+        this.currentAnggotaId = anggotaId
+
+    },
+    editRealCost() {
+        this.isEditingRealCost = true;
+    },
+    cancelRealCost() {
+        this.isEditingRealCost = false;
+        this.loadRealCost(this.currentAnggotaId); // reload data awal
+    },
+    addRealCostRow() {
+        this.realCostsAnggota.push({
+            perjadin_anggota_id: this.currentAnggotaId,
+            item: "",
+            nilai: 0,
+        });
     },
     hitungTotalItemRincian(jumlahlUang, jumlahHari) { //ini dipanggil di computed
         const uang = parseInt(this.rincianPerjadin[jumlahlUang] || 0);
@@ -293,23 +291,52 @@ const perjadinMethods = {
         return (uang * hari).toLocaleString('id-ID');
     },
     async storeRealCost() {
-        let url = this.urls.urlStoreRealCost
-        let response = await axios.post(url, this.realCost, {
-            headers: {
-                'Authorization': 'Bearer ' + localStorage.getItem('token')
+        // Validasi frontend dulu
+        for (let rc of this.realCostsAnggota) {
+            if (!rc.item || rc.item.trim() === "") {
+                alert("Item / uraian tidak boleh kosong.");
+                return;
             }
-        });
-        if (response.status) {
-            toastr.options.closeButton = true;
-            toastr.options.positionClass = 'toast-top-center mt-3';
-            toastr.success('Sukses');
-        } else {
-            toastr.options.closeButton = true;
-            toastr.options.positionClass = 'toast-top-center mt-3';
-            toastr.error('Gagal menyimpan data');
-        }        
+            if (rc.nilai === null || rc.nilai === "" || isNaN(rc.nilai)) {
+                alert("Nilai tidak boleh kosong dan harus angka.");
+                return;
+            }
+        }
+
+        this.loadingSave = true;
+
+        let payload = {
+            perjadin_anggota_id: this.currentAnggotaId,
+            items: this.realCostsAnggota,
+        };
+
+        try {
+            let url = this.urls.urlStoreRealCost;
+            let response = await axios.post(url, payload, {
+                headers: {
+                    'Authorization': 'Bearer ' + localStorage.getItem('token')
+                }
+            });
+
+            if (response.data.status) {
+                alert("Real cost berhasil disimpan!");
+                this.isEditingRealCost = false;
+                this.loadRealCost(this.currentAnggotaId);
+            }
+
+        } catch (error) {
+            if (error.response?.data?.details) {
+                alert("Gagal menyimpan:\n" + error.response.data.details.join("\n"));
+            } else {
+                alert("Terjadi kesalahan: " + error.message);
+            }
+
+        } finally {
+            this.loadingSave = false;
+        }
     },
-    async  deleteRealCost(button) {
+
+    async deleteRealCost(button) {
         let konfirm = confirm('yakin hapus?')
         if (!konfirm) return
         var row = button.closest('tr');

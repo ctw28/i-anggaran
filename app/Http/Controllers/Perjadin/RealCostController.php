@@ -32,45 +32,50 @@ class RealCostController extends Controller
         try {
             $validator = Validator::make($request->all(), [
                 'perjadin_anggota_id' => 'required|integer',
-                'item' => 'required|string',
-                'nilai' => 'required|numeric',
-                'jenis' => 'nullable|string',
+                'items' => 'required|array',
+                'items.*.item' => 'required|string',
+                'items.*.nilai' => 'required|numeric',
+                'items.*.jenis' => 'nullable|string'
             ]);
 
             if ($validator->fails()) {
-                // return $validator->errors()->all();
                 return response()->json([
                     'status' => false,
-                    'message' => 'periksa inputan',
+                    'message' => 'Periksa inputan',
                     'details' => $validator->errors()->all(),
-                ], 500);
+                ], 422);
             }
-            $data = PerjadinRealCost::updateOrCreate(
-                ['id' => $request->id], // Kunci utama untuk mencari entri
-                [
-                    'perjadin_anggota_id' => $request->perjadin_anggota_id,
-                    'item' => $request->item,
-                    'nilai' => $request->nilai,
-                    'jenis' => 'transport'
-                ]
-            );
+
+            $anggotaId = $request->perjadin_anggota_id;
+            $items = $request->items;
+
+            // 🚀 HAPUS semua data lama milik anggota ini (replace all)
+            PerjadinRealCost::where('perjadin_anggota_id', $anggotaId)->delete();
+
+            $saved = [];
+
+            foreach ($items as $row) {
+                $saved[] = PerjadinRealCost::create([
+                    'perjadin_anggota_id' => $anggotaId,
+                    'item' => $row['item'],
+                    'nilai' => $row['nilai'],
+                    'jenis' => $row['jenis'] ?? 'transport',
+                ]);
+            }
 
             return response()->json([
                 'status' => true,
-                'message' => 'Data berhasil ditambahkan',
-                'data' => $data,
+                'message' => 'Data Real Cost berhasil disimpan',
+                'data' => $saved,
             ], 200);
         } catch (\Throwable $th) {
-            throw $th;
-            return;
-
             return response()->json([
                 'status' => false,
-                'message' => $th,
-                'details' => [],
+                'message' => $th->getMessage(),
             ], 500);
         }
     }
+
 
     public function delete(Request $request)
     {

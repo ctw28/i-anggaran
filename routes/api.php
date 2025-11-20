@@ -177,7 +177,7 @@ Route::group([
     Route::post('perjadin-rincian/simpan', [RincianController::class, 'store'])->name('perjadin.rincian.store');
 
     //PERJADIN REAL COST
-    Route::get('perjadin-real-cost/{anggotaId}/data', [RealCostController::class, 'index'])->name('perjadin.real-cost.index');
-    Route::post('perjadin-real-cost/simpan', [RealCostController::class, 'store'])->name('perjadin.real-cost.store');
-    Route::post('perjadin-real-cost/delete', [RealCostController::class, 'delete'])->name('perjadin.real-cost.delete');
+    Route::get('perjadin-realcost/{anggotaId}/data', [RealCostController::class, 'index'])->name('perjadin.realcost.index');
+    Route::post('perjadin-realcost/simpan', [RealCostController::class, 'store'])->name('perjadin.realcost.store');
+    Route::post('perjadin-realcost/delete', [RealCostController::class, 'delete'])->name('perjadin.realcost.delete');
 });

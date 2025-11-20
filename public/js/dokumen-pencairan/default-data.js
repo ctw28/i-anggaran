@@ -170,11 +170,15 @@ const getDefaultState = () => ({
         airport_tax_pergi: 0,
         airport_tax_pulang: 0,
     },
-    realCost: [{ // Data sementara sebelum ditambahkan ke tabel
+    realCost: [{ 
         perjadin_anggota_id: "",
         item: "",
         nilai: "",
     }],
+    realCostsAnggota : [],
+    isEditingRealCost: false, // apakah mode edit atau tidak
+    currentAnggotaId: '',
+
     //untuk cetak
     jenis: 'nominal',
     daftarDokumenNominal: [

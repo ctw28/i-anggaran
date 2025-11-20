@@ -13,17 +13,17 @@
         <tr>
             <td>2</td>
             <td>Real Cost</td>
-            <td><a href="#" class="btn btn-primary btn-sm">Cetak</a></td>
+            <td><button @click="cetakPerjadin('realcost')" class="btn btn-primary btn-sm">Cetak</button></td>
         </tr>
         <tr>
             <td>3</td>
             <td>Rincian</td>
-            <td><a href="#" class="btn btn-primary btn-sm">Cetak</a></td>
+            <td><button @click="cetakPerjadin('rincian')" class="btn btn-primary btn-sm">Cetak</button></td>
         </tr>
         <tr>
             <td>4</td>
             <td>Kwitansi</td>
-            <td><a href="#" class="btn btn-primary btn-sm">Cetak</a></td>
+            <td><button @click="cetakPerjadin('kwitansi')" class="btn btn-primary btn-sm">Cetak</button></td>
         </tr>
     </tbody>
 </table>

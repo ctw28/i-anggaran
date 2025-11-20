@@ -61,26 +61,34 @@ class PencairanController extends Controller
     {
         $kegiatanId = request()->get('kegiatan_id');
         $status = request()->get('status');
-        // Ambil pagu
+
+        // 🔹 Ambil pagu
         $kegiatan = Kegiatan::select('jumlah_biaya')
             ->find($kegiatanId);
 
-        // Ambil pencairan
+        // 🔹 1) QUERY LIST SESUAI FILTER STATUS (untuk tabel)
         $pencairanList = Pencairan::with(['kodeAkun', 'usul'])
             ->where('kegiatan_id', $kegiatanId)
             ->when($status !== 'semua', function ($q) use ($status) {
                 $q->where('status', $status);
             })
             ->get();
+
+        // 🔹 2) QUERY UNTUK PERHITUNGAN REALISASI (SELALU STATUS = selesai)
+        $pencairanRealisasi = Pencairan::with(['kodeAkun'])
+            ->where('kegiatan_id', $kegiatanId)
+            ->where('status', 'selesai')
+            ->get();
+
         $items = [];
-        $perjadins = [];
         $totalSemuaCair = 0;
 
-        foreach ($pencairanList as $p) {
+        // 🔹 Perhitungan realisasi hanya dari 'selesai'
+        foreach ($pencairanRealisasi as $p) {
 
             $totalCair = 0;
 
-            // 1️⃣ HONOR (DaftarNominal)
+            // 1️⃣ HONOR
             if ($p->daftarNominal()->exists()) {
                 $totalCair = $p->daftarNominal()->sum('total');
             }
@@ -92,15 +100,16 @@ class PencairanController extends Controller
 
             // 3️⃣ PERJADIN
             else if ($p->perjadin()->exists()) {
+
                 $perjadin = $p->perjadin;
-                $perjadins[] = $perjadin;
+
                 foreach ($perjadin->anggota as $anggota) {
 
-                    // Jika belum ada rincian → skip
-                    if ($anggota->rincian == null) {
-                        continue;
-                    }
+                    // skip jika belum punya rincian
+                    if (!$anggota->rincian) continue;
+
                     $r = $anggota->rincian;
+
                     $totalCair +=
                         ($r->uang_harian1 * $r->uang_harian1_hari) +
                         ($r->uang_harian2 * $r->uang_harian2_hari) +
@@ -117,23 +126,90 @@ class PencairanController extends Controller
                 }
             }
 
+            $totalSemuaCair += $totalCair;
+        }
+
+        // 🔹 Bangun list untuk tabel (ikut filter status)
+        // Build list untuk tampilan tabel
+        foreach ($pencairanList as $p) {
+
+            // 👍 total pencairan apa pun statusnya
+            $totalPerPencairan = $this->hitungTotalPencairan($p);
+
             $items[] = [
                 'id' => $p->id,
                 'pencairan_nama' => $p->pencairan_nama,
                 'kode_akun' => $p->kodeAkun,
-                'total_cair' => $totalCair
+                'status' => $p->status,
+                'total_cair' => $totalPerPencairan
             ];
-
-            $totalSemuaCair += $totalCair;
         }
-        // return $perjadins;
+
+        $countDraft = Pencairan::where('kegiatan_id', $kegiatanId)
+            ->where('status', 'draft')
+            ->count();
+
+        $countProses = Pencairan::where('kegiatan_id', $kegiatanId)
+            ->where('status', 'proses')
+            ->count();
+
+        $countSelesai = Pencairan::where('kegiatan_id', $kegiatanId)
+            ->where('status', 'selesai')
+            ->count();
+
         return response()->json([
             'status' => true,
             'pagu' => $kegiatan->jumlah_biaya ?? 0,
             'total_cair' => $totalSemuaCair,
             'sisa' => ($kegiatan->jumlah_biaya ?? 0) - $totalSemuaCair,
+            'count_draft' => $countDraft,
+            'count_proses' => $countProses,
+            'count_selesai' => $countSelesai,
             'data' => $items
         ]);
+    }
+
+    private function hitungTotalPencairan(Pencairan $p)
+    {
+        $total = 0;
+
+        // HONOR
+        if ($p->daftarNominal()->exists()) {
+            return $p->daftarNominal()->sum('total');
+        }
+
+        // BELANJA BAHAN
+        if ($p->belanjaBahan()->exists()) {
+            return $p->belanjaBahan()->sum('nilai');
+        }
+
+        // PERJADIN
+        if ($p->perjadin()->exists()) {
+            $perjadin = $p->perjadin;
+
+            foreach ($perjadin->anggota as $anggota) {
+
+                if (!$anggota->rincian) continue;
+
+                $r = $anggota->rincian;
+
+                $total +=
+                    ($r->uang_harian1 * $r->uang_harian1_hari) +
+                    ($r->uang_harian2 * $r->uang_harian2_hari) +
+                    ($r->penginapan1 * $r->penginapan1_malam) +
+                    ($r->penginapan2 * $r->penginapan2_malam) +
+                    $r->representatif +
+                    $r->tiket_pulang +
+                    $r->tiket_pergi +
+                    $r->airport_tax_pergi +
+                    $r->airport_tax_pulang +
+                    $r->transport_kota_2 +
+                    $r->transport2 +
+                    $r->kantor_bst;
+            }
+        }
+
+        return $total;
     }
 
     public function show($id)
