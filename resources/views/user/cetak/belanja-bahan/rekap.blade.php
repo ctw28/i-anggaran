@@ -92,22 +92,22 @@
                         Pembayaran {{ $data->pencairan_nama ?? '-' }} sesuai {{ $dasar }}
                     </td>
                     <td class="text-center">
-                        Rp {{ number_format($data->total ?? 0, 0, ',', '.') }}
+                        {{ number_format($data->total ?? 0, 0, ',', '.') }}
                     </td>
                     <td class="text-center">
-                        Rp {{ number_format($total_pajak, 0, ',', '.') }}
+                        {{ number_format($total_pajak, 0, ',', '.') }}
                     </td>
                     <td class="text-center">
-                        Rp {{ number_format($terima, 0, ',', '.') }}
+                        {{ number_format($terima, 0, ',', '.') }}
                     </td>
                 </tr>
             </tbody>
             <tfoot>
                 <tr>
                     <th colspan="2">Jumlah</th>
-                    <th>Rp {{ number_format($data->total ?? 0, 0, ',', '.') }}</th>
-                    <th>Rp {{ number_format($total_pajak, 0, ',', '.') }}</th>
-                    <th>Rp {{ number_format($terima, 0, ',', '.') }}</th>
+                    <th>{{ number_format($data->total ?? 0, 0, ',', '.') }}</th>
+                    <th>{{ number_format($total_pajak, 0, ',', '.') }}</th>
+                    <th>{{ number_format($terima, 0, ',', '.') }}</th>
                 </tr>
             </tfoot>
         </table>
