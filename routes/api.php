@@ -96,7 +96,7 @@ Route::group([
     Route::get('/pencairan/{id}', [PencairanController::class, 'show'])->name('pencairan.show');
     Route::post('/pencairan/simpan', [PencairanController::class, 'store'])->name('pencairan.store');
     Route::put('/pencairan/{id}', [PencairanController::class, 'update'])->name('pencairan.update');
-    Route::get('/pencairan/{id}/delete', [PencairanController::class, 'delete'])->name('pencairan.delete');
+    Route::delete('/pencairan/{id}', [PencairanController::class, 'delete'])->name('pencairan.delete');
 
     //PENCAIRAN DETAIL
     Route::get('/pencairan-detail/{id}', [PencairanDetailController::class, 'index'])->name('pencairan-detail.index');

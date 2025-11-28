@@ -30,14 +30,14 @@
             <!-- FILTERS -->
             <div class="card mb-4">
                 <div class="card-body">
-
+                    <h5>FILTER DATA</h5>
                     <div class="row g-3">
 
                         <!-- Filter Kegiatan -->
-                        <div class="col-md-4">
+                        <div class="col-md-5">
                             <label class="form-label">Filter Kegiatan</label>
-                            <select class="form-select" v-model="filterKegiatan" @focus="fetchKegiatan">
-                                <option value="">Semua Kegiatan</option>
+                            <select class="form-select" v-model="filterKegiatan" @focus="fetchKegiatan" @change="applyFilter">
+                                <option value="">Pilih Kegiatan</option>
                                 <option v-for="k in kegiatanList" :value="k.id">
                                     @{{ k.kegiatan_nama }}
                                 </option>
@@ -45,8 +45,8 @@
                         </div>
                         <!-- Filter Status -->
                         <div class="col-md-4">
-                            <label class="form-label">Status Pencairan</label>
-                            <select class="form-select" v-model="filterStatus">
+                            <label class="form-label">Filter Status Pencairan</label>
+                            <select class="form-select" v-model="filterStatus" @change="applyFilter">
                                 <option value="semua">Semua Status</option>
                                 <option value="draft">Draft</option>
                                 <option value="proses">Proses</option>
@@ -55,14 +55,14 @@
                         </div>
 
                         <!-- Reset Filter -->
-                        <div class="col-md-2 d-flex align-items-end">
+                        <!-- <div class="col-md-2 d-flex align-items-end">
                             <button class="btn btn-primary w-100" @click="applyFilter">
                                 <i class="bx bx-filter"></i> Filter
                             </button>
-                        </div>
-                        <div class="col-md-2 d-flex align-items-end">
+                        </div> -->
+                        <div class="col-md-3 d-flex align-items-end">
                             <button class="btn btn-secondary w-100" @click="resetFilter">
-                                <i class="bx bx-refresh"></i> Reset
+                                <i class="bx bx-refresh"></i> Reset Filter
                             </button>
                         </div>
 
@@ -159,9 +159,10 @@
                                 <tr v-if="loading" class="text-center">
                                     <td colspan="6">Memuat data...</td>
                                 </tr>
-                                <tr v-if="dataPencairan.data.length==0 && !loading" class="text-center">
+                                <tr v-if="!loading && dataPencairan && dataPencairan.data && dataPencairan.data.length === 0" class="text-center">
                                     <td colspan="6">Tidak ada data</td>
                                 </tr>
+
 
                                 <tr v-for="(item, index) in dataPencairan.data" :key="item.id">
                                     <td class="text-center">@{{ index + 1 }}</td>
@@ -236,7 +237,10 @@
         createApp({
             data() {
                 return {
-                    dataPencairan: [],
+                    // dataPencairan: [],
+                    dataPencairan: {
+                        data: [] // penting!
+                    },
                     showTable: false,
                     loading: true,
                     baseUrl: "",
@@ -269,6 +273,12 @@
                 },
 
                 async showDataPencairan() {
+                    if (this.filterKegiatan == '') {
+                        this.isFiltered = false
+                        this.dataPencairan = [];
+
+                        return alert('Mohon pilih kegiatan terlebih dahulu!')
+                    }
                     this.loading = true;
                     try {
                         let response = await axios.get(`/api/pencairan/summary?kegiatan_id=${this.filterKegiatan}&status=${this.filterStatus}`, {
@@ -391,14 +401,14 @@
                 async hapus(index) {
                     if (!confirm("Apakah Anda yakin ingin menghapus pencairan ini?"))
                         return
-                    if (this.dataPencairan[index].is_usul_periksa) {
-                        toastr.options.closeButton = true;
-                        toastr.options.positionClass = 'toast-top-center mt-3';
-                        toastr.warning("Tidak dapat menghapus karena pencairan telah dikirim untuk diperiksa. <br> Batalkan terlebih dahulu pengusulan agar dapat menghapus");
-                        return
-                    }
+                    // if (this.dataPencairan[index].is_usul_periksa) {
+                    //     toastr.options.closeButton = true;
+                    //     toastr.options.positionClass = 'toast-top-center mt-3';
+                    //     toastr.warning("Tidak dapat menghapus karena pencairan telah dikirim untuk diperiksa. <br> Batalkan terlebih dahulu pengusulan agar dapat menghapus");
+                    //     return
+                    // }
                     try {
-                        const response = await axios.get(`/api/pencairan/${this.dataPencairan[index].id}/delete`, {
+                        const response = await axios.delete(`/api/pencairan/${this.dataPencairan.data[index].id}`, {
                             headers: {
                                 "Authorization": "Bearer " + localStorage.getItem("token")
                             },
