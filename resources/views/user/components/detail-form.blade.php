@@ -64,7 +64,7 @@
     <div class="mb-3">
         <div class="row">
             <div class="col-6">
-                <select v-model="detail.ppk" class="form-control" :disabled="!isDetailEditing">
+                <select v-model="detail.ppk_id" class="form-control" :disabled="!isDetailEditing">
                     <option value="">Pilih PPK</option>
                     <option v-for="ppk in ppkList" :key="ppk.id" :value="ppk.id">
                         @{{ ppk.nama_pejabat }} - @{{ ppk.pegawai.pegawai_nomor_induk }}
@@ -72,7 +72,7 @@
                 </select>
             </div>
             <div class="col-6">
-                <select v-model="detail.bendahara" class="form-control" :disabled="!isDetailEditing">
+                <select v-model="detail.bendahara_id" class="form-control" :disabled="!isDetailEditing">
                     <option value="">Pilih Bendahara</option>
                     <option v-for="bendahara in bendaharaList" :key="bendahara.id" :value="bendahara.id">
                         @{{ bendahara.nama_pejabat }} - @{{ bendahara.pegawai.pegawai_nomor_induk }}

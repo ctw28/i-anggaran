@@ -90,8 +90,8 @@ class PencairanDetailController extends Controller
                     'sptjk_nama' => $request->sptjk_nama,
                     'sptjk_nip' => $request->sptjk_nip,
                     'sptjk_jabatan' => $request->sptjk_jabatan,
-                    'ppk' => $request->ppk,
-                    'bendahara' => $request->bendahara,
+                    'ppk_id' => $request->ppk_id,
+                    'bendahara_id' => $request->bendahara_id,
                 ]
             );
             $dasar = PencairanDasar::updateOrCreate(

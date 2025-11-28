@@ -30,8 +30,8 @@ const getDefaultState = () => ({
         sptjk_nama: "",
         sptjk_nip: "",
         sptjk_jabatan: "",
-        ppk: "",
-        bendahara: "",
+        ppk_id: "",
+        bendahara_id: "",
         dasar: {
             isSK: '0',
             isSuratTugas: '0',

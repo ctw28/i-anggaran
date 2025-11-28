@@ -204,13 +204,13 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
 <!-- pisahkan koding methods vue -->
 <script src="{{ asset('js/dokumen-pencairan/methods/pencairan.js?v=1') }}"></script>
-<script src="{{ asset('js/dokumen-pencairan/methods/nominal.js') }}"></script>
+<script src="{{ asset('js/dokumen-pencairan/methods/nominal.js?v=1') }}"></script>
 <script src="{{ asset('js/dokumen-pencairan/methods/belanja-bahan.js?v=1') }}"></script>
 <script src="{{ asset('js/dokumen-pencairan/methods/perjadin.js?v=3') }}"></script>
 <script src="{{ asset('js/dokumen-pencairan/methods/lainnya.js?v=1') }}"></script>
 <script src="{{ asset('js/dokumen-pencairan/methods/spi.js') }}"></script>
 <!-- pisahkan koding default vue -->
-<script src="{{ asset('js/dokumen-pencairan/default-data.js') }}"></script>
+<script src="{{ asset('js/dokumen-pencairan/default-data.js?v=1') }}"></script>
 <!-- pisahkan koding computed vue -->
 <script src="{{ asset('js/dokumen-pencairan/computed.js') }}"></script>
 <!-- pisahkan koding watch vue -->

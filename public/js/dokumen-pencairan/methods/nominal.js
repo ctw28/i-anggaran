@@ -12,8 +12,8 @@ async showDetailNominal() {
             let data = response.data.data;
 
             // Pastikan ppk dan bendahara tidak undefined sebelum ambil .id
-            data.ppk = data.ppk?.id || null;
-            data.bendahara = data.bendahara?.id || null;
+            data.ppk_id = data.ppk?.id || null;
+            data.bendahara_id = data.bendahara?.id || null;
             data.dasar.isSK = data.dasar?.isSK || false;
             data.dasar.isSuratTugas = data.dasar?.isSuratTugas || false;
             data.dasar.isKuitansi = data.dasar?.isKuitansi || false;
