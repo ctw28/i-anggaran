@@ -77,4 +77,22 @@ class AnggotaController extends Controller
             ], 500);
         }
     }
+    public function destroy($id)
+    {
+        $data = PerjadinAnggota::find($id);
+
+        if (!$data) {
+            return response()->json([
+                'status'  => false,
+                'message' => 'Data tidak ditemukan',
+            ], 404);
+        }
+
+        $data->delete();
+
+        return response()->json([
+            'status'  => true,
+            'message' => 'Data berhasil dihapus',
+        ], 200);
+    }
 }

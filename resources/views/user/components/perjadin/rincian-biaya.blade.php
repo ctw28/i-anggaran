@@ -16,7 +16,7 @@
         <button type="button" class="nav-link active" id="data" role="tab" data-bs-toggle="tab" data-bs-target="#show-rincian" aria-controls="navs-justified-home" aria-selected="true"><i class="tf-icons bx bx-home me-1"></i> Rincian</button>
     </li>
     <li class="nav-item" role="presentation">
-        <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#show-realcost" aria-controls="navs-justified-home" aria-selected="true"><i class="tf-icons bx bx-form me-1"></i> Real Cost</button>
+        <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#show-realcost" aria-controls="navs-justified-home" aria-selected="true"><i class="tf-icons bx bx-form me-1"></i> Riilcost</button>
     </li>
 </ul>
 <div class="tab-content">

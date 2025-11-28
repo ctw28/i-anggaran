@@ -16,7 +16,7 @@ class CreatePerjadinRealCostsTable extends Migration
         Schema::create('perjadin_real_costs', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('perjadin_anggota_id');
-            $table->foreign('perjadin_anggota_id')->references('id')->on('perjadin_anggotas');
+            $table->foreign('perjadin_anggota_id')->references('id')->on('perjadin_anggotas')->onDelete('cascade');
             $table->string('item');
             $table->double('nilai');
             $table->enum('jenis', ['transport', 'penginapan']);

@@ -23,6 +23,10 @@
             <input type="date" class="form-control" v-model="perjadinData.tanggal_surat_tugas" :disabled="!isDetailEditing" />
         </div>
         <div class="col-md-6 col-sm-12 mt-2">
+            <label class="form-label" for="no_spd">Nomor SPD</label>
+            <input type="text" class="form-control" v-model="perjadinData.no_spd" :disabled="!isDetailEditing" />
+        </div>
+        <div class="col-md-6 col-sm-12 mt-2">
             <label class="form-label" for="tanggal_dokumen">Tanggal Dokumen Perjadin</label>
             <input type="date" class="form-control" v-model="perjadinData.tanggal_dokumen" :disabled="!isDetailEditing" />
         </div>

@@ -13,6 +13,7 @@ class Perjadin extends Model
         'pencairan_id',
         'kota_tujuan',
         'tanggal_dokumen',
+        'no_spd',
         'no_surat_tugas',
         'tanggal_surat_tugas',
         'tgl_mulai',

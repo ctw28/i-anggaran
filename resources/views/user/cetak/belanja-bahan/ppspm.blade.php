@@ -129,7 +129,7 @@
                     <td style="width:7cm"></td>
                     <td style="width:7cm"></td>
                     <td style="width:7cm">
-                        Kendari, {{ $data->tanggal_dokumen_indonesia ?? '-' }}<br />
+                        Kendari, {{ $data->detail->tanggal_dokumen_indonesia ?? '-' }}<br />
                         Pejabat Pembuat Komitmen
                     </td>
                 </tr>

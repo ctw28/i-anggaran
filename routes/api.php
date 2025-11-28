@@ -171,6 +171,7 @@ Route::group([
     Route::get('perjadin-anggota/{id}/data', [AnggotaController::class, 'index'])->name('perjadin.anggota.index');
     Route::get('perjadin-anggota/{id}/show-rincian', [AnggotaController::class, 'show'])->name('perjadin.anggota.show');
     Route::post('perjadin-anggota/simpan', [AnggotaController::class, 'store'])->name('perjadin.anggota.store');
+    Route::delete('/perjadin-anggota/{id}', [AnggotaController::class, 'destroy'])->name('perjadin.anggota.delete');
 
     //PERJADIN RINCIAN
     Route::get('perjadin/{id}/perjadin-rincian/{anggotaId}/data', [RincianController::class, 'index'])->name('perjadin.rincian.index');

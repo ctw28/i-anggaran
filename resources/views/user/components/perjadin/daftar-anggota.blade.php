@@ -67,7 +67,7 @@
                                         <!--     <button type="button" data-bs-toggle="modal" data-bs-target="#rincianModal" @click="loadRincian(index)" class="btn btn-primary me-2">
                                             <i class="bx bx-detail"></i>
                                         </button> -->
-                                        <button type="button" @click="deleteAnggota(index)" class="btn btn-danger btn-sm">
+                                        <button type="button" @click="deleteAnggota(anggota.id)" class="btn btn-danger btn-sm">
                                             <i class="bx bx-trash"></i>
                                         </button>
                                     </td>

@@ -23,6 +23,7 @@ class CreatePerjadinsTable extends Migration
             $table->date('tanggal_dokumen');
             $table->string('no_surat_tugas');
             $table->date('tanggal_surat_tugas');
+            $table->string('no_spd');
 
             $table->timestamps();
         });

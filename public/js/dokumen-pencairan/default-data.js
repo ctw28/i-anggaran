@@ -126,6 +126,7 @@ const getDefaultState = () => ({
         'tgl_selesai': "",
         'kota_tujuan': "",
         'tanggal_dokumen': "",
+        'no_spd': "",
         'no_surat_tugas': "",
         'tanggal_surat_tugas': "",
         'uang_harian1': "",

@@ -1,4 +1,4 @@
-<h5 class="mb-3 section-title">Realcost</h5>
+<h5 class="mb-3 section-title">Riilcost</h5>
 
 <div class="table-responsive">
     <!-- Tabel Read Only -->

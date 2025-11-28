@@ -70,6 +70,7 @@ const perjadinMethods = {
                     'tgl_selesai': "",
                     'kota_tujuan': "",
                     'tanggal_dokumen': "",
+                    'no_spd': "",
                     'no_surat_tugas': "",
                     'tanggal_surat_tugas': "",
                     'uang_harian1': "",
@@ -371,5 +372,28 @@ const perjadinMethods = {
 
     // Buka di tab baru untuk cetak
     window.open(url, '_blank');
-  }
+  },
+  async deleteAnggota(anggotaId) {
+        let konfirm = confirm('yakin hapus anggota?')
+        if (!konfirm) return
+        let url = this.urls.urlDeleteAnggotaPerjadin;
+        url = url.replace(':id', anggotaId)
+
+
+        let response = await axios.delete(url, {
+            headers: {
+                'Authorization': 'Bearer ' + localStorage.getItem('token')
+            }
+        });
+            
+        console.log(response);
+        if (response.status) {
+                                this.loadAnggota()
+
+            toastr.options.closeButton = true;
+            toastr.options.positionClass = 'toast-top-center mt-3';
+            toastr.success('Sukses');
+            row.remove();
+        }
+    },
 }

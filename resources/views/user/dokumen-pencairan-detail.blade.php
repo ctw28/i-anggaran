@@ -260,6 +260,7 @@
                     urlloadRincian: "{{route('perjadin.anggota.show',':id')}}",
                     urlLoadRealCost: "{{route('perjadin.realcost.index',':id')}}",
                     urlStoreRealCost: "{{route('perjadin.realcost.store')}}",
+                    urlDeleteAnggotaPerjadin: "{{route('perjadin.anggota.delete',[':id'])}}",
                 }
             }
         },
