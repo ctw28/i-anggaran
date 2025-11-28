@@ -182,15 +182,24 @@
                         @include('user/components/perjadin/daftar-anggota')
                     </div>
                 </div>
+                <div class="tab-pane fade" id="navs-npwp" role="tabpanel">
+                    @include('user/components/belanja-bahan/belanja-bahan-npwp')
+                </div>
                 <div class="tab-pane fade" id="navs-cetak" role="tabpanel">
                     @include('user/components/cetak-preview')
                 </div>
                 <div class="tab-pane fade" id="navs-cetak2" role="tabpanel">
                     @include('user/components/cetak-preview2')
                 </div>
+                <div class="tab-pane fade" id="navs-cetak-perjadin" role="tabpanel">
+                    @include('user/components/perjadin/cetak-list')
+                </div>
+                <div class="tab-pane fade" id="navs-rincian-perjadin" role="tabpanel">
+                    @include('user/components/perjadin/rincian-biaya')
+                </div>
 
             </div>
-            @include('user/components/perjadin/rincian-modals')
+            @include('user/components/belanja-bahan/belanja-bahan-modals')
         </div>
     </div>
     <!-- diletakkan di sini agar tampil sesuai modals rincian perjadin -->

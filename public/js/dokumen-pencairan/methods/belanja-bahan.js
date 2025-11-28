@@ -277,5 +277,15 @@ const belanjaBahanMethods = {
             this.isNpwp = this.isNpwp;
         }
 
+    },
+
+    openEditBelanjaBahanModal(){
+        this.isBelanjaEditing = true
+        new bootstrap.Modal(document.getElementById('modalEditBelanja')).show();
+    },
+    closeEditBelanjaBahanModal(){
+        this.isBelanjaEditing = false
+        new bootstrap.Modal(document.getElementById('modalEditBelanja')).hide();
     }
+
 }

@@ -13,6 +13,19 @@
         <i class="icon-base bx bx-home icon-sm d-sm-none"></i>
     </button>
 </li>
+<li class="nav-item" v-if="isBelanjaBahan">
+    <button
+        type="button"
+        class="nav-link"
+        role="tab"
+        data-bs-toggle="tab"
+        data-bs-target="#navs-npwp"
+        aria-controls="navs-npwp"
+        aria-selected="false">
+        <span class="d-none d-sm-inline-flex align-items-center"><i class="icon-base bx bx-discount icon-sm me-1"></i> NPWP</span>
+        <i class="icon-base bx bx-message-square icon-sm d-sm-none"></i>
+    </button>
+</li>
 <li class="nav-item">
     <button
         type="button"
@@ -24,7 +37,7 @@
         aria-selected="false">
         <span v-if="isNominal" class="d-none d-sm-inline-flex align-items-center"><i class="icon-base bx bx-grid icon-sm me-1"></i> Daftar Nominal</span>
         <span v-if="isBelanjaBahan" class="d-none d-sm-inline-flex align-items-center"><i class="icon-base bx bx-grid icon-sm me-1"></i> Daftar Belanja Bahan</span>
-        <span v-if="isPerjadin" class="d-none d-sm-inline-flex align-items-center"><i class="icon-base bx bx-grid icon-sm me-1"></i> Anggota Perjadin</span>
+        <span v-if="isPerjadin" class="d-none d-sm-inline-flex align-items-center"><i class="icon-base bx bx-grid icon-sm me-1"></i> Anggota</span>
     </button>
 </li>
 <li class="nav-item" v-if="!isPerjadin">
@@ -40,7 +53,34 @@
         <i class="icon-base bx bx-message-square icon-sm d-sm-none"></i>
     </button>
 </li>
-<li class="nav-item" v-if="!isPerjadin">
+<li class="nav-item" v-if="isPerjadin">
+    <button
+        type="button"
+        class="nav-link"
+        role="tab"
+        data-bs-toggle="tab"
+        data-bs-target="#navs-rincian-perjadin"
+        aria-controls="navs-rincian-perjadin"
+        aria-selected="false">
+        <span class="d-none d-sm-inline-flex align-items-center"><i class="icon-base bx bx-list-square icon-sm me-1"></i> Rincian Biaya</span>
+        <i class="icon-base bx bx-message-square icon-sm d-sm-none"></i>
+    </button>
+</li>
+<li class="nav-item" v-if="isPerjadin">
+    <button
+        type="button"
+        class="nav-link"
+        role="tab"
+        data-bs-toggle="tab"
+        data-bs-target="#navs-cetak-perjadin"
+        aria-controls="navs-cetak-perjadin"
+        aria-selected="false">
+        <span class="d-none d-sm-inline-flex align-items-center"><i class="icon-base bx bx-clipboard icon-sm me-1"></i> Dokumen</span>
+        <i class="icon-base bx bx-message-square icon-sm d-sm-none"></i>
+    </button>
+</li>
+
+<!-- <li class="nav-item" v-if="!isPerjadin">
     <button
         type="button"
         class="nav-link"
@@ -52,4 +92,4 @@
         <span class="d-none d-sm-inline-flex align-items-center"><i class="icon-base bx bx-printer icon-sm me-1"></i> Cetak Dokumen</span>
         <i class="icon-base bx bx-message-square icon-sm d-sm-none"></i>
     </button>
-</li>
+</li> -->
